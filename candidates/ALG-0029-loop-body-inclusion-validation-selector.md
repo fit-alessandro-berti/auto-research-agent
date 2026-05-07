@@ -30,7 +30,8 @@ Explicit validation positives and negatives can select whether to keep all obser
   - validation overlap;
   - training-negative overlap;
   - selector and validation replay proxy counts;
-  - per-alternative validation scores.
+  - per-alternative validation scores;
+  - selector-integrated shared operation-accounting totals.
 
 ## Intermediate representation
 
@@ -49,7 +50,7 @@ Uses the first-goal primitive operations:
 - construction for score/evidence records;
 - validation replay proxy counts of one `scan_event` per validation event and one `comparison` per validation trace per alternative.
 
-Measured selector evidence also records the naive discovery cost of both alternatives. This intentionally over-counts reusable upstream work but makes the first prototype reproducible.
+Measured selector evidence records both the naive discovery cost of both alternatives and, since EXP-0038, a shared total that charges one upstream `ALG-0025` base plus the incremental support-guard extra, selector counts, and validation replay proxy counts.
 
 ## Algorithm sketch
 
@@ -117,6 +118,7 @@ EXP-0033 adds a frozen train/validation/final split similar to `ALG-0027`.
 - Selector operation counts.
 - Validation replay proxy counts.
 - Naive all-alternative discovery cost.
+- Selector-integrated shared all-alternative discovery and validation-proxy cost.
 
 ## Known failure modes
 
@@ -124,7 +126,7 @@ EXP-0033 adds a frozen train/validation/final split similar to `ALG-0027`.
 - Validation can be contradictory or conflict with training replay.
 - If validation does not mention the rare body, selection remains unresolved.
 - It inherits `ALG-0025` and `ALG-0028` body-shape limits.
-- Naive all-alternative cost double-counts upstream discovery that could be shared in a later optimized selector.
+- Shared totals are integrated into selector output, but primitive-level shared instrumentation is still missing.
 - Two rare bodies with one valid and one noisy body remain unresolved because the current alternatives keep all rare bodies or filter all singleton rare bodies together.
 - Rare-body count two remains outside the current support-guard scope.
 
@@ -135,12 +137,14 @@ Do not promote beyond `smoke-tested` until:
 - validation replay cost is refined beyond the current proxy;
 - individual rare-body filtering is studied for two-rare-body mixed valid/noise cases;
 - rare-count-two support/noise behavior gets its own policy or selector;
-- interactions with `ALG-0030` are stress-tested beyond the four first product quadrants.
+- interactions with `ALG-0030` are stress-tested beyond the four first product quadrants;
+- operation accounting has a primitive-level shared breakdown.
 
 ## Experiment links
 
 - EXP-0032: first threshold ablation and validation-selector smoke tests.
 - EXP-0033: split validation/final protocol, leakage controls, support-ratio/body-width controls, and product-composition smoke tests.
+- EXP-0038: selector-integrated shared operation-count fields and report cross-checks.
 
 ## Property-study notes
 
@@ -150,3 +154,4 @@ No property dossier. The candidate is not `super-promising`. Future property wor
 
 - EXP-0032: added as a smoke-tested selector protocol. It can select keep-all or support-guarded body inclusion when validation distinguishes them, and returns unresolved or conflict statuses when validation is insufficient or inconsistent. Not promoted because it lacks split final-test validation and broader support-ratio coverage.
 - EXP-0033: split validation/final tests pass and composition with count-policy selection is smoke-tested through `ALG-0030`. Kept at `smoke-tested` because validation replay cost is still a proxy and mixed rare-body / count-two rare-body limits remain unresolved.
+- EXP-0038: integrated shared totals into selector outputs; max protocol total drops from 1503 naive to 934 shared. Kept at `smoke-tested` because primitive-level shared accounting, validation scope, and mixed rare-body / count-two rare-body limits remain unresolved.

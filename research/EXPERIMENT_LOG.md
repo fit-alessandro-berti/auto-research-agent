@@ -2167,3 +2167,658 @@ Decision:
 - Do not promote any candidate to `super-promising`.
 
 Next action: stress `ALG-0030` on length-2 and mixed-width product quadrants, duplicate-label blocked cases, and rare-count-two body policy alternatives; then refine selector operation accounting to share upstream discovery work across body/count axes.
+
+## EXP-0034 - ALG-0030 product stress and ALG-0031 rare-count-two support ablation
+
+Date/time: 2026-05-07T13:19:00+02:00
+
+Goal: stress `ALG-0030` beyond singleton-body product quadrants and test whether rare-count-two support filtering should be tracked as a separate policy ablation
+
+Subagent support:
+
+- Spawned an evaluator/counterexample scout for `ALG-0030` product-stress design.
+- Merged recommendations: run all four length-2 body product quadrants; run mixed-width product quadrants in both dominant-singleton and dominant-length-2 directions; include duplicate suffix label, overlapping body labels, length greater than two, and one-iteration-only blocked controls; treat rare-count-two filtering as a separate support-policy ablation rather than an untracked improvement.
+
+Code version / commit if available: working tree after adding `scripts/alg0030_product_stress_tests.py` and `candidates/ALG-0031-rare-count-two-body-support-guard-ablation.md`; no commit recorded
+
+Candidate IDs: ALG-0025, ALG-0028, ALG-0029, ALG-0030, ALG-0031
+
+Commands:
+
+```bash
+python3 -B -m compileall scripts/alg0030_product_stress_tests.py
+python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json
+python3 -B -m compileall scripts/alg0030_product_stress_tests.py && python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json
+python3 -B -m compileall scripts
+python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json
+python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json
+python3 scripts/alg0028_threshold_ablation_tests.py --out experiments/alg0028-threshold-ablation-tests.json
+python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json
+python3 scripts/alg0027_validation_protocol_tests.py --out experiments/alg0027-validation-protocol-tests.json
+python3 -B -m unittest
+git diff --check
+python3 -c "import json; d=json.load(open('experiments/alg0030-product-stress-tests.json')); print(d['summary']); ..."
+```
+
+Operation-count model: first-goal primitive model. `ALG-0030` reports product totals as a naive upper bound over `ALG-0029` body-axis alternative discovery/validation, count-policy compile extra, count-selector operations, and count-validation replay proxy counts. `ALG-0031` reuses `ALG-0028` support-policy operations with `rare_body_count=2`.
+
+Implemented:
+
+- `scripts/alg0030_product_stress_tests.py`
+  - 20 deterministic product-stress cases.
+  - Length-2 body product quadrants.
+  - Mixed-width body product quadrants for both singleton-dominant and length-2-dominant directions.
+  - Blocked controls for duplicate suffix labels, overlapping body labels, length >2 body alternatives, and one-iteration-only evidence.
+  - Rare-count-two controls for default unresolved behavior, configured count-two filtering, validation override to keep-all, and group-filtering failure with one valid and one noisy rare body.
+- `candidates/ALG-0031-rare-count-two-body-support-guard-ablation.md`
+  - Tracks the configured `rare_body_count=2` support-prior ablation.
+
+`ALG-0030` product-stress summary:
+
+| Group | Cases | Passed | Result |
+|---|---:|---:|---|
+| Length-2 product quadrants | 4 | 4 | keep/filter x unbounded/at-most-once all selected correctly. |
+| Mixed-width product quadrants | 8 | 8 | singleton-dominant and length-2-dominant directions both selected correctly across all quadrants. |
+| Blocked upstream controls | 4 | 4 | duplicate suffix labels, overlapping body labels, length >2, and one-iteration-only evidence all returned `body_unresolved`. |
+| Rare-count-two controls | 4 | 4 | default policy stayed unresolved; configured count-two policy selected filter/keep controls; mixed valid/noisy rare bodies remained unresolved. |
+
+Selected result details:
+
+| Case | Selected body | Selected count | Status | Policy set | Naive product total |
+|---|---|---|---|---:|---:|
+| `length2_keep_all_unbounded` | `keep_all_bodies` | `unbounded_repeat` | `selected` | yes | 1555 |
+| `length2_keep_all_at_most_once` | `keep_all_bodies` | `at_most_once` | `selected` | yes | 1581 |
+| `length2_filter_unbounded` | `support_guard` | `unbounded_repeat` | `selected` | yes | 1556 |
+| `length2_filter_at_most_once` | `support_guard` | `at_most_once` | `selected` | yes | 1570 |
+| `mixed_width_singleton_dominant_keep_all_unbounded` | `keep_all_bodies` | `unbounded_repeat` | `selected` | yes | 1271 |
+| `mixed_width_singleton_dominant_keep_all_at_most_once` | `keep_all_bodies` | `at_most_once` | `selected` | yes | 1296 |
+| `mixed_width_singleton_dominant_filter_unbounded` | `support_guard` | `unbounded_repeat` | `selected` | yes | 1277 |
+| `mixed_width_singleton_dominant_filter_at_most_once` | `support_guard` | `at_most_once` | `selected` | yes | 1291 |
+| `mixed_width_length2_dominant_keep_all_unbounded` | `keep_all_bodies` | `unbounded_repeat` | `selected` | yes | 1385 |
+| `mixed_width_length2_dominant_keep_all_at_most_once` | `keep_all_bodies` | `at_most_once` | `selected` | yes | 1408 |
+| `mixed_width_length2_dominant_filter_unbounded` | `support_guard` | `unbounded_repeat` | `selected` | yes | 1395 |
+| `mixed_width_length2_dominant_filter_at_most_once` | `support_guard` | `at_most_once` | `selected` | yes | 1409 |
+| `duplicate_suffix_label_body_unresolved` | none | none | `body_unresolved` | no | 825 |
+| `overlapping_body_labels_body_unresolved` | none | none | `body_unresolved` | no | 923 |
+| `length3_body_body_unresolved` | none | none | `body_unresolved` | no | 1339 |
+| `one_iteration_only_body_unresolved` | none | none | `body_unresolved` | no | 393 |
+| `rare_count_two_default_body_unresolved` | none | none | `body_unresolved` | no | 947 |
+| `rare_count_two_configured_filter_unbounded` | `support_guard` | `unbounded_repeat` | `selected` | yes | 1234 |
+| `rare_count_two_configured_keep_all_at_most_once` | `keep_all_bodies` | `at_most_once` | `selected` | yes | 1249 |
+| `two_rare_count_two_one_valid_one_noise_unresolved` | none | none | `body_unresolved` | no | 1210 |
+
+Regression checks:
+
+- `ALG-0029` validation protocol remains 10/10 body cases and 6/6 composition cases passed.
+- `ALG-0028` threshold ablation unchanged from EXP-0032.
+- `ALG-0027` validation protocol remains 9/9 passed.
+- `scripts/benchmark.py` completed on all logs in `examples/logs`.
+
+Failures / anomalies:
+
+- `ALG-0030` still inherits upstream blocked-scope behavior: duplicate suffix labels, overlapping body labels, length >2 bodies, and one-iteration-only evidence do not select a product.
+- `ALG-0031` can filter count-two rare bodies only as a group. When one count-two rare body is valid and another is noisy, both keep-all and group-filter alternatives fail validation, so body selection remains unresolved.
+- Rare-count-two filtering changes the support prior and can discard valid rare behavior unless validation overrides it.
+- Product operation counts remain naive upper bounds with duplicated upstream discovery.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Keep `ALG-0030` at `smoke-tested`: width robustness is better after 20/20 stress cases, but blocked upstream limits and shared-cost accounting still block promotion.
+- Add `ALG-0031` as `smoke-tested`, not promising: count-two rare-body filtering is useful as a policy ablation but fails mixed valid/noisy rare-body controls.
+- Do not promote any candidate to `super-promising`.
+
+Next action: design per-body inclusion alternatives for rare-body policies, especially mixed valid/noisy rare-body cases, or refine shared operation accounting for `ALG-0029`/`ALG-0030` before considering any selector promotion.
+
+## EXP-0035 - ALG-0032 per-body rare inclusion validation selector
+
+Date/time: 2026-05-07T12:48:12+02:00
+
+Goal: repair the mixed valid/noisy rare-body limitation left by `ALG-0029` and `ALG-0031` without turning a validation-scoped policy into a training-log-only discovery claim
+
+Subagent support:
+
+- Spawned an evaluator/counterexample scout for `ALG-0032` per-body inclusion design.
+- Merged recommendations: test one rare valid/noisy cases, two rare one-valid/one-noisy, both-valid, both-noisy, count-two mixed rare bodies, partial-signal ambiguity, validation conflicts, and a rare-body budget cap; require explicit statuses for inconsistent validation, training-negative conflict, ambiguity, and too-many-rare-body overflow.
+
+Code version / commit if available: working tree after adding `scripts/per_body_inclusion_validation_selector.py`, `scripts/alg0032_per_body_inclusion_tests.py`, and `candidates/ALG-0032-per-body-rare-inclusion-validation-selector.md`; no commit recorded
+
+Candidate IDs: ALG-0025, ALG-0028, ALG-0029, ALG-0031, ALG-0032
+
+Commands:
+
+```bash
+python3 -B -m compileall scripts/per_body_inclusion_validation_selector.py scripts/alg0032_per_body_inclusion_tests.py
+python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json
+python3 -B -m compileall scripts/per_body_inclusion_validation_selector.py scripts/alg0032_per_body_inclusion_tests.py
+python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json
+python3 -c "import json; d=json.load(open('experiments/alg0032-per-body-inclusion-tests.json')); print(d['summary']); [print(n, c['selection_status'], c['reason'], c['selected_dropped_bodies'], c['alternative_count'], c['operation_counts'].get('total_with_all_alternatives_and_validation_proxy')) for n,c in sorted(d['cases'].items())]"
+python3 -B -m compileall scripts
+python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json
+python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json
+python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json
+python3 -B -m unittest
+git diff --check
+git status --short --untracked-files=all
+```
+
+Operation-count model: first-goal primitive model. `ALG-0032` reports selector primitive counts, validation replay proxy counts, selected-result totals, and naive all-alternative discovery totals. The all-alternative totals intentionally overcount shared upstream discovery and should be treated as conservative upper bounds until shared accounting is implemented.
+
+Implemented:
+
+- `scripts/per_body_inclusion_validation_selector.py`
+  - Runs `ALG-0025` and extracts multi-body loop support evidence.
+  - Checks an explicit dominant-support context.
+  - Enumerates all rare-body drop subsets up to `max_rare_bodies`.
+  - Reuses the upstream keep-all net for `drop_none` and recompiles guarded nets for nonempty drop subsets.
+  - Selects only when exactly one per-body assignment satisfies validation positives and negatives.
+  - Emits `validation_inconsistent`, `validation_training_conflict`, `unresolved`, `dominance_threshold_not_met`, `no_per_body_alternatives`, or `too_many_rare_bodies` when selection is not justified.
+- `scripts/alg0032_per_body_inclusion_tests.py`
+  - Added 11 deterministic smoke/counterexample cases.
+  - Includes `ALG-0029` baseline comparisons for the two mixed rare-body cases.
+- `candidates/ALG-0032-per-body-rare-inclusion-validation-selector.md`
+  - Added candidate record with hypothesis, intermediate representation, operation model, failure modes, and promotion criteria.
+
+Final `ALG-0032` targeted results:
+
+| Case | Status | Selected dropped bodies | Alternatives | Final result / control | Naive total |
+|---|---|---:|---:|---|---:|
+| `one_rare_valid_include` | `selected` | none | 2 | 1/1 final positive, 2/2 negatives rejected | 1101 |
+| `one_rare_noise_exclude` | `selected` | `C` | 2 | 1/1 final positive, 1/1 negative rejected | 1098 |
+| `two_rare_one_valid_one_noise` | `selected` | `E` | 4 | 1/1 final positive, 2/2 negatives rejected; `ALG-0029` unresolved | 2931 |
+| `two_rare_both_valid` | `selected` | none | 4 | 1/1 final positive, 2/2 negatives rejected | 2965 |
+| `two_rare_both_noise` | `selected` | `C`, `E` | 4 | 1/1 final positive, 3/3 negatives rejected | 2960 |
+| `count_two_mixed_valid_noise` | `selected` | `E` | 4 | 1/1 final positive, 2/2 negatives rejected; `ALG-0029` unresolved | 3329 |
+| `partial_signal_ambiguous` | `unresolved` | none | 4 | tie because `E` is unprobed | 2936 |
+| `positive_negative_overlap` | `validation_inconsistent` | none | 4 | validation conflict detected | 2931 |
+| `training_negative_conflict` | `validation_training_conflict` | none | 4 | training/negative conflict detected | 2894 |
+| `too_many_rare_bodies_budget` | `too_many_rare_bodies` | none | 0 | cap refusal | 635 |
+| `dominance_threshold_not_met` | `dominance_threshold_not_met` | none | 0 | weak dominance refusal | 440 |
+
+Summary: 11/11 `ALG-0032` cases passed.
+
+Regression checks:
+
+- `ALG-0029` validation protocol remains 10/10 body cases and 6/6 composition cases passed.
+- `ALG-0030` product stress remains 20/20 passed.
+- `scripts/benchmark.py` completed on all logs in `examples/logs`; `ALG-0032` was not wired into the general toy-log benchmark because it requires validation channels.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Failures / anomalies:
+
+- The first `ALG-0032` run failed four expected mixed/two-rare controls because the initial default `5/6` dominance share was too strict for `B=5, C=1, E=1`; the selector default and test harness were adjusted to `5/7` so the intended two-rare count-one cases are in scope.
+- `ALG-0032` still depends on validation representativeness and does not identify true rare-body validity from the training log alone.
+- Per-body enumeration is exponential without the cap; `too_many_rare_bodies` is a required refusal status, not a bug.
+- Operation totals remain naive upper bounds and do not yet share all reusable discovery work across alternatives.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+
+Decision:
+
+- Add `ALG-0032` as `smoke-tested`, not `promising`. It repairs the specific mixed valid/noisy rare-body limitation of `ALG-0029`/`ALG-0031` on controlled cases, but the evidence is validation-scoped and operation accounting remains conservative.
+- Keep `ALG-0029`, `ALG-0030`, and `ALG-0031` at `smoke-tested`.
+- Do not promote any candidate to `super-promising`.
+
+Next action: expand `ALG-0032` into a split validation/final protocol with additional width, duplicate-label, and cap-stress controls, or refine shared operation accounting for `ALG-0029`/`ALG-0030`/`ALG-0032` before considering selector promotion.
+
+## EXP-0036 - ALG-0032 split validation/final protocol
+
+Date/time: 2026-05-07T12:54:52+02:00
+
+Goal: broaden `ALG-0032` from targeted smoke tests into a split validation/final protocol with body-width, leakage, cap-boundary, baseline-comparison, and upstream blocked-scope controls
+
+Subagent support:
+
+- Spawned an evaluator/counterexample scout for `ALG-0032` split validation/final design.
+- Merged recommendations: include length-2 and mixed-width one-valid/one-noisy rare-body cases; keep final probes out of selection; flag validation/final and train/final overlap in the harness; test duplicate-label and overlapping-label blocked-scope behavior; test exact cap boundary and overflow; compare against `ALG-0029` and `ALG-0030` on mixed rare-body cases.
+
+Code version / commit if available: working tree after adding `scripts/alg0032_validation_protocol_tests.py` and updating `candidates/ALG-0032-per-body-rare-inclusion-validation-selector.md`; no commit recorded
+
+Candidate IDs: ALG-0025, ALG-0029, ALG-0030, ALG-0032
+
+Commands:
+
+```bash
+python3 -B -m compileall scripts/alg0032_validation_protocol_tests.py
+python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json
+python3 -B -m compileall scripts/alg0032_validation_protocol_tests.py && python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json
+python3 -B -m compileall scripts
+python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json
+python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json
+python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json
+python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json
+python3 -c "import json; d=json.load(open('experiments/alg0032-validation-protocol-tests.json')); print(d['summary']); [print(n, c['selection_status'], c['reason'], c['selected_dropped_bodies'], c['alternative_count'], c['has_leakage'], c['operation_counts'].get('total_with_all_alternatives_and_validation_proxy')) for n,c in sorted(d['cases'].items())]"
+python3 -B -m unittest
+git diff --check
+git status --short --untracked-files=all
+```
+
+Operation-count model: first-goal primitive model. `ALG-0032` totals remain naive all-alternative upper bounds: discovery is counted separately for each guarded recompilation and validation replay uses the existing proxy count. EXP-0036 deliberately exposes the cap-boundary cost; the three-rare-body selected case reports eight alternatives and a naive total of 7430.
+
+Implemented:
+
+- `scripts/alg0032_validation_protocol_tests.py`
+  - 13 deterministic split validation/final protocol cases.
+  - Final probes are evaluated only after selection and do not influence selector choice.
+  - Harness-level leakage detection records train/validation, train/final, and validation/final overlap.
+  - Optional comparisons against `ALG-0029` and `ALG-0030` on mixed rare-body cases.
+- `candidates/ALG-0032-per-body-rare-inclusion-validation-selector.md`
+  - Updated smoke-test, failure-mode, and decision-history sections with EXP-0036 evidence.
+
+`ALG-0032` split validation/final results:
+
+| Case | Status | Dropped bodies | Alternatives | Leakage | Final/control result | Naive total |
+|---|---|---:|---:|---:|---|---:|
+| `split_singleton_mixed_final_generalization` | `selected` | `E` | 4 | no | 1/1 final positive, 2/2 negatives rejected; `ALG-0029` unresolved; `ALG-0030` body-unresolved | 2931 |
+| `split_singleton_drop_both_final_precision` | `selected` | `C`, `E` | 4 | no | 1/1 final positive, 3/3 negatives rejected | 2960 |
+| `split_length2_mixed_final_generalization` | `selected` | `H J` | 4 | no | 1/1 final positive, 2/2 negatives rejected; `ALG-0029` unresolved; `ALG-0030` body-unresolved | 4506 |
+| `split_mixed_width_final_generalization` | `selected` | `G` | 4 | no | 1/1 final positive, 2/2 negatives rejected; `ALG-0029` unresolved; `ALG-0030` body-unresolved | 3324 |
+| `split_count_two_length2_mixed_final_generalization` | `selected` | `G H` | 4 | no | 1/1 final positive, 2/2 negatives rejected; `ALG-0029` unresolved; `ALG-0030` body-unresolved | 4207 |
+| `partial_signal_final_not_used` | `unresolved` | none | 4 | no | final probes would distinguish, but validation does not | 2936 |
+| `validation_final_overlap_flagged` | `selected` | `E` | 4 | yes | harness flags validation/final reuse | 2931 |
+| `training_negative_conflict_protocol` | `validation_training_conflict` | none | 4 | yes | observed training trace used as validation negative | 2894 |
+| `cap_three_allows_three_rare_split` | `selected` | `E`, `F` | 8 | no | 1/1 final positive, 4/4 negatives rejected | 7430 |
+| `cap_two_refuses_three_rare_split` | `too_many_rare_bodies` | none | 0 | no | cap refusal | 635 |
+| `duplicate_suffix_label_no_source_cut` | `no_per_body_alternatives` | none | 0 | no | upstream duplicate-label guard blocks source cut | 922 |
+| `overlapping_body_labels_no_source_cut` | `no_per_body_alternatives` | none | 0 | no | upstream overlapping-label guard blocks source cut | 1054 |
+| `wrong_rare_count_no_candidates` | `no_per_body_alternatives` | none | 0 | no | configured rare count does not match evidence | 461 |
+
+Summary: 13/13 protocol cases passed.
+
+Regression checks:
+
+- `ALG-0032` original targeted suite remains 11/11 passed.
+- `ALG-0029` validation protocol remains 10/10 body cases and 6/6 composition cases passed.
+- `ALG-0030` product stress remains 20/20 passed.
+- `scripts/benchmark.py` completed on all logs in `examples/logs`; `ALG-0032` remains outside the general benchmark because it requires validation channels.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Failures / anomalies:
+
+- The cap-three case demonstrates the cost risk: eight alternatives on a toy log already report a naive total of 7430 operations.
+- `ALG-0032` still inherits upstream `ALG-0025` blocked-scope behavior for duplicate suffix labels and overlapping body labels.
+- `ALG-0032` still depends on validation representativeness and does not identify true rare-body validity from the training log alone.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+
+Decision:
+
+- Keep `ALG-0032` at `smoke-tested`. EXP-0036 materially strengthens the validation protocol evidence and baseline comparisons, but the candidate still needs shared operation accounting and broader non-toy validation before promotion.
+- Keep `ALG-0029`, `ALG-0030`, and `ALG-0031` at `smoke-tested`.
+- Do not promote any candidate to `super-promising`.
+
+Next action: refine shared operation accounting for `ALG-0029`/`ALG-0030`/`ALG-0032`, especially by counting a single upstream `ALG-0025` discovery plus incremental guarded recompilations instead of naive all-alternative totals.
+
+## EXP-0037 - Shared operation accounting report for validation selectors
+
+Date/time: 2026-05-07T13:05:11+02:00
+
+Goal: refine selector operation accounting for `ALG-0029`, `ALG-0030`, and `ALG-0032` by separating shared upstream loop discovery from per-alternative guarded recompilation, selector scoring, and validation replay proxy costs
+
+Subagent support:
+
+- Spawned an implementation scout to inspect the current selector accounting paths.
+- Merged findings: `ALG-0029` and `ALG-0032` double-count the same upstream `ALG-0025` discovery in all-alternative totals; `ALG-0030` inherits the body-axis total and should conservatively charge all count-policy compile alternatives during selector evaluation.
+
+Code version / commit if available: working tree after adding `scripts/selector_shared_cost_report.py`; no commit recorded
+
+Candidate IDs: ALG-0029, ALG-0030, ALG-0032
+
+Commands:
+
+```bash
+python3 -B -m compileall scripts/selector_shared_cost_report.py
+python3 scripts/selector_shared_cost_report.py --out experiments/selector-shared-cost-report.json
+jq '.candidates | with_entries(.value = .value.summary)' experiments/selector-shared-cost-report.json
+jq '.candidates["ALG-0032"].cases[] | select(.case=="cap_three_allows_three_rare_split") | .operation_totals' experiments/selector-shared-cost-report.json
+sed -n '1,220p' experiments/selector-shared-cost-report.json
+rg -n "ALG-0032|cap_three_allows_three_rare_split|shared_total_with_validation_proxy|shared_savings" experiments/selector-shared-cost-report.json
+sed -n '1390,1480p' experiments/selector-shared-cost-report.json
+python3 -B -m compileall scripts
+python3 scripts/selector_shared_cost_report.py --out experiments/selector-shared-cost-report.json
+python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json
+python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json
+python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json
+python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json
+python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json
+python3 -B -m unittest
+git diff --check
+git status --short --untracked-files=all
+```
+
+Operation-count model: first-goal primitive model. The report does not change selector behavior or Petri-net outputs. It estimates shared totals using one upstream `ALG-0025` discovery per train log, `max(0, alternative_total - base_total)` as the measured incremental guarded recompilation cost for non-base body alternatives, existing selector primitive counts, and the existing validation replay proxy. For `ALG-0030`, the conservative product estimate charges all compiled count-policy alternatives, not only the selected count policy.
+
+Implemented:
+
+- `scripts/selector_shared_cost_report.py`
+  - Reuses deterministic protocol cases from `scripts/alg0029_validation_protocol_tests.py` and `scripts/alg0032_validation_protocol_tests.py`.
+  - Reports current all-alternative totals and shared totals for `ALG-0029` and `ALG-0032`.
+  - Reports `ALG-0030` selected-count and all-count shared product estimates.
+  - Writes machine-readable output to `experiments/selector-shared-cost-report.json`.
+
+Shared-cost summary:
+
+| Candidate | Protocol cases | Max current reported total | Max shared total | Max savings | Case with max shared total |
+|---|---:|---:|---:|---:|---|
+| `ALG-0029` | 10 | 1503 | 934 | 569 | `body_length2_rare_filter` |
+| `ALG-0030` | 6 | 962 | 638 | 332 | `filter_unbounded_joint` |
+| `ALG-0032` | 13 | 7430 | 3167 | 4263 | `cap_three_allows_three_rare_split` |
+
+Cap-three detail for `ALG-0032`:
+
+- Current all-alternative total with validation proxy: 7430.
+- Base `drop_none` discovery total: 609.
+- Incremental guarded recompilation extras across seven non-base alternatives: 2292.
+- Shared all-alternative discovery total: 2901.
+- Selector total: 98.
+- Validation replay proxy total: 168.
+- Shared total with validation proxy: 3167.
+- Savings versus current report: 4263 operations, or 57.38 percent.
+
+Regression checks:
+
+- `ALG-0032` split validation/final protocol remains 13/13 passed.
+- `ALG-0032` original targeted suite remains 11/11 passed.
+- `ALG-0029` validation protocol remains 10/10 body cases and 6/6 composition cases passed.
+- `ALG-0030` product stress remains 20/20 passed.
+- `scripts/benchmark.py` completed on all logs in `examples/logs`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Failures / anomalies:
+
+- `jq` is not installed in the environment; the attempted `jq` inspection commands failed with `jq: command not found`, so spot checks used `sed` and `rg`.
+- The report derives shared totals from existing total fields, not a per-primitive shared breakdown. Primitive-level shared accounting would require exposing additional fields or rerunning alternatives with instrumentation.
+- Validation replay proxy costs remain per-alternative and are not shared.
+- The selectors still emit their original naive totals in `operation_counts`; the shared report is an external analysis artifact.
+- The cap-three `ALG-0032` shared total is much lower than the naive total but still exceeds the deep soft budget for that toy log.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+
+Decision:
+
+- Keep `ALG-0029`, `ALG-0030`, and `ALG-0032` at `smoke-tested`. EXP-0037 removes the largest double-counting artifact but does not address validation representativeness, upstream blocked scopes, primitive-level shared accounting, or non-toy validation evidence.
+- Do not promote any candidate to `super-promising`.
+
+Next action: integrate shared accounting fields into selector outputs or add primitive-level shared accounting, then run broader validation/cap stress for `ALG-0032` and blocked-scope repair candidates for duplicate labels, length >2 bodies, and one-iteration-only loop evidence.
+
+## EXP-0038 - Selector-integrated shared operation accounting
+
+Date/time: 2026-05-07T13:13:08+02:00
+
+Goal: integrate the EXP-0037 shared operation-accounting fields directly into `ALG-0029`, `ALG-0030`, and `ALG-0032` selector outputs while preserving the existing conservative naive totals for comparison
+
+Code version / commit if available: working tree after adding `scripts/selector_shared_accounting.py`, updating `scripts/body_inclusion_validation_selector.py`, `scripts/per_body_inclusion_validation_selector.py`, `scripts/body_count_validation_product_selector.py`, and extending `scripts/selector_shared_cost_report.py`; no commit recorded
+
+Candidate IDs: ALG-0029, ALG-0030, ALG-0032
+
+Commands:
+
+```bash
+python3 -B -m compileall scripts/selector_shared_accounting.py scripts/body_inclusion_validation_selector.py scripts/body_count_validation_product_selector.py scripts/per_body_inclusion_validation_selector.py scripts/selector_shared_cost_report.py
+python3 scripts/selector_shared_cost_report.py --out experiments/selector-shared-cost-report.json
+python3 -c "import json; d=json.load(open('experiments/selector-shared-cost-report.json')); print('mismatches', [(cid,c['case'],c['operation_totals']) for cid,cv in d['candidates'].items() for c in cv['cases'] if c['operation_totals'].get('selector_integrated_shared_total_matches_derivation') is False or c['operation_totals'].get('selector_integrated_selected_count_total_matches_derivation') is False or c['operation_totals'].get('selector_integrated_all_count_total_matches_derivation') is False])"
+python3 -B -m compileall scripts
+python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json
+python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json
+python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json
+python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json
+python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json
+python3 -c "import json; a=json.load(open('experiments/alg0032-validation-protocol-tests.json'))['cases']['cap_three_allows_three_rare_split']['operation_counts']; b=json.load(open('experiments/alg0029-validation-protocol-tests.json'))['body_cases']['body_length2_rare_filter']['operation_counts']; c=json.load(open('experiments/alg0029-validation-protocol-tests.json'))['composition_cases']['filter_unbounded_joint']['operation_counts']; print('alg0032 shared', a.get('total_with_shared_alternatives_and_validation_proxy'), 'naive', a.get('total_with_all_alternatives_and_validation_proxy')); print('alg0029 shared', b.get('total_with_shared_alternatives_and_validation_proxy'), 'naive', b.get('total_with_all_alternatives_and_validation_proxy')); print('alg0030 shared all count', c.get('total_with_shared_product_all_count_alternatives_and_validation_proxy'), 'current', c.get('total_with_product_policy_and_validation_proxy'))"
+python3 -B -m unittest
+git diff --check
+git status --short --untracked-files=all
+```
+
+Operation-count model: first-goal primitive model. Selector outputs now retain the previous naive totals and add shared totals derived from one upstream base discovery plus incremental guarded-body recompilation extras, selector counts, and validation replay proxy counts. `ALG-0030` additionally reports a conservative shared product total with all count-policy compile extras. The new accounting is still total-field based, not a per-primitive shared breakdown.
+
+Implemented:
+
+- `scripts/selector_shared_accounting.py`
+  - Shared helper for body-axis selectors that computes base discovery total, incremental non-base alternative extras, shared all-alternative discovery total, shared total with validation proxy, and savings versus naive all-alternative accounting.
+- `scripts/body_inclusion_validation_selector.py`
+  - Adds `shared_operation_accounting` evidence and shared operation-count fields for `ALG-0029`.
+- `scripts/per_body_inclusion_validation_selector.py`
+  - Adds the same selector-integrated shared body-axis fields for `ALG-0032`.
+- `scripts/body_count_validation_product_selector.py`
+  - Adds shared body-axis reuse and count-policy compile-extra totals for `ALG-0030`.
+- `scripts/selector_shared_cost_report.py`
+  - Cross-checks selector-integrated fields against the independent derivation in `experiments/selector-shared-cost-report.json`.
+
+Integrated shared-cost summary:
+
+| Candidate | Protocol cases | Max naive/current total | Max selector-integrated shared total | Max savings | Case with max shared total |
+|---|---:|---:|---:|---:|---|
+| `ALG-0029` | 10 | 1503 | 934 | 569 | `body_length2_rare_filter` |
+| `ALG-0030` | 6 | 962 | 638 | 332 | `filter_unbounded_joint` |
+| `ALG-0032` | 13 | 7430 | 3167 | 4263 | `cap_three_allows_three_rare_split` |
+
+Spot checks:
+
+- Cross-check script printed `mismatches []`, so selector-integrated shared totals matched the report derivation.
+- `ALG-0032` cap-three case now reports `total_with_shared_alternatives_and_validation_proxy = 3167` beside the naive `total_with_all_alternatives_and_validation_proxy = 7430`.
+- `ALG-0029` length-2 rare-filter case now reports `total_with_shared_alternatives_and_validation_proxy = 934` beside the naive `1503`.
+- `ALG-0030` `filter_unbounded_joint` case now reports `total_with_shared_product_all_count_alternatives_and_validation_proxy = 638` beside the current selected-product total of `948`.
+
+Regression checks:
+
+- `ALG-0029` validation protocol remains 10/10 body cases and 6/6 composition cases passed.
+- `ALG-0032` split validation/final protocol remains 13/13 passed.
+- `ALG-0032` original targeted suite remains 11/11 passed.
+- `ALG-0030` product stress remains 20/20 passed.
+- `scripts/benchmark.py` completed on all logs in `examples/logs`.
+- `python3 -B -m compileall scripts` completed successfully.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Failures / anomalies:
+
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`, consistent with prior runs.
+- Shared accounting is now in selector outputs, but the breakdown is still derived from total counts rather than per-primitive shared instrumentation.
+- Validation replay proxy costs remain charged per alternative.
+- The `ALG-0032` cap-three shared total is much lower than the naive total but still above the deep soft budget for that toy log.
+- No property dossier was created because no candidate is `super-promising`.
+
+Decision:
+
+- Keep `ALG-0029`, `ALG-0030`, and `ALG-0032` at `smoke-tested`. EXP-0038 removes the external-only accounting blocker, but validation representativeness, upstream blocked scopes, primitive-level shared accounting, cap stress, and non-toy validation evidence still block promotion.
+- Do not promote any candidate to `super-promising`.
+
+Next action: add primitive-level shared accounting or operation-budget stress near the `ALG-0032` rare-body cap, then run broader non-toy validation and split duplicate-label, length >2 body, and one-iteration-only loop repairs into separate bounded candidates if needed.
+
+## EXP-0039 - ALG-0032 rare-body cap and operation-budget stress
+
+Date/time: 2026-05-07T13:24:37+02:00
+
+Goal: stress `ALG-0032` near and above the rare-body cap, using selector-integrated shared accounting to determine where bounded per-body inclusion exceeds the first-goal deep soft budget
+
+Subagent support:
+
+- Spawned an evaluator/counterexample scout for `ALG-0032` cap-stress design.
+- Merged recommendations: isolate a deterministic singleton-body family; vary rare-body count and cap independently; assert selected cases have `2^R` alternatives and one valid score row; assert cap-plus-one refusal builds zero alternatives and keeps validation replay proxy at zero; independently check shared-accounting identities.
+
+Code version / commit if available: working tree after adding `scripts/alg0032_cap_stress_tests.py`; no commit recorded
+
+Candidate IDs: ALG-0032
+
+Commands:
+
+```bash
+python3 -B -m compileall scripts/alg0032_cap_stress_tests.py
+python3 scripts/alg0032_cap_stress_tests.py --out experiments/alg0032-cap-stress-tests.json
+python3 -B -m compileall scripts
+python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json
+python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json
+python3 scripts/selector_shared_cost_report.py --out experiments/selector-shared-cost-report.json
+python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json
+python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json
+python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json
+python3 -c "import json; d=json.load(open('experiments/selector-shared-cost-report.json')); print('mismatches', [(cid,c['case'],c['operation_totals']) for cid,cv in d['candidates'].items() for c in cv['cases'] if c['operation_totals'].get('selector_integrated_shared_total_matches_derivation') is False or c['operation_totals'].get('selector_integrated_selected_count_total_matches_derivation') is False or c['operation_totals'].get('selector_integrated_all_count_total_matches_derivation') is False])"
+python3 -c "import json; r=json.load(open('experiments/alg0032-cap-stress-tests.json')); print(r['summary']); [print(n, c['selection_status'], c['alternative_count'], c['shared_total_with_validation_proxy'], c['naive_total_with_validation_proxy'], c['deep_soft_budget'], round(c['shared_budget_ratio'], 2)) for n,c in r['cases'].items()]"
+```
+
+Operation-count model: first-goal primitive model with `B_deep = 16N + 12A^2 + 10D + 120`. The stress harness records both naive all-alternative totals and selector-integrated shared totals, then verifies the shared identity:
+
+```text
+shared_total = shared_all_alternative_discovery_total
+             + selector_total
+             + validation_replay_proxy_total
+```
+
+Implemented:
+
+- `scripts/alg0032_cap_stress_tests.py`
+  - 11 deterministic cap/budget cases over the same singleton-body loop family.
+  - Selected cases for one through five rare bodies under matching caps.
+  - Cap-plus-one refusal cases for two, three, four, and five rare bodies.
+  - A no-eligible-rare-body control with count mismatch.
+  - Accounting identity checks for naive totals, shared totals, and savings.
+  - Final replay/negative checks for selected cases.
+
+Stress results:
+
+| Case | Status | Alternatives | Shared total | Naive total | Deep budget | Shared / budget |
+|---|---|---:|---:|---:|---:|---:|
+| `rare_count_1_cap_1_selected_under_budget` | `selected` | 2 | 677 | 1083 | 778 | 0.87 |
+| `rare_count_1_cap_1_drop_nonbase_under_budget` | `selected` | 2 | 692 | 1098 | 778 | 0.89 |
+| `rare_count_2_cap_2_selected_over_budget` | `selected` | 4 | 1434 | 2931 | 970 | 1.48 |
+| `rare_count_3_cap_3_selected_over_budget` | `selected` | 8 | 3167 | 7430 | 1186 | 2.67 |
+| `rare_count_4_cap_4_selected_over_budget` | `selected` | 16 | 7096 | 18061 | 1426 | 4.98 |
+| `rare_count_5_cap_5_selected_over_budget_reference` | `selected` | 32 | 15949 | 42764 | 1690 | 9.44 |
+| `rare_count_2_cap_1_refuses_under_budget` | `too_many_rare_bodies` | 0 | 521 | 521 | 970 | 0.54 |
+| `rare_count_3_cap_2_refuses_under_budget` | `too_many_rare_bodies` | 0 | 636 | 636 | 1186 | 0.54 |
+| `rare_count_4_cap_3_refuses_under_budget` | `too_many_rare_bodies` | 0 | 763 | 763 | 1426 | 0.54 |
+| `rare_count_5_cap_4_refuses_under_budget` | `too_many_rare_bodies` | 0 | 902 | 902 | 1690 | 0.53 |
+| `rare_body_count_mismatch_no_alternatives` | `no_per_body_alternatives` | 0 | 460 | 460 | 842 | 0.55 |
+
+Summary:
+
+- 11/11 cap-stress cases passed.
+- First selected case over the deep soft budget: `rare_count_2_cap_2_selected_over_budget`.
+- Maximum selected reference: 32 alternatives, 15949 shared operations, 42764 naive operations.
+- Refusal/no-alternative controls had zero alternatives, zero validation replay proxy, no shared savings, and stayed under budget.
+
+Regression checks:
+
+- `ALG-0032` split validation/final protocol remains 13/13 passed.
+- `ALG-0032` original targeted suite remains 11/11 passed.
+- Shared-cost report still reports `ALG-0029` 1503/934, `ALG-0030` 962/638, and `ALG-0032` 7430/3167; cross-check printed `mismatches []`.
+- `ALG-0029` validation protocol remains 10/10 body cases and 6/6 composition cases passed.
+- `ALG-0030` product stress remains 20/20 passed.
+- `scripts/benchmark.py` completed on all logs in `examples/logs`.
+
+Failures / anomalies:
+
+- Even with shared accounting, selected `ALG-0032` cases exceed the deep soft budget from two rare bodies onward in this synthetic family.
+- Raising `max_rare_bodies` to five is executable but produces 32 alternatives and a 9.44x deep-budget shared total; this is a reference warning, not a recommended configuration.
+- This is still deterministic synthetic evidence, not non-toy validation.
+- No property dossier was created because no candidate is `super-promising`.
+
+Decision:
+
+- Keep `ALG-0032` at `smoke-tested`. EXP-0039 validates the cap/refusal behavior and shared-accounting identities, but it strengthens the operation-budget blocker rather than supporting promotion.
+- Keep `ALG-0029` and `ALG-0030` at `smoke-tested`.
+- Do not promote any candidate to `super-promising`.
+
+Next action: either add primitive-level shared instrumentation for selector alternatives, or split a new bounded candidate that replaces exhaustive per-body enumeration with a lower-cost validation rule; keep broader non-toy validation and duplicate-label / length >2 / one-iteration-only repairs as separate follow-up lines.
+
+## EXP-0040 - ALG-0033 direct-signal per-body selector
+
+Date/time: 2026-05-07T13:45:36+02:00
+
+Goal: split a lower-cost validation-scoped per-body rare inclusion candidate that avoids `ALG-0032`'s exhaustive `2^R` keep/drop assignment enumeration
+
+Subagent support:
+
+- Spawned an evaluator/counterexample scout for direct-signal selector design.
+- Merged recommendations: preserve `ALG-0032`'s core one-rare and mixed two-rare wins, add unit-propagation and scale cases, require zero or one guarded recompilation, assert validation replay is not multiplied by alternatives, and record unresolved behavior for non-unit ambiguous negatives as an expected limitation.
+
+Code version / commit if available: working tree after adding `scripts/per_body_direct_signal_selector.py`, `scripts/alg0033_direct_signal_tests.py`, `candidates/ALG-0033-per-body-direct-signal-validation-selector.md`, and updating the registry; no commit recorded
+
+Candidate IDs: ALG-0033, with comparisons against ALG-0032 plus regressions for ALG-0029/ALG-0030/ALG-0032
+
+Commands:
+
+```bash
+python3 -B -m compileall scripts/per_body_direct_signal_selector.py scripts/alg0033_direct_signal_tests.py
+python3 scripts/alg0033_direct_signal_tests.py --out experiments/alg0033-direct-signal-tests.json
+python3 -B -m compileall scripts
+python3 scripts/alg0033_direct_signal_tests.py --out experiments/alg0033-direct-signal-tests.json
+python3 scripts/alg0032_cap_stress_tests.py --out experiments/alg0032-cap-stress-tests.json
+python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json
+python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json
+python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json
+python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json
+python3 scripts/selector_shared_cost_report.py --out experiments/selector-shared-cost-report.json
+python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json
+python3 -c "import json; d=json.load(open('experiments/selector-shared-cost-report.json')); print('mismatches', [(cid,c['case'],c['operation_totals']) for cid,cv in d['candidates'].items() for c in cv['cases'] if c['operation_totals'].get('selector_integrated_shared_total_matches_derivation') is False or c['operation_totals'].get('selector_integrated_selected_count_total_matches_derivation') is False or c['operation_totals'].get('selector_integrated_all_count_total_matches_derivation') is False])"
+python3 -c "import json; r=json.load(open('experiments/alg0033-direct-signal-tests.json')); print(r['summary']); [print(n, c['selection_status'], c['selected_dropped_bodies'], c['direct_total_with_validation_proxy'], c['input_stats']['deep_soft_budget'], round(c['direct_budget_ratio'], 2), c.get('exhaustive_baseline')) for n,c in r['cases'].items() if n in ('two_rare_one_valid_one_noise','count_two_mixed_valid_noise','rare_count_3_direct_scale_under_budget','rare_count_5_direct_scale_under_budget_reference','interaction_negative_ambiguous')]"
+python3 -B -m unittest
+git diff --check
+```
+
+Operation-count model: first-goal primitive model. `ALG-0033` records upstream `ALG-0025` discovery, direct-signal selector counts, guarded compile extra counts, one selected-net validation replay proxy, and avoided exhaustive alternative count. Unlike `ALG-0032`, it does not build all `2^R` assignments and does not replay validation for hypothetical alternatives.
+
+Implemented:
+
+- `scripts/per_body_direct_signal_selector.py`
+  - Runs `ALG-0025`, reuses the existing dominance/rare-body context, parses validation traces against the source loop prefix/anchor/suffix, and builds direct keep/drop signals.
+  - Positive validation rare-body hits become required keep signals.
+  - Validation negatives become rare-body drop clauses. After required-keep bodies are removed, singleton clauses become drop signals; empty clauses become body-signal conflicts; multi-body clauses stay ambiguous.
+  - Compiles at most one guarded net using the selected drop set and validates that net once.
+  - Emits `selected`, `partial_direct_signal`, `interaction_ambiguous`, `body_signal_conflict`, `too_many_rare_bodies`, `validation_inconsistent`, and `validation_training_conflict` statuses.
+- `scripts/alg0033_direct_signal_tests.py`
+  - 16 deterministic smoke/counterexample cases covering one-rare, two-rare mixed, both-valid, both-noise, count-two rare bodies, unit propagation, three/five rare-body scale, partial signal, conflict, non-unit ambiguity, cap overflow, weak dominance, and validation consistency controls.
+- `candidates/ALG-0033-per-body-direct-signal-validation-selector.md`
+  - Candidate record with hypothesis, PMIR, allowed operations, expected cost, tests, failure modes, and promotion criteria.
+
+Direct-signal results:
+
+| Case | Status | Dropped bodies | Direct total | Deep budget | Budget ratio | ALG-0032 shared total |
+|---|---|---|---:|---:|---:|---:|
+| `two_rare_one_valid_one_noise` | `selected` | `E` | 896 | 970 | 0.92 | 1434 |
+| `two_rare_both_noise` | `selected` | `C,E` | 877 | 970 | 0.90 | 1463 |
+| `count_two_mixed_valid_noise` | `selected` | `E` | 1009 | 1098 | 0.92 | 1610 |
+| `unit_propagation_negative_clause` | `selected` | `E` | 897 | 970 | 0.92 | 1434 |
+| `rare_count_3_direct_scale_under_budget` | `selected` | `E,F` | 1066 | 1186 | 0.90 | not run |
+| `rare_count_5_direct_scale_under_budget_reference` | `selected` | `E,F,G,H` | 1442 | 1690 | 0.85 | not run |
+| `interaction_negative_ambiguous` | `interaction_ambiguous` | none | 587 | 970 | 0.61 | 1434, unresolved |
+
+Summary from `experiments/alg0033-direct-signal-tests.json`:
+
+- 16/16 cases passed.
+- 9 selected cases.
+- 0 selected cases over the deep soft budget.
+- Maximum direct total with selector and validation proxy: 1442.
+- Matched two-rare/count-two cases were lower than `ALG-0032` shared totals while preserving the selected dropped body set.
+- Non-unit negative evidence with no otherwise classified rare body remained unresolved as designed.
+
+Regression checks:
+
+- `ALG-0032` cap stress remains 11/11 passed and still shows selected exhaustive enumeration over `B_deep` from two rare bodies onward.
+- `ALG-0032` split validation/final protocol remains 13/13 passed.
+- `ALG-0032` original targeted suite remains 11/11 passed.
+- `ALG-0029` validation protocol remains 10/10 body cases and 6/6 composition cases passed.
+- `ALG-0030` product stress remains 20/20 passed.
+- Shared-cost report still reports `ALG-0029` 1503/934, `ALG-0030` 962/638, and `ALG-0032` 7430/3167; cross-check printed `mismatches []`.
+- `scripts/benchmark.py` completed on all logs in `examples/logs`.
+- `python3 -B -m compileall scripts` completed successfully.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Failures / anomalies:
+
+- The first attempted run of `scripts/alg0033_direct_signal_tests.py` failed with `UnboundLocalError` because `base_total` was used before assignment on the selected guarded path. Fixed by initializing `base_total` before selected-result construction.
+- The first interaction-ambiguity expectation assumed exhaustive `ALG-0032` would select on a non-unit negative. Observed result was `ALG-0032` unresolved due multiple satisfying assignments, so the control was corrected to record that both selectors remain unresolved there.
+- `python3 -B -m unittest` found no tests and exited with code 5 (`NO TESTS RAN`), consistent with prior runs.
+- `ALG-0033` is lower-cost but less complete than `ALG-0032`; ambiguous interaction clauses are expected unresolved cases, not implementation failures.
+- Validation representativeness and rare-body attribution assumptions remain external.
+- No property dossier was created because no candidate is `super-promising`.
+
+Decision:
+
+- Add `ALG-0033` as `smoke-tested`.
+- Keep `ALG-0032`, `ALG-0029`, and `ALG-0030` at `smoke-tested`.
+- Do not promote `ALG-0033` to `promising` yet. It has deterministic smoke evidence and a concrete operation advantage over exhaustive enumeration on matched cases, but it still needs split validation/final controls for width/count-two/blocked scopes and clearer assumptions about validation-negative attribution.
+- Do not promote any candidate to `super-promising`.
+
+Next action: broaden `ALG-0033` into a split validation/final protocol matching `ALG-0032`'s length-2, mixed-width, count-two, leakage, cap, and blocked-scope controls; add direct-signal R=3/R=5 comparisons against `ALG-0032` as reference-only stress where runtime remains acceptable.

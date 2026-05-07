@@ -1,0 +1,1645 @@
+{
+  "candidate_id": "ALG-0032",
+  "cases": {
+    "rare_body_count_mismatch_no_alternatives": {
+      "alternative_count": 0,
+      "budget_ok": true,
+      "deep_soft_budget": 842,
+      "expected_shared_over_deep_budget": false,
+      "expected_status": "no_per_body_alternatives",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 842,
+        "direct_follows_count": 5,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "max_rare_bodies": 1,
+      "naive_budget_ratio": 0.5463182897862233,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 460,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 443,
+        "comparison": 208,
+        "construct": 28,
+        "dict_increment": 45,
+        "relation_classification": 21,
+        "scan_event": 62,
+        "selector_total": 17,
+        "set_insert": 41,
+        "set_lookup": 38,
+        "shared_all_alternative_discovery_total": 443,
+        "shared_base_discovery_total": 443,
+        "shared_incremental_discovery_extra_total": 0,
+        "shared_savings_vs_all_alternatives": 0,
+        "total": 443,
+        "total_with_all_alternatives_and_validation_proxy": 460,
+        "total_with_selector": 460,
+        "total_with_selector_and_validation_proxy": 460,
+        "total_with_shared_alternatives_and_validation_proxy": 460,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "rare_count": 1,
+      "reason": "no_rare_candidate_bodies",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "no_per_body_alternatives",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 15,
+        "total": 17
+      },
+      "shared_budget_ratio": 0.5463182897862233,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 0,
+        "alternatives": [],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 443,
+        "incremental_extra_total_after_shared_base": 0,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 443,
+        "naive_total_with_validation_proxy": 460,
+        "selected_discovery_total": 443,
+        "selector_total": 17,
+        "shared_all_alternative_discovery_total": 443,
+        "shared_savings_vs_naive": 0,
+        "shared_total_with_validation_proxy": 460,
+        "validation_replay_proxy_total": 0
+      },
+      "shared_over_deep_budget": false,
+      "shared_savings_vs_naive": 0,
+      "shared_total_with_validation_proxy": 460,
+      "valid_score_count": 0,
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "rare_count_1_cap_1_drop_nonbase_under_budget": {
+      "alternative_count": 2,
+      "budget_ok": true,
+      "deep_soft_budget": 778,
+      "expected_shared_over_deep_budget": false,
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 1
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 778,
+        "direct_follows_count": 5,
+        "event_count": 26,
+        "max_trace_length": 4,
+        "trace_count": 7
+      },
+      "max_rare_bodies": 1,
+      "naive_budget_ratio": 1.411311053984576,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 1098,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 1035,
+        "comparison": 263,
+        "construct": 53,
+        "dict_increment": 67,
+        "relation_classification": 30,
+        "scan_event": 119,
+        "selector_total": 35,
+        "set_insert": 40,
+        "set_lookup": 57,
+        "shared_all_alternative_discovery_total": 629,
+        "shared_base_discovery_total": 406,
+        "shared_incremental_discovery_extra_total": 223,
+        "shared_savings_vs_all_alternatives": 406,
+        "total": 629,
+        "total_with_all_alternatives_and_validation_proxy": 1098,
+        "total_with_selector": 664,
+        "total_with_selector_and_validation_proxy": 692,
+        "total_with_shared_alternatives_and_validation_proxy": 692,
+        "validation_replay_proxy_total": 28
+      },
+      "protocol_pass": true,
+      "rare_count": 1,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": "drop_C",
+      "selected_dropped_bodies": [
+        [
+          "C"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 8,
+        "comparison": 22,
+        "construct": 5,
+        "total": 35
+      },
+      "shared_budget_ratio": 0.8894601542416453,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 2,
+        "alternatives": [
+          {
+            "alternative": "drop_none",
+            "incremental_extra_after_shared_base": 0,
+            "is_base_alternative": true,
+            "operation_total": 406
+          },
+          {
+            "alternative": "drop_C",
+            "incremental_extra_after_shared_base": 223,
+            "is_base_alternative": false,
+            "operation_total": 629
+          }
+        ],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 406,
+        "incremental_extra_total_after_shared_base": 223,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 1035,
+        "naive_total_with_validation_proxy": 1098,
+        "selected_discovery_total": 629,
+        "selector_total": 35,
+        "shared_all_alternative_discovery_total": 629,
+        "shared_savings_vs_naive": 406,
+        "shared_total_with_validation_proxy": 692,
+        "validation_replay_proxy_total": 28
+      },
+      "shared_over_deep_budget": false,
+      "shared_savings_vs_naive": 406,
+      "shared_total_with_validation_proxy": 692,
+      "valid_score_count": 1,
+      "validation_replay_proxy_counts": {
+        "comparison": 4,
+        "scan_event": 24,
+        "total": 28
+      }
+    },
+    "rare_count_1_cap_1_selected_under_budget": {
+      "alternative_count": 2,
+      "budget_ok": true,
+      "deep_soft_budget": 778,
+      "expected_shared_over_deep_budget": false,
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 778,
+        "direct_follows_count": 5,
+        "event_count": 26,
+        "max_trace_length": 4,
+        "trace_count": 7
+      },
+      "max_rare_bodies": 1,
+      "naive_budget_ratio": 1.3920308483290489,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 1083,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 1035,
+        "comparison": 188,
+        "construct": 28,
+        "dict_increment": 39,
+        "relation_classification": 21,
+        "scan_event": 55,
+        "selector_total": 34,
+        "set_insert": 37,
+        "set_lookup": 38,
+        "shared_all_alternative_discovery_total": 629,
+        "shared_base_discovery_total": 406,
+        "shared_incremental_discovery_extra_total": 223,
+        "shared_savings_vs_all_alternatives": 406,
+        "total": 406,
+        "total_with_all_alternatives_and_validation_proxy": 1083,
+        "total_with_selector": 440,
+        "total_with_selector_and_validation_proxy": 454,
+        "total_with_shared_alternatives_and_validation_proxy": 677,
+        "validation_replay_proxy_total": 14
+      },
+      "protocol_pass": true,
+      "rare_count": 1,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": "drop_none",
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 8,
+        "comparison": 21,
+        "construct": 5,
+        "total": 34
+      },
+      "shared_budget_ratio": 0.8701799485861182,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 2,
+        "alternatives": [
+          {
+            "alternative": "drop_none",
+            "incremental_extra_after_shared_base": 0,
+            "is_base_alternative": true,
+            "operation_total": 406
+          },
+          {
+            "alternative": "drop_C",
+            "incremental_extra_after_shared_base": 223,
+            "is_base_alternative": false,
+            "operation_total": 629
+          }
+        ],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 406,
+        "incremental_extra_total_after_shared_base": 223,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 1035,
+        "naive_total_with_validation_proxy": 1083,
+        "selected_discovery_total": 406,
+        "selector_total": 34,
+        "shared_all_alternative_discovery_total": 629,
+        "shared_savings_vs_naive": 406,
+        "shared_total_with_validation_proxy": 677,
+        "validation_replay_proxy_total": 14
+      },
+      "shared_over_deep_budget": false,
+      "shared_savings_vs_naive": 406,
+      "shared_total_with_validation_proxy": 677,
+      "valid_score_count": 1,
+      "validation_replay_proxy_counts": {
+        "comparison": 2,
+        "scan_event": 12,
+        "total": 14
+      }
+    },
+    "rare_count_2_cap_1_refuses_under_budget": {
+      "alternative_count": 0,
+      "budget_ok": true,
+      "deep_soft_budget": 970,
+      "expected_shared_over_deep_budget": false,
+      "expected_status": "too_many_rare_bodies",
+      "final_negative_probe": {
+        "accepted_examples": [
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "E",
+              "A",
+              "E",
+              "A",
+              "D"
+            ]
+          },
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "C",
+              "A",
+              "E",
+              "A",
+              "D"
+            ]
+          }
+        ],
+        "accepted_negative_traces": 2,
+        "negative_rejection_rate": 0.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": false,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "max_rare_bodies": 1,
+      "naive_budget_ratio": 0.5371134020618556,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 521,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 499,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "selector_total": 22,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "shared_all_alternative_discovery_total": 499,
+        "shared_base_discovery_total": 499,
+        "shared_incremental_discovery_extra_total": 0,
+        "shared_savings_vs_all_alternatives": 0,
+        "total": 499,
+        "total_with_all_alternatives_and_validation_proxy": 521,
+        "total_with_selector": 521,
+        "total_with_selector_and_validation_proxy": 521,
+        "total_with_shared_alternatives_and_validation_proxy": 521,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "rare_count": 2,
+      "reason": "rare_body_alternative_budget_exceeded",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "too_many_rare_bodies",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 18,
+        "construct": 2,
+        "total": 22
+      },
+      "shared_budget_ratio": 0.5371134020618556,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 0,
+        "alternatives": [],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 499,
+        "incremental_extra_total_after_shared_base": 0,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 499,
+        "naive_total_with_validation_proxy": 521,
+        "selected_discovery_total": 499,
+        "selector_total": 22,
+        "shared_all_alternative_discovery_total": 499,
+        "shared_savings_vs_naive": 0,
+        "shared_total_with_validation_proxy": 521,
+        "validation_replay_proxy_total": 0
+      },
+      "shared_over_deep_budget": false,
+      "shared_savings_vs_naive": 0,
+      "shared_total_with_validation_proxy": 521,
+      "valid_score_count": 0,
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "rare_count_2_cap_2_selected_over_budget": {
+      "alternative_count": 4,
+      "budget_ok": true,
+      "deep_soft_budget": 970,
+      "expected_shared_over_deep_budget": true,
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "max_rare_bodies": 2,
+      "naive_budget_ratio": 3.0216494845360824,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 2931,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 2818,
+        "comparison": 338,
+        "construct": 60,
+        "dict_increment": 78,
+        "relation_classification": 46,
+        "scan_event": 136,
+        "selector_total": 57,
+        "set_insert": 46,
+        "set_lookup": 88,
+        "shared_all_alternative_discovery_total": 1321,
+        "shared_base_discovery_total": 499,
+        "shared_incremental_discovery_extra_total": 822,
+        "shared_savings_vs_all_alternatives": 1497,
+        "total": 792,
+        "total_with_all_alternatives_and_validation_proxy": 2931,
+        "total_with_selector": 849,
+        "total_with_selector_and_validation_proxy": 905,
+        "total_with_shared_alternatives_and_validation_proxy": 1434,
+        "validation_replay_proxy_total": 56
+      },
+      "protocol_pass": true,
+      "rare_count": 2,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": "drop_E",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 14,
+        "comparison": 33,
+        "construct": 10,
+        "total": 57
+      },
+      "shared_budget_ratio": 1.4783505154639176,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 4,
+        "alternatives": [
+          {
+            "alternative": "drop_none",
+            "incremental_extra_after_shared_base": 0,
+            "is_base_alternative": true,
+            "operation_total": 499
+          },
+          {
+            "alternative": "drop_C",
+            "incremental_extra_after_shared_base": 293,
+            "is_base_alternative": false,
+            "operation_total": 792
+          },
+          {
+            "alternative": "drop_E",
+            "incremental_extra_after_shared_base": 293,
+            "is_base_alternative": false,
+            "operation_total": 792
+          },
+          {
+            "alternative": "drop_C__E",
+            "incremental_extra_after_shared_base": 236,
+            "is_base_alternative": false,
+            "operation_total": 735
+          }
+        ],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 499,
+        "incremental_extra_total_after_shared_base": 822,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 2818,
+        "naive_total_with_validation_proxy": 2931,
+        "selected_discovery_total": 792,
+        "selector_total": 57,
+        "shared_all_alternative_discovery_total": 1321,
+        "shared_savings_vs_naive": 1497,
+        "shared_total_with_validation_proxy": 1434,
+        "validation_replay_proxy_total": 56
+      },
+      "shared_over_deep_budget": true,
+      "shared_savings_vs_naive": 1497,
+      "shared_total_with_validation_proxy": 1434,
+      "valid_score_count": 1,
+      "validation_replay_proxy_counts": {
+        "comparison": 8,
+        "scan_event": 48,
+        "total": 56
+      }
+    },
+    "rare_count_3_cap_2_refuses_under_budget": {
+      "alternative_count": 0,
+      "budget_ok": true,
+      "deep_soft_budget": 1186,
+      "expected_shared_over_deep_budget": false,
+      "expected_status": "too_many_rare_bodies",
+      "final_negative_probe": {
+        "accepted_examples": [
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "E",
+              "A",
+              "E",
+              "A",
+              "D"
+            ]
+          },
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "F",
+              "A",
+              "F",
+              "A",
+              "D"
+            ]
+          },
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "C",
+              "A",
+              "E",
+              "A",
+              "D"
+            ]
+          }
+        ],
+        "accepted_negative_traces": 4,
+        "negative_rejection_rate": 0.0,
+        "negative_trace_count": 4,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": false,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 6,
+        "deep_soft_budget": 1186,
+        "direct_follows_count": 9,
+        "event_count": 34,
+        "max_trace_length": 4,
+        "trace_count": 9
+      },
+      "max_rare_bodies": 2,
+      "naive_budget_ratio": 0.5362563237774031,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 636,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 609,
+        "comparison": 288,
+        "construct": 34,
+        "dict_increment": 51,
+        "relation_classification": 41,
+        "scan_event": 69,
+        "selector_total": 27,
+        "set_insert": 48,
+        "set_lookup": 78,
+        "shared_all_alternative_discovery_total": 609,
+        "shared_base_discovery_total": 609,
+        "shared_incremental_discovery_extra_total": 0,
+        "shared_savings_vs_all_alternatives": 0,
+        "total": 609,
+        "total_with_all_alternatives_and_validation_proxy": 636,
+        "total_with_selector": 636,
+        "total_with_selector_and_validation_proxy": 636,
+        "total_with_shared_alternatives_and_validation_proxy": 636,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "rare_count": 3,
+      "reason": "rare_body_alternative_budget_exceeded",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "too_many_rare_bodies",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 22,
+        "construct": 3,
+        "total": 27
+      },
+      "shared_budget_ratio": 0.5362563237774031,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 0,
+        "alternatives": [],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 609,
+        "incremental_extra_total_after_shared_base": 0,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 609,
+        "naive_total_with_validation_proxy": 636,
+        "selected_discovery_total": 609,
+        "selector_total": 27,
+        "shared_all_alternative_discovery_total": 609,
+        "shared_savings_vs_naive": 0,
+        "shared_total_with_validation_proxy": 636,
+        "validation_replay_proxy_total": 0
+      },
+      "shared_over_deep_budget": false,
+      "shared_savings_vs_naive": 0,
+      "shared_total_with_validation_proxy": 636,
+      "valid_score_count": 0,
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "rare_count_3_cap_3_selected_over_budget": {
+      "alternative_count": 8,
+      "budget_ok": true,
+      "deep_soft_budget": 1186,
+      "expected_shared_over_deep_budget": true,
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 4,
+        "rejected_negative_traces": 4
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 6,
+        "deep_soft_budget": 1186,
+        "direct_follows_count": 9,
+        "event_count": 34,
+        "max_trace_length": 4,
+        "trace_count": 9
+      },
+      "max_rare_bodies": 3,
+      "naive_budget_ratio": 6.264755480607082,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 7430,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 7164,
+        "comparison": 398,
+        "construct": 64,
+        "dict_increment": 84,
+        "relation_classification": 57,
+        "scan_event": 148,
+        "selector_total": 98,
+        "set_insert": 52,
+        "set_lookup": 112,
+        "shared_all_alternative_discovery_total": 2901,
+        "shared_base_discovery_total": 609,
+        "shared_incremental_discovery_extra_total": 2292,
+        "shared_savings_vs_all_alternatives": 4263,
+        "total": 915,
+        "total_with_all_alternatives_and_validation_proxy": 7430,
+        "total_with_selector": 1013,
+        "total_with_selector_and_validation_proxy": 1181,
+        "total_with_shared_alternatives_and_validation_proxy": 3167,
+        "validation_replay_proxy_total": 168
+      },
+      "protocol_pass": true,
+      "rare_count": 3,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": "drop_E__F",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ],
+        [
+          "F"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 26,
+        "comparison": 53,
+        "construct": 19,
+        "total": 98
+      },
+      "shared_budget_ratio": 2.6703204047217537,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 8,
+        "alternatives": [
+          {
+            "alternative": "drop_none",
+            "incremental_extra_after_shared_base": 0,
+            "is_base_alternative": true,
+            "operation_total": 609
+          },
+          {
+            "alternative": "drop_C",
+            "incremental_extra_after_shared_base": 375,
+            "is_base_alternative": false,
+            "operation_total": 984
+          },
+          {
+            "alternative": "drop_E",
+            "incremental_extra_after_shared_base": 375,
+            "is_base_alternative": false,
+            "operation_total": 984
+          },
+          {
+            "alternative": "drop_F",
+            "incremental_extra_after_shared_base": 375,
+            "is_base_alternative": false,
+            "operation_total": 984
+          },
+          {
+            "alternative": "drop_C__E",
+            "incremental_extra_after_shared_base": 306,
+            "is_base_alternative": false,
+            "operation_total": 915
+          },
+          {
+            "alternative": "drop_C__F",
+            "incremental_extra_after_shared_base": 306,
+            "is_base_alternative": false,
+            "operation_total": 915
+          },
+          {
+            "alternative": "drop_E__F",
+            "incremental_extra_after_shared_base": 306,
+            "is_base_alternative": false,
+            "operation_total": 915
+          },
+          {
+            "alternative": "drop_C__E__F",
+            "incremental_extra_after_shared_base": 249,
+            "is_base_alternative": false,
+            "operation_total": 858
+          }
+        ],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 609,
+        "incremental_extra_total_after_shared_base": 2292,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 7164,
+        "naive_total_with_validation_proxy": 7430,
+        "selected_discovery_total": 915,
+        "selector_total": 98,
+        "shared_all_alternative_discovery_total": 2901,
+        "shared_savings_vs_naive": 4263,
+        "shared_total_with_validation_proxy": 3167,
+        "validation_replay_proxy_total": 168
+      },
+      "shared_over_deep_budget": true,
+      "shared_savings_vs_naive": 4263,
+      "shared_total_with_validation_proxy": 3167,
+      "valid_score_count": 1,
+      "validation_replay_proxy_counts": {
+        "comparison": 24,
+        "scan_event": 144,
+        "total": 168
+      }
+    },
+    "rare_count_4_cap_3_refuses_under_budget": {
+      "alternative_count": 0,
+      "budget_ok": true,
+      "deep_soft_budget": 1426,
+      "expected_shared_over_deep_budget": false,
+      "expected_status": "too_many_rare_bodies",
+      "final_negative_probe": {
+        "accepted_examples": [
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "E",
+              "A",
+              "E",
+              "A",
+              "D"
+            ]
+          },
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "F",
+              "A",
+              "F",
+              "A",
+              "D"
+            ]
+          },
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "G",
+              "A",
+              "G",
+              "A",
+              "D"
+            ]
+          }
+        ],
+        "accepted_negative_traces": 6,
+        "negative_rejection_rate": 0.0,
+        "negative_trace_count": 6,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": false,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 7,
+        "deep_soft_budget": 1426,
+        "direct_follows_count": 11,
+        "event_count": 38,
+        "max_trace_length": 4,
+        "trace_count": 10
+      },
+      "max_rare_bodies": 3,
+      "naive_budget_ratio": 0.5350631136044881,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 763,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 731,
+        "comparison": 347,
+        "construct": 37,
+        "dict_increment": 57,
+        "relation_classification": 54,
+        "scan_event": 77,
+        "selector_total": 32,
+        "set_insert": 54,
+        "set_lookup": 105,
+        "shared_all_alternative_discovery_total": 731,
+        "shared_base_discovery_total": 731,
+        "shared_incremental_discovery_extra_total": 0,
+        "shared_savings_vs_all_alternatives": 0,
+        "total": 731,
+        "total_with_all_alternatives_and_validation_proxy": 763,
+        "total_with_selector": 763,
+        "total_with_selector_and_validation_proxy": 763,
+        "total_with_shared_alternatives_and_validation_proxy": 763,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "rare_count": 4,
+      "reason": "rare_body_alternative_budget_exceeded",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "too_many_rare_bodies",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 26,
+        "construct": 4,
+        "total": 32
+      },
+      "shared_budget_ratio": 0.5350631136044881,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 0,
+        "alternatives": [],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 731,
+        "incremental_extra_total_after_shared_base": 0,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 731,
+        "naive_total_with_validation_proxy": 763,
+        "selected_discovery_total": 731,
+        "selector_total": 32,
+        "shared_all_alternative_discovery_total": 731,
+        "shared_savings_vs_naive": 0,
+        "shared_total_with_validation_proxy": 763,
+        "validation_replay_proxy_total": 0
+      },
+      "shared_over_deep_budget": false,
+      "shared_savings_vs_naive": 0,
+      "shared_total_with_validation_proxy": 763,
+      "valid_score_count": 0,
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "rare_count_4_cap_4_selected_over_budget": {
+      "alternative_count": 16,
+      "budget_ok": true,
+      "deep_soft_budget": 1426,
+      "expected_shared_over_deep_budget": true,
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 6,
+        "rejected_negative_traces": 6
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 7,
+        "deep_soft_budget": 1426,
+        "direct_follows_count": 11,
+        "event_count": 38,
+        "max_trace_length": 4,
+        "trace_count": 10
+      },
+      "max_rare_bodies": 4,
+      "naive_budget_ratio": 12.665497896213184,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 18061,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 17438,
+        "comparison": 464,
+        "construct": 68,
+        "dict_increment": 90,
+        "relation_classification": 70,
+        "scan_event": 160,
+        "selector_total": 175,
+        "set_insert": 58,
+        "set_lookup": 140,
+        "shared_all_alternative_discovery_total": 6473,
+        "shared_base_discovery_total": 731,
+        "shared_incremental_discovery_extra_total": 5742,
+        "shared_savings_vs_all_alternatives": 10965,
+        "total": 1050,
+        "total_with_all_alternatives_and_validation_proxy": 18061,
+        "total_with_selector": 1225,
+        "total_with_selector_and_validation_proxy": 1673,
+        "total_with_shared_alternatives_and_validation_proxy": 7096,
+        "validation_replay_proxy_total": 448
+      },
+      "protocol_pass": true,
+      "rare_count": 4,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": "drop_E__F__G",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ],
+        [
+          "F"
+        ],
+        [
+          "G"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 50,
+        "comparison": 89,
+        "construct": 36,
+        "total": 175
+      },
+      "shared_budget_ratio": 4.976157082748948,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 16,
+        "alternatives": [
+          {
+            "alternative": "drop_none",
+            "incremental_extra_after_shared_base": 0,
+            "is_base_alternative": true,
+            "operation_total": 731
+          },
+          {
+            "alternative": "drop_C",
+            "incremental_extra_after_shared_base": 469,
+            "is_base_alternative": false,
+            "operation_total": 1200
+          },
+          {
+            "alternative": "drop_E",
+            "incremental_extra_after_shared_base": 469,
+            "is_base_alternative": false,
+            "operation_total": 1200
+          },
+          {
+            "alternative": "drop_F",
+            "incremental_extra_after_shared_base": 469,
+            "is_base_alternative": false,
+            "operation_total": 1200
+          },
+          {
+            "alternative": "drop_G",
+            "incremental_extra_after_shared_base": 469,
+            "is_base_alternative": false,
+            "operation_total": 1200
+          },
+          {
+            "alternative": "drop_C__E",
+            "incremental_extra_after_shared_base": 388,
+            "is_base_alternative": false,
+            "operation_total": 1119
+          },
+          {
+            "alternative": "drop_C__F",
+            "incremental_extra_after_shared_base": 388,
+            "is_base_alternative": false,
+            "operation_total": 1119
+          },
+          {
+            "alternative": "drop_C__G",
+            "incremental_extra_after_shared_base": 388,
+            "is_base_alternative": false,
+            "operation_total": 1119
+          },
+          {
+            "alternative": "drop_E__F",
+            "incremental_extra_after_shared_base": 388,
+            "is_base_alternative": false,
+            "operation_total": 1119
+          },
+          {
+            "alternative": "drop_E__G",
+            "incremental_extra_after_shared_base": 388,
+            "is_base_alternative": false,
+            "operation_total": 1119
+          },
+          {
+            "alternative": "drop_F__G",
+            "incremental_extra_after_shared_base": 388,
+            "is_base_alternative": false,
+            "operation_total": 1119
+          },
+          {
+            "alternative": "drop_C__E__F",
+            "incremental_extra_after_shared_base": 319,
+            "is_base_alternative": false,
+            "operation_total": 1050
+          },
+          {
+            "alternative": "drop_C__E__G",
+            "incremental_extra_after_shared_base": 319,
+            "is_base_alternative": false,
+            "operation_total": 1050
+          },
+          {
+            "alternative": "drop_C__F__G",
+            "incremental_extra_after_shared_base": 319,
+            "is_base_alternative": false,
+            "operation_total": 1050
+          },
+          {
+            "alternative": "drop_E__F__G",
+            "incremental_extra_after_shared_base": 319,
+            "is_base_alternative": false,
+            "operation_total": 1050
+          },
+          {
+            "alternative": "drop_C__E__F__G",
+            "incremental_extra_after_shared_base": 262,
+            "is_base_alternative": false,
+            "operation_total": 993
+          }
+        ],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 731,
+        "incremental_extra_total_after_shared_base": 5742,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 17438,
+        "naive_total_with_validation_proxy": 18061,
+        "selected_discovery_total": 1050,
+        "selector_total": 175,
+        "shared_all_alternative_discovery_total": 6473,
+        "shared_savings_vs_naive": 10965,
+        "shared_total_with_validation_proxy": 7096,
+        "validation_replay_proxy_total": 448
+      },
+      "shared_over_deep_budget": true,
+      "shared_savings_vs_naive": 10965,
+      "shared_total_with_validation_proxy": 7096,
+      "valid_score_count": 1,
+      "validation_replay_proxy_counts": {
+        "comparison": 64,
+        "scan_event": 384,
+        "total": 448
+      }
+    },
+    "rare_count_5_cap_4_refuses_under_budget": {
+      "alternative_count": 0,
+      "budget_ok": true,
+      "deep_soft_budget": 1690,
+      "expected_shared_over_deep_budget": false,
+      "expected_status": "too_many_rare_bodies",
+      "final_negative_probe": {
+        "accepted_examples": [
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "E",
+              "A",
+              "E",
+              "A",
+              "D"
+            ]
+          },
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "F",
+              "A",
+              "F",
+              "A",
+              "D"
+            ]
+          },
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "G",
+              "A",
+              "G",
+              "A",
+              "D"
+            ]
+          }
+        ],
+        "accepted_negative_traces": 8,
+        "negative_rejection_rate": 0.0,
+        "negative_trace_count": 8,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": false,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 8,
+        "deep_soft_budget": 1690,
+        "direct_follows_count": 13,
+        "event_count": 42,
+        "max_trace_length": 4,
+        "trace_count": 11
+      },
+      "max_rare_bodies": 4,
+      "naive_budget_ratio": 0.5337278106508876,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 902,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 865,
+        "comparison": 412,
+        "construct": 40,
+        "dict_increment": 63,
+        "relation_classification": 69,
+        "scan_event": 85,
+        "selector_total": 37,
+        "set_insert": 60,
+        "set_lookup": 136,
+        "shared_all_alternative_discovery_total": 865,
+        "shared_base_discovery_total": 865,
+        "shared_incremental_discovery_extra_total": 0,
+        "shared_savings_vs_all_alternatives": 0,
+        "total": 865,
+        "total_with_all_alternatives_and_validation_proxy": 902,
+        "total_with_selector": 902,
+        "total_with_selector_and_validation_proxy": 902,
+        "total_with_shared_alternatives_and_validation_proxy": 902,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "rare_count": 5,
+      "reason": "rare_body_alternative_budget_exceeded",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "too_many_rare_bodies",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 30,
+        "construct": 5,
+        "total": 37
+      },
+      "shared_budget_ratio": 0.5337278106508876,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 0,
+        "alternatives": [],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 865,
+        "incremental_extra_total_after_shared_base": 0,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 865,
+        "naive_total_with_validation_proxy": 902,
+        "selected_discovery_total": 865,
+        "selector_total": 37,
+        "shared_all_alternative_discovery_total": 865,
+        "shared_savings_vs_naive": 0,
+        "shared_total_with_validation_proxy": 902,
+        "validation_replay_proxy_total": 0
+      },
+      "shared_over_deep_budget": false,
+      "shared_savings_vs_naive": 0,
+      "shared_total_with_validation_proxy": 902,
+      "valid_score_count": 0,
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "rare_count_5_cap_5_selected_over_budget_reference": {
+      "alternative_count": 32,
+      "budget_ok": true,
+      "deep_soft_budget": 1690,
+      "expected_shared_over_deep_budget": true,
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 8,
+        "rejected_negative_traces": 8
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 8,
+        "deep_soft_budget": 1690,
+        "direct_follows_count": 13,
+        "event_count": 42,
+        "max_trace_length": 4,
+        "trace_count": 11
+      },
+      "max_rare_bodies": 5,
+      "naive_budget_ratio": 25.30414201183432,
+      "naive_identity_ok": true,
+      "naive_total_with_validation_proxy": 42764,
+      "no_enumeration_ok": true,
+      "operation_counts": {
+        "all_alternative_discovery_total": 41320,
+        "comparison": 536,
+        "construct": 72,
+        "dict_increment": 96,
+        "relation_classification": 85,
+        "scan_event": 172,
+        "selector_total": 324,
+        "set_insert": 64,
+        "set_lookup": 172,
+        "shared_all_alternative_discovery_total": 14505,
+        "shared_base_discovery_total": 865,
+        "shared_incremental_discovery_extra_total": 13640,
+        "shared_savings_vs_all_alternatives": 26815,
+        "total": 1197,
+        "total_with_all_alternatives_and_validation_proxy": 42764,
+        "total_with_selector": 1521,
+        "total_with_selector_and_validation_proxy": 2641,
+        "total_with_shared_alternatives_and_validation_proxy": 15949,
+        "validation_replay_proxy_total": 1120
+      },
+      "protocol_pass": true,
+      "rare_count": 5,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "savings_identity_ok": true,
+      "score_ok": true,
+      "selected_alternative": "drop_E__F__G__H",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ],
+        [
+          "F"
+        ],
+        [
+          "G"
+        ],
+        [
+          "H"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 98,
+        "comparison": 157,
+        "construct": 69,
+        "total": 324
+      },
+      "shared_budget_ratio": 9.437278106508876,
+      "shared_identity_ok": true,
+      "shared_not_above_naive": true,
+      "shared_operation_accounting": {
+        "alternative_count": 32,
+        "alternatives": [
+          {
+            "alternative": "drop_none",
+            "incremental_extra_after_shared_base": 0,
+            "is_base_alternative": true,
+            "operation_total": 865
+          },
+          {
+            "alternative": "drop_C",
+            "incremental_extra_after_shared_base": 575,
+            "is_base_alternative": false,
+            "operation_total": 1440
+          },
+          {
+            "alternative": "drop_E",
+            "incremental_extra_after_shared_base": 575,
+            "is_base_alternative": false,
+            "operation_total": 1440
+          },
+          {
+            "alternative": "drop_F",
+            "incremental_extra_after_shared_base": 575,
+            "is_base_alternative": false,
+            "operation_total": 1440
+          },
+          {
+            "alternative": "drop_G",
+            "incremental_extra_after_shared_base": 575,
+            "is_base_alternative": false,
+            "operation_total": 1440
+          },
+          {
+            "alternative": "drop_H",
+            "incremental_extra_after_shared_base": 575,
+            "is_base_alternative": false,
+            "operation_total": 1440
+          },
+          {
+            "alternative": "drop_C__E",
+            "incremental_extra_after_shared_base": 482,
+            "is_base_alternative": false,
+            "operation_total": 1347
+          },
+          {
+            "alternative": "drop_C__F",
+            "incremental_extra_after_shared_base": 482,
+            "is_base_alternative": false,
+            "operation_total": 1347
+          },
+          {
+            "alternative": "drop_C__G",
+            "incremental_extra_after_shared_base": 482,
+            "is_base_alternative": false,
+            "operation_total": 1347
+          },
+          {
+            "alternative": "drop_C__H",
+            "incremental_extra_after_shared_base": 482,
+            "is_base_alternative": false,
+            "operation_total": 1347
+          },
+          {
+            "alternative": "drop_E__F",
+            "incremental_extra_after_shared_base": 482,
+            "is_base_alternative": false,
+            "operation_total": 1347
+          },
+          {
+            "alternative": "drop_E__G",
+            "incremental_extra_after_shared_base": 482,
+            "is_base_alternative": false,
+            "operation_total": 1347
+          },
+          {
+            "alternative": "drop_E__H",
+            "incremental_extra_after_shared_base": 482,
+            "is_base_alternative": false,
+            "operation_total": 1347
+          },
+          {
+            "alternative": "drop_F__G",
+            "incremental_extra_after_shared_base": 482,
+            "is_base_alternative": false,
+            "operation_total": 1347
+          },
+          {
+            "alternative": "drop_F__H",
+            "incremental_extra_after_shared_base": 482,
+            "is_base_alternative": false,
+            "operation_total": 1347
+          },
+          {
+            "alternative": "drop_G__H",
+            "incremental_extra_after_shared_base": 482,
+            "is_base_alternative": false,
+            "operation_total": 1347
+          },
+          {
+            "alternative": "drop_C__E__F",
+            "incremental_extra_after_shared_base": 401,
+            "is_base_alternative": false,
+            "operation_total": 1266
+          },
+          {
+            "alternative": "drop_C__E__G",
+            "incremental_extra_after_shared_base": 401,
+            "is_base_alternative": false,
+            "operation_total": 1266
+          },
+          {
+            "alternative": "drop_C__E__H",
+            "incremental_extra_after_shared_base": 401,
+            "is_base_alternative": false,
+            "operation_total": 1266
+          },
+          {
+            "alternative": "drop_C__F__G",
+            "incremental_extra_after_shared_base": 401,
+            "is_base_alternative": false,
+            "operation_total": 1266
+          },
+          {
+            "alternative": "drop_C__F__H",
+            "incremental_extra_after_shared_base": 401,
+            "is_base_alternative": false,
+            "operation_total": 1266
+          },
+          {
+            "alternative": "drop_C__G__H",
+            "incremental_extra_after_shared_base": 401,
+            "is_base_alternative": false,
+            "operation_total": 1266
+          },
+          {
+            "alternative": "drop_E__F__G",
+            "incremental_extra_after_shared_base": 401,
+            "is_base_alternative": false,
+            "operation_total": 1266
+          },
+          {
+            "alternative": "drop_E__F__H",
+            "incremental_extra_after_shared_base": 401,
+            "is_base_alternative": false,
+            "operation_total": 1266
+          },
+          {
+            "alternative": "drop_E__G__H",
+            "incremental_extra_after_shared_base": 401,
+            "is_base_alternative": false,
+            "operation_total": 1266
+          },
+          {
+            "alternative": "drop_F__G__H",
+            "incremental_extra_after_shared_base": 401,
+            "is_base_alternative": false,
+            "operation_total": 1266
+          },
+          {
+            "alternative": "drop_C__E__F__G",
+            "incremental_extra_after_shared_base": 332,
+            "is_base_alternative": false,
+            "operation_total": 1197
+          },
+          {
+            "alternative": "drop_C__E__F__H",
+            "incremental_extra_after_shared_base": 332,
+            "is_base_alternative": false,
+            "operation_total": 1197
+          },
+          {
+            "alternative": "drop_C__E__G__H",
+            "incremental_extra_after_shared_base": 332,
+            "is_base_alternative": false,
+            "operation_total": 1197
+          },
+          {
+            "alternative": "drop_C__F__G__H",
+            "incremental_extra_after_shared_base": 332,
+            "is_base_alternative": false,
+            "operation_total": 1197
+          },
+          {
+            "alternative": "drop_E__F__G__H",
+            "incremental_extra_after_shared_base": 332,
+            "is_base_alternative": false,
+            "operation_total": 1197
+          },
+          {
+            "alternative": "drop_C__E__F__G__H",
+            "incremental_extra_after_shared_base": 275,
+            "is_base_alternative": false,
+            "operation_total": 1140
+          }
+        ],
+        "base_alternative": "drop_none",
+        "base_discovery_total": 865,
+        "incremental_extra_total_after_shared_base": 13640,
+        "method": "single_shared_base_plus_incremental_alternative_extras",
+        "naive_all_alternative_discovery_total": 41320,
+        "naive_total_with_validation_proxy": 42764,
+        "selected_discovery_total": 1197,
+        "selector_total": 324,
+        "shared_all_alternative_discovery_total": 14505,
+        "shared_savings_vs_naive": 26815,
+        "shared_total_with_validation_proxy": 15949,
+        "validation_replay_proxy_total": 1120
+      },
+      "shared_over_deep_budget": true,
+      "shared_savings_vs_naive": 26815,
+      "shared_total_with_validation_proxy": 15949,
+      "valid_score_count": 1,
+      "validation_replay_proxy_counts": {
+        "comparison": 160,
+        "scan_event": 960,
+        "total": 1120
+      }
+    }
+  },
+  "summary": {
+    "case_count": 11,
+    "failed": [],
+    "first_selected_over_deep_budget": "rare_count_2_cap_2_selected_over_budget",
+    "max_alternative_count": 32,
+    "max_naive_case": "rare_count_5_cap_5_selected_over_budget_reference",
+    "max_naive_total": 42764,
+    "max_shared_case": "rare_count_5_cap_5_selected_over_budget_reference",
+    "max_shared_total": 15949,
+    "passed": 11,
+    "refused_cases": [
+      "rare_count_2_cap_1_refuses_under_budget",
+      "rare_count_4_cap_3_refuses_under_budget",
+      "rare_count_3_cap_2_refuses_under_budget",
+      "rare_count_5_cap_4_refuses_under_budget"
+    ],
+    "selected_cases": [
+      "rare_count_1_cap_1_selected_under_budget",
+      "rare_count_1_cap_1_drop_nonbase_under_budget",
+      "rare_count_2_cap_2_selected_over_budget",
+      "rare_count_3_cap_3_selected_over_budget",
+      "rare_count_4_cap_4_selected_over_budget",
+      "rare_count_5_cap_5_selected_over_budget_reference"
+    ],
+    "selected_over_deep_budget": [
+      "rare_count_2_cap_2_selected_over_budget",
+      "rare_count_3_cap_3_selected_over_budget",
+      "rare_count_4_cap_4_selected_over_budget",
+      "rare_count_5_cap_5_selected_over_budget_reference"
+    ]
+  }
+}

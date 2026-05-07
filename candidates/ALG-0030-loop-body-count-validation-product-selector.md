@@ -28,6 +28,7 @@ Loop-body inclusion and loop-count semantics should be selected as separate vali
   - body-selector and count-selector statuses;
   - count validation scores;
   - selector and validation replay proxy counts.
+  - selector-integrated shared operation-accounting totals.
 
 ## Intermediate representation
 
@@ -46,7 +47,7 @@ Uses the first-goal primitive operations:
 - selector scoring uses comparisons, arithmetic, and construction operations;
 - at-most-once compilation reuses the `ALG-0026` construction pattern.
 
-The first prototype reports a naive product total: body alternative discovery and validation costs from `ALG-0029`, plus count-policy compile extra, count-selector costs, and count-validation replay proxy counts.
+The prototype retains its naive product total and, since EXP-0038, also reports selector-integrated shared product totals: the shared body-axis total from `ALG-0029`, selected or all count-policy compile extras, count-selector costs, and count-validation replay proxy counts.
 
 ## Algorithm sketch
 
@@ -74,6 +75,19 @@ Joint selector controls:
 - `body_selected_count_unresolved`;
 - `count_selected_body_unresolved`.
 
+## Stress tests
+
+Command: `python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json`
+
+EXP-0034 adds 20 product-stress controls:
+
+- 4 length-2 body product quadrants;
+- 8 mixed-width product quadrants across singleton-dominant and length-2-dominant directions;
+- 4 blocked-scope controls for duplicate suffix labels, overlapping body labels, length greater than two, and one-iteration-only evidence;
+- 4 rare-count-two controls, including configured count-two filtering and mixed valid/noisy rare bodies.
+
+All 20 cases pass. The result strengthens the stress evidence for `ALG-0030` but does not promote it because the protocol remains validation-scoped and blocked-scope cases still depend on upstream rejection.
+
 ## Baselines for comparison
 
 - `ALG-0027` loop-count validation selector.
@@ -89,6 +103,7 @@ Joint selector controls:
 - Final positive replay and final negative rejection.
 - Per-axis selector operation counts.
 - Per-axis validation replay proxy counts.
+- Naive and selector-integrated shared product operation totals.
 
 ## Known failure modes
 
@@ -96,7 +111,8 @@ Joint selector controls:
 - If body selection is unresolved, count selection is not used to infer body inclusion.
 - If count selection is unresolved, body selection is not treated as a complete product model.
 - It inherits the upstream loop detector's length, duplicate-label, and one-iteration-only limits.
-- The operation count is naive and does not yet share all reusable discovery work.
+- Shared operation totals are integrated into selector output, but they are still derived from total fields rather than primitive-level shared instrumentation.
+- Rare-count-two support policies require separate ablation tracking (`ALG-0031`) and can still fail mixed valid/noisy rare-body cases.
 
 ## Promotion criteria
 
@@ -106,11 +122,13 @@ Do not promote beyond `smoke-tested` until:
 - one-axis-identifiable controls remain unresolved on the other axis;
 - validation/final leakage is checked explicitly;
 - count-policy compilation from guarded body results is stress-tested on body widths beyond the current controls;
-- operation accounting is refined to avoid double-counting shared body/count discovery.
+- operation accounting has a primitive-level shared breakdown.
 
 ## Experiment links
 
 - EXP-0033: first split validation/final tests for `ALG-0029` and composition smoke tests for `ALG-0030`.
+- EXP-0034: widened product stress tests for length-2, mixed-width, blocked-scope, and rare-count-two policy cases.
+- EXP-0038: selector-integrated shared product operation totals and report cross-checks.
 
 ## Property-study notes
 
@@ -119,3 +137,5 @@ No property dossier. The candidate is not `super-promising`.
 ## Decision history
 
 - EXP-0033: added as a smoke-tested product selector after all four joint product quadrants and two unresolved-axis controls passed targeted tests. Not promoted because the protocol is still synthetic and the product operation count is a naive upper bound.
+- EXP-0034: kept at `smoke-tested` after 20/20 stress cases passed. Width robustness improved, but duplicate-label, length >2, one-iteration-only, mixed rare-body filtering, and shared-cost accounting still block promotion.
+- EXP-0038: integrated conservative shared product totals into selector outputs and verified the report derivation. Kept at `smoke-tested` because primitive-level accounting, validation-scope limits, and upstream blocked scopes remain open.

@@ -6,7 +6,7 @@
 
 ## Current status
 
-Thirty-first research iteration complete. `ALG-0029` remains `smoke-tested` after split validation/final tests passed but exposed unresolved mixed rare-body and rare-count-two limits. `ALG-0030` has been added as a `smoke-tested` body-count product selector over body inclusion and loop-count policy axes. `ALG-0003`, `ALG-0009`, `ALG-0011`, and `ALG-0015` remain in `deep-testing`; `ALG-0027` remains `promising`; no candidate is `super-promising`. The current evidence supports explicit validation-scoped selection, not training-log-only identification of rare-body noise or bounded loop-count semantics.
+Thirty-eighth research iteration complete. `ALG-0033` is now a smoke-tested lower-cost direct-signal selector for per-body rare loop inclusion. It avoids `ALG-0032`'s exhaustive `2^R` assignment enumeration by parsing validation traces once, assigning positive rare-body keep signals, unit-propagating negative rare-body clauses, compiling at most one guarded net, and replaying validation only for that selected net. `scripts/alg0033_direct_signal_tests.py` passes 16/16 cases: core one-rare and two-rare mixed cases, count-two rare bodies, unit propagation, R=3/R=5 direct-signal scale cases, partial-signal unresolved, body-signal conflict, non-unit interaction ambiguity, cap overflow, weak dominance, validation overlap, and training-negative conflict. Matched two-rare/count-two cases stay under `B_deep` and below `ALG-0032` shared totals, and the R=5 direct-signal reference totals 1442/1690 operations. `ALG-0033` remains `smoke-tested`, not `promising`, because evidence is synthetic/validation-scoped and deliberately incomplete for non-unit interaction clauses. `ALG-0032`, `ALG-0029`, and `ALG-0030` remain `smoke-tested`; `ALG-0003`, `ALG-0009`, `ALG-0011`, and `ALG-0015` remain in `deep-testing`; `ALG-0027` remains `promising`; no candidate is `super-promising`.
 
 ## Last completed actions
 
@@ -197,6 +197,52 @@ Thirty-first research iteration complete. `ALG-0029` remains `smoke-tested` afte
 - Ran `python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json`; 10/10 body protocol cases and 6/6 composition cases passed after correcting deliberate leakage controls.
 - Reran `python3 -B -m compileall scripts`, `python3 scripts/alg0028_threshold_ablation_tests.py --out experiments/alg0028-threshold-ablation-tests.json`, `python3 scripts/alg0027_validation_protocol_tests.py --out experiments/alg0027-validation-protocol-tests.json`, `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`, `python3 scripts/alg0028_body_support_tests.py --out experiments/alg0028-body-support-tests.json`, `python3 -B -m unittest`, and `git diff --check`.
 - Added `ALG-0030` as `smoke-tested`; kept `ALG-0029` at `smoke-tested`; no candidate is `super-promising`.
+- Spawned an evaluator/counterexample scout for `ALG-0030` product stress and rare-count-two policy alternatives; merged its recommendations into EXP-0034.
+- Added `scripts/alg0030_product_stress_tests.py` with 20 product-stress cases.
+- Added `candidates/ALG-0031-rare-count-two-body-support-guard-ablation.md`.
+- Ran `python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json`; 20/20 cases passed.
+- Reran `python3 -B -m compileall scripts`, `python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json`, `python3 scripts/alg0028_threshold_ablation_tests.py --out experiments/alg0028-threshold-ablation-tests.json`, `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`, `python3 scripts/alg0027_validation_protocol_tests.py --out experiments/alg0027-validation-protocol-tests.json`, `python3 -B -m unittest`, and `git diff --check`.
+- Added `ALG-0031` as `smoke-tested`; kept `ALG-0030` at `smoke-tested`; no candidate is `super-promising`.
+- Spawned an evaluator/counterexample scout for `ALG-0032` per-body inclusion design and merged its smoke/counterexample recommendations into EXP-0035.
+- Added `scripts/per_body_inclusion_validation_selector.py` for `ALG-0032`.
+- Added `scripts/alg0032_per_body_inclusion_tests.py` with 11 targeted per-body inclusion, ambiguity, conflict, dominance, and cap controls.
+- Added `candidates/ALG-0032-per-body-rare-inclusion-validation-selector.md`.
+- Ran `python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json`; after correcting an overly strict initial 5/6 dominance default to 5/7, the final suite passed 11/11.
+- Reran `python3 -B -m compileall scripts`, `python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json`, `python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json`, and `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`.
+- Ran final `python3 -B -m unittest`, `git diff --check`, and `git status --short --untracked-files=all`.
+- Added `ALG-0032` as `smoke-tested`; kept `ALG-0029`, `ALG-0030`, and `ALG-0031` at `smoke-tested`; no candidate is `super-promising`.
+- Spawned an evaluator/counterexample scout for `ALG-0032` split validation/final protocol design and merged its recommendations into EXP-0036.
+- Added `scripts/alg0032_validation_protocol_tests.py` with 13 split validation/final, width, leakage, cap, baseline-comparison, and blocked-scope controls.
+- Ran `python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json`; 13/13 cases passed.
+- Reran `python3 -B -m compileall scripts`, `python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json`, `python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json`, `python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json`, and `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`.
+- Ran final `python3 -B -m unittest`, `git diff --check`, and `git status --short --untracked-files=all`.
+- Kept `ALG-0032`, `ALG-0029`, `ALG-0030`, and `ALG-0031` at `smoke-tested`; no candidate is `super-promising`.
+- Spawned an implementation scout for shared selector accounting and merged its decomposition recommendations into EXP-0037.
+- Added `scripts/selector_shared_cost_report.py`.
+- Ran `python3 scripts/selector_shared_cost_report.py --out experiments/selector-shared-cost-report.json`; `ALG-0029` max current/shared totals were 1503/934, `ALG-0030` 962/638, and `ALG-0032` 7430/3167.
+- Reran `python3 -B -m compileall scripts`, `python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json`, `python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json`, `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`, `python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json`, and `python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json`.
+- Ran final `python3 -B -m unittest`, `git diff --check`, and `git status --short --untracked-files=all`.
+- Kept `ALG-0029`, `ALG-0030`, and `ALG-0032` at `smoke-tested`; no candidate is `super-promising`.
+- Added `scripts/selector_shared_accounting.py`.
+- Integrated shared operation-accounting fields into `scripts/body_inclusion_validation_selector.py`, `scripts/per_body_inclusion_validation_selector.py`, and `scripts/body_count_validation_product_selector.py`.
+- Updated `scripts/selector_shared_cost_report.py` to cross-check selector-integrated shared totals against the EXP-0037 derivation.
+- Ran `python3 scripts/selector_shared_cost_report.py --out experiments/selector-shared-cost-report.json`; the cross-check reported `mismatches []`.
+- Reran `python3 -B -m compileall scripts`, `python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json`, `python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json`, `python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json`, `python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json`, and `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`.
+- Ran final `python3 -B -m unittest`, `git diff --check`, and `git status --short --untracked-files=all`.
+- Kept `ALG-0029`, `ALG-0030`, and `ALG-0032` at `smoke-tested`; no candidate is `super-promising`.
+- Spawned an evaluator/counterexample scout for `ALG-0032` cap-stress design and merged its recommendations into EXP-0039.
+- Added `scripts/alg0032_cap_stress_tests.py`.
+- Ran `python3 scripts/alg0032_cap_stress_tests.py --out experiments/alg0032-cap-stress-tests.json`; 11/11 cases passed, selected cases exceeded the deep soft budget from two rare bodies onward, and cap-plus-one refusals stayed under budget.
+- Reran `python3 -B -m compileall scripts`, `python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json`, `python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json`, `python3 scripts/selector_shared_cost_report.py --out experiments/selector-shared-cost-report.json`, `python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json`, `python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json`, and `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`.
+- Kept `ALG-0032`, `ALG-0029`, and `ALG-0030` at `smoke-tested`; no candidate is `super-promising`.
+- Spawned an evaluator/counterexample scout for `ALG-0033` direct-signal selector design and merged its unit-propagation, non-unit ambiguity, and operation-budget recommendations into EXP-0040.
+- Added `scripts/per_body_direct_signal_selector.py` for `ALG-0033`.
+- Added `scripts/alg0033_direct_signal_tests.py` with 16 direct-signal smoke, counterexample, and scale controls.
+- Added `candidates/ALG-0033-per-body-direct-signal-validation-selector.md`.
+- Ran `python3 scripts/alg0033_direct_signal_tests.py --out experiments/alg0033-direct-signal-tests.json`; 16/16 cases passed, 9 cases selected, no selected case exceeded `B_deep`, and matched two-rare/count-two cases were lower cost than `ALG-0032` shared totals.
+- Reran `python3 -B -m compileall scripts`, `python3 scripts/alg0032_cap_stress_tests.py --out experiments/alg0032-cap-stress-tests.json`, `python3 scripts/alg0032_validation_protocol_tests.py --out experiments/alg0032-validation-protocol-tests.json`, `python3 scripts/alg0032_per_body_inclusion_tests.py --out experiments/alg0032-per-body-inclusion-tests.json`, `python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json`, `python3 scripts/alg0030_product_stress_tests.py --out experiments/alg0030-product-stress-tests.json`, `python3 scripts/selector_shared_cost_report.py --out experiments/selector-shared-cost-report.json`, and `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`.
+- Ran final `python3 -B -m unittest` (no tests found, exit code 5) and `git diff --check` (success with pre-existing CRLF warnings).
+- Added `ALG-0033` as `smoke-tested`; kept `ALG-0032`, `ALG-0029`, and `ALG-0030` at `smoke-tested`; no candidate is `super-promising`.
 
 ## Latest smoke / stress result
 
@@ -282,16 +328,28 @@ Semantic and structural interpretation:
 - EXP-0032 shows `ALG-0029` can select `keep_all_bodies` when validation positives require the rare body, select `support_guard` when validation negatives reject rare-body combinations, and return unresolved/conflict statuses for no-signal, training-conflict, and inconsistent-validation cases.
 - EXP-0033 shows `ALG-0029` split validation/final protocol passes 10/10 cases, including keep/filter selection, no-signal unresolved, leakage detection, 5:1 support-ratio keep, length-2 rare-body filtering, mixed rare-body unresolved, and rare-count-two unresolved controls.
 - EXP-0033 adds `ALG-0030`: all four body-inclusion x count-policy product quadrants pass, and one-axis-unresolved controls stay unresolved.
-- `ALG-0003`, `ALG-0009`, `ALG-0011`, and `ALG-0015` are `deep-testing`. `ALG-0005`, `ALG-0010`, `ALG-0012`, `ALG-0014`, `ALG-0023`, `ALG-0024`, `ALG-0025`, and `ALG-0027` are `promising`. `ALG-0013`, `ALG-0016`, `ALG-0017`, `ALG-0018`, `ALG-0019`, `ALG-0020`, `ALG-0021`, `ALG-0022`, `ALG-0026`, `ALG-0028`, `ALG-0029`, and `ALG-0030` are `smoke-tested`. `ALG-0004` is `benchmarked`. No candidate is `super-promising`.
+- EXP-0034 stress-tests `ALG-0030`: 4/4 length-2 product quadrants, 8/8 mixed-width product quadrants, 4/4 blocked-scope controls, and 4/4 rare-count-two controls pass.
+- EXP-0034 adds `ALG-0031`: a configured rare-count-two support-prior ablation can filter count-two rare-body noise under validation and can be overridden by validation to keep rare behavior, but group filtering fails one-valid/one-noisy rare-body controls.
+- EXP-0035 adds `ALG-0032`: per-body inclusion vectors repair one-valid/one-noisy rare-body cases for count-one and configured count-two policies where `ALG-0029` remains unresolved.
+- EXP-0035 shows `ALG-0032` keeps both rare bodies when both are validated, drops both when both are rejected, and stays unresolved when validation only probes one rare body.
+- EXP-0035 shows `ALG-0032` detects `validation_inconsistent`, `validation_training_conflict`, `dominance_threshold_not_met`, and `too_many_rare_bodies` controls.
+- EXP-0036 broadens `ALG-0032` to split validation/final testing: 13/13 cases pass, including singleton, length-2, mixed-width, configured count-two, cap-boundary, leakage, and blocked-scope controls.
+- EXP-0036 confirms `ALG-0029` and `ALG-0030` remain unresolved on mixed valid/noisy rare-body cases where `ALG-0032` selects a per-body vector.
+- EXP-0036 exposes operation-cost pressure: the cap-three case enumerates eight alternatives and reports a naive total of 7430 operations on a toy log.
+- EXP-0037 adds shared operation accounting for the validation selectors: `ALG-0029` max protocol total drops from 1503 naive to 934 shared, `ALG-0030` from 962 to 638, and `ALG-0032` cap-three from 7430 to 3167.
+- EXP-0038 integrates those shared totals into selector outputs and verifies them with report cross-checks; validation replay proxy costs remain per alternative, and primitive-level shared breakdowns are still missing.
+- EXP-0039 stress-tests the `ALG-0032` cap path: selected one-rare-body cases stay under the deep soft budget, selected two-or-more-rare-body cases exceed it, and cap-plus-one refusals stay cheap with zero alternatives.
+- EXP-0040 adds `ALG-0033`: direct validation signals and one-step unit propagation preserve core `ALG-0032` mixed rare-body wins while avoiding exhaustive assignment enumeration. The direct-signal R=5 reference stays under the deep soft budget, but non-unit ambiguous negatives are deliberately unresolved.
+- `ALG-0003`, `ALG-0009`, `ALG-0011`, and `ALG-0015` are `deep-testing`. `ALG-0005`, `ALG-0010`, `ALG-0012`, `ALG-0014`, `ALG-0023`, `ALG-0024`, `ALG-0025`, and `ALG-0027` are `promising`. `ALG-0013`, `ALG-0016`, `ALG-0017`, `ALG-0018`, `ALG-0019`, `ALG-0020`, `ALG-0021`, `ALG-0022`, `ALG-0026`, `ALG-0028`, `ALG-0029`, `ALG-0030`, `ALG-0031`, `ALG-0032`, and `ALG-0033` are `smoke-tested`. `ALG-0004` is `benchmarked`. No candidate is `super-promising`.
 
 ## Next action
 
 Continue the first goal by prioritizing:
 
-1. Stress `ALG-0030` on length-2 and mixed-width product quadrants beyond the first singleton-body controls.
-2. Add duplicate-label, length >2, and one-iteration-only blocked cases to the product selector protocol.
-3. Split a rare-count-two or individual-rare-body policy candidate if body inclusion remains the most valuable loop-line question.
-4. Refine validation replay cost beyond the current lower-bound proxy for `ALG-0027`, `ALG-0029`, and `ALG-0030`.
+1. Broaden `ALG-0033` into a split validation/final protocol matching `ALG-0032`'s length-2, mixed-width, configured count-two, leakage, cap, and blocked-scope controls.
+2. Add reference-only direct-signal R=3/R=5 comparisons against `ALG-0032` where runtime remains acceptable, while keeping non-unit interaction clauses as explicit unresolved cases.
+3. Add primitive-level shared breakdowns for `ALG-0029`/`ALG-0030`/`ALG-0032`/`ALG-0033`, or explicitly decide that total-field accounting is sufficient only for smoke-stage evidence.
+4. Add broader non-toy validation only after the cost and attribution assumptions are clearer, and keep duplicate-label, length >2, and one-iteration-only loop compilation as separate bounded candidates.
 
 ## Current candidate focus
 
@@ -321,8 +379,11 @@ Continue the first goal by prioritizing:
 - `ALG-0026`: smoke-tested loop-count policy-set protocol; preserves unbounded-repeat and at-most-once alternatives for bounded-count ambiguous loop evidence but does not select a final policy.
 - `ALG-0027`: promising loop-count validation selector; selects only when explicit validation probes uniquely distinguish `ALG-0026` alternatives, passes split validation/final tests, and reports validation replay proxy counts. EXP-0030 shows upstream detector limits and rare-body/noise ambiguity block deep-testing.
 - `ALG-0028`: smoke-tested body-support guard over `ALG-0025`; improves precision on singleton rare-body noise but drops valid rare behavior under the same 3:1 support pattern, so next work is threshold ablation or external body-inclusion validation.
-- `ALG-0029`: smoke-tested body-inclusion validation selector; split validation/final tests pass, but mixed rare-body and rare-count-two limits plus proxy-only validation cost block promotion.
-- `ALG-0030`: smoke-tested body-count product selector; selects product policies over body inclusion and loop count on controlled cases, but needs wider body-shape, duplicate-label, and shared-cost stress before promotion.
+- `ALG-0029`: smoke-tested body-inclusion validation selector; split validation/final tests pass and EXP-0038 integrates max shared protocol cost at 934, but mixed rare-body and rare-count-two limits plus non-primitive shared accounting block promotion.
+- `ALG-0030`: smoke-tested body-count product selector; selects product policies over body inclusion and loop count on singleton, length-2, and mixed-width controlled cases, and EXP-0038 integrates max conservative shared product cost at 638, but blocked upstream limits and primitive-level accounting still block promotion.
+- `ALG-0031`: smoke-tested rare-count-two support-prior ablation; useful control for count-two rare noise, but group filtering cannot handle mixed valid/noisy rare bodies.
+- `ALG-0032`: smoke-tested per-body rare inclusion validation selector; repairs controlled mixed rare-body cases and passes split validation/final controls. EXP-0039 shows exhaustive selected enumeration exceeds the deep soft budget from two rare bodies onward, while cap-plus-one refusals stay cheap. It remains capped, validation-scoped, and not yet primitive-level in shared accounting.
+- `ALG-0033`: smoke-tested per-body direct-signal validation selector; keeps the mixed rare-body repair path under budget by avoiding exhaustive enumeration, but it is narrower than `ALG-0032` and leaves non-unit ambiguous negative clauses unresolved.
 
 ## Decisions to preserve
 
@@ -352,8 +413,11 @@ Continue the first goal by prioritizing:
 - `ALG-0026` should not move beyond `smoke-tested` without a deterministic selector, validation rule, or explicit domain-prior mechanism for choosing between unbounded-repeat and at-most-once alternatives.
 - `ALG-0027` should not move beyond `promising` until a separate body-support/noise policy exists or is explicitly scoped out, and validation replay cost is refined beyond the current proxy.
 - `ALG-0028` should not move beyond `smoke-tested` until support-threshold ablations and valid rare-body controls show a reliable selector or external-validation mechanism; support alone is a precision prior, not evidence that a rare body is noise.
-- `ALG-0029` should not move beyond `smoke-tested` until validation replay cost is refined beyond the proxy and mixed rare-body / rare-count-two limits are addressed or scoped out.
-- `ALG-0030` should not move beyond `smoke-tested` until product selection is stress-tested on length-2, mixed-width, duplicate-label, length >2, and one-iteration-only controls with clearer shared operation accounting.
+- `ALG-0029` should not move beyond `smoke-tested` until shared accounting is primitive-level, and mixed rare-body / rare-count-two limits are addressed or scoped out.
+- `ALG-0030` should not move beyond `smoke-tested` despite passing length-2, mixed-width, duplicate-label, length >2, and one-iteration-only stress controls; primitive-level shared accounting and upstream blocked-scope repairs remain unresolved.
+- `ALG-0031` should not move beyond `smoke-tested`; count-two rare-body filtering is a policy prior and needs per-body alternatives or validation/domain priors before stronger claims.
+- `ALG-0032` should not move beyond `smoke-tested` until shared accounting is primitive-level and either exhaustive enumeration is replaced by a lower-cost bounded rule or the claim is narrowed to one rare body under the declared budget.
+- `ALG-0033` should not move beyond `smoke-tested` until split validation/final controls cover length-2, mixed-width, configured count-two, leakage, cap, and blocked-scope cases, and until validation-negative attribution assumptions are made explicit.
 - `ALG-0021` is an evidence/PMIR refinement only; do not promote it unless a downstream selector, domain prior, or multi-net protocol uses the ambiguity annotation to improve decisions.
 - `ALG-0022` is a model-set protocol only; do not promote it without a deterministic selector or explicit multi-objective acceptance criterion.
 - `ALG-0023` should remain the singleton-loop reference candidate; do not move it beyond `promising` until bounded-count and one-iteration-only semantics are resolved or formally scoped out.

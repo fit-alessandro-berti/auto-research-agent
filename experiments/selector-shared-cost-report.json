@@ -1,0 +1,1743 @@
+{
+  "assumptions": [
+    "One upstream ALG-0025 length-bounded loop discovery is charged once per train log.",
+    "Each guarded body alternative pays only its measured incremental partition/recompile extra over that shared base.",
+    "Validation replay remains a proxy: one scan_event per validation event and one comparison per validation trace per evaluated alternative.",
+    "ALG-0030 reports both selected-count and all-count compile variants; all-count compile is the conservative selector-evaluation estimate.",
+    "Selector outputs retain naive totals and now expose shared totals; this report checks those shared totals against an independent derivation.",
+    "No selector behavior, replay result, or promotion status is changed by this accounting."
+  ],
+  "candidates": {
+    "ALG-0029": {
+      "cases": [
+        {
+          "candidate_id": "ALG-0029",
+          "case": "body_keep_final_generalization",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "alternative_count": 2,
+            "alternatives": [
+              {
+                "alternative": "support_guard",
+                "incremental_extra_after_shared_base": 187,
+                "operation_total": 519,
+                "validates_all": false
+              },
+              {
+                "alternative": "keep_all_bodies",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 332,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "keep_all_bodies",
+            "base_discovery_total": 332,
+            "current_all_alternative_total_with_validation_proxy": 906,
+            "derived_shared_total_with_validation_proxy": 574,
+            "incremental_extra_total_after_shared_base": 187,
+            "naive_all_alternative_discovery_total": 851,
+            "selected_discovery_total": 332,
+            "selector_integrated_shared_all_alternative_discovery_total": 519,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 25,
+            "shared_all_alternative_discovery_total": 519,
+            "shared_savings": 332,
+            "shared_savings_percent": 36.64,
+            "shared_total_with_validation_proxy": 574,
+            "validation_replay_proxy_total": 30
+          },
+          "reason": "unique_body_inclusion_alternative_satisfies_validation_probes",
+          "selected_alternative": "keep_all_bodies",
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0029",
+          "case": "body_filter_final_precision",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "alternative_count": 2,
+            "alternatives": [
+              {
+                "alternative": "keep_all_bodies",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 332,
+                "validates_all": false
+              },
+              {
+                "alternative": "support_guard",
+                "incremental_extra_after_shared_base": 187,
+                "operation_total": 519,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "keep_all_bodies",
+            "base_discovery_total": 332,
+            "current_all_alternative_total_with_validation_proxy": 903,
+            "derived_shared_total_with_validation_proxy": 571,
+            "incremental_extra_total_after_shared_base": 187,
+            "naive_all_alternative_discovery_total": 851,
+            "selected_discovery_total": 519,
+            "selector_integrated_shared_all_alternative_discovery_total": 519,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 24,
+            "shared_all_alternative_discovery_total": 519,
+            "shared_savings": 332,
+            "shared_savings_percent": 36.77,
+            "shared_total_with_validation_proxy": 571,
+            "validation_replay_proxy_total": 28
+          },
+          "reason": "unique_body_inclusion_alternative_satisfies_validation_probes",
+          "selected_alternative": "support_guard",
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0029",
+          "case": "body_no_signal_final_not_used",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "alternative_count": 2,
+            "alternatives": [
+              {
+                "alternative": "keep_all_bodies",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 332,
+                "validates_all": true
+              },
+              {
+                "alternative": "support_guard",
+                "incremental_extra_after_shared_base": 187,
+                "operation_total": 519,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "keep_all_bodies",
+            "base_discovery_total": 332,
+            "current_all_alternative_total_with_validation_proxy": 906,
+            "derived_shared_total_with_validation_proxy": 574,
+            "incremental_extra_total_after_shared_base": 187,
+            "naive_all_alternative_discovery_total": 851,
+            "selected_discovery_total": 332,
+            "selector_integrated_shared_all_alternative_discovery_total": 519,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 25,
+            "shared_all_alternative_discovery_total": 519,
+            "shared_savings": 332,
+            "shared_savings_percent": 36.64,
+            "shared_total_with_validation_proxy": 574,
+            "validation_replay_proxy_total": 30
+          },
+          "reason": "tie_or_conflicting_validation_evidence",
+          "selected_alternative": null,
+          "selection_status": "unresolved"
+        },
+        {
+          "candidate_id": "ALG-0029",
+          "case": "body_validation_final_overlap_guard",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "alternative_count": 2,
+            "alternatives": [
+              {
+                "alternative": "support_guard",
+                "incremental_extra_after_shared_base": 187,
+                "operation_total": 519,
+                "validates_all": false
+              },
+              {
+                "alternative": "keep_all_bodies",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 332,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "keep_all_bodies",
+            "base_discovery_total": 332,
+            "current_all_alternative_total_with_validation_proxy": 897,
+            "derived_shared_total_with_validation_proxy": 565,
+            "incremental_extra_total_after_shared_base": 187,
+            "naive_all_alternative_discovery_total": 851,
+            "selected_discovery_total": 332,
+            "selector_integrated_shared_all_alternative_discovery_total": 519,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 24,
+            "shared_all_alternative_discovery_total": 519,
+            "shared_savings": 332,
+            "shared_savings_percent": 37.01,
+            "shared_total_with_validation_proxy": 565,
+            "validation_replay_proxy_total": 22
+          },
+          "reason": "unique_body_inclusion_alternative_satisfies_validation_probes",
+          "selected_alternative": "keep_all_bodies",
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0029",
+          "case": "body_training_negative_conflict_final_control",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "alternative_count": 2,
+            "alternatives": [
+              {
+                "alternative": "keep_all_bodies",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 332,
+                "validates_all": false
+              },
+              {
+                "alternative": "support_guard",
+                "incremental_extra_after_shared_base": 187,
+                "operation_total": 519,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "keep_all_bodies",
+            "base_discovery_total": 332,
+            "current_all_alternative_total_with_validation_proxy": 884,
+            "derived_shared_total_with_validation_proxy": 552,
+            "incremental_extra_total_after_shared_base": 187,
+            "naive_all_alternative_discovery_total": 851,
+            "selected_discovery_total": 332,
+            "selector_integrated_shared_all_alternative_discovery_total": 519,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 23,
+            "shared_all_alternative_discovery_total": 519,
+            "shared_savings": 332,
+            "shared_savings_percent": 37.56,
+            "shared_total_with_validation_proxy": 552,
+            "validation_replay_proxy_total": 10
+          },
+          "reason": "validation_negative_contains_training_trace",
+          "selected_alternative": null,
+          "selection_status": "validation_training_conflict"
+        },
+        {
+          "candidate_id": "ALG-0029",
+          "case": "body_positive_negative_overlap",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "alternative_count": 2,
+            "alternatives": [
+              {
+                "alternative": "keep_all_bodies",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 332,
+                "validates_all": false
+              },
+              {
+                "alternative": "support_guard",
+                "incremental_extra_after_shared_base": 187,
+                "operation_total": 519,
+                "validates_all": false
+              }
+            ],
+            "base_alternative": "keep_all_bodies",
+            "base_discovery_total": 332,
+            "current_all_alternative_total_with_validation_proxy": 903,
+            "derived_shared_total_with_validation_proxy": 571,
+            "incremental_extra_total_after_shared_base": 187,
+            "naive_all_alternative_discovery_total": 851,
+            "selected_discovery_total": 332,
+            "selector_integrated_shared_all_alternative_discovery_total": 519,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 24,
+            "shared_all_alternative_discovery_total": 519,
+            "shared_savings": 332,
+            "shared_savings_percent": 36.77,
+            "shared_total_with_validation_proxy": 571,
+            "validation_replay_proxy_total": 28
+          },
+          "reason": "validation_trace_is_both_positive_and_negative",
+          "selected_alternative": null,
+          "selection_status": "validation_inconsistent"
+        },
+        {
+          "candidate_id": "ALG-0029",
+          "case": "body_support_ratio_5_to_1_keep",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 778,
+            "direct_follows_count": 5,
+            "event_count": 26,
+            "max_trace_length": 4,
+            "trace_count": 7
+          },
+          "operation_totals": {
+            "alternative_count": 2,
+            "alternatives": [
+              {
+                "alternative": "support_guard",
+                "incremental_extra_after_shared_base": 235,
+                "operation_total": 641,
+                "validates_all": false
+              },
+              {
+                "alternative": "keep_all_bodies",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 406,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "keep_all_bodies",
+            "base_discovery_total": 406,
+            "current_all_alternative_total_with_validation_proxy": 1104,
+            "derived_shared_total_with_validation_proxy": 698,
+            "incremental_extra_total_after_shared_base": 235,
+            "naive_all_alternative_discovery_total": 1047,
+            "selected_discovery_total": 406,
+            "selector_integrated_shared_all_alternative_discovery_total": 641,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 27,
+            "shared_all_alternative_discovery_total": 641,
+            "shared_savings": 406,
+            "shared_savings_percent": 36.78,
+            "shared_total_with_validation_proxy": 698,
+            "validation_replay_proxy_total": 30
+          },
+          "reason": "unique_body_inclusion_alternative_satisfies_validation_probes",
+          "selected_alternative": "keep_all_bodies",
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0029",
+          "case": "body_length2_rare_filter",
+          "input_stats": {
+            "activity_count": 6,
+            "deep_soft_budget": 1134,
+            "direct_follows_count": 7,
+            "event_count": 32,
+            "max_trace_length": 5,
+            "trace_count": 7
+          },
+          "operation_totals": {
+            "alternative_count": 2,
+            "alternatives": [
+              {
+                "alternative": "keep_all_bodies",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 569,
+                "validates_all": false
+              },
+              {
+                "alternative": "support_guard",
+                "incremental_extra_after_shared_base": 303,
+                "operation_total": 872,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "keep_all_bodies",
+            "base_discovery_total": 569,
+            "current_all_alternative_total_with_validation_proxy": 1503,
+            "derived_shared_total_with_validation_proxy": 934,
+            "incremental_extra_total_after_shared_base": 303,
+            "naive_all_alternative_discovery_total": 1441,
+            "selected_discovery_total": 872,
+            "selector_integrated_shared_all_alternative_discovery_total": 872,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 26,
+            "shared_all_alternative_discovery_total": 872,
+            "shared_savings": 569,
+            "shared_savings_percent": 37.86,
+            "shared_total_with_validation_proxy": 934,
+            "validation_replay_proxy_total": 36
+          },
+          "reason": "unique_body_inclusion_alternative_satisfies_validation_probes",
+          "selected_alternative": "support_guard",
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0029",
+          "case": "two_rare_one_valid_one_noise_unresolved",
+          "input_stats": {
+            "activity_count": 5,
+            "deep_soft_budget": 970,
+            "direct_follows_count": 7,
+            "event_count": 30,
+            "max_trace_length": 4,
+            "trace_count": 8
+          },
+          "operation_totals": {
+            "alternative_count": 2,
+            "alternatives": [
+              {
+                "alternative": "keep_all_bodies",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 499,
+                "validates_all": false
+              },
+              {
+                "alternative": "support_guard",
+                "incremental_extra_after_shared_base": 7,
+                "operation_total": 506,
+                "validates_all": false
+              }
+            ],
+            "base_alternative": "keep_all_bodies",
+            "base_discovery_total": 499,
+            "current_all_alternative_total_with_validation_proxy": 1060,
+            "derived_shared_total_with_validation_proxy": 561,
+            "incremental_extra_total_after_shared_base": 7,
+            "naive_all_alternative_discovery_total": 1005,
+            "selected_discovery_total": 499,
+            "selector_integrated_shared_all_alternative_discovery_total": 506,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 27,
+            "shared_all_alternative_discovery_total": 506,
+            "shared_savings": 499,
+            "shared_savings_percent": 47.08,
+            "shared_total_with_validation_proxy": 561,
+            "validation_replay_proxy_total": 28
+          },
+          "reason": "tie_or_conflicting_validation_evidence",
+          "selected_alternative": null,
+          "selection_status": "unresolved"
+        },
+        {
+          "candidate_id": "ALG-0029",
+          "case": "rare_count_two_noise_unresolved",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 842,
+            "direct_follows_count": 5,
+            "event_count": 30,
+            "max_trace_length": 4,
+            "trace_count": 8
+          },
+          "operation_totals": {
+            "alternative_count": 2,
+            "alternatives": [
+              {
+                "alternative": "keep_all_bodies",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 443,
+                "validates_all": false
+              },
+              {
+                "alternative": "support_guard",
+                "incremental_extra_after_shared_base": 6,
+                "operation_total": 449,
+                "validates_all": false
+              }
+            ],
+            "base_alternative": "keep_all_bodies",
+            "base_discovery_total": 443,
+            "current_all_alternative_total_with_validation_proxy": 947,
+            "derived_shared_total_with_validation_proxy": 504,
+            "incremental_extra_total_after_shared_base": 6,
+            "naive_all_alternative_discovery_total": 892,
+            "selected_discovery_total": 443,
+            "selector_integrated_shared_all_alternative_discovery_total": 449,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 27,
+            "shared_all_alternative_discovery_total": 449,
+            "shared_savings": 443,
+            "shared_savings_percent": 46.78,
+            "shared_total_with_validation_proxy": 504,
+            "validation_replay_proxy_total": 28
+          },
+          "reason": "tie_or_conflicting_validation_evidence",
+          "selected_alternative": null,
+          "selection_status": "unresolved"
+        }
+      ],
+      "summary": {
+        "case_count": 10,
+        "case_with_max_savings": "body_length2_rare_filter",
+        "case_with_max_shared_total": "body_length2_rare_filter",
+        "max_current_total": 1503,
+        "max_savings": 569,
+        "max_shared_total": 934
+      }
+    },
+    "ALG-0030": {
+      "cases": [
+        {
+          "candidate_id": "ALG-0030",
+          "case": "keep_all_unbounded_joint",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "body_axis": {
+              "alternative_count": 2,
+              "alternatives": [
+                {
+                  "alternative": "support_guard",
+                  "incremental_extra_after_shared_base": 187,
+                  "operation_total": 519,
+                  "validates_all": false
+                },
+                {
+                  "alternative": "keep_all_bodies",
+                  "incremental_extra_after_shared_base": 0,
+                  "operation_total": 332,
+                  "validates_all": true
+                }
+              ],
+              "base_alternative": "keep_all_bodies",
+              "base_discovery_total": 332,
+              "current_all_alternative_total_with_validation_proxy": 897,
+              "derived_shared_total_with_validation_proxy": 565,
+              "incremental_extra_total_after_shared_base": 187,
+              "naive_all_alternative_discovery_total": 851,
+              "selected_discovery_total": 332,
+              "selector_integrated_shared_all_alternative_discovery_total": 519,
+              "selector_integrated_shared_total_matches_derivation": true,
+              "selector_total": 24,
+              "shared_all_alternative_discovery_total": 519,
+              "shared_savings": 332,
+              "shared_savings_percent": 37.01,
+              "shared_total_with_validation_proxy": 565,
+              "validation_replay_proxy_total": 22
+            },
+            "count_axis": {
+              "all_count_compile_extra_total": 25,
+              "alternatives": [
+                {
+                  "incremental_compile_extra_after_selected_body": 25,
+                  "policy": "at_most_once",
+                  "total_with_discovery_ops": 357,
+                  "validates_all": false
+                },
+                {
+                  "incremental_compile_extra_after_selected_body": 0,
+                  "policy": "unbounded_repeat",
+                  "total_with_discovery_ops": 332,
+                  "validates_all": true
+                }
+              ],
+              "count_selector_total": 19,
+              "count_validation_replay_proxy_total": 26,
+              "derived_all_count_compile_extra_total": 25,
+              "selected_body_discovery_total": 332,
+              "selected_count_compile_extra_total": 0,
+              "selector_integrated_all_count_compile_matches_derivation": true
+            },
+            "current_reported_product_total": 942,
+            "derived_shared_total_with_all_count_compile_extras": 635,
+            "derived_shared_total_with_selected_count_compile_extra": 610,
+            "reported_minus_shared_all_count": 307,
+            "reported_minus_shared_all_count_percent": 32.59,
+            "reported_minus_shared_selected_count": 332,
+            "selector_integrated_all_count_total_matches_derivation": true,
+            "selector_integrated_selected_count_total_matches_derivation": true,
+            "shared_total_with_all_count_compile_extras": 635,
+            "shared_total_with_selected_count_compile_extra": 610
+          },
+          "reason": "body_inclusion_and_count_policy_selected",
+          "selected_body_alternative": "keep_all_bodies",
+          "selected_count_policy": "unbounded_repeat",
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0030",
+          "case": "keep_all_at_most_once_joint",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "body_axis": {
+              "alternative_count": 2,
+              "alternatives": [
+                {
+                  "alternative": "support_guard",
+                  "incremental_extra_after_shared_base": 187,
+                  "operation_total": 519,
+                  "validates_all": false
+                },
+                {
+                  "alternative": "keep_all_bodies",
+                  "incremental_extra_after_shared_base": 0,
+                  "operation_total": 332,
+                  "validates_all": true
+                }
+              ],
+              "base_alternative": "keep_all_bodies",
+              "base_discovery_total": 332,
+              "current_all_alternative_total_with_validation_proxy": 893,
+              "derived_shared_total_with_validation_proxy": 561,
+              "incremental_extra_total_after_shared_base": 187,
+              "naive_all_alternative_discovery_total": 851,
+              "selected_discovery_total": 332,
+              "selector_integrated_shared_all_alternative_discovery_total": 519,
+              "selector_integrated_shared_total_matches_derivation": true,
+              "selector_total": 24,
+              "shared_all_alternative_discovery_total": 519,
+              "shared_savings": 332,
+              "shared_savings_percent": 37.18,
+              "shared_total_with_validation_proxy": 561,
+              "validation_replay_proxy_total": 18
+            },
+            "count_axis": {
+              "all_count_compile_extra_total": 25,
+              "alternatives": [
+                {
+                  "incremental_compile_extra_after_selected_body": 0,
+                  "policy": "unbounded_repeat",
+                  "total_with_discovery_ops": 332,
+                  "validates_all": false
+                },
+                {
+                  "incremental_compile_extra_after_selected_body": 25,
+                  "policy": "at_most_once",
+                  "total_with_discovery_ops": 357,
+                  "validates_all": true
+                }
+              ],
+              "count_selector_total": 19,
+              "count_validation_replay_proxy_total": 22,
+              "derived_all_count_compile_extra_total": 25,
+              "selected_body_discovery_total": 332,
+              "selected_count_compile_extra_total": 25,
+              "selector_integrated_all_count_compile_matches_derivation": true
+            },
+            "current_reported_product_total": 959,
+            "derived_shared_total_with_all_count_compile_extras": 627,
+            "derived_shared_total_with_selected_count_compile_extra": 627,
+            "reported_minus_shared_all_count": 332,
+            "reported_minus_shared_all_count_percent": 34.62,
+            "reported_minus_shared_selected_count": 332,
+            "selector_integrated_all_count_total_matches_derivation": true,
+            "selector_integrated_selected_count_total_matches_derivation": true,
+            "shared_total_with_all_count_compile_extras": 627,
+            "shared_total_with_selected_count_compile_extra": 627
+          },
+          "reason": "body_inclusion_and_count_policy_selected",
+          "selected_body_alternative": "keep_all_bodies",
+          "selected_count_policy": "at_most_once",
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0030",
+          "case": "filter_unbounded_joint",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "body_axis": {
+              "alternative_count": 2,
+              "alternatives": [
+                {
+                  "alternative": "keep_all_bodies",
+                  "incremental_extra_after_shared_base": 0,
+                  "operation_total": 332,
+                  "validates_all": false
+                },
+                {
+                  "alternative": "support_guard",
+                  "incremental_extra_after_shared_base": 187,
+                  "operation_total": 519,
+                  "validates_all": true
+                }
+              ],
+              "base_alternative": "keep_all_bodies",
+              "base_discovery_total": 332,
+              "current_all_alternative_total_with_validation_proxy": 903,
+              "derived_shared_total_with_validation_proxy": 571,
+              "incremental_extra_total_after_shared_base": 187,
+              "naive_all_alternative_discovery_total": 851,
+              "selected_discovery_total": 519,
+              "selector_integrated_shared_all_alternative_discovery_total": 519,
+              "selector_integrated_shared_total_matches_derivation": true,
+              "selector_total": 24,
+              "shared_all_alternative_discovery_total": 519,
+              "shared_savings": 332,
+              "shared_savings_percent": 36.77,
+              "shared_total_with_validation_proxy": 571,
+              "validation_replay_proxy_total": 28
+            },
+            "count_axis": {
+              "all_count_compile_extra_total": 22,
+              "alternatives": [
+                {
+                  "incremental_compile_extra_after_selected_body": 22,
+                  "policy": "at_most_once",
+                  "total_with_discovery_ops": 541,
+                  "validates_all": false
+                },
+                {
+                  "incremental_compile_extra_after_selected_body": 0,
+                  "policy": "unbounded_repeat",
+                  "total_with_discovery_ops": 519,
+                  "validates_all": true
+                }
+              ],
+              "count_selector_total": 19,
+              "count_validation_replay_proxy_total": 26,
+              "derived_all_count_compile_extra_total": 22,
+              "selected_body_discovery_total": 519,
+              "selected_count_compile_extra_total": 0,
+              "selector_integrated_all_count_compile_matches_derivation": true
+            },
+            "current_reported_product_total": 948,
+            "derived_shared_total_with_all_count_compile_extras": 638,
+            "derived_shared_total_with_selected_count_compile_extra": 616,
+            "reported_minus_shared_all_count": 310,
+            "reported_minus_shared_all_count_percent": 32.7,
+            "reported_minus_shared_selected_count": 332,
+            "selector_integrated_all_count_total_matches_derivation": true,
+            "selector_integrated_selected_count_total_matches_derivation": true,
+            "shared_total_with_all_count_compile_extras": 638,
+            "shared_total_with_selected_count_compile_extra": 616
+          },
+          "reason": "body_inclusion_and_count_policy_selected",
+          "selected_body_alternative": "support_guard",
+          "selected_count_policy": "unbounded_repeat",
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0030",
+          "case": "filter_at_most_once_joint",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "body_axis": {
+              "alternative_count": 2,
+              "alternatives": [
+                {
+                  "alternative": "keep_all_bodies",
+                  "incremental_extra_after_shared_base": 0,
+                  "operation_total": 332,
+                  "validates_all": false
+                },
+                {
+                  "alternative": "support_guard",
+                  "incremental_extra_after_shared_base": 187,
+                  "operation_total": 519,
+                  "validates_all": true
+                }
+              ],
+              "base_alternative": "keep_all_bodies",
+              "base_discovery_total": 332,
+              "current_all_alternative_total_with_validation_proxy": 899,
+              "derived_shared_total_with_validation_proxy": 567,
+              "incremental_extra_total_after_shared_base": 187,
+              "naive_all_alternative_discovery_total": 851,
+              "selected_discovery_total": 519,
+              "selector_integrated_shared_all_alternative_discovery_total": 519,
+              "selector_integrated_shared_total_matches_derivation": true,
+              "selector_total": 24,
+              "shared_all_alternative_discovery_total": 519,
+              "shared_savings": 332,
+              "shared_savings_percent": 36.93,
+              "shared_total_with_validation_proxy": 567,
+              "validation_replay_proxy_total": 24
+            },
+            "count_axis": {
+              "all_count_compile_extra_total": 22,
+              "alternatives": [
+                {
+                  "incremental_compile_extra_after_selected_body": 0,
+                  "policy": "unbounded_repeat",
+                  "total_with_discovery_ops": 519,
+                  "validates_all": false
+                },
+                {
+                  "incremental_compile_extra_after_selected_body": 22,
+                  "policy": "at_most_once",
+                  "total_with_discovery_ops": 541,
+                  "validates_all": true
+                }
+              ],
+              "count_selector_total": 19,
+              "count_validation_replay_proxy_total": 22,
+              "derived_all_count_compile_extra_total": 22,
+              "selected_body_discovery_total": 519,
+              "selected_count_compile_extra_total": 22,
+              "selector_integrated_all_count_compile_matches_derivation": true
+            },
+            "current_reported_product_total": 962,
+            "derived_shared_total_with_all_count_compile_extras": 630,
+            "derived_shared_total_with_selected_count_compile_extra": 630,
+            "reported_minus_shared_all_count": 332,
+            "reported_minus_shared_all_count_percent": 34.51,
+            "reported_minus_shared_selected_count": 332,
+            "selector_integrated_all_count_total_matches_derivation": true,
+            "selector_integrated_selected_count_total_matches_derivation": true,
+            "shared_total_with_all_count_compile_extras": 630,
+            "shared_total_with_selected_count_compile_extra": 630
+          },
+          "reason": "body_inclusion_and_count_policy_selected",
+          "selected_body_alternative": "support_guard",
+          "selected_count_policy": "at_most_once",
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0030",
+          "case": "body_selected_count_unresolved",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "body_axis": {
+              "alternative_count": 2,
+              "alternatives": [
+                {
+                  "alternative": "keep_all_bodies",
+                  "incremental_extra_after_shared_base": 0,
+                  "operation_total": 332,
+                  "validates_all": false
+                },
+                {
+                  "alternative": "support_guard",
+                  "incremental_extra_after_shared_base": 187,
+                  "operation_total": 519,
+                  "validates_all": true
+                }
+              ],
+              "base_alternative": "keep_all_bodies",
+              "base_discovery_total": 332,
+              "current_all_alternative_total_with_validation_proxy": 899,
+              "derived_shared_total_with_validation_proxy": 567,
+              "incremental_extra_total_after_shared_base": 187,
+              "naive_all_alternative_discovery_total": 851,
+              "selected_discovery_total": 519,
+              "selector_integrated_shared_all_alternative_discovery_total": 519,
+              "selector_integrated_shared_total_matches_derivation": true,
+              "selector_total": 24,
+              "shared_all_alternative_discovery_total": 519,
+              "shared_savings": 332,
+              "shared_savings_percent": 36.93,
+              "shared_total_with_validation_proxy": 567,
+              "validation_replay_proxy_total": 24
+            },
+            "count_axis": {
+              "all_count_compile_extra_total": 22,
+              "alternatives": [
+                {
+                  "incremental_compile_extra_after_selected_body": 22,
+                  "policy": "at_most_once",
+                  "total_with_discovery_ops": 541,
+                  "validates_all": true
+                },
+                {
+                  "incremental_compile_extra_after_selected_body": 0,
+                  "policy": "unbounded_repeat",
+                  "total_with_discovery_ops": 519,
+                  "validates_all": true
+                }
+              ],
+              "count_selector_total": 19,
+              "count_validation_replay_proxy_total": 16,
+              "derived_all_count_compile_extra_total": 22,
+              "selected_body_discovery_total": 519,
+              "selected_count_compile_extra_total": 0,
+              "selector_integrated_all_count_compile_matches_derivation": true
+            },
+            "current_reported_product_total": 934,
+            "derived_shared_total_with_all_count_compile_extras": 624,
+            "derived_shared_total_with_selected_count_compile_extra": 602,
+            "reported_minus_shared_all_count": 310,
+            "reported_minus_shared_all_count_percent": 33.19,
+            "reported_minus_shared_selected_count": 332,
+            "selector_integrated_all_count_total_matches_derivation": true,
+            "selector_integrated_selected_count_total_matches_derivation": true,
+            "shared_total_with_all_count_compile_extras": 624,
+            "shared_total_with_selected_count_compile_extra": 602
+          },
+          "reason": "tie_or_conflicting_validation_evidence",
+          "selected_body_alternative": "support_guard",
+          "selected_count_policy": null,
+          "selection_status": "count_unresolved"
+        },
+        {
+          "candidate_id": "ALG-0030",
+          "case": "count_selected_body_unresolved",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 650,
+            "direct_follows_count": 5,
+            "event_count": 18,
+            "max_trace_length": 4,
+            "trace_count": 5
+          },
+          "operation_totals": {
+            "body_axis": {
+              "alternative_count": 2,
+              "alternatives": [
+                {
+                  "alternative": "keep_all_bodies",
+                  "incremental_extra_after_shared_base": 0,
+                  "operation_total": 332,
+                  "validates_all": true
+                },
+                {
+                  "alternative": "support_guard",
+                  "incremental_extra_after_shared_base": 187,
+                  "operation_total": 519,
+                  "validates_all": true
+                }
+              ],
+              "base_alternative": "keep_all_bodies",
+              "base_discovery_total": 332,
+              "current_all_alternative_total_with_validation_proxy": 897,
+              "derived_shared_total_with_validation_proxy": 565,
+              "incremental_extra_total_after_shared_base": 187,
+              "naive_all_alternative_discovery_total": 851,
+              "selected_discovery_total": 332,
+              "selector_integrated_shared_all_alternative_discovery_total": 519,
+              "selector_integrated_shared_total_matches_derivation": true,
+              "selector_total": 24,
+              "shared_all_alternative_discovery_total": 519,
+              "shared_savings": 332,
+              "shared_savings_percent": 37.01,
+              "shared_total_with_validation_proxy": 565,
+              "validation_replay_proxy_total": 22
+            },
+            "count_axis": {
+              "all_count_compile_extra_total": 0,
+              "alternatives": [],
+              "count_selector_total": 0,
+              "count_validation_replay_proxy_total": 0,
+              "derived_all_count_compile_extra_total": 0,
+              "selected_body_discovery_total": 332,
+              "selected_count_compile_extra_total": 0,
+              "selector_integrated_all_count_compile_matches_derivation": true
+            },
+            "current_reported_product_total": 897,
+            "derived_shared_total_with_all_count_compile_extras": 565,
+            "derived_shared_total_with_selected_count_compile_extra": 565,
+            "reported_minus_shared_all_count": 332,
+            "reported_minus_shared_all_count_percent": 37.01,
+            "reported_minus_shared_selected_count": 332,
+            "selector_integrated_all_count_total_matches_derivation": true,
+            "selector_integrated_selected_count_total_matches_derivation": true,
+            "shared_total_with_all_count_compile_extras": 565,
+            "shared_total_with_selected_count_compile_extra": 565
+          },
+          "reason": "tie_or_conflicting_validation_evidence",
+          "selected_body_alternative": null,
+          "selected_count_policy": null,
+          "selection_status": "body_unresolved"
+        }
+      ],
+      "summary": {
+        "case_count": 6,
+        "case_with_max_savings": "keep_all_at_most_once_joint",
+        "case_with_max_shared_total": "filter_unbounded_joint",
+        "max_current_total": 962,
+        "max_savings": 332,
+        "max_shared_total": 638
+      }
+    },
+    "ALG-0032": {
+      "cases": [
+        {
+          "candidate_id": "ALG-0032",
+          "case": "split_singleton_mixed_final_generalization",
+          "input_stats": {
+            "activity_count": 5,
+            "deep_soft_budget": 970,
+            "direct_follows_count": 7,
+            "event_count": 30,
+            "max_trace_length": 4,
+            "trace_count": 8
+          },
+          "operation_totals": {
+            "alternative_count": 4,
+            "alternatives": [
+              {
+                "alternative": "drop_C",
+                "incremental_extra_after_shared_base": 293,
+                "operation_total": 792,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_none",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 499,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C__E",
+                "incremental_extra_after_shared_base": 236,
+                "operation_total": 735,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_E",
+                "incremental_extra_after_shared_base": 293,
+                "operation_total": 792,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 499,
+            "current_all_alternative_total_with_validation_proxy": 2931,
+            "derived_shared_total_with_validation_proxy": 1434,
+            "incremental_extra_total_after_shared_base": 822,
+            "naive_all_alternative_discovery_total": 2818,
+            "selected_discovery_total": 792,
+            "selector_integrated_shared_all_alternative_discovery_total": 1321,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 57,
+            "shared_all_alternative_discovery_total": 1321,
+            "shared_savings": 1497,
+            "shared_savings_percent": 51.07,
+            "shared_total_with_validation_proxy": 1434,
+            "validation_replay_proxy_total": 56
+          },
+          "reason": "unique_per_body_assignment_satisfies_validation_probes",
+          "selected_alternative": "drop_E",
+          "selected_dropped_bodies": [
+            [
+              "E"
+            ]
+          ],
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "split_singleton_drop_both_final_precision",
+          "input_stats": {
+            "activity_count": 5,
+            "deep_soft_budget": 970,
+            "direct_follows_count": 7,
+            "event_count": 30,
+            "max_trace_length": 4,
+            "trace_count": 8
+          },
+          "operation_totals": {
+            "alternative_count": 4,
+            "alternatives": [
+              {
+                "alternative": "drop_none",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 499,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C",
+                "incremental_extra_after_shared_base": 293,
+                "operation_total": 792,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_E",
+                "incremental_extra_after_shared_base": 293,
+                "operation_total": 792,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C__E",
+                "incremental_extra_after_shared_base": 236,
+                "operation_total": 735,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 499,
+            "current_all_alternative_total_with_validation_proxy": 2960,
+            "derived_shared_total_with_validation_proxy": 1463,
+            "incremental_extra_total_after_shared_base": 822,
+            "naive_all_alternative_discovery_total": 2818,
+            "selected_discovery_total": 735,
+            "selector_integrated_shared_all_alternative_discovery_total": 1321,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 58,
+            "shared_all_alternative_discovery_total": 1321,
+            "shared_savings": 1497,
+            "shared_savings_percent": 50.57,
+            "shared_total_with_validation_proxy": 1463,
+            "validation_replay_proxy_total": 84
+          },
+          "reason": "unique_per_body_assignment_satisfies_validation_probes",
+          "selected_alternative": "drop_C__E",
+          "selected_dropped_bodies": [
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "split_length2_mixed_final_generalization",
+          "input_stats": {
+            "activity_count": 8,
+            "deep_soft_budget": 1580,
+            "direct_follows_count": 10,
+            "event_count": 37,
+            "max_trace_length": 5,
+            "trace_count": 8
+          },
+          "operation_totals": {
+            "alternative_count": 4,
+            "alternatives": [
+              {
+                "alternative": "drop_E_G",
+                "incremental_extra_after_shared_base": 448,
+                "operation_total": 1242,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_none",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 794,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_E_G__H_J",
+                "incremental_extra_after_shared_base": 305,
+                "operation_total": 1099,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_H_J",
+                "incremental_extra_after_shared_base": 448,
+                "operation_total": 1242,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 794,
+            "current_all_alternative_total_with_validation_proxy": 4506,
+            "derived_shared_total_with_validation_proxy": 2124,
+            "incremental_extra_total_after_shared_base": 1201,
+            "naive_all_alternative_discovery_total": 4377,
+            "selected_discovery_total": 1242,
+            "selector_integrated_shared_all_alternative_discovery_total": 1995,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 57,
+            "shared_all_alternative_discovery_total": 1995,
+            "shared_savings": 2382,
+            "shared_savings_percent": 52.86,
+            "shared_total_with_validation_proxy": 2124,
+            "validation_replay_proxy_total": 72
+          },
+          "reason": "unique_per_body_assignment_satisfies_validation_probes",
+          "selected_alternative": "drop_H_J",
+          "selected_dropped_bodies": [
+            [
+              "H",
+              "J"
+            ]
+          ],
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "split_mixed_width_final_generalization",
+          "input_stats": {
+            "activity_count": 6,
+            "deep_soft_budget": 1128,
+            "direct_follows_count": 8,
+            "event_count": 31,
+            "max_trace_length": 5,
+            "trace_count": 8
+          },
+          "operation_totals": {
+            "alternative_count": 4,
+            "alternatives": [
+              {
+                "alternative": "drop_C_E",
+                "incremental_extra_after_shared_base": 294,
+                "operation_total": 874,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_none",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 580,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C_E__G",
+                "incremental_extra_after_shared_base": 237,
+                "operation_total": 817,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_G",
+                "incremental_extra_after_shared_base": 356,
+                "operation_total": 936,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 580,
+            "current_all_alternative_total_with_validation_proxy": 3324,
+            "derived_shared_total_with_validation_proxy": 1584,
+            "incremental_extra_total_after_shared_base": 887,
+            "naive_all_alternative_discovery_total": 3207,
+            "selected_discovery_total": 936,
+            "selector_integrated_shared_all_alternative_discovery_total": 1467,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 57,
+            "shared_all_alternative_discovery_total": 1467,
+            "shared_savings": 1740,
+            "shared_savings_percent": 52.35,
+            "shared_total_with_validation_proxy": 1584,
+            "validation_replay_proxy_total": 60
+          },
+          "reason": "unique_per_body_assignment_satisfies_validation_probes",
+          "selected_alternative": "drop_G",
+          "selected_dropped_bodies": [
+            [
+              "G"
+            ]
+          ],
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "split_count_two_length2_mixed_final_generalization",
+          "input_stats": {
+            "activity_count": 7,
+            "deep_soft_budget": 1470,
+            "direct_follows_count": 9,
+            "event_count": 42,
+            "max_trace_length": 5,
+            "trace_count": 10
+          },
+          "operation_totals": {
+            "alternative_count": 4,
+            "alternatives": [
+              {
+                "alternative": "drop_C_E",
+                "incremental_extra_after_shared_base": 399,
+                "operation_total": 1154,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_none",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 755,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C_E__G_H",
+                "incremental_extra_after_shared_base": 266,
+                "operation_total": 1021,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_G_H",
+                "incremental_extra_after_shared_base": 399,
+                "operation_total": 1154,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 755,
+            "current_all_alternative_total_with_validation_proxy": 4207,
+            "derived_shared_total_with_validation_proxy": 1942,
+            "incremental_extra_total_after_shared_base": 1064,
+            "naive_all_alternative_discovery_total": 4084,
+            "selected_discovery_total": 1154,
+            "selector_integrated_shared_all_alternative_discovery_total": 1819,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 59,
+            "shared_all_alternative_discovery_total": 1819,
+            "shared_savings": 2265,
+            "shared_savings_percent": 53.84,
+            "shared_total_with_validation_proxy": 1942,
+            "validation_replay_proxy_total": 64
+          },
+          "reason": "unique_per_body_assignment_satisfies_validation_probes",
+          "selected_alternative": "drop_G_H",
+          "selected_dropped_bodies": [
+            [
+              "G",
+              "H"
+            ]
+          ],
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "partial_signal_final_not_used",
+          "input_stats": {
+            "activity_count": 5,
+            "deep_soft_budget": 970,
+            "direct_follows_count": 7,
+            "event_count": 30,
+            "max_trace_length": 4,
+            "trace_count": 8
+          },
+          "operation_totals": {
+            "alternative_count": 4,
+            "alternatives": [
+              {
+                "alternative": "drop_C",
+                "incremental_extra_after_shared_base": 293,
+                "operation_total": 792,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C__E",
+                "incremental_extra_after_shared_base": 236,
+                "operation_total": 735,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_E",
+                "incremental_extra_after_shared_base": 293,
+                "operation_total": 792,
+                "validates_all": true
+              },
+              {
+                "alternative": "drop_none",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 499,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 499,
+            "current_all_alternative_total_with_validation_proxy": 2936,
+            "derived_shared_total_with_validation_proxy": 1439,
+            "incremental_extra_total_after_shared_base": 822,
+            "naive_all_alternative_discovery_total": 2818,
+            "selected_discovery_total": 499,
+            "selector_integrated_shared_all_alternative_discovery_total": 1321,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 58,
+            "shared_all_alternative_discovery_total": 1321,
+            "shared_savings": 1497,
+            "shared_savings_percent": 50.99,
+            "shared_total_with_validation_proxy": 1439,
+            "validation_replay_proxy_total": 60
+          },
+          "reason": "tie_or_conflicting_per_body_validation_evidence",
+          "selected_alternative": null,
+          "selected_dropped_bodies": [],
+          "selection_status": "unresolved"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "validation_final_overlap_flagged",
+          "input_stats": {
+            "activity_count": 5,
+            "deep_soft_budget": 970,
+            "direct_follows_count": 7,
+            "event_count": 30,
+            "max_trace_length": 4,
+            "trace_count": 8
+          },
+          "operation_totals": {
+            "alternative_count": 4,
+            "alternatives": [
+              {
+                "alternative": "drop_C",
+                "incremental_extra_after_shared_base": 293,
+                "operation_total": 792,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_none",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 499,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C__E",
+                "incremental_extra_after_shared_base": 236,
+                "operation_total": 735,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_E",
+                "incremental_extra_after_shared_base": 293,
+                "operation_total": 792,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 499,
+            "current_all_alternative_total_with_validation_proxy": 2931,
+            "derived_shared_total_with_validation_proxy": 1434,
+            "incremental_extra_total_after_shared_base": 822,
+            "naive_all_alternative_discovery_total": 2818,
+            "selected_discovery_total": 792,
+            "selector_integrated_shared_all_alternative_discovery_total": 1321,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 57,
+            "shared_all_alternative_discovery_total": 1321,
+            "shared_savings": 1497,
+            "shared_savings_percent": 51.07,
+            "shared_total_with_validation_proxy": 1434,
+            "validation_replay_proxy_total": 56
+          },
+          "reason": "unique_per_body_assignment_satisfies_validation_probes",
+          "selected_alternative": "drop_E",
+          "selected_dropped_bodies": [
+            [
+              "E"
+            ]
+          ],
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "training_negative_conflict_protocol",
+          "input_stats": {
+            "activity_count": 5,
+            "deep_soft_budget": 970,
+            "direct_follows_count": 7,
+            "event_count": 30,
+            "max_trace_length": 4,
+            "trace_count": 8
+          },
+          "operation_totals": {
+            "alternative_count": 4,
+            "alternatives": [
+              {
+                "alternative": "drop_C",
+                "incremental_extra_after_shared_base": 293,
+                "operation_total": 792,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_none",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 499,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C__E",
+                "incremental_extra_after_shared_base": 236,
+                "operation_total": 735,
+                "validates_all": true
+              },
+              {
+                "alternative": "drop_E",
+                "incremental_extra_after_shared_base": 293,
+                "operation_total": 792,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 499,
+            "current_all_alternative_total_with_validation_proxy": 2894,
+            "derived_shared_total_with_validation_proxy": 1397,
+            "incremental_extra_total_after_shared_base": 822,
+            "naive_all_alternative_discovery_total": 2818,
+            "selected_discovery_total": 499,
+            "selector_integrated_shared_all_alternative_discovery_total": 1321,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 56,
+            "shared_all_alternative_discovery_total": 1321,
+            "shared_savings": 1497,
+            "shared_savings_percent": 51.73,
+            "shared_total_with_validation_proxy": 1397,
+            "validation_replay_proxy_total": 20
+          },
+          "reason": "validation_negative_contains_training_trace",
+          "selected_alternative": null,
+          "selected_dropped_bodies": [],
+          "selection_status": "validation_training_conflict"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "cap_three_allows_three_rare_split",
+          "input_stats": {
+            "activity_count": 6,
+            "deep_soft_budget": 1186,
+            "direct_follows_count": 9,
+            "event_count": 34,
+            "max_trace_length": 4,
+            "trace_count": 9
+          },
+          "operation_totals": {
+            "alternative_count": 8,
+            "alternatives": [
+              {
+                "alternative": "drop_C",
+                "incremental_extra_after_shared_base": 375,
+                "operation_total": 984,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_none",
+                "incremental_extra_after_shared_base": 0,
+                "operation_total": 609,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C__E",
+                "incremental_extra_after_shared_base": 306,
+                "operation_total": 915,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C__F",
+                "incremental_extra_after_shared_base": 306,
+                "operation_total": 915,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_E",
+                "incremental_extra_after_shared_base": 375,
+                "operation_total": 984,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_F",
+                "incremental_extra_after_shared_base": 375,
+                "operation_total": 984,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_C__E__F",
+                "incremental_extra_after_shared_base": 249,
+                "operation_total": 858,
+                "validates_all": false
+              },
+              {
+                "alternative": "drop_E__F",
+                "incremental_extra_after_shared_base": 306,
+                "operation_total": 915,
+                "validates_all": true
+              }
+            ],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 609,
+            "current_all_alternative_total_with_validation_proxy": 7430,
+            "derived_shared_total_with_validation_proxy": 3167,
+            "incremental_extra_total_after_shared_base": 2292,
+            "naive_all_alternative_discovery_total": 7164,
+            "selected_discovery_total": 915,
+            "selector_integrated_shared_all_alternative_discovery_total": 2901,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 98,
+            "shared_all_alternative_discovery_total": 2901,
+            "shared_savings": 4263,
+            "shared_savings_percent": 57.38,
+            "shared_total_with_validation_proxy": 3167,
+            "validation_replay_proxy_total": 168
+          },
+          "reason": "unique_per_body_assignment_satisfies_validation_probes",
+          "selected_alternative": "drop_E__F",
+          "selected_dropped_bodies": [
+            [
+              "E"
+            ],
+            [
+              "F"
+            ]
+          ],
+          "selection_status": "selected"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "cap_two_refuses_three_rare_split",
+          "input_stats": {
+            "activity_count": 6,
+            "deep_soft_budget": 1186,
+            "direct_follows_count": 9,
+            "event_count": 34,
+            "max_trace_length": 4,
+            "trace_count": 9
+          },
+          "operation_totals": {
+            "alternative_count": 0,
+            "alternatives": [],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 609,
+            "current_all_alternative_total_with_validation_proxy": 635,
+            "derived_shared_total_with_validation_proxy": 635,
+            "incremental_extra_total_after_shared_base": 0,
+            "naive_all_alternative_discovery_total": 609,
+            "selected_discovery_total": 609,
+            "selector_integrated_shared_all_alternative_discovery_total": 609,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 26,
+            "shared_all_alternative_discovery_total": 609,
+            "shared_savings": 0,
+            "shared_savings_percent": 0.0,
+            "shared_total_with_validation_proxy": 635,
+            "validation_replay_proxy_total": 0
+          },
+          "reason": "rare_body_alternative_budget_exceeded",
+          "selected_alternative": null,
+          "selected_dropped_bodies": [],
+          "selection_status": "too_many_rare_bodies"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "duplicate_suffix_label_no_source_cut",
+          "input_stats": {
+            "activity_count": 3,
+            "deep_soft_budget": 684,
+            "direct_follows_count": 4,
+            "event_count": 26,
+            "max_trace_length": 4,
+            "trace_count": 7
+          },
+          "operation_totals": {
+            "alternative_count": 0,
+            "alternatives": [],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 912,
+            "current_all_alternative_total_with_validation_proxy": 922,
+            "derived_shared_total_with_validation_proxy": 922,
+            "incremental_extra_total_after_shared_base": 0,
+            "naive_all_alternative_discovery_total": 912,
+            "selected_discovery_total": 912,
+            "selector_integrated_shared_all_alternative_discovery_total": 912,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 10,
+            "shared_all_alternative_discovery_total": 912,
+            "shared_savings": 0,
+            "shared_savings_percent": 0.0,
+            "shared_total_with_validation_proxy": 922,
+            "validation_replay_proxy_total": 0
+          },
+          "reason": "source_not_multi_body_rework_loop",
+          "selected_alternative": null,
+          "selected_dropped_bodies": [],
+          "selection_status": "no_per_body_alternatives"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "overlapping_body_labels_no_source_cut",
+          "input_stats": {
+            "activity_count": 5,
+            "deep_soft_budget": 1002,
+            "direct_follows_count": 7,
+            "event_count": 32,
+            "max_trace_length": 5,
+            "trace_count": 7
+          },
+          "operation_totals": {
+            "alternative_count": 0,
+            "alternatives": [],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 1044,
+            "current_all_alternative_total_with_validation_proxy": 1054,
+            "derived_shared_total_with_validation_proxy": 1054,
+            "incremental_extra_total_after_shared_base": 0,
+            "naive_all_alternative_discovery_total": 1044,
+            "selected_discovery_total": 1044,
+            "selector_integrated_shared_all_alternative_discovery_total": 1044,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 10,
+            "shared_all_alternative_discovery_total": 1044,
+            "shared_savings": 0,
+            "shared_savings_percent": 0.0,
+            "shared_total_with_validation_proxy": 1054,
+            "validation_replay_proxy_total": 0
+          },
+          "reason": "source_not_multi_body_rework_loop",
+          "selected_alternative": null,
+          "selected_dropped_bodies": [],
+          "selection_status": "no_per_body_alternatives"
+        },
+        {
+          "candidate_id": "ALG-0032",
+          "case": "wrong_rare_count_no_candidates",
+          "input_stats": {
+            "activity_count": 4,
+            "deep_soft_budget": 842,
+            "direct_follows_count": 5,
+            "event_count": 30,
+            "max_trace_length": 4,
+            "trace_count": 8
+          },
+          "operation_totals": {
+            "alternative_count": 0,
+            "alternatives": [],
+            "base_alternative": "drop_none",
+            "base_discovery_total": 443,
+            "current_all_alternative_total_with_validation_proxy": 461,
+            "derived_shared_total_with_validation_proxy": 461,
+            "incremental_extra_total_after_shared_base": 0,
+            "naive_all_alternative_discovery_total": 443,
+            "selected_discovery_total": 443,
+            "selector_integrated_shared_all_alternative_discovery_total": 443,
+            "selector_integrated_shared_total_matches_derivation": true,
+            "selector_total": 18,
+            "shared_all_alternative_discovery_total": 443,
+            "shared_savings": 0,
+            "shared_savings_percent": 0.0,
+            "shared_total_with_validation_proxy": 461,
+            "validation_replay_proxy_total": 0
+          },
+          "reason": "no_rare_candidate_bodies",
+          "selected_alternative": null,
+          "selected_dropped_bodies": [],
+          "selection_status": "no_per_body_alternatives"
+        }
+      ],
+      "summary": {
+        "case_count": 13,
+        "case_with_max_savings": "cap_three_allows_three_rare_split",
+        "case_with_max_shared_total": "cap_three_allows_three_rare_split",
+        "max_current_total": 7430,
+        "max_savings": 4263,
+        "max_shared_total": 3167
+      }
+    }
+  }
+}

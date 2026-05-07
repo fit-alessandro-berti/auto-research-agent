@@ -9,6 +9,7 @@ import cut_limited_body_support_guard
 import cut_limited_length_bounded_loop
 from limited_ops import OpCounter, arithmetic, comparison, construct, scan_event
 from petri_eval import precision_probe, replay_log
+import selector_shared_accounting
 
 
 TraceLog = List[List[str]]
@@ -201,10 +202,28 @@ def select(
         int(evaluation.get("operation_total") or 0)
         for evaluation in evaluations
     )
+    shared_accounting = selector_shared_accounting.shared_body_axis_accounting(
+        evaluations,
+        base_alternative="keep_all_bodies",
+        selected_discovery_total=int(selected_total),
+        selector_total=selector_counts["total"],
+        validation_replay_proxy_total=replay_counts["total"],
+        naive_all_alternative_discovery_total=all_alternative_total,
+    )
+    evidence["body_inclusion_validation_selector"]["shared_operation_accounting"] = shared_accounting
     result["operation_counts"] = dict(result.get("operation_counts", {}))
     result["operation_counts"]["selector_total"] = selector_counts["total"]
     result["operation_counts"]["validation_replay_proxy_total"] = replay_counts["total"]
     result["operation_counts"]["all_alternative_discovery_total"] = all_alternative_total
+    result["operation_counts"]["shared_base_discovery_total"] = shared_accounting[
+        "base_discovery_total"
+    ]
+    result["operation_counts"]["shared_incremental_discovery_extra_total"] = shared_accounting[
+        "incremental_extra_total_after_shared_base"
+    ]
+    result["operation_counts"]["shared_all_alternative_discovery_total"] = shared_accounting[
+        "shared_all_alternative_discovery_total"
+    ]
     result["operation_counts"]["total_with_selector"] = selected_total + selector_counts["total"]
     result["operation_counts"]["total_with_selector_and_validation_proxy"] = (
         selected_total + selector_counts["total"] + replay_counts["total"]
@@ -212,5 +231,11 @@ def select(
     result["operation_counts"]["total_with_all_alternatives_and_validation_proxy"] = (
         all_alternative_total + selector_counts["total"] + replay_counts["total"]
     )
+    result["operation_counts"]["total_with_shared_alternatives_and_validation_proxy"] = (
+        shared_accounting["shared_total_with_validation_proxy"]
+    )
+    result["operation_counts"]["shared_savings_vs_all_alternatives"] = shared_accounting[
+        "shared_savings_vs_naive"
+    ]
     result["pmir"]["operation_counts"] = result["operation_counts"]
     return result

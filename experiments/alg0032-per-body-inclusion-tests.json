@@ -1,0 +1,2306 @@
+{
+  "cases": {
+    "count_two_mixed_valid_noise": {
+      "alg0029_baseline": {
+        "reason": "no_alternative_satisfies_all_validation_probes",
+        "selected_alternative": null,
+        "selection_status": "unresolved"
+      },
+      "alternative_count": 4,
+      "baseline_ok": true,
+      "description": "Count-two rare bodies can be split when an explicit 5/9 support policy is declared.",
+      "expected_dropped": [
+        [
+          "E"
+        ]
+      ],
+      "expected_reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 1098,
+        "direct_follows_count": 7,
+        "event_count": 38,
+        "max_trace_length": 4,
+        "trace_count": 10
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 3214,
+        "comparison": 392,
+        "construct": 62,
+        "dict_increment": 95,
+        "relation_classification": 46,
+        "scan_event": 165,
+        "selector_total": 59,
+        "set_insert": 54,
+        "set_lookup": 89,
+        "shared_all_alternative_discovery_total": 1495,
+        "shared_base_discovery_total": 573,
+        "shared_incremental_discovery_extra_total": 922,
+        "shared_savings_vs_all_alternatives": 1719,
+        "total": 903,
+        "total_with_all_alternatives_and_validation_proxy": 3329,
+        "total_with_selector": 962,
+        "total_with_selector_and_validation_proxy": 1018,
+        "total_with_shared_alternatives_and_validation_proxy": 1610,
+        "validation_replay_proxy_total": 56
+      },
+      "protocol_pass": true,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "scores": [
+        {
+          "alternative": "drop_C",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 903,
+          "score": [
+            0,
+            0,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "E",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_none",
+          "candidate_source": "ALG-0025",
+          "dropped_bodies": [],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 573,
+          "score": [
+            0,
+            1,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "E",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_C__E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ]
+          ],
+          "operation_total": 835,
+          "score": [
+            0,
+            1,
+            0
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "operation_total": 903,
+          "score": [
+            1,
+            2,
+            0
+          ],
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_alternative": "drop_E",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 14,
+        "comparison": 35,
+        "construct": 10,
+        "total": 59
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 8,
+        "scan_event": 48,
+        "total": 56
+      }
+    },
+    "dominance_threshold_not_met": {
+      "alg0029_baseline": null,
+      "alternative_count": 0,
+      "baseline_ok": true,
+      "description": "No per-body selection should occur without the declared dominant-support context.",
+      "expected_dropped": [],
+      "expected_reason": "dominant_count_below_threshold",
+      "expected_status": "dominance_threshold_not_met",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 842,
+        "direct_follows_count": 7,
+        "event_count": 22,
+        "max_trace_length": 4,
+        "trace_count": 6
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 425,
+        "comparison": 195,
+        "construct": 31,
+        "dict_increment": 33,
+        "relation_classification": 30,
+        "scan_event": 47,
+        "selector_total": 15,
+        "set_insert": 34,
+        "set_lookup": 55,
+        "shared_all_alternative_discovery_total": 425,
+        "shared_base_discovery_total": 425,
+        "shared_incremental_discovery_extra_total": 0,
+        "shared_savings_vs_all_alternatives": 0,
+        "total": 425,
+        "total_with_all_alternatives_and_validation_proxy": 440,
+        "total_with_selector": 440,
+        "total_with_selector_and_validation_proxy": 440,
+        "total_with_shared_alternatives_and_validation_proxy": 440,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "reason": "dominant_count_below_threshold",
+      "scores": [],
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "dominance_threshold_not_met",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 13,
+        "total": 15
+      },
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "one_rare_noise_exclude": {
+      "alg0029_baseline": null,
+      "alternative_count": 2,
+      "baseline_ok": true,
+      "description": "Validation rejects rare-body combinations, so the rare body should be dropped.",
+      "expected_dropped": [
+        [
+          "C"
+        ]
+      ],
+      "expected_reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 1
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 778,
+        "direct_follows_count": 5,
+        "event_count": 26,
+        "max_trace_length": 4,
+        "trace_count": 7
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 1035,
+        "comparison": 263,
+        "construct": 53,
+        "dict_increment": 67,
+        "relation_classification": 30,
+        "scan_event": 119,
+        "selector_total": 35,
+        "set_insert": 40,
+        "set_lookup": 57,
+        "shared_all_alternative_discovery_total": 629,
+        "shared_base_discovery_total": 406,
+        "shared_incremental_discovery_extra_total": 223,
+        "shared_savings_vs_all_alternatives": 406,
+        "total": 629,
+        "total_with_all_alternatives_and_validation_proxy": 1098,
+        "total_with_selector": 664,
+        "total_with_selector_and_validation_proxy": 692,
+        "total_with_shared_alternatives_and_validation_proxy": 692,
+        "validation_replay_proxy_total": 28
+      },
+      "protocol_pass": true,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "scores": [
+        {
+          "alternative": "drop_none",
+          "candidate_source": "ALG-0025",
+          "dropped_bodies": [],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "operation_total": 406,
+          "score": [
+            0,
+            1,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_C",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ]
+          ],
+          "operation_total": 629,
+          "score": [
+            1,
+            2,
+            0
+          ],
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_alternative": "drop_C",
+      "selected_dropped_bodies": [
+        [
+          "C"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 8,
+        "comparison": 22,
+        "construct": 5,
+        "total": 35
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 4,
+        "scan_event": 24,
+        "total": 28
+      }
+    },
+    "one_rare_valid_include": {
+      "alg0029_baseline": null,
+      "alternative_count": 2,
+      "baseline_ok": true,
+      "description": "Validation requires the rare body, so the per-body vector should keep it.",
+      "expected_dropped": [],
+      "expected_reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 778,
+        "direct_follows_count": 5,
+        "event_count": 26,
+        "max_trace_length": 4,
+        "trace_count": 7
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 1035,
+        "comparison": 188,
+        "construct": 28,
+        "dict_increment": 39,
+        "relation_classification": 21,
+        "scan_event": 55,
+        "selector_total": 36,
+        "set_insert": 37,
+        "set_lookup": 38,
+        "shared_all_alternative_discovery_total": 629,
+        "shared_base_discovery_total": 406,
+        "shared_incremental_discovery_extra_total": 223,
+        "shared_savings_vs_all_alternatives": 406,
+        "total": 406,
+        "total_with_all_alternatives_and_validation_proxy": 1101,
+        "total_with_selector": 442,
+        "total_with_selector_and_validation_proxy": 472,
+        "total_with_shared_alternatives_and_validation_proxy": 695,
+        "validation_replay_proxy_total": 30
+      },
+      "protocol_pass": true,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "scores": [
+        {
+          "alternative": "drop_C",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ]
+          ],
+          "operation_total": 629,
+          "score": [
+            0,
+            2,
+            0
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_none",
+          "candidate_source": "ALG-0025",
+          "dropped_bodies": [],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "operation_total": 406,
+          "score": [
+            1,
+            3,
+            0
+          ],
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_alternative": "drop_none",
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 8,
+        "comparison": 23,
+        "construct": 5,
+        "total": 36
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 6,
+        "scan_event": 24,
+        "total": 30
+      }
+    },
+    "partial_signal_ambiguous": {
+      "alg0029_baseline": null,
+      "alternative_count": 4,
+      "baseline_ok": true,
+      "description": "Validation distinguishes C but gives no signal about E, so selection must stay unresolved.",
+      "expected_dropped": [],
+      "expected_reason": "tie_or_conflicting_per_body_validation_evidence",
+      "expected_status": "unresolved",
+      "final_negative_probe": {
+        "accepted_examples": [
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "E",
+              "A",
+              "E",
+              "A",
+              "D"
+            ]
+          }
+        ],
+        "accepted_negative_traces": 1,
+        "negative_rejection_rate": 0.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": false,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 2818,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "selector_total": 58,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "shared_all_alternative_discovery_total": 1321,
+        "shared_base_discovery_total": 499,
+        "shared_incremental_discovery_extra_total": 822,
+        "shared_savings_vs_all_alternatives": 1497,
+        "total": 499,
+        "total_with_all_alternatives_and_validation_proxy": 2936,
+        "total_with_selector": 557,
+        "total_with_selector_and_validation_proxy": 617,
+        "total_with_shared_alternatives_and_validation_proxy": 1439,
+        "validation_replay_proxy_total": 60
+      },
+      "protocol_pass": true,
+      "reason": "tie_or_conflicting_per_body_validation_evidence",
+      "scores": [
+        {
+          "alternative": "drop_C",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            0,
+            2,
+            0
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_C__E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ]
+          ],
+          "operation_total": 735,
+          "score": [
+            0,
+            2,
+            0
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            1,
+            3,
+            0
+          ],
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_none",
+          "candidate_source": "ALG-0025",
+          "dropped_bodies": [],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 499,
+          "score": [
+            1,
+            3,
+            0
+          ],
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "unresolved",
+      "selector_operation_counts": {
+        "arithmetic": 14,
+        "comparison": 34,
+        "construct": 10,
+        "total": 58
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 12,
+        "scan_event": 48,
+        "total": 60
+      }
+    },
+    "positive_negative_overlap": {
+      "alg0029_baseline": null,
+      "alternative_count": 4,
+      "baseline_ok": true,
+      "description": "The same validation trace appears as positive and negative.",
+      "expected_dropped": [],
+      "expected_reason": "validation_trace_is_both_positive_and_negative",
+      "expected_status": "validation_inconsistent",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 2818,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "selector_total": 57,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "shared_all_alternative_discovery_total": 1321,
+        "shared_base_discovery_total": 499,
+        "shared_incremental_discovery_extra_total": 822,
+        "shared_savings_vs_all_alternatives": 1497,
+        "total": 499,
+        "total_with_all_alternatives_and_validation_proxy": 2931,
+        "total_with_selector": 556,
+        "total_with_selector_and_validation_proxy": 612,
+        "total_with_shared_alternatives_and_validation_proxy": 1434,
+        "validation_replay_proxy_total": 56
+      },
+      "protocol_pass": true,
+      "reason": "validation_trace_is_both_positive_and_negative",
+      "scores": [
+        {
+          "alternative": "drop_E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            0,
+            1,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_none",
+          "candidate_source": "ALG-0025",
+          "dropped_bodies": [],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 499,
+          "score": [
+            0,
+            1,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_C",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            0,
+            1,
+            0
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_C__E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ]
+          ],
+          "operation_total": 735,
+          "score": [
+            0,
+            1,
+            0
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "validation_inconsistent",
+      "selector_operation_counts": {
+        "arithmetic": 14,
+        "comparison": 33,
+        "construct": 10,
+        "total": 57
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 8,
+        "scan_event": 48,
+        "total": 56
+      }
+    },
+    "too_many_rare_bodies_budget": {
+      "alg0029_baseline": null,
+      "alternative_count": 0,
+      "baseline_ok": true,
+      "description": "Rare-body enumeration is capped to avoid an unbounded inclusion-vector product.",
+      "expected_dropped": [],
+      "expected_reason": "rare_body_alternative_budget_exceeded",
+      "expected_status": "too_many_rare_bodies",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 6,
+        "deep_soft_budget": 1186,
+        "direct_follows_count": 9,
+        "event_count": 34,
+        "max_trace_length": 4,
+        "trace_count": 9
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 609,
+        "comparison": 288,
+        "construct": 34,
+        "dict_increment": 51,
+        "relation_classification": 41,
+        "scan_event": 69,
+        "selector_total": 26,
+        "set_insert": 48,
+        "set_lookup": 78,
+        "shared_all_alternative_discovery_total": 609,
+        "shared_base_discovery_total": 609,
+        "shared_incremental_discovery_extra_total": 0,
+        "shared_savings_vs_all_alternatives": 0,
+        "total": 609,
+        "total_with_all_alternatives_and_validation_proxy": 635,
+        "total_with_selector": 635,
+        "total_with_selector_and_validation_proxy": 635,
+        "total_with_shared_alternatives_and_validation_proxy": 635,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "reason": "rare_body_alternative_budget_exceeded",
+      "scores": [],
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "too_many_rare_bodies",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 21,
+        "construct": 3,
+        "total": 26
+      },
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "training_negative_conflict": {
+      "alg0029_baseline": null,
+      "alternative_count": 4,
+      "baseline_ok": true,
+      "description": "A validation negative is an observed training trace.",
+      "expected_dropped": [],
+      "expected_reason": "validation_negative_contains_training_trace",
+      "expected_status": "validation_training_conflict",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 2818,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "selector_total": 56,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "shared_all_alternative_discovery_total": 1321,
+        "shared_base_discovery_total": 499,
+        "shared_incremental_discovery_extra_total": 822,
+        "shared_savings_vs_all_alternatives": 1497,
+        "total": 499,
+        "total_with_all_alternatives_and_validation_proxy": 2894,
+        "total_with_selector": 555,
+        "total_with_selector_and_validation_proxy": 575,
+        "total_with_shared_alternatives_and_validation_proxy": 1397,
+        "validation_replay_proxy_total": 20
+      },
+      "protocol_pass": true,
+      "reason": "validation_negative_contains_training_trace",
+      "scores": [
+        {
+          "alternative": "drop_E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            0,
+            0,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "alternative": "drop_none",
+          "candidate_source": "ALG-0025",
+          "dropped_bodies": [],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 499,
+          "score": [
+            0,
+            0,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "alternative": "drop_C",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            1,
+            1,
+            0
+          ],
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "alternative": "drop_C__E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ]
+          ],
+          "operation_total": 735,
+          "score": [
+            1,
+            1,
+            0
+          ],
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        }
+      ],
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "validation_training_conflict",
+      "selector_operation_counts": {
+        "arithmetic": 14,
+        "comparison": 32,
+        "construct": 10,
+        "total": 56
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 4,
+        "scan_event": 16,
+        "total": 20
+      }
+    },
+    "two_rare_both_noise": {
+      "alg0029_baseline": null,
+      "alternative_count": 4,
+      "baseline_ok": true,
+      "description": "Validation rejects both rare bodies, so both rare bodies should be dropped.",
+      "expected_dropped": [
+        [
+          "C"
+        ],
+        [
+          "E"
+        ]
+      ],
+      "expected_reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 3,
+        "rejected_negative_traces": 3
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 2818,
+        "comparison": 317,
+        "construct": 57,
+        "dict_increment": 73,
+        "relation_classification": 39,
+        "scan_event": 129,
+        "selector_total": 58,
+        "set_insert": 45,
+        "set_lookup": 75,
+        "shared_all_alternative_discovery_total": 1321,
+        "shared_base_discovery_total": 499,
+        "shared_incremental_discovery_extra_total": 822,
+        "shared_savings_vs_all_alternatives": 1497,
+        "total": 735,
+        "total_with_all_alternatives_and_validation_proxy": 2960,
+        "total_with_selector": 793,
+        "total_with_selector_and_validation_proxy": 877,
+        "total_with_shared_alternatives_and_validation_proxy": 1463,
+        "validation_replay_proxy_total": 84
+      },
+      "protocol_pass": true,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "scores": [
+        {
+          "alternative": "drop_none",
+          "candidate_source": "ALG-0025",
+          "dropped_bodies": [],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 499,
+          "score": [
+            0,
+            1,
+            -2
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "E",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_C",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            0,
+            2,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "E",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.5,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            0,
+            2,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.5,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_C__E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ]
+          ],
+          "operation_total": 735,
+          "score": [
+            1,
+            3,
+            0
+          ],
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_alternative": "drop_C__E",
+      "selected_dropped_bodies": [
+        [
+          "C"
+        ],
+        [
+          "E"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 14,
+        "comparison": 34,
+        "construct": 10,
+        "total": 58
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 12,
+        "scan_event": 72,
+        "total": 84
+      }
+    },
+    "two_rare_both_valid": {
+      "alg0029_baseline": null,
+      "alternative_count": 4,
+      "baseline_ok": true,
+      "description": "Validation requires both rare bodies, so no rare body should be dropped.",
+      "expected_dropped": [],
+      "expected_reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 2818,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "selector_total": 59,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "shared_all_alternative_discovery_total": 1321,
+        "shared_base_discovery_total": 499,
+        "shared_incremental_discovery_extra_total": 822,
+        "shared_savings_vs_all_alternatives": 1497,
+        "total": 499,
+        "total_with_all_alternatives_and_validation_proxy": 2965,
+        "total_with_selector": 558,
+        "total_with_selector_and_validation_proxy": 646,
+        "total_with_shared_alternatives_and_validation_proxy": 1468,
+        "validation_replay_proxy_total": 88
+      },
+      "protocol_pass": true,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "scores": [
+        {
+          "alternative": "drop_C__E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ]
+          ],
+          "operation_total": 735,
+          "score": [
+            0,
+            2,
+            0
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "activity": "E",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "E",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 2
+          }
+        },
+        {
+          "alternative": "drop_C",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            0,
+            3,
+            0
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 1,
+            "trace_count": 2
+          }
+        },
+        {
+          "alternative": "drop_E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            0,
+            3,
+            0
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "E",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "E",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 1,
+            "trace_count": 2
+          }
+        },
+        {
+          "alternative": "drop_none",
+          "candidate_source": "ALG-0025",
+          "dropped_bodies": [],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 499,
+          "score": [
+            1,
+            4,
+            0
+          ],
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      ],
+      "selected_alternative": "drop_none",
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 14,
+        "comparison": 35,
+        "construct": 10,
+        "total": 59
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 16,
+        "scan_event": 72,
+        "total": 88
+      }
+    },
+    "two_rare_one_valid_one_noise": {
+      "alg0029_baseline": {
+        "reason": "no_alternative_satisfies_all_validation_probes",
+        "selected_alternative": null,
+        "selection_status": "unresolved"
+      },
+      "alternative_count": 4,
+      "baseline_ok": true,
+      "description": "Direct repair target: keep C but drop E under the same rare count.",
+      "expected_dropped": [
+        [
+          "E"
+        ]
+      ],
+      "expected_reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "all_alternative_discovery_total": 2818,
+        "comparison": 338,
+        "construct": 60,
+        "dict_increment": 78,
+        "relation_classification": 46,
+        "scan_event": 136,
+        "selector_total": 57,
+        "set_insert": 46,
+        "set_lookup": 88,
+        "shared_all_alternative_discovery_total": 1321,
+        "shared_base_discovery_total": 499,
+        "shared_incremental_discovery_extra_total": 822,
+        "shared_savings_vs_all_alternatives": 1497,
+        "total": 792,
+        "total_with_all_alternatives_and_validation_proxy": 2931,
+        "total_with_selector": 849,
+        "total_with_selector_and_validation_proxy": 905,
+        "total_with_shared_alternatives_and_validation_proxy": 1434,
+        "validation_replay_proxy_total": 56
+      },
+      "protocol_pass": true,
+      "reason": "unique_per_body_assignment_satisfies_validation_probes",
+      "scores": [
+        {
+          "alternative": "drop_C",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            0,
+            0,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "E",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_none",
+          "candidate_source": "ALG-0025",
+          "dropped_bodies": [],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "operation_total": 499,
+          "score": [
+            0,
+            1,
+            -1
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "E",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_C__E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "C"
+            ],
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ]
+          ],
+          "operation_total": 735,
+          "score": [
+            0,
+            1,
+            0
+          ],
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "event_index": 1,
+                "ok": false,
+                "reason": "missing_transition",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "alternative": "drop_E",
+          "candidate_source": "ALG-0028",
+          "dropped_bodies": [
+            [
+              "E"
+            ]
+          ],
+          "kept_bodies": [
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "operation_total": 792,
+          "score": [
+            1,
+            2,
+            0
+          ],
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_alternative": "drop_E",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 14,
+        "comparison": 33,
+        "construct": 10,
+        "total": 57
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 8,
+        "scan_event": 48,
+        "total": 56
+      }
+    }
+  },
+  "summary": {
+    "case_count": 11,
+    "failed": [],
+    "passed": 11
+  }
+}

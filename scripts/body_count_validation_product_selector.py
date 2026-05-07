@@ -9,6 +9,7 @@ import body_inclusion_validation_selector
 import loop_policy_set_protocol
 from limited_ops import OpCounter, arithmetic, comparison, construct, scan_event
 from petri_eval import precision_probe, replay_log
+import selector_shared_accounting
 
 
 TraceLog = List[List[str]]
@@ -261,6 +262,10 @@ def select(
 
     operation_counts = dict(result.get("operation_counts", {}))
     body_total = operation_counts.get("total_with_all_alternatives_and_validation_proxy", 0)
+    body_shared_total = operation_counts.get(
+        "total_with_shared_alternatives_and_validation_proxy",
+        body_total,
+    )
     selected_body_total = operation_counts.get("total", 0)
     selected_count_total = selected_body_total
     if selected_policy is not None:
@@ -269,14 +274,70 @@ def select(
                 selected_count_total = score.get("total_with_discovery_ops") or selected_body_total
                 break
     count_compile_extra = max(0, int(selected_count_total) - int(selected_body_total))
+    all_count_compile_extra = 0
+    count_compile_alternatives = []
+    loop_policy_set = evidence.get("loop_count_policy_set", {})
+    for alternative in loop_policy_set.get("alternatives", []):
+        compile_total = selector_shared_accounting.as_int(
+            alternative.get("compile_operation_counts", {}).get("total")
+        )
+        all_count_compile_extra += compile_total
+        count_compile_alternatives.append(
+            {
+                "policy": alternative.get("policy"),
+                "candidate_source": alternative.get("candidate_source"),
+                "compile_extra_total": compile_total,
+            }
+        )
     operation_counts["count_selector_total"] = count_selector_counts["total"]
     operation_counts["count_validation_replay_proxy_total"] = count_replay_counts["total"]
     operation_counts["count_compile_extra_total"] = count_compile_extra
+    operation_counts["count_all_compile_extra_total"] = all_count_compile_extra
+    operation_counts["body_shared_total_with_validation_proxy"] = int(body_shared_total)
     operation_counts["total_with_product_selector_and_validation_proxy"] = (
         int(body_total)
         + count_compile_extra
         + count_selector_counts["total"]
         + count_replay_counts["total"]
+    )
+    operation_counts["total_with_shared_product_selected_count_and_validation_proxy"] = (
+        int(body_shared_total)
+        + count_compile_extra
+        + count_selector_counts["total"]
+        + count_replay_counts["total"]
+    )
+    operation_counts["total_with_shared_product_all_count_alternatives_and_validation_proxy"] = (
+        int(body_shared_total)
+        + all_count_compile_extra
+        + count_selector_counts["total"]
+        + count_replay_counts["total"]
+    )
+    product_shared_accounting = {
+        "method": "shared_body_axis_plus_count_policy_compile_extras",
+        "body_shared_total_with_validation_proxy": int(body_shared_total),
+        "body_naive_total_with_validation_proxy": int(body_total),
+        "selected_count_compile_extra_total": count_compile_extra,
+        "all_count_compile_extra_total": all_count_compile_extra,
+        "count_selector_total": count_selector_counts["total"],
+        "count_validation_replay_proxy_total": count_replay_counts["total"],
+        "total_with_selected_count_compile_extra": operation_counts[
+            "total_with_shared_product_selected_count_and_validation_proxy"
+        ],
+        "total_with_all_count_compile_extras": operation_counts[
+            "total_with_shared_product_all_count_alternatives_and_validation_proxy"
+        ],
+        "savings_vs_reported_product_selected_count": (
+            operation_counts["total_with_product_selector_and_validation_proxy"]
+            - operation_counts["total_with_shared_product_selected_count_and_validation_proxy"]
+        ),
+        "savings_vs_reported_product_all_count": (
+            operation_counts["total_with_product_selector_and_validation_proxy"]
+            - operation_counts["total_with_shared_product_all_count_alternatives_and_validation_proxy"]
+        ),
+        "count_compile_alternatives": count_compile_alternatives,
+    }
+    evidence["body_count_validation_product_selector"]["shared_operation_accounting"] = (
+        product_shared_accounting
     )
     result["operation_counts"] = operation_counts
     result["pmir"]["operation_counts"] = operation_counts

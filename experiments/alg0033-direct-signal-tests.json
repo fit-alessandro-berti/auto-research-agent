@@ -1,0 +1,2000 @@
+{
+  "cases": {
+    "body_signal_conflict": {
+      "alternative_count": 0,
+      "avoided_exhaustive_alternative_count": 4,
+      "cost_ok": true,
+      "description": "The same rare body appears in positive and singleton-negative validation traces.",
+      "direct_budget_ratio": 0.6072164948453608,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [
+          [
+            "C"
+          ]
+        ],
+        "malformed_validation_traces": [],
+        "reason": "rare_body_has_positive_and_negative_direct_signal",
+        "signals": [
+          {
+            "action": "conflict",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "C",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "positive_trace_count": 1
+          },
+          {
+            "action": "unresolved",
+            "body": [
+              "E"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          }
+        ],
+        "status": "body_signal_conflict",
+        "unresolved_bodies": [
+          [
+            "E"
+          ]
+        ]
+      },
+      "direct_total_with_validation_proxy": 589,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [],
+      "expected_reason": "rare_body_has_positive_and_negative_direct_signal",
+      "expected_status": "body_signal_conflict",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 4,
+        "base_discovery_total": 499,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "direct_signal_selector_total": 90,
+        "evaluated_alternative_count": 0,
+        "guarded_compile_extra_total": 0,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "total": 499,
+        "total_with_selector": 589,
+        "total_with_selector_and_validation_proxy": 589,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "reason": "rare_body_has_positive_and_negative_direct_signal",
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "body_signal_conflict",
+      "selector_operation_counts": {
+        "arithmetic": 8,
+        "comparison": 55,
+        "construct": 11,
+        "scan_event": 12,
+        "set_lookup": 4,
+        "total": 90
+      },
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "count_two_mixed_valid_noise": {
+      "alternative_count": 1,
+      "avoided_exhaustive_alternative_count": 4,
+      "cost_ok": true,
+      "description": "Configured count-two rare bodies can be split by direct validation signals.",
+      "direct_budget_ratio": 0.918943533697632,
+      "direct_lower_than_exhaustive": true,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "direct_body_signals_identify_assignment",
+        "signals": [
+          {
+            "action": "keep",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "positive_trace_count": 1
+          },
+          {
+            "action": "drop",
+            "body": [
+              "E"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "E",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          }
+        ],
+        "status": "direct_assignment_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 1009,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": {
+        "alternative_count": 4,
+        "naive_total_with_validation_proxy": 3329,
+        "reason": "unique_per_body_assignment_satisfies_validation_probes",
+        "selected_dropped_bodies": [
+          [
+            "E"
+          ]
+        ],
+        "selection_status": "selected",
+        "shared_total_with_validation_proxy": 1610
+      },
+      "expected_dropped": [
+        [
+          "E"
+        ]
+      ],
+      "expected_reason": "direct_body_signals_identify_assignment",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 1098,
+        "direct_follows_count": 7,
+        "event_count": 38,
+        "max_trace_length": 4,
+        "trace_count": 10
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 4,
+        "base_discovery_total": 573,
+        "comparison": 392,
+        "construct": 62,
+        "dict_increment": 95,
+        "direct_signal_selector_total": 92,
+        "evaluated_alternative_count": 1,
+        "guarded_compile_extra_total": 330,
+        "relation_classification": 46,
+        "scan_event": 165,
+        "set_insert": 54,
+        "set_lookup": 89,
+        "total": 903,
+        "total_with_selector": 995,
+        "total_with_selector_and_validation_proxy": 1009,
+        "validation_replay_proxy_total": 14
+      },
+      "protocol_pass": true,
+      "reason": "direct_body_signals_identify_assignment",
+      "selected_alternative": "drop_E",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 8,
+        "comparison": 57,
+        "construct": 11,
+        "scan_event": 12,
+        "set_lookup": 4,
+        "total": 92
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 2,
+        "scan_event": 12,
+        "total": 14
+      }
+    },
+    "dominance_threshold_not_met": {
+      "alternative_count": 0,
+      "avoided_exhaustive_alternative_count": 0,
+      "cost_ok": true,
+      "description": "The direct rule is scoped to the same dominant-support context as ALG-0032.",
+      "direct_budget_ratio": 0.5225653206650831,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "dominant_count_below_threshold",
+        "signals": [],
+        "status": "dominance_threshold_not_met",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 440,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [],
+      "expected_reason": "dominant_count_below_threshold",
+      "expected_status": "dominance_threshold_not_met",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 842,
+        "direct_follows_count": 7,
+        "event_count": 22,
+        "max_trace_length": 4,
+        "trace_count": 6
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 0,
+        "base_discovery_total": 425,
+        "comparison": 195,
+        "construct": 31,
+        "dict_increment": 33,
+        "direct_signal_selector_total": 15,
+        "evaluated_alternative_count": 0,
+        "guarded_compile_extra_total": 0,
+        "relation_classification": 30,
+        "scan_event": 47,
+        "set_insert": 34,
+        "set_lookup": 55,
+        "total": 425,
+        "total_with_selector": 440,
+        "total_with_selector_and_validation_proxy": 440,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "reason": "dominant_count_below_threshold",
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "dominance_threshold_not_met",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 13,
+        "total": 15
+      },
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "interaction_negative_ambiguous": {
+      "alternative_count": 0,
+      "avoided_exhaustive_alternative_count": 4,
+      "cost_ok": true,
+      "description": "A non-unit negative with no otherwise classified rare body stays unresolved.",
+      "direct_budget_ratio": 0.6051546391752577,
+      "direct_lower_than_exhaustive": true,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [
+          {
+            "rare_bodies": [
+              [
+                "C"
+              ],
+              [
+                "E"
+              ]
+            ],
+            "required_keep_bodies": [],
+            "trace": [
+              "A",
+              "C",
+              "A",
+              "E",
+              "A",
+              "D"
+            ]
+          }
+        ],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "negative_trace_mentions_multiple_rare_bodies_without_direct_assignment",
+        "signals": [
+          {
+            "action": "unresolved",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          },
+          {
+            "action": "unresolved",
+            "body": [
+              "E"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          }
+        ],
+        "status": "interaction_ambiguous",
+        "unresolved_bodies": [
+          [
+            "C"
+          ],
+          [
+            "E"
+          ]
+        ]
+      },
+      "direct_total_with_validation_proxy": 587,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": {
+        "alternative_count": 4,
+        "naive_total_with_validation_proxy": 2931,
+        "reason": "tie_or_conflicting_per_body_validation_evidence",
+        "selected_dropped_bodies": [],
+        "selection_status": "unresolved",
+        "shared_total_with_validation_proxy": 1434
+      },
+      "expected_dropped": [],
+      "expected_reason": "negative_trace_mentions_multiple_rare_bodies_without_direct_assignment",
+      "expected_status": "interaction_ambiguous",
+      "final_negative_probe": {
+        "accepted_examples": [
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "E",
+              "A",
+              "E",
+              "A",
+              "D"
+            ]
+          }
+        ],
+        "accepted_negative_traces": 1,
+        "negative_rejection_rate": 0.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": false,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 4,
+        "base_discovery_total": 499,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "direct_signal_selector_total": 88,
+        "evaluated_alternative_count": 0,
+        "guarded_compile_extra_total": 0,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "total": 499,
+        "total_with_selector": 587,
+        "total_with_selector_and_validation_proxy": 587,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "reason": "negative_trace_mentions_multiple_rare_bodies_without_direct_assignment",
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "interaction_ambiguous",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 56,
+        "construct": 10,
+        "scan_event": 12,
+        "set_lookup": 4,
+        "total": 88
+      },
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "one_rare_noise_exclude": {
+      "alternative_count": 1,
+      "avoided_exhaustive_alternative_count": 2,
+      "cost_ok": true,
+      "description": "A singleton rare-body negative gives a direct drop signal.",
+      "direct_budget_ratio": 0.9305912596401028,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "direct_body_signals_identify_assignment",
+        "signals": [
+          {
+            "action": "drop",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          }
+        ],
+        "status": "direct_assignment_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 724,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [
+        [
+          "C"
+        ]
+      ],
+      "expected_reason": "direct_body_signals_identify_assignment",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 1
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 778,
+        "direct_follows_count": 5,
+        "event_count": 26,
+        "max_trace_length": 4,
+        "trace_count": 7
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 2,
+        "base_discovery_total": 406,
+        "comparison": 263,
+        "construct": 53,
+        "dict_increment": 67,
+        "direct_signal_selector_total": 81,
+        "evaluated_alternative_count": 1,
+        "guarded_compile_extra_total": 223,
+        "relation_classification": 30,
+        "scan_event": 119,
+        "set_insert": 40,
+        "set_lookup": 57,
+        "total": 629,
+        "total_with_selector": 710,
+        "total_with_selector_and_validation_proxy": 724,
+        "validation_replay_proxy_total": 14
+      },
+      "protocol_pass": true,
+      "reason": "direct_body_signals_identify_assignment",
+      "selected_alternative": "drop_C",
+      "selected_dropped_bodies": [
+        [
+          "C"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 7,
+        "comparison": 50,
+        "construct": 8,
+        "scan_event": 12,
+        "set_lookup": 4,
+        "total": 81
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 2,
+        "scan_event": 12,
+        "total": 14
+      }
+    },
+    "one_rare_valid_include": {
+      "alternative_count": 1,
+      "avoided_exhaustive_alternative_count": 2,
+      "cost_ok": true,
+      "description": "Positive validation contains the rare body, so the direct rule keeps it.",
+      "direct_budget_ratio": 0.6349614395886889,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [
+          [
+            "A",
+            "B",
+            "D"
+          ],
+          [
+            "A",
+            "D",
+            "B"
+          ]
+        ],
+        "reason": "direct_body_signals_identify_assignment",
+        "signals": [
+          {
+            "action": "keep",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "positive_trace_count": 1
+          }
+        ],
+        "status": "direct_assignment_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 494,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [],
+      "expected_reason": "direct_body_signals_identify_assignment",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 778,
+        "direct_follows_count": 5,
+        "event_count": 26,
+        "max_trace_length": 4,
+        "trace_count": 7
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 2,
+        "base_discovery_total": 406,
+        "comparison": 188,
+        "construct": 28,
+        "dict_increment": 39,
+        "direct_signal_selector_total": 73,
+        "evaluated_alternative_count": 1,
+        "guarded_compile_extra_total": 0,
+        "relation_classification": 21,
+        "scan_event": 55,
+        "set_insert": 37,
+        "set_lookup": 38,
+        "total": 406,
+        "total_with_selector": 479,
+        "total_with_selector_and_validation_proxy": 494,
+        "validation_replay_proxy_total": 15
+      },
+      "protocol_pass": true,
+      "reason": "direct_body_signals_identify_assignment",
+      "selected_alternative": "drop_none",
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 5,
+        "comparison": 47,
+        "construct": 7,
+        "scan_event": 12,
+        "set_lookup": 2,
+        "total": 73
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 3,
+        "scan_event": 12,
+        "total": 15
+      }
+    },
+    "partial_signal_unresolved": {
+      "alternative_count": 0,
+      "avoided_exhaustive_alternative_count": 4,
+      "cost_ok": true,
+      "description": "Validation keeps C but gives no direct signal about E.",
+      "direct_budget_ratio": 0.5969072164948453,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [
+          [
+            "A",
+            "B",
+            "D"
+          ],
+          [
+            "A",
+            "D",
+            "B"
+          ]
+        ],
+        "reason": "missing_direct_body_signal",
+        "signals": [
+          {
+            "action": "keep",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "positive_trace_count": 1
+          },
+          {
+            "action": "unresolved",
+            "body": [
+              "E"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          }
+        ],
+        "status": "partial_direct_signal",
+        "unresolved_bodies": [
+          [
+            "E"
+          ]
+        ]
+      },
+      "direct_total_with_validation_proxy": 579,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [],
+      "expected_reason": "missing_direct_body_signal",
+      "expected_status": "partial_direct_signal",
+      "final_negative_probe": {
+        "accepted_examples": [
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "E",
+              "A",
+              "E",
+              "A",
+              "D"
+            ]
+          }
+        ],
+        "accepted_negative_traces": 1,
+        "negative_rejection_rate": 0.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": false,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 4,
+        "base_discovery_total": 499,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "direct_signal_selector_total": 80,
+        "evaluated_alternative_count": 0,
+        "guarded_compile_extra_total": 0,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "total": 499,
+        "total_with_selector": 579,
+        "total_with_selector_and_validation_proxy": 579,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "reason": "missing_direct_body_signal",
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "partial_direct_signal",
+      "selector_operation_counts": {
+        "arithmetic": 5,
+        "comparison": 52,
+        "construct": 9,
+        "scan_event": 12,
+        "set_lookup": 2,
+        "total": 80
+      },
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "positive_negative_overlap": {
+      "alternative_count": 0,
+      "avoided_exhaustive_alternative_count": 4,
+      "cost_ok": true,
+      "description": "Validation labels are inconsistent when the same trace is positive and negative.",
+      "direct_budget_ratio": 0.5371134020618556,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "rare_body_candidates_with_dominant_support",
+        "signals": [],
+        "status": "alternatives_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 521,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [],
+      "expected_reason": "validation_trace_is_both_positive_and_negative",
+      "expected_status": "validation_inconsistent",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 4,
+        "base_discovery_total": 499,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "direct_signal_selector_total": 22,
+        "evaluated_alternative_count": 0,
+        "guarded_compile_extra_total": 0,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "total": 499,
+        "total_with_selector": 521,
+        "total_with_selector_and_validation_proxy": 521,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "reason": "validation_trace_is_both_positive_and_negative",
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "validation_inconsistent",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 18,
+        "construct": 2,
+        "total": 22
+      },
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "rare_count_3_direct_scale_under_budget": {
+      "alternative_count": 1,
+      "avoided_exhaustive_alternative_count": 8,
+      "cost_ok": true,
+      "description": "Three rare bodies are selected from one positive keep signal and singleton drop signals without eight assignments.",
+      "direct_budget_ratio": 0.8988195615514334,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "direct_body_signals_identify_assignment",
+        "signals": [
+          {
+            "action": "keep",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "positive_trace_count": 1
+          },
+          {
+            "action": "drop",
+            "body": [
+              "E"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "E",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          },
+          {
+            "action": "drop",
+            "body": [
+              "F"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "F",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          }
+        ],
+        "status": "direct_assignment_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 1066,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [
+        [
+          "E"
+        ],
+        [
+          "F"
+        ]
+      ],
+      "expected_reason": "direct_body_signals_identify_assignment",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 3,
+        "rejected_negative_traces": 3
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 6,
+        "deep_soft_budget": 1186,
+        "direct_follows_count": 9,
+        "event_count": 34,
+        "max_trace_length": 4,
+        "trace_count": 9
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 8,
+        "base_discovery_total": 609,
+        "comparison": 398,
+        "construct": 64,
+        "dict_increment": 84,
+        "direct_signal_selector_total": 130,
+        "evaluated_alternative_count": 1,
+        "guarded_compile_extra_total": 306,
+        "relation_classification": 57,
+        "scan_event": 148,
+        "set_insert": 52,
+        "set_lookup": 112,
+        "total": 915,
+        "total_with_selector": 1045,
+        "total_with_selector_and_validation_proxy": 1066,
+        "validation_replay_proxy_total": 21
+      },
+      "protocol_pass": true,
+      "reason": "direct_body_signals_identify_assignment",
+      "selected_alternative": "drop_E__F",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ],
+        [
+          "F"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 11,
+        "comparison": 78,
+        "construct": 17,
+        "scan_event": 18,
+        "set_lookup": 6,
+        "total": 130
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 3,
+        "scan_event": 18,
+        "total": 21
+      }
+    },
+    "rare_count_5_direct_scale_under_budget_reference": {
+      "alternative_count": 1,
+      "avoided_exhaustive_alternative_count": 32,
+      "cost_ok": true,
+      "description": "Five rare bodies stay on a linear direct-signal path instead of a 32-assignment exhaustive path.",
+      "direct_budget_ratio": 0.8532544378698225,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "direct_body_signals_identify_assignment",
+        "signals": [
+          {
+            "action": "keep",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "positive_trace_count": 1
+          },
+          {
+            "action": "drop",
+            "body": [
+              "E"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "E",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          },
+          {
+            "action": "drop",
+            "body": [
+              "F"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "F",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          },
+          {
+            "action": "drop",
+            "body": [
+              "G"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "G",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          },
+          {
+            "action": "drop",
+            "body": [
+              "H"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "H",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          }
+        ],
+        "status": "direct_assignment_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 1442,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [
+        [
+          "E"
+        ],
+        [
+          "F"
+        ],
+        [
+          "G"
+        ],
+        [
+          "H"
+        ]
+      ],
+      "expected_reason": "direct_body_signals_identify_assignment",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 5,
+        "rejected_negative_traces": 5
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 8,
+        "deep_soft_budget": 1690,
+        "direct_follows_count": 13,
+        "event_count": 42,
+        "max_trace_length": 4,
+        "trace_count": 11
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 32,
+        "base_discovery_total": 865,
+        "comparison": 536,
+        "construct": 72,
+        "dict_increment": 96,
+        "direct_signal_selector_total": 210,
+        "evaluated_alternative_count": 1,
+        "guarded_compile_extra_total": 332,
+        "relation_classification": 85,
+        "scan_event": 172,
+        "set_insert": 64,
+        "set_lookup": 172,
+        "total": 1197,
+        "total_with_selector": 1407,
+        "total_with_selector_and_validation_proxy": 1442,
+        "validation_replay_proxy_total": 35
+      },
+      "protocol_pass": true,
+      "reason": "direct_body_signals_identify_assignment",
+      "selected_alternative": "drop_E__F__G__H",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ],
+        [
+          "F"
+        ],
+        [
+          "G"
+        ],
+        [
+          "H"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 17,
+        "comparison": 124,
+        "construct": 29,
+        "scan_event": 30,
+        "set_lookup": 10,
+        "total": 210
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 5,
+        "scan_event": 30,
+        "total": 35
+      }
+    },
+    "too_many_rare_bodies_budget": {
+      "alternative_count": 0,
+      "avoided_exhaustive_alternative_count": 0,
+      "cost_ok": true,
+      "description": "The direct rule still keeps an explicit rare-body cap, though no 2^R alternatives are built.",
+      "direct_budget_ratio": 0.5354131534569984,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "rare_body_alternative_budget_exceeded",
+        "signals": [],
+        "status": "too_many_rare_bodies",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 635,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [],
+      "expected_reason": "rare_body_alternative_budget_exceeded",
+      "expected_status": "too_many_rare_bodies",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 6,
+        "deep_soft_budget": 1186,
+        "direct_follows_count": 9,
+        "event_count": 34,
+        "max_trace_length": 4,
+        "trace_count": 9
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 0,
+        "base_discovery_total": 609,
+        "comparison": 288,
+        "construct": 34,
+        "dict_increment": 51,
+        "direct_signal_selector_total": 26,
+        "evaluated_alternative_count": 0,
+        "guarded_compile_extra_total": 0,
+        "relation_classification": 41,
+        "scan_event": 69,
+        "set_insert": 48,
+        "set_lookup": 78,
+        "total": 609,
+        "total_with_selector": 635,
+        "total_with_selector_and_validation_proxy": 635,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "reason": "rare_body_alternative_budget_exceeded",
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "too_many_rare_bodies",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 21,
+        "construct": 3,
+        "total": 26
+      },
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "training_negative_conflict": {
+      "alternative_count": 0,
+      "avoided_exhaustive_alternative_count": 4,
+      "cost_ok": true,
+      "description": "A validation negative must not be an observed training trace.",
+      "direct_budget_ratio": 0.5360824742268041,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "rare_body_candidates_with_dominant_support",
+        "signals": [],
+        "status": "alternatives_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 520,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [],
+      "expected_reason": "validation_negative_contains_training_trace",
+      "expected_status": "validation_training_conflict",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 0,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 4,
+        "base_discovery_total": 499,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "direct_signal_selector_total": 21,
+        "evaluated_alternative_count": 0,
+        "guarded_compile_extra_total": 0,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "total": 499,
+        "total_with_selector": 520,
+        "total_with_selector_and_validation_proxy": 520,
+        "validation_replay_proxy_total": 0
+      },
+      "protocol_pass": true,
+      "reason": "validation_negative_contains_training_trace",
+      "selected_alternative": null,
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "validation_training_conflict",
+      "selector_operation_counts": {
+        "arithmetic": 2,
+        "comparison": 17,
+        "construct": 2,
+        "total": 21
+      },
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "two_rare_both_noise": {
+      "alternative_count": 1,
+      "avoided_exhaustive_alternative_count": 4,
+      "cost_ok": true,
+      "description": "Two singleton negative signals drop both rare bodies.",
+      "direct_budget_ratio": 0.9041237113402062,
+      "direct_lower_than_exhaustive": true,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "direct_body_signals_identify_assignment",
+        "signals": [
+          {
+            "action": "drop",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          },
+          {
+            "action": "drop",
+            "body": [
+              "E"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "E",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          }
+        ],
+        "status": "direct_assignment_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 877,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": {
+        "alternative_count": 4,
+        "naive_total_with_validation_proxy": 2960,
+        "reason": "unique_per_body_assignment_satisfies_validation_probes",
+        "selected_dropped_bodies": [
+          [
+            "C"
+          ],
+          [
+            "E"
+          ]
+        ],
+        "selection_status": "selected",
+        "shared_total_with_validation_proxy": 1463
+      },
+      "expected_dropped": [
+        [
+          "C"
+        ],
+        [
+          "E"
+        ]
+      ],
+      "expected_reason": "direct_body_signals_identify_assignment",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 3,
+        "rejected_negative_traces": 3
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 4,
+        "base_discovery_total": 499,
+        "comparison": 317,
+        "construct": 57,
+        "dict_increment": 73,
+        "direct_signal_selector_total": 121,
+        "evaluated_alternative_count": 1,
+        "guarded_compile_extra_total": 236,
+        "relation_classification": 39,
+        "scan_event": 129,
+        "set_insert": 45,
+        "set_lookup": 75,
+        "total": 735,
+        "total_with_selector": 856,
+        "total_with_selector_and_validation_proxy": 877,
+        "validation_replay_proxy_total": 21
+      },
+      "protocol_pass": true,
+      "reason": "direct_body_signals_identify_assignment",
+      "selected_alternative": "drop_C__E",
+      "selected_dropped_bodies": [
+        [
+          "C"
+        ],
+        [
+          "E"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 10,
+        "comparison": 73,
+        "construct": 14,
+        "scan_event": 18,
+        "set_lookup": 6,
+        "total": 121
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 3,
+        "scan_event": 18,
+        "total": 21
+      }
+    },
+    "two_rare_both_valid": {
+      "alternative_count": 1,
+      "avoided_exhaustive_alternative_count": 4,
+      "cost_ok": true,
+      "description": "Two direct positive signals keep both rare bodies.",
+      "direct_budget_ratio": 0.6494845360824743,
+      "direct_lower_than_exhaustive": false,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [
+          [
+            "A",
+            "B",
+            "D"
+          ],
+          [
+            "A",
+            "D",
+            "B"
+          ]
+        ],
+        "reason": "direct_body_signals_identify_assignment",
+        "signals": [
+          {
+            "action": "keep",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "positive_trace_count": 1
+          },
+          {
+            "action": "keep",
+            "body": [
+              "E"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [
+              [
+                "A",
+                "E",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "positive_trace_count": 1
+          }
+        ],
+        "status": "direct_assignment_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 630,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": null,
+      "expected_dropped": [],
+      "expected_reason": "direct_body_signals_identify_assignment",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 4,
+        "base_discovery_total": 499,
+        "comparison": 235,
+        "construct": 31,
+        "dict_increment": 45,
+        "direct_signal_selector_total": 109,
+        "evaluated_alternative_count": 1,
+        "guarded_compile_extra_total": 0,
+        "relation_classification": 30,
+        "scan_event": 61,
+        "set_insert": 42,
+        "set_lookup": 55,
+        "total": 499,
+        "total_with_selector": 608,
+        "total_with_selector_and_validation_proxy": 630,
+        "validation_replay_proxy_total": 22
+      },
+      "protocol_pass": true,
+      "reason": "direct_body_signals_identify_assignment",
+      "selected_alternative": "drop_none",
+      "selected_dropped_bodies": [],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 8,
+        "comparison": 67,
+        "construct": 12,
+        "scan_event": 18,
+        "set_lookup": 4,
+        "total": 109
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 4,
+        "scan_event": 18,
+        "total": 22
+      }
+    },
+    "two_rare_one_valid_one_noise": {
+      "alternative_count": 1,
+      "avoided_exhaustive_alternative_count": 4,
+      "cost_ok": true,
+      "description": "Mixed rare bodies are handled without enumerating all four assignments.",
+      "direct_budget_ratio": 0.9237113402061856,
+      "direct_lower_than_exhaustive": true,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "direct_body_signals_identify_assignment",
+        "signals": [
+          {
+            "action": "keep",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "positive_trace_count": 1
+          },
+          {
+            "action": "drop",
+            "body": [
+              "E"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "E",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          }
+        ],
+        "status": "direct_assignment_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 896,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": {
+        "alternative_count": 4,
+        "naive_total_with_validation_proxy": 2931,
+        "reason": "unique_per_body_assignment_satisfies_validation_probes",
+        "selected_dropped_bodies": [
+          [
+            "E"
+          ]
+        ],
+        "selection_status": "selected",
+        "shared_total_with_validation_proxy": 1434
+      },
+      "expected_dropped": [
+        [
+          "E"
+        ]
+      ],
+      "expected_reason": "direct_body_signals_identify_assignment",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 4,
+        "base_discovery_total": 499,
+        "comparison": 338,
+        "construct": 60,
+        "dict_increment": 78,
+        "direct_signal_selector_total": 90,
+        "evaluated_alternative_count": 1,
+        "guarded_compile_extra_total": 293,
+        "relation_classification": 46,
+        "scan_event": 136,
+        "set_insert": 46,
+        "set_lookup": 88,
+        "total": 792,
+        "total_with_selector": 882,
+        "total_with_selector_and_validation_proxy": 896,
+        "validation_replay_proxy_total": 14
+      },
+      "protocol_pass": true,
+      "reason": "direct_body_signals_identify_assignment",
+      "selected_alternative": "drop_E",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 8,
+        "comparison": 55,
+        "construct": 11,
+        "scan_event": 12,
+        "set_lookup": 4,
+        "total": 90
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 2,
+        "scan_event": 12,
+        "total": 14
+      }
+    },
+    "unit_propagation_negative_clause": {
+      "alternative_count": 1,
+      "avoided_exhaustive_alternative_count": 4,
+      "cost_ok": true,
+      "description": "Positive validation requires C; a C+E negative then unit-propagates to dropping E.",
+      "direct_budget_ratio": 0.9247422680412372,
+      "direct_lower_than_exhaustive": true,
+      "direct_signal_assignment": {
+        "ambiguous_negative_traces": [],
+        "conflicting_bodies": [],
+        "malformed_validation_traces": [],
+        "reason": "direct_body_signals_identify_assignment",
+        "signals": [
+          {
+            "action": "keep",
+            "body": [
+              "C"
+            ],
+            "negative_examples": [],
+            "negative_trace_count": 0,
+            "positive_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "B",
+                "A",
+                "D"
+              ]
+            ],
+            "positive_trace_count": 1
+          },
+          {
+            "action": "drop",
+            "body": [
+              "E"
+            ],
+            "negative_examples": [
+              [
+                "A",
+                "C",
+                "A",
+                "E",
+                "A",
+                "D"
+              ]
+            ],
+            "negative_trace_count": 1,
+            "positive_examples": [],
+            "positive_trace_count": 0
+          }
+        ],
+        "status": "direct_assignment_available",
+        "unresolved_bodies": []
+      },
+      "direct_total_with_validation_proxy": 897,
+      "direct_under_deep_budget": true,
+      "exhaustive_baseline": {
+        "alternative_count": 4,
+        "naive_total_with_validation_proxy": 2931,
+        "reason": "unique_per_body_assignment_satisfies_validation_probes",
+        "selected_dropped_bodies": [
+          [
+            "E"
+          ]
+        ],
+        "selection_status": "selected",
+        "shared_total_with_validation_proxy": 1434
+      },
+      "expected_dropped": [
+        [
+          "E"
+        ]
+      ],
+      "expected_reason": "direct_body_signals_identify_assignment",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 970,
+        "direct_follows_count": 7,
+        "event_count": 30,
+        "max_trace_length": 4,
+        "trace_count": 8
+      },
+      "operation_counts": {
+        "avoided_exhaustive_alternative_count": 4,
+        "base_discovery_total": 499,
+        "comparison": 338,
+        "construct": 60,
+        "dict_increment": 78,
+        "direct_signal_selector_total": 91,
+        "evaluated_alternative_count": 1,
+        "guarded_compile_extra_total": 293,
+        "relation_classification": 46,
+        "scan_event": 136,
+        "set_insert": 46,
+        "set_lookup": 88,
+        "total": 792,
+        "total_with_selector": 883,
+        "total_with_selector_and_validation_proxy": 897,
+        "validation_replay_proxy_total": 14
+      },
+      "protocol_pass": true,
+      "reason": "direct_body_signals_identify_assignment",
+      "selected_alternative": "drop_E",
+      "selected_dropped_bodies": [
+        [
+          "E"
+        ]
+      ],
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 8,
+        "comparison": 56,
+        "construct": 11,
+        "scan_event": 12,
+        "set_lookup": 4,
+        "total": 91
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 2,
+        "scan_event": 12,
+        "total": 14
+      }
+    }
+  },
+  "summary": {
+    "case_count": 16,
+    "failed": [],
+    "max_direct_total_with_validation_proxy": 1442,
+    "passed": 16,
+    "selected_case_count": 9,
+    "selected_cases_over_deep_budget": []
+  }
+}
