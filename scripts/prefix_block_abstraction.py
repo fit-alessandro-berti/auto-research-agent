@@ -13,7 +13,17 @@ from collections import Counter
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
 from alpha_lite import classify_relations, summarize_log
-from limited_ops import OpCounter, comparison, construct, relation_classification, scan_event, set_insert, set_lookup
+from limited_ops import (
+    OpCounter,
+    arithmetic,
+    comparison,
+    construct,
+    dict_increment,
+    relation_classification,
+    scan_event,
+    set_insert,
+    set_lookup,
+)
 from pn_ir import PMIR, PetriNet, pair_key, place_name, transition_name
 from prefix_automaton_compression import (
     _compile_automaton,
@@ -98,11 +108,36 @@ def _segment_set(segment: Sequence[str], counter: OpCounter) -> Optional[Set[str
     return labels
 
 
-def _detect_parallel_block(log: TraceLog, counter: OpCounter) -> Optional[Dict[str, object]]:
-    relation_classification(counter)
-    prefix = _common_prefix(log, counter)
-    suffix = _common_suffix(log, len(prefix), counter)
-    segments = _middle_segments(log, len(prefix), len(suffix))
+def _support_counts(segments: Sequence[Sequence[str]], counter: OpCounter) -> List[int]:
+    counts: Counter = Counter()
+    for segment in segments:
+        counts[tuple(segment)] += 1
+        dict_increment(counter)
+    return sorted(counts.values())
+
+
+def _support_skew_ok(
+    segments: Sequence[Sequence[str]],
+    max_parallel_support_skew: Optional[int],
+    counter: OpCounter,
+) -> Tuple[bool, List[int]]:
+    counts = _support_counts(segments, counter)
+    comparison(counter)
+    if not counts or max_parallel_support_skew is None:
+        return True, counts
+    arithmetic(counter)
+    comparison(counter)
+    return max(counts) <= min(counts) * max_parallel_support_skew, counts
+
+
+def _parallel_block_from_segments(
+    prefix: Sequence[str],
+    suffix: Sequence[str],
+    segments: Sequence[Sequence[str]],
+    max_parallel_support_skew: Optional[int],
+    counter: OpCounter,
+    origin: str,
+) -> Optional[Dict[str, object]]:
     if not segments:
         return None
     first_set = _segment_set(segments[0], counter)
@@ -121,11 +156,144 @@ def _detect_parallel_block(log: TraceLog, counter: OpCounter) -> Optional[Dict[s
     comparison(counter)
     if not observed_order_variation or _has_duplicate_labels(full_labels, counter):
         return None
+    support_ok, support_counts = _support_skew_ok(segments, max_parallel_support_skew, counter)
+    if not support_ok:
+        return None
     return {
         "type": "parallel_block",
         "prefix": prefix,
         "branches": sorted(first_set),
         "suffix": suffix,
+        "origin": origin,
+        "support_counts": support_counts,
+    }
+
+
+def _detect_parallel_block(
+    log: TraceLog,
+    counter: OpCounter,
+    max_parallel_support_skew: Optional[int] = None,
+    enable_prefix_merge: bool = False,
+    prefix_merge_policy: str = "before_common",
+) -> Optional[Dict[str, object]]:
+    relation_classification(counter)
+    prefix = _common_prefix(log, counter)
+    suffix = _common_suffix(log, len(prefix), counter)
+    segments = _middle_segments(log, len(prefix), len(suffix))
+
+    if enable_prefix_merge and len(prefix) > 1 and prefix_merge_policy == "before_common":
+        moved = prefix[-1]
+        merged_segments = [[moved, *segment] for segment in segments]
+        construct(counter, len(merged_segments))
+        merged = _parallel_block_from_segments(
+            prefix[:-1],
+            suffix,
+            merged_segments,
+            max_parallel_support_skew,
+            counter,
+            "prefix_merge",
+        )
+        if merged is not None:
+            return merged
+
+    common_boundary = _parallel_block_from_segments(
+        prefix,
+        suffix,
+        segments,
+        max_parallel_support_skew,
+        counter,
+        "common_boundary",
+    )
+    if not enable_prefix_merge or len(prefix) <= 1:
+        return common_boundary
+    if prefix_merge_policy == "after_common_rejects" and common_boundary is not None:
+        return common_boundary
+    if prefix_merge_policy == "after_common_rejects":
+        moved = prefix[-1]
+        merged_segments = [[moved, *segment] for segment in segments]
+        construct(counter, len(merged_segments))
+        merged = _parallel_block_from_segments(
+            prefix[:-1],
+            suffix,
+            merged_segments,
+            max_parallel_support_skew,
+            counter,
+            "prefix_merge",
+        )
+        if merged is not None:
+            return merged
+    return common_boundary
+
+
+def _prefix_merge_ambiguity(
+    log: TraceLog,
+    counter: OpCounter,
+    max_parallel_support_skew: Optional[int],
+) -> Dict[str, object]:
+    relation_classification(counter)
+    prefix = _common_prefix(log, counter)
+    suffix = _common_suffix(log, len(prefix), counter)
+    segments = _middle_segments(log, len(prefix), len(suffix))
+    common_boundary = _parallel_block_from_segments(
+        prefix,
+        suffix,
+        segments,
+        max_parallel_support_skew,
+        counter,
+        "common_boundary",
+    )
+    prefix_merge = None
+    if len(prefix) > 1:
+        moved = prefix[-1]
+        merged_segments = [[moved, *segment] for segment in segments]
+        construct(counter, len(merged_segments))
+        prefix_merge = _parallel_block_from_segments(
+            prefix[:-1],
+            suffix,
+            merged_segments,
+            max_parallel_support_skew,
+            counter,
+            "prefix_merge",
+        )
+
+    comparison(counter, 2)
+    if common_boundary is None or prefix_merge is None:
+        return {
+            "detected": False,
+            "reason": "requires both common_boundary and prefix_merge parallel alternatives",
+        }
+
+    common_signature = (
+        tuple(common_boundary["prefix"]),  # type: ignore[index]
+        tuple(common_boundary["branches"]),  # type: ignore[index]
+        tuple(common_boundary["suffix"]),  # type: ignore[index]
+    )
+    merge_signature = (
+        tuple(prefix_merge["prefix"]),  # type: ignore[index]
+        tuple(prefix_merge["branches"]),  # type: ignore[index]
+        tuple(prefix_merge["suffix"]),  # type: ignore[index]
+    )
+    comparison(counter)
+    if common_signature == merge_signature:
+        return {
+            "detected": False,
+            "reason": "common_boundary and prefix_merge alternatives are equivalent",
+            "alternatives": [common_boundary],
+        }
+    return {
+        "detected": True,
+        "type": "prefix_merge_vs_common_boundary",
+        "reason": "both grammars replay observed traces but imply different branch scopes",
+        "alternatives": [
+            {
+                "policy": "sequence_prefix_precision",
+                "grammar": common_boundary,
+            },
+            {
+                "policy": "full_parallel_generalization",
+                "grammar": prefix_merge,
+            },
+        ],
     }
 
 
@@ -196,17 +364,87 @@ def _detect_optional_singleton_parallel(log: TraceLog, counter: OpCounter) -> Op
     }
 
 
-def _select_grammar(log: TraceLog, counter: OpCounter) -> Tuple[str, Dict[str, object], List[Dict[str, str]]]:
+def _detect_dominant_sequence(
+    log: TraceLog,
+    counter: OpCounter,
+    min_dominant_count: int = 2,
+    min_dominant_ratio_percent: int = 60,
+) -> Optional[Dict[str, object]]:
+    relation_classification(counter)
+    if not log:
+        return None
+    first_set = set(log[0])
+    set_insert(counter, len(first_set))
+    for trace in log:
+        trace_set = set(trace)
+        set_insert(counter, len(trace_set))
+        comparison(counter)
+        if trace_set != first_set:
+            return None
+    counts: Counter = Counter()
+    for trace in log:
+        counts[tuple(trace)] += 1
+        dict_increment(counter)
+    ranked = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+    sequence, support = ranked[0]
+    comparison(counter, 3)
+    if support < min_dominant_count or _has_duplicate_labels(sequence, counter):
+        return None
+    if len(ranked) > 1 and support == ranked[1][1]:
+        return None
+    arithmetic(counter)
+    comparison(counter)
+    if support * 100 < len(log) * min_dominant_ratio_percent:
+        return None
+    return {
+        "type": "dominant_sequence",
+        "sequence": list(sequence),
+        "support": support,
+        "trace_count": len(log),
+        "variant_count": len(ranked),
+    }
+
+
+def _select_grammar(
+    log: TraceLog,
+    counter: OpCounter,
+    max_parallel_support_skew: Optional[int] = None,
+    enable_prefix_merge: bool = False,
+    enable_dominant_sequence: bool = False,
+    prefix_merge_policy: str = "before_common",
+    min_dominant_count: int = 2,
+    min_dominant_ratio_percent: int = 60,
+) -> Tuple[str, Dict[str, object], List[Dict[str, str]]]:
     attempts: List[Dict[str, str]] = []
-    for name, detector in [
-        ("parallel_block", _detect_parallel_block),
-        ("optional_singleton_parallel", _detect_optional_singleton_parallel),
-    ]:
-        grammar = detector(log, counter)
+    grammar = _detect_parallel_block(
+        log,
+        counter,
+        max_parallel_support_skew,
+        enable_prefix_merge,
+        prefix_merge_policy,
+    )
+    if grammar is not None:
+        attempts.append({"grammar": "parallel_block", "result": "accepted"})
+        return "parallel_block", grammar, attempts
+    attempts.append({"grammar": "parallel_block", "result": "rejected"})
+
+    grammar = _detect_optional_singleton_parallel(log, counter)
+    if grammar is not None:
+        attempts.append({"grammar": "optional_singleton_parallel", "result": "accepted"})
+        return "optional_singleton_parallel", grammar, attempts
+    attempts.append({"grammar": "optional_singleton_parallel", "result": "rejected"})
+
+    if enable_dominant_sequence:
+        grammar = _detect_dominant_sequence(
+            log,
+            counter,
+            min_dominant_count=min_dominant_count,
+            min_dominant_ratio_percent=min_dominant_ratio_percent,
+        )
         if grammar is not None:
-            attempts.append({"grammar": name, "result": "accepted"})
-            return name, grammar, attempts
-        attempts.append({"grammar": name, "result": "rejected"})
+            attempts.append({"grammar": "dominant_sequence", "result": "accepted"})
+            return "dominant_sequence", grammar, attempts
+        attempts.append({"grammar": "dominant_sequence", "result": "rejected"})
     return "exact_prefix_automaton", {"type": "exact_prefix_automaton"}, attempts
 
 
@@ -229,6 +467,16 @@ def _add_edge_place(net: PetriNet, prefix: str, a: str, b: str, counter: OpCount
     net.add_arc(transition_name(a), place)
     net.add_arc(place, transition_name(b))
     construct(counter, 3)
+
+
+def _wire_sequence(net: PetriNet, sequence: Sequence[str], counter: OpCounter) -> None:
+    if not sequence:
+        return
+    net.add_arc("p_start", transition_name(sequence[0]))
+    net.add_arc(transition_name(sequence[-1]), "p_end")
+    construct(counter, 2)
+    for a, b in zip(sequence, sequence[1:]):
+        _add_edge_place(net, "pba_seq", a, b, counter)
 
 
 def _wire_prefix(net: PetriNet, prefix: Sequence[str], block_labels: Sequence[str], counter: OpCounter) -> str:
@@ -345,6 +593,12 @@ def _compile_block_net(activities: Sequence[str], grammar: Dict[str, object], co
             grammar["suffix"],  # type: ignore[arg-type]
             counter,
         )
+    elif grammar["type"] == "dominant_sequence":
+        _wire_sequence(
+            net,
+            grammar["sequence"],  # type: ignore[arg-type]
+            counter,
+        )
     else:
         raise ValueError(f"unsupported grammar type: {grammar['type']}")
     return net
@@ -374,23 +628,90 @@ def _compile_exact_automaton(log: TraceLog, counter: OpCounter) -> Tuple[PetriNe
     return net, evidence
 
 
-def discover(log: TraceLog) -> Dict[str, object]:
+def _compile_rejecting_net(activities: Sequence[str], counter: OpCounter) -> PetriNet:
+    return _add_base_net(activities, counter)
+
+
+def discover(
+    log: TraceLog,
+    max_parallel_support_skew: Optional[int] = None,
+    enable_prefix_merge: bool = False,
+    enable_dominant_sequence: bool = False,
+    allow_exact_fallback: bool = True,
+    prefix_merge_policy: str = "before_common",
+    min_dominant_count: int = 2,
+    min_dominant_ratio_percent: int = 60,
+    emit_prefix_merge_ambiguity: bool = False,
+    candidate_id_override: Optional[str] = None,
+    name_override: Optional[str] = None,
+) -> Dict[str, object]:
     counter = OpCounter()
     activities, starts, ends, dfg = summarize_log(log, counter)
     rel = classify_relations(activities, dfg, counter)
-    grammar_name, grammar, attempts = _select_grammar(log, counter)
+    grammar_name, grammar, attempts = _select_grammar(
+        log,
+        counter,
+        max_parallel_support_skew=max_parallel_support_skew,
+        enable_prefix_merge=enable_prefix_merge,
+        enable_dominant_sequence=enable_dominant_sequence,
+        prefix_merge_policy=prefix_merge_policy,
+        min_dominant_count=min_dominant_count,
+        min_dominant_ratio_percent=min_dominant_ratio_percent,
+    )
 
     if grammar_name == "exact_prefix_automaton":
-        net, fallback_evidence = _compile_exact_automaton(log, counter)
+        if allow_exact_fallback:
+            net, fallback_evidence = _compile_exact_automaton(log, counter)
+        else:
+            grammar_name = "no_grammar"
+            grammar = {"type": "no_grammar"}
+            net = _compile_rejecting_net(activities, counter)
+            fallback_evidence = {"disabled": True}
     else:
         net = _compile_block_net(activities, grammar, counter)
         fallback_evidence = {}
 
+    ambiguity_evidence = {"detected": False, "reason": "not requested"}
+    if emit_prefix_merge_ambiguity:
+        ambiguity_evidence = _prefix_merge_ambiguity(log, counter, max_parallel_support_skew)
+        ambiguity_evidence["selected_policy"] = (
+            "full_parallel_generalization"
+            if isinstance(grammar, dict) and grammar.get("origin") == "prefix_merge"
+            else "sequence_prefix_precision"
+            if isinstance(grammar, dict) and grammar.get("origin") == "common_boundary"
+            else "not_applicable"
+        )
+
+    if max_parallel_support_skew is not None and enable_prefix_merge and enable_dominant_sequence:
+        candidate_id = "ALG-0015" if allow_exact_fallback else "ALG-0016"
+        name = (
+            "Prefix Block Support-Guard Miner"
+            if allow_exact_fallback
+            else "Prefix Block Grammar-Only Ablation"
+        )
+    else:
+        candidate_id = "ALG-0014"
+        name = "Prefix Block Abstraction Miner"
+    if candidate_id_override is not None:
+        candidate_id = candidate_id_override
+        name = name_override or name
+
     evidence = {
+        "configuration": {
+            "max_parallel_support_skew": max_parallel_support_skew,
+            "enable_prefix_merge": enable_prefix_merge,
+            "enable_dominant_sequence": enable_dominant_sequence,
+            "allow_exact_fallback": allow_exact_fallback,
+            "prefix_merge_policy": prefix_merge_policy,
+            "min_dominant_count": min_dominant_count,
+            "min_dominant_ratio_percent": min_dominant_ratio_percent,
+            "emit_prefix_merge_ambiguity": emit_prefix_merge_ambiguity,
+        },
         "selected_grammar": grammar_name,
         "grammar_attempts": attempts,
         "grammar": grammar,
         "fallback": fallback_evidence,
+        "ambiguity": ambiguity_evidence,
     }
     pmir = PMIR(
         activities=activities,
@@ -402,8 +723,8 @@ def discover(log: TraceLog) -> Dict[str, object]:
         operation_counts=counter.to_dict(),
     )
     return {
-        "candidate_id": "ALG-0014",
-        "name": "Prefix Block Abstraction Miner",
+        "candidate_id": candidate_id,
+        "name": name,
         "pmir": pmir.to_dict(),
         "petri_net": net.to_dict(),
         "structural_summary": net.structural_summary(),

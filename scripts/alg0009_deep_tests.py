@@ -71,6 +71,9 @@ def candidate_functions() -> Dict[str, DiscoverFn]:
         "alpha_lite": importlib.import_module("alpha_lite").discover,
         "dependency_threshold": importlib.import_module("dependency_threshold").discover,
         "cut_limited_process_tree": cut_limited_process_tree.discover,
+        "cut_limited_loop_repair": importlib.import_module("cut_limited_loop_repair").discover,
+        "cut_limited_multi_body_loop": importlib.import_module("cut_limited_multi_body_loop").discover,
+        "cut_limited_length_bounded_loop": importlib.import_module("cut_limited_length_bounded_loop").discover,
         "bounded_place_region_miner": importlib.import_module("bounded_place_region_miner").discover,
         "region_optional_tau_miner": importlib.import_module("region_optional_tau_miner").discover,
         "region_optional_chain_miner": region_optional_chain_miner.discover,
@@ -84,6 +87,13 @@ def candidate_functions() -> Dict[str, DiscoverFn]:
         ),
         "prefix_automaton_compression": importlib.import_module("prefix_automaton_compression").discover,
         "prefix_block_abstraction": importlib.import_module("prefix_block_abstraction").discover,
+        "prefix_block_support_only": importlib.import_module("prefix_block_support_only").discover,
+        "prefix_block_prefix_merge_only": importlib.import_module("prefix_block_prefix_merge_only").discover,
+        "prefix_block_dominant_only": importlib.import_module("prefix_block_dominant_only").discover,
+        "prefix_block_support_guard": importlib.import_module("prefix_block_support_guard").discover,
+        "prefix_block_grammar_only": importlib.import_module("prefix_block_grammar_only").discover,
+        "prefix_block_conservative_merge": importlib.import_module("prefix_block_conservative_merge").discover,
+        "prefix_block_ambiguity_aware": importlib.import_module("prefix_block_ambiguity_aware").discover,
         "pmir_split_join_lite": importlib.import_module("pmir_split_join_lite").discover,
         "pmir_guarded_split_join": pmir_guarded_split_join.discover,
         "pmir_conflict_aware_optional": pmir_conflict_aware_optional.discover,
@@ -180,16 +190,21 @@ def main() -> None:
     print(f"wrote {args.out}")
     for case_name, case in results["cases"].items():
         alg0003 = case["results"]["cut_limited_process_tree"]
+        alg0023 = case["results"]["cut_limited_loop_repair"]
         alg0004 = case["results"]["bounded_place_region_miner"]
         alg0011 = case["results"]["region_optional_tau_miner"]
         alg0012 = case["results"]["region_optional_chain_miner"]
         alg0012_no_cert = case["results"]["region_optional_chain_no_region_cert"]
         alg0005 = case["results"]["prefix_automaton_compression"]
         alg0014 = case["results"]["prefix_block_abstraction"]
+        alg0015 = case["results"]["prefix_block_support_guard"]
+        alg0016 = case["results"]["prefix_block_grammar_only"]
         alg0009 = case["results"]["pmir_guarded_split_join"]
         alg0010 = case["results"]["pmir_conflict_aware_optional"]
         replay3 = alg0003["replay_summary"]
         probe3 = alg0003["precision_probe"]
+        replay23 = alg0023["replay_summary"]
+        probe23 = alg0023["precision_probe"]
         replay4 = alg0004["replay_summary"]
         probe4 = alg0004["precision_probe"]
         replay11 = alg0011["replay_summary"]
@@ -202,6 +217,10 @@ def main() -> None:
         probe5 = alg0005["precision_probe"]
         replay14 = alg0014["replay_summary"]
         probe14 = alg0014["precision_probe"]
+        replay15 = alg0015["replay_summary"]
+        probe15 = alg0015["precision_probe"]
+        replay16 = alg0016["replay_summary"]
+        probe16 = alg0016["precision_probe"]
         replay = alg0009["replay_summary"]
         probe = alg0009["precision_probe"]
         replay10 = alg0010["replay_summary"]
@@ -215,6 +234,9 @@ def main() -> None:
             f"ALG-0004 ops={alg0004['operation_counts']['total']} "
             f"replay={replay4['replayed_traces']}/{replay4['trace_count']} "
             f"neg_reject={probe4['rejected_negative_traces']}/{probe4['negative_trace_count']}; "
+            f"ALG-0023 ops={alg0023['operation_counts']['total']} "
+            f"replay={replay23['replayed_traces']}/{replay23['trace_count']} "
+            f"neg_reject={probe23['rejected_negative_traces']}/{probe23['negative_trace_count']}; "
             f"ALG-0011 ops={alg0011['operation_counts']['total']} "
             f"replay={replay11['replayed_traces']}/{replay11['trace_count']} "
             f"neg_reject={probe11['rejected_negative_traces']}/{probe11['negative_trace_count']}; "
@@ -230,6 +252,12 @@ def main() -> None:
             f"ALG-0014 ops={alg0014['operation_counts']['total']} "
             f"replay={replay14['replayed_traces']}/{replay14['trace_count']} "
             f"neg_reject={probe14['rejected_negative_traces']}/{probe14['negative_trace_count']}; "
+            f"ALG-0015 ops={alg0015['operation_counts']['total']} "
+            f"replay={replay15['replayed_traces']}/{replay15['trace_count']} "
+            f"neg_reject={probe15['rejected_negative_traces']}/{probe15['negative_trace_count']}; "
+            f"ALG-0016 ops={alg0016['operation_counts']['total']} "
+            f"replay={replay16['replayed_traces']}/{replay16['trace_count']} "
+            f"neg_reject={probe16['rejected_negative_traces']}/{probe16['negative_trace_count']}; "
             f"ALG-0009 ops={alg0009['operation_counts']['total']} "
             f"replay={replay['replayed_traces']}/{replay['trace_count']} "
             f"neg_reject={probe['rejected_negative_traces']}/{probe['negative_trace_count']} "

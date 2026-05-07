@@ -115,6 +115,10 @@ The EXP-0008 refinement added `parallel_optional_sequence`, a bounded cut for on
 
 EXP-0008 smoke results preserved the EXP-0007 replay outcomes. `skip.json` operation count increased from 209 to 235 and `short_loop.json` from 164 to 191 because these logs now reject the optional-concurrency detector before selecting optional-sequence or fallback.
 
+## EXP-0022 loop-repair split
+
+`ALG-0023` adds an opt-in `single_rework_loop` detector to this implementation while keeping the default `ALG-0003` behavior unchanged. The split candidate fixes `short_loop_required` and `duplicate_label_rework` at 3/3 replay and 3/3 negative rejection, and replays a held-out second loop iteration in the targeted loop suite. `ALG-0003` remains the non-loop baseline and keeps its `deep-testing` status.
+
 ## Promotion criteria
 
 Promoted to `promising` after EXP-0007 because the deterministic prototype:
@@ -134,6 +138,7 @@ Moved to `deep-testing` after EXP-0008 because a refined optional-concurrency cu
 - EXP-0003: specified as the inductive/process-tree baseline family.
 - EXP-0007: implemented and promoted to `promising`; no `super-promising` promotion because fallback fails short-loop, duplicate-label, and optional-concurrency cases.
 - EXP-0008: added bounded optional-concurrency cut and ablation; moved to `deep-testing`, not `super-promising`.
+- EXP-0022: loop repair split into `ALG-0023`; default `ALG-0003` status unchanged.
 
 ## Property-study notes
 
@@ -144,3 +149,4 @@ This is still a strong family for future formal workflow-net soundness claims ov
 - EXP-0003: specified as the inductive/process-tree baseline family.
 - EXP-0007: implemented as a top-level cut recognizer and promoted to `promising`, not `deep-testing` or `super-promising`.
 - EXP-0008: moved to `deep-testing` after fixing the bounded optional-concurrency counterexample with ablation evidence.
+- EXP-0022: retained as the baseline process-tree candidate while `ALG-0023` carries the bounded loop extension.

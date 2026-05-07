@@ -65,7 +65,17 @@ def candidate_functions() -> Dict[str, DiscoverFn]:
             enable_optional_repair=False,
         ),
         "cut_limited_process_tree": importlib.import_module("cut_limited_process_tree").discover,
+        "cut_limited_loop_repair": importlib.import_module("cut_limited_loop_repair").discover,
+        "cut_limited_multi_body_loop": importlib.import_module("cut_limited_multi_body_loop").discover,
+        "cut_limited_length_bounded_loop": importlib.import_module("cut_limited_length_bounded_loop").discover,
         "prefix_block_abstraction": importlib.import_module("prefix_block_abstraction").discover,
+        "prefix_block_support_only": importlib.import_module("prefix_block_support_only").discover,
+        "prefix_block_prefix_merge_only": importlib.import_module("prefix_block_prefix_merge_only").discover,
+        "prefix_block_dominant_only": importlib.import_module("prefix_block_dominant_only").discover,
+        "prefix_block_support_guard": importlib.import_module("prefix_block_support_guard").discover,
+        "prefix_block_grammar_only": importlib.import_module("prefix_block_grammar_only").discover,
+        "prefix_block_conservative_merge": importlib.import_module("prefix_block_conservative_merge").discover,
+        "prefix_block_ambiguity_aware": importlib.import_module("prefix_block_ambiguity_aware").discover,
         "pmir_conflict_aware_optional": importlib.import_module("pmir_conflict_aware_optional").discover,
     }
 

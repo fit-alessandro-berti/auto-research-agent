@@ -1,0 +1,833 @@
+{
+  "cases": {
+    "balanced_reversal_tie": {
+      "alternatives": [],
+      "ambiguity": {
+        "detected": false,
+        "reason": "requires both common_boundary and prefix_merge parallel alternatives",
+        "type": null
+      },
+      "description": "Balanced order evidence should not trigger dominant-sequence noise handling.",
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 500,
+        "direct_follows_count": 6,
+        "event_count": 8,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "interpretation": "balanced reversal remains parallel-like",
+      "selected": {
+        "candidate_id": "ALG-0021",
+        "grammar_origin": "common_boundary",
+        "heldout_replay": {
+          "failed_examples": [],
+          "replayed_traces": 0,
+          "trace_count": 0
+        },
+        "negative_probe": {
+          "accepted_examples": [],
+          "accepted_negative_traces": 0,
+          "negative_rejection_rate": 1.0,
+          "negative_trace_count": 3,
+          "rejected_negative_traces": 3
+        },
+        "operation_counts": {
+          "arithmetic": 2,
+          "comparison": 90,
+          "construct": 24,
+          "dict_increment": 14,
+          "relation_classification": 18,
+          "scan_event": 22,
+          "set_insert": 24,
+          "set_lookup": 40,
+          "total": 234
+        },
+        "selected_grammar": "parallel_block",
+        "selected_policy": "sequence_prefix_precision",
+        "train_replay": {
+          "failed_examples": [],
+          "replayed_traces": 2,
+          "trace_count": 2
+        }
+      }
+    },
+    "incomplete_parallel_one_order_2": {
+      "alternatives": [],
+      "ambiguity": {
+        "detected": false,
+        "reason": "requires both common_boundary and prefix_merge parallel alternatives",
+        "type": null
+      },
+      "description": "Only one order of a possible parallel pair is observed twice.",
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 470,
+        "direct_follows_count": 3,
+        "event_count": 8,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "interpretation": "held-out reversal may be valid if the log is incomplete",
+      "selected": {
+        "candidate_id": "ALG-0021",
+        "grammar_origin": null,
+        "heldout_replay": {
+          "failed_examples": [
+            {
+              "activity": "C",
+              "candidate_transitions": [
+                "t_C"
+              ],
+              "event_index": 1,
+              "missing_input_places_by_transition": {
+                "t_C": [
+                  "p_pba_seq_B__C"
+                ]
+              },
+              "ok": false,
+              "reason": "transition_not_enabled",
+              "silent_closure_truncated": false,
+              "trace": [
+                "A",
+                "C",
+                "B",
+                "D"
+              ]
+            }
+          ],
+          "replayed_traces": 0,
+          "trace_count": 1
+        },
+        "negative_probe": {
+          "accepted_examples": [],
+          "accepted_negative_traces": 0,
+          "negative_rejection_rate": 1.0,
+          "negative_trace_count": 3,
+          "rejected_negative_traces": 3
+        },
+        "operation_counts": {
+          "arithmetic": 1,
+          "comparison": 85,
+          "construct": 33,
+          "dict_increment": 12,
+          "relation_classification": 20,
+          "scan_event": 18,
+          "set_insert": 22,
+          "set_lookup": 36,
+          "total": 227
+        },
+        "selected_grammar": "dominant_sequence",
+        "selected_policy": "not_applicable",
+        "train_replay": {
+          "failed_examples": [],
+          "replayed_traces": 2,
+          "trace_count": 2
+        }
+      }
+    },
+    "noise_reversal_2_to_1": {
+      "alternatives": [],
+      "ambiguity": {
+        "detected": false,
+        "reason": "requires both common_boundary and prefix_merge parallel alternatives",
+        "type": null
+      },
+      "description": "Two dominant sequence traces plus one rare reversal.",
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 564,
+        "direct_follows_count": 6,
+        "event_count": 12,
+        "max_trace_length": 4,
+        "trace_count": 3
+      },
+      "interpretation": "rare reversal treated as noise",
+      "selected": {
+        "candidate_id": "ALG-0021",
+        "grammar_origin": "common_boundary",
+        "heldout_replay": {
+          "failed_examples": [],
+          "replayed_traces": 0,
+          "trace_count": 0
+        },
+        "negative_probe": {
+          "accepted_examples": [
+            {
+              "reason": "negative_trace_replayed",
+              "trace": [
+                "A",
+                "C",
+                "B",
+                "D"
+              ]
+            }
+          ],
+          "accepted_negative_traces": 1,
+          "negative_rejection_rate": 0.0,
+          "negative_trace_count": 1,
+          "rejected_negative_traces": 0
+        },
+        "operation_counts": {
+          "arithmetic": 2,
+          "comparison": 114,
+          "construct": 24,
+          "dict_increment": 21,
+          "relation_classification": 18,
+          "scan_event": 29,
+          "set_insert": 28,
+          "set_lookup": 40,
+          "total": 276
+        },
+        "selected_grammar": "parallel_block",
+        "selected_policy": "sequence_prefix_precision",
+        "train_replay": {
+          "failed_examples": [],
+          "replayed_traces": 3,
+          "trace_count": 3
+        }
+      }
+    },
+    "noise_reversal_3_to_1": {
+      "alternatives": [],
+      "ambiguity": {
+        "detected": false,
+        "reason": "requires both common_boundary and prefix_merge parallel alternatives",
+        "type": null
+      },
+      "description": "Three dominant sequence traces plus one rare reversal.",
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 628,
+        "direct_follows_count": 6,
+        "event_count": 16,
+        "max_trace_length": 4,
+        "trace_count": 4
+      },
+      "interpretation": "rare reversal treated as noise",
+      "selected": {
+        "candidate_id": "ALG-0021",
+        "grammar_origin": null,
+        "heldout_replay": {
+          "failed_examples": [],
+          "replayed_traces": 0,
+          "trace_count": 0
+        },
+        "negative_probe": {
+          "accepted_examples": [],
+          "accepted_negative_traces": 0,
+          "negative_rejection_rate": 1.0,
+          "negative_trace_count": 1,
+          "rejected_negative_traces": 1
+        },
+        "operation_counts": {
+          "arithmetic": 3,
+          "comparison": 181,
+          "construct": 23,
+          "dict_increment": 32,
+          "relation_classification": 20,
+          "scan_event": 40,
+          "set_insert": 72,
+          "set_lookup": 44,
+          "total": 415
+        },
+        "selected_grammar": "dominant_sequence",
+        "selected_policy": "not_applicable",
+        "train_replay": {
+          "failed_examples": [
+            {
+              "activity": "C",
+              "candidate_transitions": [
+                "t_C"
+              ],
+              "event_index": 1,
+              "missing_input_places_by_transition": {
+                "t_C": [
+                  "p_pba_seq_B__C"
+                ]
+              },
+              "ok": false,
+              "reason": "transition_not_enabled",
+              "silent_closure_truncated": false,
+              "trace": [
+                "A",
+                "C",
+                "B",
+                "D"
+              ]
+            }
+          ],
+          "replayed_traces": 3,
+          "trace_count": 4
+        }
+      }
+    },
+    "noise_reversal_5_to_1": {
+      "alternatives": [],
+      "ambiguity": {
+        "detected": false,
+        "reason": "requires both common_boundary and prefix_merge parallel alternatives",
+        "type": null
+      },
+      "description": "Five dominant sequence traces plus one rare reversal.",
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 756,
+        "direct_follows_count": 6,
+        "event_count": 24,
+        "max_trace_length": 4,
+        "trace_count": 6
+      },
+      "interpretation": "rare reversal treated as noise",
+      "selected": {
+        "candidate_id": "ALG-0021",
+        "grammar_origin": null,
+        "heldout_replay": {
+          "failed_examples": [],
+          "replayed_traces": 0,
+          "trace_count": 0
+        },
+        "negative_probe": {
+          "accepted_examples": [],
+          "accepted_negative_traces": 0,
+          "negative_rejection_rate": 1.0,
+          "negative_trace_count": 1,
+          "rejected_negative_traces": 1
+        },
+        "operation_counts": {
+          "arithmetic": 3,
+          "comparison": 251,
+          "construct": 23,
+          "dict_increment": 48,
+          "relation_classification": 20,
+          "scan_event": 54,
+          "set_insert": 96,
+          "set_lookup": 44,
+          "total": 539
+        },
+        "selected_grammar": "dominant_sequence",
+        "selected_policy": "not_applicable",
+        "train_replay": {
+          "failed_examples": [
+            {
+              "activity": "C",
+              "candidate_transitions": [
+                "t_C"
+              ],
+              "event_index": 1,
+              "missing_input_places_by_transition": {
+                "t_C": [
+                  "p_pba_seq_B__C"
+                ]
+              },
+              "ok": false,
+              "reason": "transition_not_enabled",
+              "silent_closure_truncated": false,
+              "trace": [
+                "A",
+                "C",
+                "B",
+                "D"
+              ]
+            }
+          ],
+          "replayed_traces": 5,
+          "trace_count": 6
+        }
+      }
+    },
+    "prefix_merge_full_parallel_interpretation": {
+      "alternatives": [
+        {
+          "compile_operation_counts": {
+            "construct": 24,
+            "total": 24
+          },
+          "grammar": {
+            "branches": [
+              "C",
+              "D"
+            ],
+            "origin": "common_boundary",
+            "prefix": [
+              "A",
+              "B"
+            ],
+            "suffix": [
+              "E"
+            ],
+            "support_counts": [
+              1,
+              1
+            ],
+            "type": "parallel_block"
+          },
+          "grammar_origin": "common_boundary",
+          "grammar_type": "parallel_block",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_and_split_t_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D",
+                  "E"
+                ]
+              },
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_and_split_t_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "D",
+                  "B",
+                  "E"
+                ]
+              },
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_D": [
+                    "p_pba_and_split_t_B__D"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "policy": "sequence_prefix_precision",
+          "total_with_discovery_ops": 385,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        {
+          "compile_operation_counts": {
+            "construct": 27,
+            "total": 27
+          },
+          "grammar": {
+            "branches": [
+              "B",
+              "C",
+              "D"
+            ],
+            "origin": "prefix_merge",
+            "prefix": [
+              "A"
+            ],
+            "suffix": [
+              "E"
+            ],
+            "support_counts": [
+              1,
+              1
+            ],
+            "type": "parallel_block"
+          },
+          "grammar_origin": "prefix_merge",
+          "grammar_type": "parallel_block",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "policy": "full_parallel_generalization",
+          "total_with_discovery_ops": 388,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      ],
+      "ambiguity": {
+        "detected": true,
+        "reason": "both grammars replay observed traces but imply different branch scopes",
+        "type": "prefix_merge_vs_common_boundary"
+      },
+      "description": "Same observations as the sequence-prefix case, interpreted as incomplete three-way parallel behavior.",
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 650,
+        "direct_follows_count": 7,
+        "event_count": 10,
+        "max_trace_length": 5,
+        "trace_count": 2
+      },
+      "interpretation": "late-B traces should replay",
+      "selected": {
+        "candidate_id": "ALG-0021",
+        "grammar_origin": "prefix_merge",
+        "heldout_replay": {
+          "failed_examples": [],
+          "replayed_traces": 4,
+          "trace_count": 4
+        },
+        "negative_probe": {
+          "accepted_examples": [],
+          "accepted_negative_traces": 0,
+          "negative_rejection_rate": 1.0,
+          "negative_trace_count": 3,
+          "rejected_negative_traces": 3
+        },
+        "operation_counts": {
+          "arithmetic": 3,
+          "comparison": 134,
+          "construct": 37,
+          "dict_increment": 18,
+          "relation_classification": 27,
+          "scan_event": 33,
+          "set_insert": 44,
+          "set_lookup": 65,
+          "total": 361
+        },
+        "selected_grammar": "parallel_block",
+        "selected_policy": "full_parallel_generalization",
+        "train_replay": {
+          "failed_examples": [],
+          "replayed_traces": 2,
+          "trace_count": 2
+        }
+      }
+    },
+    "prefix_merge_sequence_then_parallel_interpretation": {
+      "alternatives": [
+        {
+          "compile_operation_counts": {
+            "construct": 24,
+            "total": 24
+          },
+          "grammar": {
+            "branches": [
+              "C",
+              "D"
+            ],
+            "origin": "common_boundary",
+            "prefix": [
+              "A",
+              "B"
+            ],
+            "suffix": [
+              "E"
+            ],
+            "support_counts": [
+              1,
+              1
+            ],
+            "type": "parallel_block"
+          },
+          "grammar_origin": "common_boundary",
+          "grammar_type": "parallel_block",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 4,
+            "rejected_negative_traces": 4
+          },
+          "policy": "sequence_prefix_precision",
+          "total_with_discovery_ops": 385,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        {
+          "compile_operation_counts": {
+            "construct": 27,
+            "total": 27
+          },
+          "grammar": {
+            "branches": [
+              "B",
+              "C",
+              "D"
+            ],
+            "origin": "prefix_merge",
+            "prefix": [
+              "A"
+            ],
+            "suffix": [
+              "E"
+            ],
+            "support_counts": [
+              1,
+              1
+            ],
+            "type": "parallel_block"
+          },
+          "grammar_origin": "prefix_merge",
+          "grammar_type": "parallel_block",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D",
+                  "E"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "D",
+                  "B",
+                  "E"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 4,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 4,
+            "rejected_negative_traces": 0
+          },
+          "policy": "full_parallel_generalization",
+          "total_with_discovery_ops": 388,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      ],
+      "ambiguity": {
+        "detected": true,
+        "reason": "both grammars replay observed traces but imply different branch scopes",
+        "type": "prefix_merge_vs_common_boundary"
+      },
+      "description": "Same observations as the full-parallel case, interpreted as B followed by parallel C/D.",
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 650,
+        "direct_follows_count": 7,
+        "event_count": 10,
+        "max_trace_length": 5,
+        "trace_count": 2
+      },
+      "interpretation": "late-B traces should be rejected",
+      "selected": {
+        "candidate_id": "ALG-0021",
+        "grammar_origin": "prefix_merge",
+        "heldout_replay": {
+          "failed_examples": [],
+          "replayed_traces": 0,
+          "trace_count": 0
+        },
+        "negative_probe": {
+          "accepted_examples": [
+            {
+              "reason": "negative_trace_replayed",
+              "trace": [
+                "A",
+                "C",
+                "B",
+                "D",
+                "E"
+              ]
+            },
+            {
+              "reason": "negative_trace_replayed",
+              "trace": [
+                "A",
+                "C",
+                "D",
+                "B",
+                "E"
+              ]
+            },
+            {
+              "reason": "negative_trace_replayed",
+              "trace": [
+                "A",
+                "D",
+                "B",
+                "C",
+                "E"
+              ]
+            }
+          ],
+          "accepted_negative_traces": 4,
+          "negative_rejection_rate": 0.0,
+          "negative_trace_count": 4,
+          "rejected_negative_traces": 0
+        },
+        "operation_counts": {
+          "arithmetic": 3,
+          "comparison": 134,
+          "construct": 37,
+          "dict_increment": 18,
+          "relation_classification": 27,
+          "scan_event": 33,
+          "set_insert": 44,
+          "set_lookup": 65,
+          "total": 361
+        },
+        "selected_grammar": "parallel_block",
+        "selected_policy": "full_parallel_generalization",
+        "train_replay": {
+          "failed_examples": [],
+          "replayed_traces": 2,
+          "trace_count": 2
+        }
+      }
+    },
+    "valid_rare_parallel_3_to_1": {
+      "alternatives": [],
+      "ambiguity": {
+        "detected": false,
+        "reason": "requires both common_boundary and prefix_merge parallel alternatives",
+        "type": null
+      },
+      "description": "Same 3-to-1 observations as noise_reversal_3_to_1, interpreted as valid but imbalanced parallel behavior.",
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 628,
+        "direct_follows_count": 6,
+        "event_count": 16,
+        "max_trace_length": 4,
+        "trace_count": 4
+      },
+      "interpretation": "rare reversal should replay",
+      "selected": {
+        "candidate_id": "ALG-0021",
+        "grammar_origin": null,
+        "heldout_replay": {
+          "failed_examples": [],
+          "replayed_traces": 0,
+          "trace_count": 0
+        },
+        "negative_probe": {
+          "accepted_examples": [],
+          "accepted_negative_traces": 0,
+          "negative_rejection_rate": 1.0,
+          "negative_trace_count": 3,
+          "rejected_negative_traces": 3
+        },
+        "operation_counts": {
+          "arithmetic": 3,
+          "comparison": 181,
+          "construct": 23,
+          "dict_increment": 32,
+          "relation_classification": 20,
+          "scan_event": 40,
+          "set_insert": 72,
+          "set_lookup": 44,
+          "total": 415
+        },
+        "selected_grammar": "dominant_sequence",
+        "selected_policy": "not_applicable",
+        "train_replay": {
+          "failed_examples": [
+            {
+              "activity": "C",
+              "candidate_transitions": [
+                "t_C"
+              ],
+              "event_index": 1,
+              "missing_input_places_by_transition": {
+                "t_C": [
+                  "p_pba_seq_B__C"
+                ]
+              },
+              "ok": false,
+              "reason": "transition_not_enabled",
+              "silent_closure_truncated": false,
+              "trace": [
+                "A",
+                "C",
+                "B",
+                "D"
+              ]
+            }
+          ],
+          "replayed_traces": 3,
+          "trace_count": 4
+        }
+      }
+    }
+  }
+}

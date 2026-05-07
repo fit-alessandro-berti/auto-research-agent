@@ -1,0 +1,1169 @@
+{
+  "cases": {
+    "conflicting_validation_unresolved": {
+      "description": "The same second-iteration trace is presented as both positive and negative.",
+      "expected_policy": null,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 354,
+        "direct_follows_count": 3,
+        "event_count": 6,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "operation_counts": {
+        "comparison": 83,
+        "construct": 27,
+        "dict_increment": 9,
+        "relation_classification": 15,
+        "scan_event": 21,
+        "selector_total": 19,
+        "set_insert": 18,
+        "set_lookup": 21,
+        "total": 194,
+        "total_with_selector": 213,
+        "total_with_selector_and_validation_proxy": 241,
+        "validation_replay_proxy_total": 28
+      },
+      "reason": "validation_trace_is_both_positive_and_negative",
+      "scores": [
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            0,
+            1,
+            -1
+          ],
+          "total_with_discovery_ops": 194,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        },
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            1,
+            0
+          ],
+          "total_with_discovery_ops": 216,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_policy": null,
+      "selection_status": "validation_inconsistent",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 9,
+        "construct": 4,
+        "total": 19
+      },
+      "validation_negative_probe": {
+        "accepted_examples": [
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "B",
+              "A",
+              "B",
+              "A",
+              "C"
+            ]
+          }
+        ],
+        "accepted_negative_traces": 1,
+        "negative_rejection_rate": 0.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 0
+      },
+      "validation_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      }
+    },
+    "length2_selects_at_most_once": {
+      "description": "Validation negatives declare repeated length-2 body combinations invalid.",
+      "expected_policy": "at_most_once",
+      "input_stats": {
+        "activity_count": 6,
+        "deep_soft_budget": 814,
+        "direct_follows_count": 7,
+        "event_count": 12,
+        "max_trace_length": 5,
+        "trace_count": 3
+      },
+      "operation_counts": {
+        "comparison": 168,
+        "construct": 36,
+        "dict_increment": 17,
+        "relation_classification": 41,
+        "scan_event": 32,
+        "selector_total": 21,
+        "set_insert": 29,
+        "set_lookup": 78,
+        "total": 401,
+        "total_with_selector": 422,
+        "total_with_selector_and_validation_proxy": 476,
+        "validation_replay_proxy_total": 54
+      },
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            0,
+            2,
+            -2
+          ],
+          "total_with_discovery_ops": 401,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C",
+                  "A",
+                  "D",
+                  "E",
+                  "A",
+                  "F"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D",
+                  "E",
+                  "A",
+                  "B",
+                  "C",
+                  "A",
+                  "F"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.5,
+            "negative_trace_count": 4,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "policy": "at_most_once",
+          "score": [
+            1,
+            4,
+            0
+          ],
+          "total_with_discovery_ops": 434,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 4,
+            "rejected_negative_traces": 4
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        }
+      ],
+      "selected_policy": "at_most_once",
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 11,
+        "construct": 4,
+        "total": 21
+      },
+      "validation_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 4,
+        "rejected_negative_traces": 4
+      },
+      "validation_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      }
+    },
+    "length2_selects_unbounded": {
+      "description": "Validation positives include repeated length-2 body combinations.",
+      "expected_policy": "unbounded_repeat",
+      "input_stats": {
+        "activity_count": 6,
+        "deep_soft_budget": 814,
+        "direct_follows_count": 7,
+        "event_count": 12,
+        "max_trace_length": 5,
+        "trace_count": 3
+      },
+      "operation_counts": {
+        "comparison": 168,
+        "construct": 36,
+        "dict_increment": 17,
+        "relation_classification": 41,
+        "scan_event": 32,
+        "selector_total": 22,
+        "set_insert": 29,
+        "set_lookup": 78,
+        "total": 401,
+        "total_with_selector": 423,
+        "total_with_selector_and_validation_proxy": 487,
+        "validation_replay_proxy_total": 64
+      },
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            3,
+            0
+          ],
+          "total_with_discovery_ops": 434,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D"
+                ],
+                "event_index": 4,
+                "missing_input_places_by_transition": {
+                  "t_D": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "C",
+                  "A",
+                  "D",
+                  "E",
+                  "A",
+                  "F"
+                ]
+              },
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 4,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "E",
+                  "A",
+                  "B",
+                  "C",
+                  "A",
+                  "F"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 2
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            5,
+            0
+          ],
+          "total_with_discovery_ops": 401,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      ],
+      "selected_policy": "unbounded_repeat",
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 12,
+        "construct": 4,
+        "total": 22
+      },
+      "validation_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 3,
+        "rejected_negative_traces": 3
+      },
+      "validation_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 2,
+        "trace_count": 2
+      }
+    },
+    "mixed_width_selects_unbounded": {
+      "description": "Validation positives include repeated mixed singleton and length-2 bodies.",
+      "expected_policy": "unbounded_repeat",
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 656,
+        "direct_follows_count": 6,
+        "event_count": 11,
+        "max_trace_length": 5,
+        "trace_count": 3
+      },
+      "operation_counts": {
+        "comparison": 135,
+        "construct": 32,
+        "dict_increment": 16,
+        "relation_classification": 30,
+        "scan_event": 29,
+        "selector_total": 23,
+        "set_insert": 25,
+        "set_lookup": 55,
+        "total": 322,
+        "total_with_selector": 345,
+        "total_with_selector_and_validation_proxy": 417,
+        "validation_replay_proxy_total": 72
+      },
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            4,
+            0
+          ],
+          "total_with_discovery_ops": 351,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 4,
+            "rejected_negative_traces": 4
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C",
+                  "D",
+                  "A",
+                  "F"
+                ]
+              },
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 4,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "D",
+                  "A",
+                  "C",
+                  "D",
+                  "A",
+                  "F"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 2
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            6,
+            0
+          ],
+          "total_with_discovery_ops": 322,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 4,
+            "rejected_negative_traces": 4
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      ],
+      "selected_policy": "unbounded_repeat",
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 13,
+        "construct": 4,
+        "total": 23
+      },
+      "validation_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 4,
+        "rejected_negative_traces": 4
+      },
+      "validation_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 2,
+        "trace_count": 2
+      }
+    },
+    "multi_body_selects_at_most_once": {
+      "description": "Validation negatives declare repeated singleton-body combinations invalid.",
+      "expected_policy": "at_most_once",
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 522,
+        "direct_follows_count": 5,
+        "event_count": 10,
+        "max_trace_length": 4,
+        "trace_count": 3
+      },
+      "operation_counts": {
+        "comparison": 108,
+        "construct": 28,
+        "dict_increment": 15,
+        "relation_classification": 21,
+        "scan_event": 27,
+        "selector_total": 21,
+        "set_insert": 21,
+        "set_lookup": 38,
+        "total": 258,
+        "total_with_selector": 279,
+        "total_with_selector_and_validation_proxy": 323,
+        "validation_replay_proxy_total": 44
+      },
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            0,
+            2,
+            -2
+          ],
+          "total_with_discovery_ops": 258,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C",
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.5,
+            "negative_trace_count": 4,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "policy": "at_most_once",
+          "score": [
+            1,
+            4,
+            0
+          ],
+          "total_with_discovery_ops": 283,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 4,
+            "rejected_negative_traces": 4
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        }
+      ],
+      "selected_policy": "at_most_once",
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 11,
+        "construct": 4,
+        "total": 21
+      },
+      "validation_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 4,
+        "rejected_negative_traces": 4
+      },
+      "validation_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      }
+    },
+    "multi_body_selects_unbounded": {
+      "description": "Validation positives include repeated singleton-body loop combinations.",
+      "expected_policy": "unbounded_repeat",
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 522,
+        "direct_follows_count": 5,
+        "event_count": 10,
+        "max_trace_length": 4,
+        "trace_count": 3
+      },
+      "operation_counts": {
+        "comparison": 108,
+        "construct": 28,
+        "dict_increment": 15,
+        "relation_classification": 21,
+        "scan_event": 27,
+        "selector_total": 22,
+        "set_insert": 21,
+        "set_lookup": 38,
+        "total": 258,
+        "total_with_selector": 280,
+        "total_with_selector_and_validation_proxy": 332,
+        "validation_replay_proxy_total": 52
+      },
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            3,
+            0
+          ],
+          "total_with_discovery_ops": 283,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C",
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 2
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            5,
+            0
+          ],
+          "total_with_discovery_ops": 258,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      ],
+      "selected_policy": "unbounded_repeat",
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 12,
+        "construct": 4,
+        "total": 22
+      },
+      "validation_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 3,
+        "rejected_negative_traces": 3
+      },
+      "validation_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 2,
+        "trace_count": 2
+      }
+    },
+    "no_discriminator_unresolved": {
+      "description": "Validation probes do not distinguish unbounded from at-most-once behavior.",
+      "expected_policy": null,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 354,
+        "direct_follows_count": 3,
+        "event_count": 6,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "operation_counts": {
+        "comparison": 83,
+        "construct": 27,
+        "dict_increment": 9,
+        "relation_classification": 15,
+        "scan_event": 21,
+        "selector_total": 21,
+        "set_insert": 18,
+        "set_lookup": 21,
+        "total": 194,
+        "total_with_selector": 215,
+        "total_with_selector_and_validation_proxy": 247,
+        "validation_replay_proxy_total": 32
+      },
+      "reason": "tie_or_conflicting_validation_evidence",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            1,
+            4,
+            0
+          ],
+          "total_with_discovery_ops": 216,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            4,
+            0
+          ],
+          "total_with_discovery_ops": 194,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      ],
+      "selected_policy": null,
+      "selection_status": "unresolved",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 11,
+        "construct": 4,
+        "total": 21
+      },
+      "validation_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "validation_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 2,
+        "trace_count": 2
+      }
+    },
+    "optional_skip_no_policy_set": {
+      "description": "No loop policy set exists, so validation cannot select a loop-count policy.",
+      "expected_policy": null,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 386,
+        "direct_follows_count": 3,
+        "event_count": 8,
+        "max_trace_length": 3,
+        "trace_count": 3
+      },
+      "operation_counts": {
+        "comparison": 96,
+        "construct": 30,
+        "dict_increment": 11,
+        "relation_classification": 16,
+        "scan_event": 24,
+        "selector_total": 4,
+        "set_insert": 13,
+        "set_lookup": 21,
+        "total": 211,
+        "total_with_selector": 215,
+        "total_with_selector_and_validation_proxy": 215,
+        "validation_replay_proxy_total": 0
+      },
+      "reason": "no_bounded_count_ambiguous_loop_evidence",
+      "scores": [],
+      "selected_policy": null,
+      "selection_status": "no_policy_set",
+      "selector_operation_counts": {
+        "comparison": 4,
+        "total": 4
+      },
+      "validation_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 3,
+        "rejected_negative_traces": 3
+      },
+      "validation_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      }
+    },
+    "single_rework_selects_at_most_once": {
+      "description": "Validation negatives declare a second singleton-loop iteration invalid.",
+      "expected_policy": "at_most_once",
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 354,
+        "direct_follows_count": 3,
+        "event_count": 6,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "operation_counts": {
+        "comparison": 83,
+        "construct": 27,
+        "dict_increment": 9,
+        "relation_classification": 15,
+        "scan_event": 21,
+        "selector_total": 20,
+        "set_insert": 18,
+        "set_lookup": 21,
+        "total": 194,
+        "total_with_selector": 214,
+        "total_with_selector_and_validation_proxy": 244,
+        "validation_replay_proxy_total": 30
+      },
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            0,
+            2,
+            -1
+          ],
+          "total_with_discovery_ops": 194,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.6666666666666666,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "policy": "at_most_once",
+          "score": [
+            1,
+            3,
+            0
+          ],
+          "total_with_discovery_ops": 216,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        }
+      ],
+      "selected_policy": "at_most_once",
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 10,
+        "construct": 4,
+        "total": 20
+      },
+      "validation_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 3,
+        "rejected_negative_traces": 3
+      },
+      "validation_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      }
+    },
+    "single_rework_selects_unbounded": {
+      "description": "Validation positives include a second singleton-loop iteration.",
+      "expected_policy": "unbounded_repeat",
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 354,
+        "direct_follows_count": 3,
+        "event_count": 6,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "operation_counts": {
+        "comparison": 83,
+        "construct": 27,
+        "dict_increment": 9,
+        "relation_classification": 15,
+        "scan_event": 21,
+        "selector_total": 21,
+        "set_insert": 18,
+        "set_lookup": 21,
+        "total": 194,
+        "total_with_selector": 215,
+        "total_with_selector_and_validation_proxy": 253,
+        "validation_replay_proxy_total": 38
+      },
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            3,
+            0
+          ],
+          "total_with_discovery_ops": 216,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            4,
+            0
+          ],
+          "total_with_discovery_ops": 194,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_policy": "unbounded_repeat",
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 11,
+        "construct": 4,
+        "total": 21
+      },
+      "validation_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 3,
+        "rejected_negative_traces": 3
+      },
+      "validation_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      }
+    }
+  }
+}

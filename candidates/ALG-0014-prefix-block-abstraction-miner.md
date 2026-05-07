@@ -131,6 +131,7 @@ It is not `deep-testing` because the noise and prefix-bias failures are material
 - EXP-0010: `ALG-0005` stress tests showed held-out overfitting and noise memorization.
 - EXP-0015: added `optional_singleton_parallel_branch` as a durable optional/concurrency counterexample.
 - EXP-0016: implemented this grammar/block refinement.
+- EXP-0017: split support-guarded refinement into `ALG-0015` and exact-fallback ablation into `ALG-0016`.
 
 ## Property-Study Notes
 
@@ -139,3 +140,4 @@ No property dossier. The candidate is not `super-promising`; it needs support th
 ## Decision History
 
 - EXP-0016: implemented and promoted to `promising`; retained as a grammar-abstraction direction with explicit noise and prefix-bias counterexamples.
+- EXP-0017: retained at `promising`; `ALG-0015` now carries the support/noise-guard refinement path.

@@ -1,0 +1,2612 @@
+{
+  "candidates": [
+    "cut_limited_length_bounded_loop",
+    "cut_limited_loop_repair",
+    "cut_limited_multi_body_loop",
+    "cut_limited_process_tree",
+    "prefix_automaton_compression",
+    "prefix_block_grammar_only",
+    "prefix_block_support_guard"
+  ],
+  "cases": {
+    "different_rework_body_rejected": {
+      "description": "Two distinct rework bodies around the same anchor are outside the singleton-body loop scope.",
+      "heldout_count": 1,
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 522,
+        "direct_follows_count": 5,
+        "event_count": 10,
+        "max_trace_length": 4,
+        "trace_count": 3
+      },
+      "negative_count": 3,
+      "results": {
+        "cut_limited_length_bounded_loop": {
+          "candidate_id": "ALG-0025",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 522,
+          "operation_budget_ratio": 0.5172413793103449,
+          "operation_counts": {
+            "comparison": 114,
+            "construct": 28,
+            "dict_increment": 15,
+            "relation_classification": 21,
+            "scan_event": 27,
+            "set_insert": 27,
+            "set_lookup": 38,
+            "total": 270
+          },
+          "process_tree": {
+            "anchor": "A",
+            "bodies": [
+              [
+                "B"
+              ],
+              [
+                "D"
+              ]
+            ],
+            "body_support": {
+              "B": 1,
+              "D": 1
+            },
+            "bounded_count_ambiguous": true,
+            "loop_repetition_policy": "unbounded_repeat",
+            "max_body_length": 2,
+            "observed_max_iterations": 1,
+            "prefix": [],
+            "suffix": [
+              "C"
+            ],
+            "type": "multi_body_rework_loop",
+            "zero_iteration": [
+              "A",
+              "C"
+            ]
+          },
+          "selected_cut": "multi_body_rework_loop",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "cut_limited_loop_repair": {
+          "candidate_id": "ALG-0023",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A",
+                    "p_pt_fallback_edge_D__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "D",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 522,
+          "operation_budget_ratio": 0.5478927203065134,
+          "operation_counts": {
+            "comparison": 122,
+            "construct": 33,
+            "dict_increment": 13,
+            "relation_classification": 22,
+            "scan_event": 30,
+            "set_insert": 29,
+            "set_lookup": 37,
+            "total": 286
+          },
+          "process_tree": {
+            "edge_places": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "A",
+                "D"
+              ],
+              [
+                "B",
+                "A"
+              ],
+              [
+                "D",
+                "A"
+              ]
+            ],
+            "type": "fallback_dfg"
+          },
+          "selected_cut": "fallback_dfg",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A",
+                    "p_pt_fallback_edge_D__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A",
+                    "p_pt_fallback_edge_D__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A",
+                    "p_pt_fallback_edge_D__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 3
+          }
+        },
+        "cut_limited_multi_body_loop": {
+          "candidate_id": "ALG-0024",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 522,
+          "operation_budget_ratio": 0.5172413793103449,
+          "operation_counts": {
+            "comparison": 114,
+            "construct": 28,
+            "dict_increment": 15,
+            "relation_classification": 21,
+            "scan_event": 27,
+            "set_insert": 27,
+            "set_lookup": 38,
+            "total": 270
+          },
+          "process_tree": {
+            "anchor": "A",
+            "bodies": [
+              [
+                "B"
+              ],
+              [
+                "D"
+              ]
+            ],
+            "body_support": {
+              "B": 1,
+              "D": 1
+            },
+            "bounded_count_ambiguous": true,
+            "loop_repetition_policy": "unbounded_repeat",
+            "max_body_length": 1,
+            "observed_max_iterations": 1,
+            "prefix": [],
+            "suffix": [
+              "C"
+            ],
+            "type": "multi_body_rework_loop",
+            "zero_iteration": [
+              "A",
+              "C"
+            ]
+          },
+          "selected_cut": "multi_body_rework_loop",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "cut_limited_process_tree": {
+          "candidate_id": "ALG-0003",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A",
+                    "p_pt_fallback_edge_D__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "D",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 522,
+          "operation_budget_ratio": 0.4521072796934866,
+          "operation_counts": {
+            "comparison": 93,
+            "construct": 29,
+            "dict_increment": 13,
+            "relation_classification": 21,
+            "scan_event": 22,
+            "set_insert": 21,
+            "set_lookup": 37,
+            "total": 236
+          },
+          "process_tree": {
+            "edge_places": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "A",
+                "D"
+              ],
+              [
+                "B",
+                "A"
+              ],
+              [
+                "D",
+                "A"
+              ]
+            ],
+            "type": "fallback_dfg"
+          },
+          "selected_cut": "fallback_dfg",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A",
+                    "p_pt_fallback_edge_D__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A",
+                    "p_pt_fallback_edge_D__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A",
+                    "p_pt_fallback_edge_D__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 3
+          }
+        },
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D__q3__q2"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_D__q3__q2": [
+                    "p_pa_q3"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "D",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 522,
+          "operation_budget_ratio": 0.48659003831417624,
+          "operation_counts": {
+            "comparison": 48,
+            "construct": 48,
+            "dict_increment": 16,
+            "relation_classification": 25,
+            "scan_event": 27,
+            "set_insert": 31,
+            "set_lookup": 59,
+            "total": 254
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "D",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 522,
+          "operation_budget_ratio": 0.38697318007662834,
+          "operation_counts": {
+            "comparison": 84,
+            "construct": 10,
+            "dict_increment": 13,
+            "relation_classification": 19,
+            "scan_event": 17,
+            "set_insert": 27,
+            "set_lookup": 32,
+            "total": 202
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": "no_grammar",
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [
+              "p_end"
+            ],
+            "places_without_outputs_except_final": [
+              "p_start"
+            ],
+            "visible_transitions_without_inputs": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ],
+            "visible_transitions_without_outputs": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 3
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D__q3__q2"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_D__q3__q2": [
+                    "p_pa_q3"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "D",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 522,
+          "operation_budget_ratio": 0.6130268199233716,
+          "operation_counts": {
+            "comparison": 84,
+            "construct": 52,
+            "dict_increment": 16,
+            "relation_classification": 28,
+            "scan_event": 27,
+            "set_insert": 54,
+            "set_lookup": 59,
+            "total": 320
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": "exact_prefix_automaton",
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        }
+      }
+    },
+    "optional_skip_not_loop": {
+      "description": "A simple optional skip should stay an optional-sequence cut, not a loop.",
+      "heldout_count": 0,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 386,
+        "direct_follows_count": 3,
+        "event_count": 8,
+        "max_trace_length": 3,
+        "trace_count": 3
+      },
+      "negative_count": 3,
+      "results": {
+        "cut_limited_length_bounded_loop": {
+          "candidate_id": "ALG-0025",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.5466321243523317,
+          "operation_counts": {
+            "comparison": 96,
+            "construct": 30,
+            "dict_increment": 11,
+            "relation_classification": 16,
+            "scan_event": 24,
+            "set_insert": 13,
+            "set_lookup": 21,
+            "total": 211
+          },
+          "process_tree": {
+            "canonical": [
+              "A",
+              "B",
+              "C"
+            ],
+            "skip_edges": [
+              {
+                "from": "A",
+                "skipped": [
+                  "B"
+                ],
+                "to": "C"
+              }
+            ],
+            "skip_index_edges": [
+              [
+                0,
+                2
+              ]
+            ],
+            "type": "optional_sequence"
+          },
+          "selected_cut": "optional_sequence",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "cut_limited_loop_repair": {
+          "candidate_id": "ALG-0023",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.5362694300518135,
+          "operation_counts": {
+            "comparison": 93,
+            "construct": 30,
+            "dict_increment": 11,
+            "relation_classification": 15,
+            "scan_event": 24,
+            "set_insert": 13,
+            "set_lookup": 21,
+            "total": 207
+          },
+          "process_tree": {
+            "canonical": [
+              "A",
+              "B",
+              "C"
+            ],
+            "skip_edges": [
+              {
+                "from": "A",
+                "skipped": [
+                  "B"
+                ],
+                "to": "C"
+              }
+            ],
+            "skip_index_edges": [
+              [
+                0,
+                2
+              ]
+            ],
+            "type": "optional_sequence"
+          },
+          "selected_cut": "optional_sequence",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "cut_limited_multi_body_loop": {
+          "candidate_id": "ALG-0024",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.5466321243523317,
+          "operation_counts": {
+            "comparison": 96,
+            "construct": 30,
+            "dict_increment": 11,
+            "relation_classification": 16,
+            "scan_event": 24,
+            "set_insert": 13,
+            "set_lookup": 21,
+            "total": 211
+          },
+          "process_tree": {
+            "canonical": [
+              "A",
+              "B",
+              "C"
+            ],
+            "skip_edges": [
+              {
+                "from": "A",
+                "skipped": [
+                  "B"
+                ],
+                "to": "C"
+              }
+            ],
+            "skip_index_edges": [
+              [
+                0,
+                2
+              ]
+            ],
+            "type": "optional_sequence"
+          },
+          "selected_cut": "optional_sequence",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "cut_limited_process_tree": {
+          "candidate_id": "ALG-0003",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.5259067357512953,
+          "operation_counts": {
+            "comparison": 90,
+            "construct": 30,
+            "dict_increment": 11,
+            "relation_classification": 14,
+            "scan_event": 24,
+            "set_insert": 13,
+            "set_lookup": 21,
+            "total": 203
+          },
+          "process_tree": {
+            "canonical": [
+              "A",
+              "B",
+              "C"
+            ],
+            "skip_edges": [
+              {
+                "from": "A",
+                "skipped": [
+                  "B"
+                ],
+                "to": "C"
+              }
+            ],
+            "skip_index_edges": [
+              [
+                0,
+                2
+              ]
+            ],
+            "type": "optional_sequence"
+          },
+          "selected_cut": "optional_sequence",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.422279792746114,
+          "operation_counts": {
+            "comparison": 27,
+            "construct": 32,
+            "dict_increment": 14,
+            "relation_classification": 14,
+            "scan_event": 21,
+            "set_insert": 20,
+            "set_lookup": 35,
+            "total": 163
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.33678756476683935,
+          "operation_counts": {
+            "comparison": 53,
+            "construct": 9,
+            "dict_increment": 11,
+            "relation_classification": 12,
+            "scan_event": 13,
+            "set_insert": 14,
+            "set_lookup": 18,
+            "total": 130
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": "no_grammar",
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [
+              "p_end"
+            ],
+            "places_without_outputs_except_final": [
+              "p_start"
+            ],
+            "visible_transitions_without_inputs": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ],
+            "visible_transitions_without_outputs": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ]
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 3
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.5362694300518135,
+          "operation_counts": {
+            "comparison": 53,
+            "construct": 36,
+            "dict_increment": 14,
+            "relation_classification": 17,
+            "scan_event": 21,
+            "set_insert": 31,
+            "set_lookup": 35,
+            "total": 207
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": "exact_prefix_automaton",
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        }
+      }
+    },
+    "single_rework_one_iteration_only": {
+      "description": "Without an observed zero-iteration exit, the bounded loop detector should not infer optional loop exit.",
+      "heldout_count": 1,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 386,
+        "direct_follows_count": 3,
+        "event_count": 8,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "negative_count": 3,
+      "results": {
+        "cut_limited_length_bounded_loop": {
+          "candidate_id": "ALG-0025",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.7383419689119171,
+          "operation_counts": {
+            "comparison": 138,
+            "construct": 34,
+            "dict_increment": 14,
+            "relation_classification": 16,
+            "scan_event": 36,
+            "set_insert": 23,
+            "set_lookup": 24,
+            "total": 285
+          },
+          "process_tree": {
+            "edge_places": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "A"
+              ]
+            ],
+            "type": "fallback_dfg"
+          },
+          "selected_cut": "fallback_dfg",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 2
+          }
+        },
+        "cut_limited_loop_repair": {
+          "candidate_id": "ALG-0023",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.5492227979274611,
+          "operation_counts": {
+            "comparison": 88,
+            "construct": 32,
+            "dict_increment": 10,
+            "relation_classification": 15,
+            "scan_event": 28,
+            "set_insert": 15,
+            "set_lookup": 24,
+            "total": 212
+          },
+          "process_tree": {
+            "edge_places": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "A"
+              ]
+            ],
+            "type": "fallback_dfg"
+          },
+          "selected_cut": "fallback_dfg",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 2
+          }
+        },
+        "cut_limited_multi_body_loop": {
+          "candidate_id": "ALG-0024",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.7383419689119171,
+          "operation_counts": {
+            "comparison": 138,
+            "construct": 34,
+            "dict_increment": 14,
+            "relation_classification": 16,
+            "scan_event": 36,
+            "set_insert": 23,
+            "set_lookup": 24,
+            "total": 285
+          },
+          "process_tree": {
+            "edge_places": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "A"
+              ]
+            ],
+            "type": "fallback_dfg"
+          },
+          "selected_cut": "fallback_dfg",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 2
+          }
+        },
+        "cut_limited_process_tree": {
+          "candidate_id": "ALG-0003",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.4170984455958549,
+          "operation_counts": {
+            "comparison": 58,
+            "construct": 28,
+            "dict_increment": 10,
+            "relation_classification": 14,
+            "scan_event": 20,
+            "set_insert": 7,
+            "set_lookup": 24,
+            "total": 161
+          },
+          "process_tree": {
+            "edge_places": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "A"
+              ]
+            ],
+            "type": "fallback_dfg"
+          },
+          "selected_cut": "fallback_dfg",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 2
+          }
+        },
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B__q3__q2"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B__q3__q2": [
+                    "p_pa_q3"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.422279792746114,
+          "operation_counts": {
+            "comparison": 27,
+            "construct": 34,
+            "dict_increment": 12,
+            "relation_classification": 14,
+            "scan_event": 22,
+            "set_insert": 19,
+            "set_lookup": 35,
+            "total": 163
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.3704663212435233,
+          "operation_counts": {
+            "comparison": 51,
+            "construct": 15,
+            "dict_increment": 12,
+            "relation_classification": 12,
+            "scan_event": 17,
+            "set_insert": 15,
+            "set_lookup": 21,
+            "total": 143
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": "no_grammar",
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [
+              "p_end"
+            ],
+            "places_without_outputs_except_final": [
+              "p_start"
+            ],
+            "visible_transitions_without_inputs": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ],
+            "visible_transitions_without_outputs": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ]
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B__q3__q2"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B__q3__q2": [
+                    "p_pa_q3"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 386,
+          "operation_budget_ratio": 0.5699481865284974,
+          "operation_counts": {
+            "comparison": 51,
+            "construct": 44,
+            "dict_increment": 14,
+            "relation_classification": 17,
+            "scan_event": 25,
+            "set_insert": 31,
+            "set_lookup": 38,
+            "total": 220
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": "exact_prefix_automaton",
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      }
+    },
+    "single_rework_zero_or_one": {
+      "description": "Observed A-C exit and one A-B-A-C rework iteration; a loop model should admit repeated B/A cycles.",
+      "heldout_count": 1,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 418,
+        "direct_follows_count": 3,
+        "event_count": 10,
+        "max_trace_length": 4,
+        "trace_count": 3
+      },
+      "negative_count": 3,
+      "results": {
+        "cut_limited_length_bounded_loop": {
+          "candidate_id": "ALG-0025",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.6985645933014354,
+          "operation_counts": {
+            "comparison": 147,
+            "construct": 28,
+            "dict_increment": 17,
+            "relation_classification": 15,
+            "scan_event": 32,
+            "set_insert": 32,
+            "set_lookup": 21,
+            "total": 292
+          },
+          "process_tree": {
+            "anchor": "A",
+            "body": [
+              "B"
+            ],
+            "bounded_count_ambiguous": true,
+            "loop_repetition_policy": "unbounded_repeat",
+            "one_iteration": [
+              "A",
+              "B",
+              "A",
+              "C"
+            ],
+            "prefix": [],
+            "suffix": [
+              "C"
+            ],
+            "type": "single_rework_loop",
+            "zero_iteration": [
+              "A",
+              "C"
+            ]
+          },
+          "selected_cut": "single_rework_loop",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "cut_limited_loop_repair": {
+          "candidate_id": "ALG-0023",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.5167464114832536,
+          "operation_counts": {
+            "comparison": 94,
+            "construct": 26,
+            "dict_increment": 13,
+            "relation_classification": 14,
+            "scan_event": 24,
+            "set_insert": 24,
+            "set_lookup": 21,
+            "total": 216
+          },
+          "process_tree": {
+            "anchor": "A",
+            "body": [
+              "B"
+            ],
+            "bounded_count_ambiguous": true,
+            "loop_repetition_policy": "unbounded_repeat",
+            "one_iteration": [
+              "A",
+              "B",
+              "A",
+              "C"
+            ],
+            "prefix": [],
+            "suffix": [
+              "C"
+            ],
+            "type": "single_rework_loop",
+            "zero_iteration": [
+              "A",
+              "C"
+            ]
+          },
+          "selected_cut": "single_rework_loop",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "cut_limited_multi_body_loop": {
+          "candidate_id": "ALG-0024",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.6985645933014354,
+          "operation_counts": {
+            "comparison": 147,
+            "construct": 28,
+            "dict_increment": 17,
+            "relation_classification": 15,
+            "scan_event": 32,
+            "set_insert": 32,
+            "set_lookup": 21,
+            "total": 292
+          },
+          "process_tree": {
+            "anchor": "A",
+            "body": [
+              "B"
+            ],
+            "bounded_count_ambiguous": true,
+            "loop_repetition_policy": "unbounded_repeat",
+            "one_iteration": [
+              "A",
+              "B",
+              "A",
+              "C"
+            ],
+            "prefix": [],
+            "suffix": [
+              "C"
+            ],
+            "type": "single_rework_loop",
+            "zero_iteration": [
+              "A",
+              "C"
+            ]
+          },
+          "selected_cut": "single_rework_loop",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "cut_limited_process_tree": {
+          "candidate_id": "ALG-0003",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.4569377990430622,
+          "operation_counts": {
+            "comparison": 82,
+            "construct": 22,
+            "dict_increment": 13,
+            "relation_classification": 14,
+            "scan_event": 20,
+            "set_insert": 19,
+            "set_lookup": 21,
+            "total": 191
+          },
+          "process_tree": {
+            "edge_places": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "A"
+              ]
+            ],
+            "type": "fallback_dfg"
+          },
+          "selected_cut": "fallback_dfg",
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 3
+          }
+        },
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B__q3__q2"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B__q3__q2": [
+                    "p_pa_q3"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.4449760765550239,
+          "operation_counts": {
+            "comparison": 27,
+            "construct": 39,
+            "dict_increment": 16,
+            "relation_classification": 15,
+            "scan_event": 27,
+            "set_insert": 23,
+            "set_lookup": 39,
+            "total": 186
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": null,
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.4043062200956938,
+          "operation_counts": {
+            "comparison": 72,
+            "construct": 9,
+            "dict_increment": 13,
+            "relation_classification": 12,
+            "scan_event": 17,
+            "set_insert": 28,
+            "set_lookup": 18,
+            "total": 169
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": "no_grammar",
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [
+              "p_end"
+            ],
+            "places_without_outputs_except_final": [
+              "p_start"
+            ],
+            "visible_transitions_without_inputs": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ],
+            "visible_transitions_without_outputs": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ]
+          },
+          "train_replay": {
+            "failed_examples": [
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 3
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B__q3__q2"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B__q3__q2": [
+                    "p_pa_q3"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.6291866028708134,
+          "operation_counts": {
+            "comparison": 72,
+            "construct": 43,
+            "dict_increment": 16,
+            "relation_classification": 18,
+            "scan_event": 27,
+            "set_insert": 48,
+            "set_lookup": 39,
+            "total": 263
+          },
+          "process_tree": null,
+          "selected_cut": null,
+          "selected_grammar": "exact_prefix_automaton",
+          "structural_diagnostics": {
+            "invalid_arcs": [],
+            "places_without_inputs_except_initial": [],
+            "places_without_outputs_except_final": [],
+            "visible_transitions_without_inputs": [],
+            "visible_transitions_without_outputs": []
+          },
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 3,
+            "trace_count": 3
+          }
+        }
+      }
+    }
+  }
+}

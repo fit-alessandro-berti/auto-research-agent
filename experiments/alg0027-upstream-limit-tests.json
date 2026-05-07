@@ -1,0 +1,765 @@
+{
+  "cases": {
+    "duplicate_suffix_label_no_policy_set": {
+      "description": "A body label also occurs in the suffix; upstream duplicate-label guard rejects loop evidence.",
+      "expected_final_ok": null,
+      "expected_policy": null,
+      "expected_status": "no_policy_set",
+      "expected_train_validation_overlap": false,
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 1
+      },
+      "final_ok": false,
+      "final_ok_matches": true,
+      "final_positive_replay": {
+        "failed_examples": [
+          {
+            "activity": "A",
+            "candidate_transitions": [
+              "t_A"
+            ],
+            "event_index": 1,
+            "missing_input_places_by_transition": {
+              "t_A": [
+                "p_pt_fallback_edge_B__A",
+                "p_pt_fallback_edge_C__A"
+              ]
+            },
+            "ok": false,
+            "reason": "transition_not_enabled",
+            "silent_closure_truncated": false,
+            "trace": [
+              "S",
+              "A",
+              "C",
+              "A",
+              "B",
+              "A",
+              "B"
+            ]
+          }
+        ],
+        "replayed_traces": 0,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 570,
+        "direct_follows_count": 5,
+        "event_count": 13,
+        "max_trace_length": 5,
+        "trace_count": 3
+      },
+      "operation_counts": {
+        "comparison": 172,
+        "construct": 35,
+        "dict_increment": 18,
+        "relation_classification": 23,
+        "scan_event": 55,
+        "selector_total": 3,
+        "set_insert": 41,
+        "set_lookup": 44,
+        "total": 388,
+        "total_with_selector": 391,
+        "total_with_selector_and_validation_proxy": 391,
+        "validation_replay_proxy_total": 0
+      },
+      "overlap_ok": true,
+      "policy_set_detected": false,
+      "reason": "no_bounded_count_ambiguous_loop_evidence",
+      "scores": [],
+      "selected_cut": "fallback_dfg",
+      "selected_policy": null,
+      "selection_ok": true,
+      "selection_status": "no_policy_set",
+      "selector_operation_counts": {
+        "comparison": 3,
+        "total": 3
+      },
+      "stress_pass": true,
+      "train_validation_overlap": [],
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "length3_body_no_policy_set": {
+      "description": "Body alternatives of length three exceed the current ALG-0025 max-body-length bound.",
+      "expected_final_ok": null,
+      "expected_policy": null,
+      "expected_status": "no_policy_set",
+      "expected_train_validation_overlap": false,
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 1
+      },
+      "final_ok": false,
+      "final_ok_matches": true,
+      "final_positive_replay": {
+        "failed_examples": [
+          {
+            "activity": "A",
+            "candidate_transitions": [
+              "t_A"
+            ],
+            "event_index": 0,
+            "missing_input_places_by_transition": {
+              "t_A": [
+                "p_pt_fallback_edge_D__A",
+                "p_pt_fallback_edge_G__A"
+              ]
+            },
+            "ok": false,
+            "reason": "transition_not_enabled",
+            "silent_closure_truncated": false,
+            "trace": [
+              "A",
+              "E",
+              "F",
+              "G",
+              "A",
+              "B",
+              "C",
+              "D",
+              "A",
+              "Z"
+            ]
+          }
+        ],
+        "replayed_traces": 0,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 8,
+        "deep_soft_budget": 1202,
+        "direct_follows_count": 9,
+        "event_count": 14,
+        "max_trace_length": 6,
+        "trace_count": 3
+      },
+      "operation_counts": {
+        "comparison": 269,
+        "construct": 45,
+        "dict_increment": 17,
+        "relation_classification": 71,
+        "scan_event": 54,
+        "selector_total": 3,
+        "set_insert": 52,
+        "set_lookup": 133,
+        "total": 641,
+        "total_with_selector": 644,
+        "total_with_selector_and_validation_proxy": 644,
+        "validation_replay_proxy_total": 0
+      },
+      "overlap_ok": true,
+      "policy_set_detected": false,
+      "reason": "no_bounded_count_ambiguous_loop_evidence",
+      "scores": [],
+      "selected_cut": "fallback_dfg",
+      "selected_policy": null,
+      "selection_ok": true,
+      "selection_status": "no_policy_set",
+      "selector_operation_counts": {
+        "comparison": 3,
+        "total": 3
+      },
+      "stress_pass": true,
+      "train_validation_overlap": [],
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "one_iteration_only_no_policy_set": {
+      "description": "Only one-iteration loop evidence is present; upstream has no zero/one ambiguity to expose.",
+      "expected_final_ok": null,
+      "expected_policy": null,
+      "expected_status": "no_policy_set",
+      "expected_train_validation_overlap": false,
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 1
+      },
+      "final_ok": false,
+      "final_ok_matches": true,
+      "final_positive_replay": {
+        "failed_examples": [
+          {
+            "activity": "A",
+            "candidate_transitions": [
+              "t_A"
+            ],
+            "event_index": 0,
+            "missing_input_places_by_transition": {
+              "t_A": [
+                "p_pt_fallback_edge_B__A"
+              ]
+            },
+            "ok": false,
+            "reason": "transition_not_enabled",
+            "silent_closure_truncated": false,
+            "trace": [
+              "A",
+              "B",
+              "A",
+              "B",
+              "A",
+              "C"
+            ]
+          }
+        ],
+        "replayed_traces": 0,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 322,
+        "direct_follows_count": 3,
+        "event_count": 4,
+        "max_trace_length": 4,
+        "trace_count": 1
+      },
+      "operation_counts": {
+        "comparison": 62,
+        "construct": 31,
+        "dict_increment": 6,
+        "relation_classification": 16,
+        "scan_event": 21,
+        "selector_total": 3,
+        "set_insert": 15,
+        "set_lookup": 24,
+        "total": 175,
+        "total_with_selector": 178,
+        "total_with_selector_and_validation_proxy": 178,
+        "validation_replay_proxy_total": 0
+      },
+      "overlap_ok": true,
+      "policy_set_detected": false,
+      "reason": "no_bounded_count_ambiguous_loop_evidence",
+      "scores": [],
+      "selected_cut": "fallback_dfg",
+      "selected_policy": null,
+      "selection_ok": true,
+      "selection_status": "no_policy_set",
+      "selector_operation_counts": {
+        "comparison": 3,
+        "total": 3
+      },
+      "stress_pass": true,
+      "train_validation_overlap": [],
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "overlapping_body_labels_no_policy_set": {
+      "description": "Different body alternatives share visible labels; upstream rejects this duplicate-label body context.",
+      "expected_final_ok": null,
+      "expected_policy": null,
+      "expected_status": "no_policy_set",
+      "expected_train_validation_overlap": false,
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 1
+      },
+      "final_ok": false,
+      "final_ok_matches": true,
+      "final_positive_replay": {
+        "failed_examples": [
+          {
+            "activity": "A",
+            "candidate_transitions": [
+              "t_A"
+            ],
+            "event_index": 0,
+            "missing_input_places_by_transition": {
+              "t_A": [
+                "p_pt_fallback_edge_C__A",
+                "p_pt_fallback_edge_D__A"
+              ]
+            },
+            "ok": false,
+            "reason": "transition_not_enabled",
+            "silent_closure_truncated": false,
+            "trace": [
+              "A",
+              "C",
+              "D",
+              "A",
+              "B",
+              "C",
+              "A",
+              "Z"
+            ]
+          }
+        ],
+        "replayed_traces": 0,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 682,
+        "direct_follows_count": 7,
+        "event_count": 12,
+        "max_trace_length": 5,
+        "trace_count": 3
+      },
+      "operation_counts": {
+        "comparison": 186,
+        "construct": 38,
+        "dict_increment": 19,
+        "relation_classification": 32,
+        "scan_event": 53,
+        "selector_total": 3,
+        "set_insert": 46,
+        "set_lookup": 62,
+        "total": 436,
+        "total_with_selector": 439,
+        "total_with_selector_and_validation_proxy": 439,
+        "validation_replay_proxy_total": 0
+      },
+      "overlap_ok": true,
+      "policy_set_detected": false,
+      "reason": "no_bounded_count_ambiguous_loop_evidence",
+      "scores": [],
+      "selected_cut": "fallback_dfg",
+      "selected_policy": null,
+      "selection_ok": true,
+      "selection_status": "no_policy_set",
+      "selector_operation_counts": {
+        "comparison": 3,
+        "total": 3
+      },
+      "stress_pass": true,
+      "train_validation_overlap": [],
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "rare_body_noise_gap": {
+      "description": "If the rare observed body should be treated as noise, loop-count validation cannot remove it.",
+      "expected_final_ok": false,
+      "expected_policy": "at_most_once",
+      "expected_status": "selected",
+      "expected_train_validation_overlap": false,
+      "final_negative_probe": {
+        "accepted_examples": [
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "C",
+              "A",
+              "D"
+            ]
+          }
+        ],
+        "accepted_negative_traces": 1,
+        "negative_rejection_rate": 0.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": false,
+      "final_ok_matches": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 650,
+        "direct_follows_count": 5,
+        "event_count": 18,
+        "max_trace_length": 4,
+        "trace_count": 5
+      },
+      "operation_counts": {
+        "comparison": 148,
+        "construct": 28,
+        "dict_increment": 27,
+        "relation_classification": 21,
+        "scan_event": 41,
+        "selector_total": 19,
+        "set_insert": 29,
+        "set_lookup": 38,
+        "total": 332,
+        "total_with_selector": 351,
+        "total_with_selector_and_validation_proxy": 373,
+        "validation_replay_proxy_total": 22
+      },
+      "overlap_ok": true,
+      "policy_set_detected": true,
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            0,
+            1,
+            -1
+          ],
+          "total_with_discovery_ops": 332,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.5,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "policy": "at_most_once",
+          "score": [
+            1,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 357,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        }
+      ],
+      "selected_cut": "multi_body_rework_loop",
+      "selected_policy": "at_most_once",
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 9,
+        "construct": 4,
+        "total": 19
+      },
+      "stress_pass": true,
+      "train_validation_overlap": [],
+      "validation_replay_proxy_counts": {
+        "comparison": 4,
+        "scan_event": 18,
+        "total": 22
+      }
+    },
+    "rare_body_noise_training_conflict": {
+      "description": "Marking an observed rare body invalid in validation conflicts with the training log and leaves selection unresolved.",
+      "expected_final_ok": null,
+      "expected_policy": null,
+      "expected_status": "unresolved",
+      "expected_train_validation_overlap": true,
+      "final_negative_probe": {
+        "accepted_examples": [
+          {
+            "reason": "negative_trace_replayed",
+            "trace": [
+              "A",
+              "C",
+              "A",
+              "D"
+            ]
+          }
+        ],
+        "accepted_negative_traces": 1,
+        "negative_rejection_rate": 0.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 0
+      },
+      "final_ok": false,
+      "final_ok_matches": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 650,
+        "direct_follows_count": 5,
+        "event_count": 18,
+        "max_trace_length": 4,
+        "trace_count": 5
+      },
+      "operation_counts": {
+        "comparison": 148,
+        "construct": 28,
+        "dict_increment": 27,
+        "relation_classification": 21,
+        "scan_event": 41,
+        "selector_total": 18,
+        "set_insert": 29,
+        "set_lookup": 38,
+        "total": 332,
+        "total_with_selector": 350,
+        "total_with_selector_and_validation_proxy": 360,
+        "validation_replay_proxy_total": 10
+      },
+      "overlap_ok": true,
+      "policy_set_detected": true,
+      "reason": "tie_or_conflicting_validation_evidence",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            0,
+            -1
+          ],
+          "total_with_discovery_ops": 357,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            0,
+            0,
+            -1
+          ],
+          "total_with_discovery_ops": 332,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        }
+      ],
+      "selected_cut": "multi_body_rework_loop",
+      "selected_policy": null,
+      "selection_ok": true,
+      "selection_status": "unresolved",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 8,
+        "construct": 4,
+        "total": 18
+      },
+      "stress_pass": true,
+      "train_validation_overlap": [
+        [
+          "A",
+          "C",
+          "A",
+          "D"
+        ]
+      ],
+      "validation_replay_proxy_counts": {
+        "comparison": 2,
+        "scan_event": 8,
+        "total": 10
+      }
+    },
+    "rare_body_valid_unbounded_control": {
+      "description": "A rare observed body is treated as valid when validation positives require repeated rare-body behavior.",
+      "expected_final_ok": true,
+      "expected_policy": "unbounded_repeat",
+      "expected_status": "selected",
+      "expected_train_validation_overlap": false,
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_ok_matches": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 650,
+        "direct_follows_count": 5,
+        "event_count": 18,
+        "max_trace_length": 4,
+        "trace_count": 5
+      },
+      "operation_counts": {
+        "comparison": 148,
+        "construct": 28,
+        "dict_increment": 27,
+        "relation_classification": 21,
+        "scan_event": 41,
+        "selector_total": 20,
+        "set_insert": 29,
+        "set_lookup": 38,
+        "total": 332,
+        "total_with_selector": 352,
+        "total_with_selector_and_validation_proxy": 382,
+        "validation_replay_proxy_total": 30
+      },
+      "overlap_ok": true,
+      "policy_set_detected": true,
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 357,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            3,
+            0
+          ],
+          "total_with_discovery_ops": 332,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_cut": "multi_body_rework_loop",
+      "selected_policy": "unbounded_repeat",
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 10,
+        "construct": 4,
+        "total": 20
+      },
+      "stress_pass": true,
+      "train_validation_overlap": [],
+      "validation_replay_proxy_counts": {
+        "comparison": 6,
+        "scan_event": 24,
+        "total": 30
+      }
+    }
+  },
+  "summary": {
+    "case_count": 7,
+    "failed": [],
+    "passed": 7
+  }
+}

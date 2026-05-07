@@ -1,0 +1,2965 @@
+{
+  "candidates": [
+    "prefix_automaton_compression",
+    "prefix_block_abstraction",
+    "prefix_block_dominant_only",
+    "prefix_block_grammar_only",
+    "prefix_block_prefix_merge_only",
+    "prefix_block_support_guard",
+    "prefix_block_support_only"
+  ],
+  "cases": {
+    "ambiguous_reversal_tie": {
+      "description": "Balanced reversal evidence should remain parallel-like rather than dominant-sequence noise.",
+      "heldout_count": 0,
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 500,
+        "direct_follows_count": 6,
+        "event_count": 8,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "negative_count": 3,
+      "results": {
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "configuration": {},
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 500,
+          "operation_budget_ratio": 0.474,
+          "operation_counts": {
+            "comparison": 48,
+            "construct": 48,
+            "dict_increment": 12,
+            "relation_classification": 24,
+            "scan_event": 22,
+            "set_insert": 28,
+            "set_lookup": 55,
+            "total": 237
+          },
+          "selected_grammar": null,
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": null
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 500,
+          "operation_budget_ratio": 0.372,
+          "operation_counts": {
+            "comparison": 67,
+            "construct": 22,
+            "dict_increment": 12,
+            "relation_classification": 17,
+            "scan_event": 18,
+            "set_insert": 14,
+            "set_lookup": 36,
+            "total": 186
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_dominant_only": {
+          "candidate_id": "ALG-0019",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 500,
+          "operation_budget_ratio": 0.376,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 68,
+            "construct": 22,
+            "dict_increment": 12,
+            "relation_classification": 17,
+            "scan_event": 18,
+            "set_insert": 14,
+            "set_lookup": 36,
+            "total": 188
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "configuration": {
+            "allow_exact_fallback": false,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 500,
+          "operation_budget_ratio": 0.376,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 68,
+            "construct": 22,
+            "dict_increment": 12,
+            "relation_classification": 17,
+            "scan_event": 18,
+            "set_insert": 14,
+            "set_lookup": 36,
+            "total": 188
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_prefix_merge_only": {
+          "candidate_id": "ALG-0018",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 500,
+          "operation_budget_ratio": 0.376,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 68,
+            "construct": 22,
+            "dict_increment": 12,
+            "relation_classification": 17,
+            "scan_event": 18,
+            "set_insert": 14,
+            "set_lookup": 36,
+            "total": 188
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 500,
+          "operation_budget_ratio": 0.376,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 68,
+            "construct": 22,
+            "dict_increment": 12,
+            "relation_classification": 17,
+            "scan_event": 18,
+            "set_insert": 14,
+            "set_lookup": 36,
+            "total": 188
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_support_only": {
+          "candidate_id": "ALG-0017",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 500,
+          "operation_budget_ratio": 0.376,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 68,
+            "construct": 22,
+            "dict_increment": 12,
+            "relation_classification": 17,
+            "scan_event": 18,
+            "set_insert": 14,
+            "set_lookup": 36,
+            "total": 188
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      }
+    },
+    "balanced_parallel_2_of_6": {
+      "description": "Two observed interleavings do not share a misleading middle prefix.",
+      "heldout_count": 4,
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 650,
+        "direct_follows_count": 7,
+        "event_count": 10,
+        "max_trace_length": 5,
+        "trace_count": 2
+      },
+      "negative_count": 3,
+      "results": {
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "configuration": {},
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D__q3__q2",
+                  "t_D__q4__q1"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_D__q3__q2": [
+                    "p_pa_q3"
+                  ],
+                  "t_D__q4__q1": [
+                    "p_pa_q4"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "D",
+                  "C",
+                  "E"
+                ]
+              },
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B__q2__q1",
+                  "t_B__q6__q5"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_B__q2__q1": [
+                    "p_pa_q2"
+                  ],
+                  "t_B__q6__q5": [
+                    "p_pa_q6"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D",
+                  "E"
+                ]
+              },
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D__q3__q2",
+                  "t_D__q4__q1"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_D__q3__q2": [
+                    "p_pa_q3"
+                  ],
+                  "t_D__q4__q1": [
+                    "p_pa_q4"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.5046153846153846,
+          "operation_counts": {
+            "comparison": 75,
+            "construct": 62,
+            "dict_increment": 14,
+            "relation_classification": 35,
+            "scan_event": 28,
+            "set_insert": 35,
+            "set_lookup": 79,
+            "total": 328
+          },
+          "selected_grammar": null,
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": null
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.4,
+          "operation_counts": {
+            "comparison": 94,
+            "construct": 29,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 19,
+            "set_lookup": 55,
+            "total": 260
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_dominant_only": {
+          "candidate_id": "ALG-0019",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.40307692307692305,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 95,
+            "construct": 29,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 19,
+            "set_lookup": 55,
+            "total": 262
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "configuration": {
+            "allow_exact_fallback": false,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.40307692307692305,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 95,
+            "construct": 29,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 19,
+            "set_lookup": 55,
+            "total": 262
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_prefix_merge_only": {
+          "candidate_id": "ALG-0018",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.40307692307692305,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 95,
+            "construct": 29,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 19,
+            "set_lookup": 55,
+            "total": 262
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.40307692307692305,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 95,
+            "construct": 29,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 19,
+            "set_lookup": 55,
+            "total": 262
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_support_only": {
+          "candidate_id": "ALG-0017",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.40307692307692305,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 95,
+            "construct": 29,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 19,
+            "set_lookup": 55,
+            "total": 262
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      }
+    },
+    "different_activity_sets_skip_like": {
+      "description": "Variant activity sets differ, so dominant-sequence handling should stay disabled.",
+      "heldout_count": 0,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 418,
+        "direct_follows_count": 3,
+        "event_count": 10,
+        "max_trace_length": 3,
+        "trace_count": 4
+      },
+      "negative_count": 3,
+      "results": {
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "configuration": {},
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.41866028708133973,
+          "operation_counts": {
+            "comparison": 27,
+            "construct": 32,
+            "dict_increment": 18,
+            "relation_classification": 14,
+            "scan_event": 26,
+            "set_insert": 21,
+            "set_lookup": 37,
+            "total": 175
+          },
+          "selected_grammar": null,
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": null
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.5167464114832536,
+          "operation_counts": {
+            "comparison": 59,
+            "construct": 36,
+            "dict_increment": 18,
+            "relation_classification": 16,
+            "scan_event": 26,
+            "set_insert": 24,
+            "set_lookup": 37,
+            "total": 216
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_dominant_only": {
+          "candidate_id": "ALG-0019",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.5430622009569378,
+          "operation_counts": {
+            "comparison": 61,
+            "construct": 36,
+            "dict_increment": 18,
+            "relation_classification": 17,
+            "scan_event": 26,
+            "set_insert": 32,
+            "set_lookup": 37,
+            "total": 227
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "configuration": {
+            "allow_exact_fallback": false,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.3444976076555024,
+          "operation_counts": {
+            "comparison": 61,
+            "construct": 9,
+            "dict_increment": 14,
+            "relation_classification": 12,
+            "scan_event": 16,
+            "set_insert": 14,
+            "set_lookup": 18,
+            "total": 144
+          },
+          "selected_grammar": "no_grammar",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "mismatches": {
+                  "p_end": {
+                    "actual": 0,
+                    "expected": 1
+                  },
+                  "p_start": {
+                    "actual": 1,
+                    "expected": 0
+                  }
+                },
+                "ok": false,
+                "reason": "final_marking_mismatch",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_prefix_merge_only": {
+          "candidate_id": "ALG-0018",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.5167464114832536,
+          "operation_counts": {
+            "comparison": 59,
+            "construct": 36,
+            "dict_increment": 18,
+            "relation_classification": 16,
+            "scan_event": 26,
+            "set_insert": 24,
+            "set_lookup": 37,
+            "total": 216
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.5430622009569378,
+          "operation_counts": {
+            "comparison": 61,
+            "construct": 36,
+            "dict_increment": 18,
+            "relation_classification": 17,
+            "scan_event": 26,
+            "set_insert": 32,
+            "set_lookup": 37,
+            "total": 227
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_support_only": {
+          "candidate_id": "ALG-0017",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 418,
+          "operation_budget_ratio": 0.5167464114832536,
+          "operation_counts": {
+            "comparison": 59,
+            "construct": 36,
+            "dict_increment": 18,
+            "relation_classification": 16,
+            "scan_event": 26,
+            "set_insert": 24,
+            "set_lookup": 37,
+            "total": 216
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          }
+        }
+      }
+    },
+    "prefix_biased_parallel_2_of_6": {
+      "description": "Two observed interleavings share a middle prefix; the valid remaining interleavings are held out.",
+      "heldout_count": 4,
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 650,
+        "direct_follows_count": 7,
+        "event_count": 10,
+        "max_trace_length": 5,
+        "trace_count": 2
+      },
+      "negative_count": 3,
+      "results": {
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "configuration": {},
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C__q2__q1",
+                  "t_C__q4__q3"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C__q2__q1": [
+                    "p_pa_q2"
+                  ],
+                  "t_C__q4__q3": [
+                    "p_pa_q4"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D",
+                  "E"
+                ]
+              },
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C__q2__q1",
+                  "t_C__q4__q3"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C__q2__q1": [
+                    "p_pa_q2"
+                  ],
+                  "t_C__q4__q3": [
+                    "p_pa_q4"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "D",
+                  "B",
+                  "E"
+                ]
+              },
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D__q3__q1",
+                  "t_D__q4__q2"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_D__q3__q1": [
+                    "p_pa_q3"
+                  ],
+                  "t_D__q4__q2": [
+                    "p_pa_q4"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.4846153846153846,
+          "operation_counts": {
+            "comparison": 75,
+            "construct": 55,
+            "dict_increment": 14,
+            "relation_classification": 34,
+            "scan_event": 28,
+            "set_insert": 32,
+            "set_lookup": 77,
+            "total": 315
+          },
+          "selected_grammar": null,
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": null
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_and_split_t_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D",
+                  "E"
+                ]
+              },
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_and_split_t_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "D",
+                  "B",
+                  "E"
+                ]
+              },
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_D": [
+                    "p_pba_and_split_t_B__D"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.3953846153846154,
+          "operation_counts": {
+            "comparison": 96,
+            "construct": 27,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 16,
+            "set_lookup": 55,
+            "total": 257
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_dominant_only": {
+          "candidate_id": "ALG-0019",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_and_split_t_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D",
+                  "E"
+                ]
+              },
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_and_split_t_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "D",
+                  "B",
+                  "E"
+                ]
+              },
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_D": [
+                    "p_pba_and_split_t_B__D"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.3984615384615385,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 97,
+            "construct": 27,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 16,
+            "set_lookup": 55,
+            "total": 259
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "configuration": {
+            "allow_exact_fallback": false,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "prefix_merge",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.4107692307692308,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 97,
+            "construct": 32,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 19,
+            "set_lookup": 55,
+            "total": 267
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_prefix_merge_only": {
+          "candidate_id": "ALG-0018",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "prefix_merge",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.4107692307692308,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 97,
+            "construct": 32,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 19,
+            "set_lookup": 55,
+            "total": 267
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "prefix_merge",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.4107692307692308,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 97,
+            "construct": 32,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 19,
+            "set_lookup": 55,
+            "total": 267
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_support_only": {
+          "candidate_id": "ALG-0017",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_and_split_t_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D",
+                  "E"
+                ]
+              },
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_and_split_t_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "D",
+                  "B",
+                  "E"
+                ]
+              },
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_D": [
+                    "p_pba_and_split_t_B__D"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 4
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 650,
+          "operation_budget_ratio": 0.3984615384615385,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 97,
+            "construct": 27,
+            "dict_increment": 14,
+            "relation_classification": 26,
+            "scan_event": 23,
+            "set_insert": 16,
+            "set_lookup": 55,
+            "total": 259
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            1
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      }
+    },
+    "rare_reversal_noise_3_to_1": {
+      "description": "A dominant sequence plus one rare reversed trace that should be treated as noise for precision probing.",
+      "heldout_count": 0,
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 628,
+        "direct_follows_count": 6,
+        "event_count": 16,
+        "max_trace_length": 4,
+        "trace_count": 4
+      },
+      "negative_count": 1,
+      "results": {
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "configuration": {},
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "operation_budget": 628,
+          "operation_budget_ratio": 0.44745222929936307,
+          "operation_counts": {
+            "comparison": 48,
+            "construct": 48,
+            "dict_increment": 24,
+            "relation_classification": 24,
+            "scan_event": 44,
+            "set_insert": 30,
+            "set_lookup": 63,
+            "total": 281
+          },
+          "selected_grammar": null,
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": null
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "operation_budget": 628,
+          "operation_budget_ratio": 0.3821656050955414,
+          "operation_counts": {
+            "comparison": 91,
+            "construct": 22,
+            "dict_increment": 24,
+            "relation_classification": 17,
+            "scan_event": 32,
+            "set_insert": 18,
+            "set_lookup": 36,
+            "total": 240
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            3
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_dominant_only": {
+          "candidate_id": "ALG-0019",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "operation_budget": 628,
+          "operation_budget_ratio": 0.5398089171974523,
+          "operation_counts": {
+            "arithmetic": 2,
+            "comparison": 135,
+            "construct": 21,
+            "dict_increment": 28,
+            "relation_classification": 19,
+            "scan_event": 36,
+            "set_insert": 58,
+            "set_lookup": 40,
+            "total": 339
+          },
+          "selected_grammar": "dominant_sequence",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_seq_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 3,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "configuration": {
+            "allow_exact_fallback": false,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "operation_budget": 628,
+          "operation_budget_ratio": 0.5398089171974523,
+          "operation_counts": {
+            "arithmetic": 2,
+            "comparison": 135,
+            "construct": 21,
+            "dict_increment": 28,
+            "relation_classification": 19,
+            "scan_event": 36,
+            "set_insert": 58,
+            "set_lookup": 40,
+            "total": 339
+          },
+          "selected_grammar": "dominant_sequence",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_seq_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 3,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_prefix_merge_only": {
+          "candidate_id": "ALG-0018",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "operation_budget": 628,
+          "operation_budget_ratio": 0.6512738853503185,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 127,
+            "construct": 52,
+            "dict_increment": 28,
+            "relation_classification": 26,
+            "scan_event": 48,
+            "set_insert": 60,
+            "set_lookup": 67,
+            "total": 409
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "operation_budget": 628,
+          "operation_budget_ratio": 0.5398089171974523,
+          "operation_counts": {
+            "arithmetic": 2,
+            "comparison": 135,
+            "construct": 21,
+            "dict_increment": 28,
+            "relation_classification": 19,
+            "scan_event": 36,
+            "set_insert": 58,
+            "set_lookup": 40,
+            "total": 339
+          },
+          "selected_grammar": "dominant_sequence",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_seq_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 3,
+            "trace_count": 4
+          }
+        },
+        "prefix_block_support_only": {
+          "candidate_id": "ALG-0017",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "operation_budget": 628,
+          "operation_budget_ratio": 0.6512738853503185,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 127,
+            "construct": 52,
+            "dict_increment": 28,
+            "relation_classification": 26,
+            "scan_event": 48,
+            "set_insert": 60,
+            "set_lookup": 67,
+            "total": 409
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 4,
+            "trace_count": 4
+          }
+        }
+      }
+    },
+    "rare_reversal_noise_5_to_1": {
+      "description": "A stronger dominant sequence plus one rare reversed trace.",
+      "heldout_count": 0,
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 756,
+        "direct_follows_count": 6,
+        "event_count": 24,
+        "max_trace_length": 4,
+        "trace_count": 6
+      },
+      "negative_count": 1,
+      "results": {
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "configuration": {},
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "operation_budget": 756,
+          "operation_budget_ratio": 0.4298941798941799,
+          "operation_counts": {
+            "comparison": 48,
+            "construct": 48,
+            "dict_increment": 36,
+            "relation_classification": 24,
+            "scan_event": 66,
+            "set_insert": 32,
+            "set_lookup": 71,
+            "total": 325
+          },
+          "selected_grammar": null,
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 6,
+            "trace_count": 6
+          }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": null
+          },
+          "grammar_origin": "common_boundary",
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "operation_budget": 756,
+          "operation_budget_ratio": 0.3888888888888889,
+          "operation_counts": {
+            "comparison": 115,
+            "construct": 22,
+            "dict_increment": 36,
+            "relation_classification": 17,
+            "scan_event": 46,
+            "set_insert": 22,
+            "set_lookup": 36,
+            "total": 294
+          },
+          "selected_grammar": "parallel_block",
+          "support_counts": [
+            1,
+            5
+          ],
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 6,
+            "trace_count": 6
+          }
+        },
+        "prefix_block_dominant_only": {
+          "candidate_id": "ALG-0019",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "operation_budget": 756,
+          "operation_budget_ratio": 0.5727513227513228,
+          "operation_counts": {
+            "arithmetic": 2,
+            "comparison": 181,
+            "construct": 21,
+            "dict_increment": 42,
+            "relation_classification": 19,
+            "scan_event": 50,
+            "set_insert": 78,
+            "set_lookup": 40,
+            "total": 433
+          },
+          "selected_grammar": "dominant_sequence",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_seq_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 5,
+            "trace_count": 6
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "configuration": {
+            "allow_exact_fallback": false,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "operation_budget": 756,
+          "operation_budget_ratio": 0.5727513227513228,
+          "operation_counts": {
+            "arithmetic": 2,
+            "comparison": 181,
+            "construct": 21,
+            "dict_increment": 42,
+            "relation_classification": 19,
+            "scan_event": 50,
+            "set_insert": 78,
+            "set_lookup": 40,
+            "total": 433
+          },
+          "selected_grammar": "dominant_sequence",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_seq_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 5,
+            "trace_count": 6
+          }
+        },
+        "prefix_block_prefix_merge_only": {
+          "candidate_id": "ALG-0018",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "operation_budget": 756,
+          "operation_budget_ratio": 0.6759259259259259,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 171,
+            "construct": 52,
+            "dict_increment": 42,
+            "relation_classification": 26,
+            "scan_event": 70,
+            "set_insert": 74,
+            "set_lookup": 75,
+            "total": 511
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 6,
+            "trace_count": 6
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "operation_budget": 756,
+          "operation_budget_ratio": 0.5727513227513228,
+          "operation_counts": {
+            "arithmetic": 2,
+            "comparison": 181,
+            "construct": 21,
+            "dict_increment": 42,
+            "relation_classification": 19,
+            "scan_event": 50,
+            "set_insert": 78,
+            "set_lookup": 40,
+            "total": 433
+          },
+          "selected_grammar": "dominant_sequence",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_seq_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 5,
+            "trace_count": 6
+          }
+        },
+        "prefix_block_support_only": {
+          "candidate_id": "ALG-0017",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 0
+          },
+          "operation_budget": 756,
+          "operation_budget_ratio": 0.6759259259259259,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 171,
+            "construct": 52,
+            "dict_increment": 42,
+            "relation_classification": 26,
+            "scan_event": 70,
+            "set_insert": 74,
+            "set_lookup": 75,
+            "total": 511
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 6,
+            "trace_count": 6
+          }
+        }
+      }
+    },
+    "same_order_incomplete_parallel": {
+      "description": "Only one order is observed twice; the reversed order is held out to expose conservative incompleteness behavior.",
+      "heldout_count": 1,
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 470,
+        "direct_follows_count": 3,
+        "event_count": 8,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "negative_count": 3,
+      "results": {
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "configuration": {},
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C__q2__q1"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C__q2__q1": [
+                    "p_pa_q2"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 470,
+          "operation_budget_ratio": 0.43829787234042555,
+          "operation_counts": {
+            "comparison": 48,
+            "construct": 34,
+            "dict_increment": 12,
+            "relation_classification": 21,
+            "scan_event": 22,
+            "set_insert": 20,
+            "set_lookup": 49,
+            "total": 206
+          },
+          "selected_grammar": null,
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": null
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C__q2__q1"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C__q2__q1": [
+                    "p_pa_q2"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 470,
+          "operation_budget_ratio": 0.4978723404255319,
+          "operation_counts": {
+            "comparison": 66,
+            "construct": 42,
+            "dict_increment": 12,
+            "relation_classification": 23,
+            "scan_event": 22,
+            "set_insert": 20,
+            "set_lookup": 49,
+            "total": 234
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_dominant_only": {
+          "candidate_id": "ALG-0019",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_seq_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 470,
+          "operation_budget_ratio": 0.4319148936170213,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 72,
+            "construct": 25,
+            "dict_increment": 12,
+            "relation_classification": 19,
+            "scan_event": 18,
+            "set_insert": 20,
+            "set_lookup": 36,
+            "total": 203
+          },
+          "selected_grammar": "dominant_sequence",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_grammar_only": {
+          "candidate_id": "ALG-0016",
+          "configuration": {
+            "allow_exact_fallback": false,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_seq_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 470,
+          "operation_budget_ratio": 0.44042553191489364,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 73,
+            "construct": 27,
+            "dict_increment": 12,
+            "relation_classification": 19,
+            "scan_event": 18,
+            "set_insert": 21,
+            "set_lookup": 36,
+            "total": 207
+          },
+          "selected_grammar": "dominant_sequence",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_prefix_merge_only": {
+          "candidate_id": "ALG-0018",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C__q2__q1"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C__q2__q1": [
+                    "p_pa_q2"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 470,
+          "operation_budget_ratio": 0.5063829787234042,
+          "operation_counts": {
+            "comparison": 67,
+            "construct": 44,
+            "dict_increment": 12,
+            "relation_classification": 23,
+            "scan_event": 22,
+            "set_insert": 21,
+            "set_lookup": 49,
+            "total": 238
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_support_guard": {
+          "candidate_id": "ALG-0015",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": true,
+            "enable_prefix_merge": true,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_pba_seq_B__C"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 470,
+          "operation_budget_ratio": 0.44042553191489364,
+          "operation_counts": {
+            "arithmetic": 1,
+            "comparison": 73,
+            "construct": 27,
+            "dict_increment": 12,
+            "relation_classification": 19,
+            "scan_event": 18,
+            "set_insert": 21,
+            "set_lookup": 36,
+            "total": 207
+          },
+          "selected_grammar": "dominant_sequence",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        },
+        "prefix_block_support_only": {
+          "candidate_id": "ALG-0017",
+          "configuration": {
+            "allow_exact_fallback": true,
+            "enable_dominant_sequence": false,
+            "enable_prefix_merge": false,
+            "max_parallel_support_skew": 2
+          },
+          "grammar_origin": null,
+          "heldout_replay": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C__q2__q1"
+                ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C__q2__q1": [
+                    "p_pa_q2"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "operation_budget": 470,
+          "operation_budget_ratio": 0.4978723404255319,
+          "operation_counts": {
+            "comparison": 66,
+            "construct": 42,
+            "dict_increment": 12,
+            "relation_classification": 23,
+            "scan_event": 22,
+            "set_insert": 20,
+            "set_lookup": 49,
+            "total": 234
+          },
+          "selected_grammar": "exact_prefix_automaton",
+          "support_counts": null,
+          "train_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          }
+        }
+      }
+    }
+  }
+}

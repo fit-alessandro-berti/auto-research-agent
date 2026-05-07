@@ -86,8 +86,18 @@ def stress_cases() -> List[Dict[str, Any]]:
 def candidate_functions() -> Dict[str, DiscoverFn]:
     return {
         "cut_limited_process_tree": importlib.import_module("cut_limited_process_tree").discover,
+        "cut_limited_loop_repair": importlib.import_module("cut_limited_loop_repair").discover,
+        "cut_limited_multi_body_loop": importlib.import_module("cut_limited_multi_body_loop").discover,
+        "cut_limited_length_bounded_loop": importlib.import_module("cut_limited_length_bounded_loop").discover,
         "prefix_automaton_compression": importlib.import_module("prefix_automaton_compression").discover,
         "prefix_block_abstraction": importlib.import_module("prefix_block_abstraction").discover,
+        "prefix_block_support_only": importlib.import_module("prefix_block_support_only").discover,
+        "prefix_block_prefix_merge_only": importlib.import_module("prefix_block_prefix_merge_only").discover,
+        "prefix_block_dominant_only": importlib.import_module("prefix_block_dominant_only").discover,
+        "prefix_block_support_guard": importlib.import_module("prefix_block_support_guard").discover,
+        "prefix_block_grammar_only": importlib.import_module("prefix_block_grammar_only").discover,
+        "prefix_block_conservative_merge": importlib.import_module("prefix_block_conservative_merge").discover,
+        "prefix_block_ambiguity_aware": importlib.import_module("prefix_block_ambiguity_aware").discover,
         "pmir_guarded_split_join": importlib.import_module("pmir_guarded_split_join").discover,
         "pmir_conflict_aware_optional": importlib.import_module("pmir_conflict_aware_optional").discover,
     }
@@ -140,6 +150,7 @@ def evaluate_candidate(discover: DiscoverFn, train: TraceLog, heldout: TraceLog,
             "merge_group_count": len(evidence.get("state_merges", {})) if isinstance(evidence.get("state_merges"), dict) else None,
             "variant_count": evidence.get("variant_count"),
         },
+        "ambiguity": evidence.get("ambiguity", {}),
         "selected_cut": evidence.get("selected_cut") or evidence.get("selected_grammar"),
     }
 
@@ -179,6 +190,8 @@ def main() -> None:
     for case_name, case in results["cases"].items():
         prefix = case["results"]["prefix_automaton_compression"]
         block = case["results"]["prefix_block_abstraction"]
+        guarded = case["results"]["prefix_block_support_guard"]
+        grammar_only = case["results"]["prefix_block_grammar_only"]
         tree = case["results"]["cut_limited_process_tree"]
         print(
             f"{case_name}: ALG-0005 ops={prefix['operation_counts']['total']} "
@@ -192,6 +205,12 @@ def main() -> None:
             f"heldout={block['heldout_replay']['replayed_traces']}/{block['heldout_replay']['trace_count']} "
             f"neg_reject={block['negative_probe']['rejected_negative_traces']}/{block['negative_probe']['negative_trace_count']} "
             f"grammar={block['selected_cut']}; "
+            f"ALG-0015 heldout={guarded['heldout_replay']['replayed_traces']}/{guarded['heldout_replay']['trace_count']} "
+            f"neg_reject={guarded['negative_probe']['rejected_negative_traces']}/{guarded['negative_probe']['negative_trace_count']} "
+            f"grammar={guarded['selected_cut']}; "
+            f"ALG-0016 heldout={grammar_only['heldout_replay']['replayed_traces']}/{grammar_only['heldout_replay']['trace_count']} "
+            f"neg_reject={grammar_only['negative_probe']['rejected_negative_traces']}/{grammar_only['negative_probe']['negative_trace_count']} "
+            f"grammar={grammar_only['selected_cut']}; "
             f"ALG-0003 heldout={tree['heldout_replay']['replayed_traces']}/{tree['heldout_replay']['trace_count']} "
             f"cut={tree['selected_cut']}"
         )

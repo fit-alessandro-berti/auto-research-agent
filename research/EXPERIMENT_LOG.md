@@ -835,3 +835,1335 @@ Decision:
 - Do not create a property dossier. No candidate is `super-promising`.
 
 Next action: either search systematically for an uncertified-chain false positive, or pause the high-cost region repair line and implement an `ALG-0005` grammar/block abstraction to address automaton overfitting.
+
+## EXP-0016 — ALG-0014 prefix block abstraction refinement
+
+Date/time: 2026-05-07T08:34:15+02:00
+Goal: implement and test a small grammar/block abstraction for the `ALG-0005` prefix-automaton family, targeting held-out interleaving generalization while preserving limited-operation instrumentation
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0005_stress_tests.py --out experiments/alg0005-stress-tests.json`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/prefix_block_abstraction.py`, wiring `prefix_block_abstraction` into smoke, synthetic, optional, and ALG-0005 stress runners, and creating `candidates/ALG-0014-prefix-block-abstraction-miner.md`; no commit recorded
+Candidate IDs: ALG-0003, ALG-0005, ALG-0010, ALG-0011, ALG-0012, ALG-0014
+Logs/datasets: toy logs in `examples/logs/*.json`; ALG-0005 stress cases in `scripts/alg0005_stress_tests.py`; optional-pattern cases in `scripts/alg0011_optional_tests.py`; broader synthetic cases in `scripts/alg0009_deep_tests.py`
+Metrics: operation counts, training replay, held-out replay, negative-trace rejection, selected grammar, structural diagnostics
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0014` counts summarization, relation classification, common-prefix/common-suffix scans, segment-set comparisons, block construction, and exact-automaton fallback operations when no block grammar is accepted
+Results summary:
+
+Smoke results for `ALG-0014`:
+
+| Log | Ops | Replay | Negative rejection |
+|---|---:|---:|---:|
+| `noise.json` | 235 | 4/4 | 3/3 |
+| `parallel_ab_cd.json` | 227 | 4/4 | 3/3 |
+| `sequence.json` | 272 | 3/3 | 3/3 |
+| `short_loop.json` | 248 | 3/3 | 3/3 |
+| `skip.json` | 216 | 4/4 | 3/3 |
+| `xor.json` | 294 | 4/4 | 3/3 |
+
+ALG-0005 stress comparison:
+
+| Case | ALG-0005 held-out / neg reject / ops | ALG-0014 grammar / held-out / neg reject / ops | ALG-0003 held-out / cut |
+|---|---:|---:|---:|
+| `heldout_parallel_prefix_biased_2_of_6` | 0/4 / 3/3 / 315 | `parallel_block` / 0/4 / 3/3 / 254 | 0/4 / `parallel` |
+| `heldout_parallel_balanced_2_of_6` | 0/4 / 3/3 / 328 | `parallel_block` / 4/4 / 3/3 / 257 | 4/4 / `parallel` |
+| `heldout_optional_concurrency` | 0/2 / 3/3 / 368 | `exact_prefix_automaton` / 0/2 / 3/3 / 447 | 2/2 / `parallel_optional_sequence` |
+| `noise_memorization` | 0/0 / 0/1 / 281 | `parallel_block` / 0/0 / 0/1 / 235 | 0/0 / `parallel` |
+| `all_permutations_width_2` | 0/0 / 3/3 / 237 | `parallel_block` / 0/0 / 3/3 / 183 | 0/0 / `parallel` |
+| `all_permutations_width_3` | 0/0 / 3/3 / 555 | `parallel_block` / 0/0 / 3/3 / 363 | 0/0 / `parallel` |
+
+Optional-pattern results for `ALG-0014`:
+
+| Case | Ops | Replay | Negative rejection |
+|---|---:|---:|---:|
+| `singleton_optional_skip` | 216 | 4/4 | 3/3 |
+| `two_disjoint_optional_skips` | 448 | 4/4 | 3/3 |
+| `overlapping_optional_chain` | 333 | 4/4 | 3/3 |
+| `optional_inside_parallel` | 447 | 3/3 | 3/3 |
+| `optional_singleton_parallel_branch` | 278 | 4/4 | 3/3 |
+
+Broader synthetic results for `ALG-0014`:
+
+| Synthetic case | Ops | Replay | Negative rejection | Selected grammar |
+|---|---:|---:|---:|---|
+| `nested_xor_sequence` | 365 | 3/3 | 3/3 | `exact_prefix_automaton` |
+| `overlapping_optional_skips` | 333 | 4/4 | 3/3 | `exact_prefix_automaton` |
+| `parallel_with_optional_branch` | 447 | 3/3 | 3/3 | `exact_prefix_automaton` |
+| `short_loop_required` | 248 | 3/3 | 3/3 | `exact_prefix_automaton` |
+| `duplicate_label_rework` | 232 | 3/3 | 3/3 | `exact_prefix_automaton` |
+| `incomplete_parallel_observed_sequence` | 234 | 2/2 | 3/3 | `exact_prefix_automaton` |
+| `noise_reversal_sequence` | 235 | 4/4 | 3/3 | `parallel_block` |
+
+Interpretation:
+
+- `ALG-0014` partially addresses `ALG-0005` overfitting: on balanced two-of-six held-out parallel interleavings it improves held-out replay from 0/4 to 4/4 while reducing counted operations from 328 to 257.
+- The abstraction is evidence-sensitive. Prefix-biased training still fails held-out interleavings because the shared first branch is absorbed into the common prefix, so both `ALG-0014` and `ALG-0003` replay 0/4 held-out traces there.
+- `ALG-0014` fixes the EXP-0015 `optional_singleton_parallel_branch` counterexample with 4/4 replay and 3/3 negative rejection at 278 operations, where `ALG-0003` replayed 0/4, `ALG-0010` replayed 3/4, and region variants rejected only 2/3 negatives.
+- The noise-memorization problem remains material: in `noise_memorization`, `ALG-0014` selects `parallel_block` and accepts the rare reversed trace just like `ALG-0005` accepts it by exact replay.
+- Many loop/duplicate-label successes are fallback exact automaton replay, not structural loop or duplicate-label generalization.
+
+Failures / anomalies:
+
+- `ALG-0014` is shallow: it supports one middle block only.
+- Support/noise thresholds are absent; rare reversals can trigger a parallel block.
+- Prefix-bias remains unresolved.
+- Full-permutation stress width 4 and 5 currently fall back to exact automaton because the stress generator reuses `E` as both branch label and suffix, creating duplicate-label input for the block abstraction guard.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0014` and promote it to `promising`: it has a written spec, deterministic prototype, measured counts, smoke success, and concrete advantages on balanced held-out interleavings and the optional-singleton parallel counterexample.
+- Do not promote to `deep-testing` or `super-promising`: prefix-bias, noise, shallow-block composition, and fallback memorization are material limitations.
+- No property dossier was created.
+
+Next action: add support thresholds and a prefix-bias guard/merge for `ALG-0014`, or run a controlled ablation disabling exact fallback to separate true grammar generalization from memorization.
+
+## EXP-0017 — ALG-0015 support-guard refinement and ALG-0016 fallback ablation
+
+Date/time: 2026-05-07T08:42:37+02:00
+Goal: refine `ALG-0014` with support/noise guards and prefix-bias handling, then run an exact-fallback-disabled ablation to separate true grammar behavior from automaton memorization
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0005_stress_tests.py --out experiments/alg0005-stress-tests.json`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 -c '...'` selected-grammar diagnostic summary for `ALG-0015` and `ALG-0016`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding support-skew checks, prefix merge, dominant-sequence noise handling, wrappers `scripts/prefix_block_support_guard.py` and `scripts/prefix_block_grammar_only.py`, and candidate records for `ALG-0015` and `ALG-0016`; no commit recorded
+Candidate IDs: ALG-0003, ALG-0005, ALG-0014, ALG-0015, ALG-0016
+Logs/datasets: toy logs in `examples/logs/*.json`; ALG-0005 stress cases; optional-pattern cases; broader synthetic cases
+Metrics: operation counts, training replay, held-out replay, negative-trace rejection, selected grammar, exact-fallback dependence
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0015` adds support counters, skew comparisons, prefix-merge checks, and same-activity-set dominant-sequence checks to `ALG-0014`; `ALG-0016` removes exact automaton fallback costs
+Results summary:
+
+ALG-0005 stress comparison:
+
+| Case | ALG-0014 grammar / train / held-out / neg reject / ops | ALG-0015 grammar / train / held-out / neg reject / ops | ALG-0016 grammar / train / held-out / neg reject / ops |
+|---|---:|---:|---:|
+| `heldout_parallel_prefix_biased_2_of_6` | `parallel_block` / 2/2 / 0/4 / 3/3 / 257 | `parallel_block` / 2/2 / 4/4 / 3/3 / 267 | `parallel_block` / 2/2 / 4/4 / 3/3 / 267 |
+| `heldout_parallel_balanced_2_of_6` | `parallel_block` / 2/2 / 4/4 / 3/3 / 260 | `parallel_block` / 2/2 / 4/4 / 3/3 / 262 | `parallel_block` / 2/2 / 4/4 / 3/3 / 262 |
+| `heldout_optional_concurrency` | `exact_prefix_automaton` / 3/3 / 0/2 / 3/3 / 447 | `exact_prefix_automaton` / 3/3 / 0/2 / 3/3 / 470 | `no_grammar` / 0/3 / 0/2 / 3/3 / 306 |
+| `noise_memorization` | `parallel_block` / 4/4 / 0/0 / 0/1 / 240 | `dominant_sequence` / 3/4 / 0/0 / 1/1 / 339 | `dominant_sequence` / 3/4 / 0/0 / 1/1 / 339 |
+| `all_permutations_width_2` | `parallel_block` / 2/2 / 0/0 / 3/3 / 186 | `parallel_block` / 2/2 / 0/0 / 3/3 / 188 | `parallel_block` / 2/2 / 0/0 / 3/3 / 188 |
+| `all_permutations_width_3` | `parallel_block` / 6/6 / 0/0 / 3/3 / 370 | `parallel_block` / 6/6 / 0/0 / 3/3 / 372 | `parallel_block` / 6/6 / 0/0 / 3/3 / 372 |
+
+Toy smoke results for `ALG-0015`:
+
+| Log | Grammar | Ops | Replay | Negative rejection |
+|---|---|---:|---:|---:|
+| `noise.json` | `dominant_sequence` | 339 | 3/4 | 3/3 |
+| `parallel_ab_cd.json` | `parallel_block` | 234 | 4/4 | 3/3 |
+| `sequence.json` | `dominant_sequence` | 242 | 3/3 | 3/3 |
+| `short_loop.json` | `exact_prefix_automaton` | 263 | 3/3 | 3/3 |
+| `skip.json` | `exact_prefix_automaton` | 227 | 4/4 | 3/3 |
+| `xor.json` | `exact_prefix_automaton` | 306 | 4/4 | 3/3 |
+
+Broader synthetic results for `ALG-0015`:
+
+| Synthetic case | Grammar | Ops | Replay | Negative rejection |
+|---|---|---:|---:|---:|
+| `nested_xor_sequence` | `exact_prefix_automaton` | 380 | 3/3 | 3/3 |
+| `overlapping_optional_skips` | `exact_prefix_automaton` | 347 | 4/4 | 3/3 |
+| `parallel_with_optional_branch` | `exact_prefix_automaton` | 470 | 3/3 | 3/3 |
+| `short_loop_required` | `exact_prefix_automaton` | 263 | 3/3 | 3/3 |
+| `duplicate_label_rework` | `exact_prefix_automaton` | 243 | 3/3 | 3/3 |
+| `incomplete_parallel_observed_sequence` | `dominant_sequence` | 207 | 2/2 | 3/3 |
+| `noise_reversal_sequence` | `dominant_sequence` | 339 | 3/4 | 3/3 |
+
+Exact-fallback ablation interpretation:
+
+- `ALG-0016` matches `ALG-0015` on prefix-biased held-out parallel, balanced held-out parallel, rare-reversal noise, sequence, simple parallel, and optional-singleton parallel. These are true grammar behaviors.
+- `ALG-0016` fails fallback-dependent cases with `no_grammar`, including skip, XOR, short loops, duplicate-label rework, overlapping optional chains, and optional concurrency. These `ALG-0015` successes are inherited exact automaton replay, not grammar generalization.
+
+Interpretation:
+
+- Prefix merge repaired the EXP-0016 prefix-bias failure: held-out replay improves from 0/4 under `ALG-0014` to 4/4 under `ALG-0015`, with 3/3 negative rejection.
+- Support-skew plus same-activity-set dominant-sequence handling repaired the rare-reversal precision probe: `noise_memorization` negative rejection improves from 0/1 under `ALG-0014` to 1/1 under `ALG-0015`.
+- The repair trades away rare-trace replay: `noise.json` and `noise_reversal_sequence` replay 3/4 positives instead of 4/4 because the rare reversal is treated as noise.
+- The same-activity-set guard prevents the initial dominant-sequence variant from misclassifying `nested_xor_sequence`; after the fix `ALG-0015` uses exact fallback and replays 3/3 with 3/3 negative rejection.
+
+Failures / anomalies:
+
+- `ALG-0015` still depends heavily on exact fallback.
+- `ALG-0016` shows grammar coverage is still narrow.
+- Dominant-sequence handling encodes a precision/fitness tradeoff, not an unambiguous quality improvement.
+- Full-permutation width 4 and 5 still fall back because the stress generator duplicates `E` as both branch label and suffix.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0015` and promote it to `promising`: it has a written spec, deterministic prototype, measured counts, and concrete improvements over `ALG-0014` on prefix-biased held-out interleavings and rare-reversal noise precision.
+- Add `ALG-0016` as a smoke-tested ablation; do not promote it because fallback-dependent replay collapses.
+- Do not promote anything to `deep-testing` or `super-promising`; no property dossier was created.
+
+Next action: run ablations isolating prefix merge versus dominant-sequence handling inside `ALG-0015`, then expand noisy/incomplete-log tests before any deeper promotion.
+
+## EXP-0018 — ALG-0015 feature ablations
+
+Date/time: 2026-05-07T09:04:52+02:00
+Goal: isolate which `ALG-0015` features cause the prefix-biased held-out parallel repair and rare-reversal precision repair
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0015_ablation_tests.py --out experiments/alg0015-ablation-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0005_stress_tests.py --out experiments/alg0005-stress-tests.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 -c '...'` ablation diagnostic summary
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/prefix_block_support_only.py`, `scripts/prefix_block_prefix_merge_only.py`, `scripts/prefix_block_dominant_only.py`, `scripts/alg0015_ablation_tests.py`, wiring the new ablations into standard runners, and creating candidate records `ALG-0017` through `ALG-0019`; no commit recorded
+Candidate IDs: ALG-0003, ALG-0005, ALG-0014, ALG-0015, ALG-0016, ALG-0017, ALG-0018, ALG-0019
+Logs/datasets: targeted ablation cases in `scripts/alg0015_ablation_tests.py`; toy logs in `examples/logs/*.json`; ALG-0005 stress cases; optional-pattern cases; broader synthetic cases
+Metrics: operation counts, selected grammar, grammar origin, support counts, training replay, held-out replay, negative-trace rejection, exact-fallback dependence
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0017` adds support-skew counting to `ALG-0014`, `ALG-0018` adds prefix-merge checks, and `ALG-0019` adds same-activity-set dominant-sequence checks
+
+Targeted ablation summary:
+
+| Case | ALG-0014 grammar / held-out / neg reject | ALG-0017 support-only | ALG-0018 prefix-merge | ALG-0019 dominant-only | ALG-0015 full |
+|---|---:|---:|---:|---:|---:|
+| `prefix_biased_parallel_2_of_6` | `parallel_block` common / 0/4 / 3/3 | `parallel_block` common / 0/4 / 3/3 | `parallel_block` prefix-merge / 4/4 / 3/3 | `parallel_block` common / 0/4 / 3/3 | `parallel_block` prefix-merge / 4/4 / 3/3 |
+| `balanced_parallel_2_of_6` | `parallel_block` common / 4/4 / 3/3 | `parallel_block` common / 4/4 / 3/3 | `parallel_block` common / 4/4 / 3/3 | `parallel_block` common / 4/4 / 3/3 | `parallel_block` common / 4/4 / 3/3 |
+| `rare_reversal_noise_3_to_1` | `parallel_block` common / 0/0 / 0/1 | `exact_prefix_automaton` / 0/0 / 0/1 | `exact_prefix_automaton` / 0/0 / 0/1 | `dominant_sequence` / 0/0 / 1/1 | `dominant_sequence` / 0/0 / 1/1 |
+| `rare_reversal_noise_5_to_1` | `parallel_block` common / 0/0 / 0/1 | `exact_prefix_automaton` / 0/0 / 0/1 | `exact_prefix_automaton` / 0/0 / 0/1 | `dominant_sequence` / 0/0 / 1/1 | `dominant_sequence` / 0/0 / 1/1 |
+| `ambiguous_reversal_tie` | `parallel_block` common / 0/0 / 3/3 | `parallel_block` common / 0/0 / 3/3 | `parallel_block` common / 0/0 / 3/3 | `parallel_block` common / 0/0 / 3/3 | `parallel_block` common / 0/0 / 3/3 |
+| `same_order_incomplete_parallel` | `exact_prefix_automaton` / 0/1 / 3/3 | `exact_prefix_automaton` / 0/1 / 3/3 | `exact_prefix_automaton` / 0/1 / 3/3 | `dominant_sequence` / 0/1 / 3/3 | `dominant_sequence` / 0/1 / 3/3 |
+| `different_activity_sets_skip_like` | `exact_prefix_automaton` / 0/0 / 3/3 | `exact_prefix_automaton` / 0/0 / 3/3 | `exact_prefix_automaton` / 0/0 / 3/3 | `exact_prefix_automaton` / 0/0 / 3/3 | `exact_prefix_automaton` / 0/0 / 3/3 |
+
+Standard-suite deltas:
+
+- Toy smoke now includes `ALG-0017`, `ALG-0018`, and `ALG-0019`. They all pass replay/negative probes where exact fallback or existing block grammars apply, except `ALG-0019` intentionally replays 3/4 on `noise.json`, matching full `ALG-0015`.
+- ALG-0005 stress confirms the targeted result in the standard artifact: on `heldout_parallel_prefix_biased_2_of_6`, `ALG-0018`, `ALG-0015`, and `ALG-0016` replay 4/4 held-out traces, while `ALG-0014`, `ALG-0017`, and `ALG-0019` replay 0/4.
+- The optional-pattern suite shows the three new ablations match the prior prefix-block family on optional cases; the grammar-only ablation still replays 0 positives on fallback-dependent optional-chain cases.
+- Broader synthetic tests show no new loop, duplicate-label, or optional-concurrency repair from these ablations.
+
+Interpretation:
+
+- Prefix merge is causal for the prefix-biased held-out parallel repair. Support-only and dominant-only ablations retain the old common-boundary split and fail 0/4 held-out traces.
+- Dominant-sequence handling is causal for rare-reversal precision. Support-only and prefix-merge-only variants reject the unsupported parallel block but fall back to exact replay, so they still accept the noisy observed rare trace.
+- Support-skew alone is useful as a selection guard, but it does not improve end-to-end precision while exact fallback is enabled.
+- The same-activity-set and tie guards behave as intended in the targeted suite: skip-like differing activity sets do not trigger dominant sequence, and balanced reversal evidence remains a parallel block.
+
+Failures / anomalies:
+
+- `same_order_incomplete_parallel` confirms the current dominant-sequence policy is conservative under incomplete parallel evidence: it rejects the held-out reversed order.
+- The ablations do not broaden grammar coverage for loops, duplicate labels, XOR, optional chains, or optional/concurrency.
+- `ALG-0018` needs a future false-positive search for cases where moving the final common-prefix activity is unsound.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0017`, `ALG-0018`, and `ALG-0019` as smoke-tested ablation controls; do not promote them independently.
+- Move `ALG-0015` from `promising` to `deep-testing` because written feature ablations and targeted counterexample tests now exist.
+- Do not promote anything to `super-promising`; no property dossier was created.
+
+Next action: broaden `ALG-0015` noisy/incomplete testing with threshold sweeps and prefix-merge false-positive search, then decide whether loop support belongs in the prefix-block grammar family or should remain a separate candidate line.
+
+## EXP-0019 — ALG-0015 noisy/incomplete sweep and prefix-merge ambiguity
+
+Date/time: 2026-05-07T09:31:18+02:00
+Goal: broaden `ALG-0015` noisy/incomplete testing with support-skew and dominant-threshold sweeps, and search for prefix-merge false positives
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0015_noise_incomplete_tests.py --out experiments/alg0015-noise-incomplete-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0005_stress_tests.py --out experiments/alg0005-stress-tests.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 -c '...'` diagnostic summary for `ALG-0020`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after exposing `prefix_merge_policy`, `min_dominant_count`, and `min_dominant_ratio_percent` in `scripts/prefix_block_abstraction.py`, adding `scripts/prefix_block_conservative_merge.py`, wiring `prefix_block_conservative_merge` into standard runners, adding `scripts/alg0015_noise_incomplete_tests.py`, and creating `candidates/ALG-0020-prefix-block-conservative-merge-miner.md`; no commit recorded
+Candidate IDs: ALG-0014, ALG-0015, ALG-0016, ALG-0017, ALG-0018, ALG-0019, ALG-0020
+Logs/datasets: targeted noisy/incomplete and prefix-merge ambiguity cases in `scripts/alg0015_noise_incomplete_tests.py`; toy logs in `examples/logs/*.json`; ALG-0005 stress cases; optional-pattern cases; broader synthetic cases
+Metrics: operation counts, selected grammar, grammar origin, support counts, training replay, held-out replay, negative-trace rejection, threshold configuration, prefix-merge policy
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; sweep variants reuse `ALG-0015` primitives while varying support-skew and dominant-ratio thresholds
+
+Prefix-merge ambiguity summary:
+
+| Case | ALG-0015 full | ALG-0020 conservative | Interpretation |
+|---|---:|---:|---|
+| `prefix_merge_full_parallel_interpretation` | 4/4 held-out replay, 3/3 neg reject, `prefix_merge` | 0/4 held-out replay, 3/3 neg reject, `common_boundary` | Full B/C/D parallel: prefix merge helps. |
+| `prefix_merge_sequence_then_parallel_interpretation` | 0/4 negative rejection, `prefix_merge` | 4/4 negative rejection, `common_boundary` | B then C/D parallel: prefix merge overgeneralizes. |
+
+Noise and threshold summary:
+
+| Case | Current ALG-0015 behavior | Notable sweep result |
+|---|---|---|
+| `noise_reversal_2_to_1` | `parallel_block`, 3/3 replay, 0/1 rare-reversal rejection | `max_parallel_support_skew=1` selects `dominant_sequence`, replaying 2/3 and rejecting 1/1. |
+| `noise_reversal_3_to_1` | `dominant_sequence`, 3/4 replay, 1/1 rejection | `min_dominant_ratio_percent=85` is too strict and falls back to exact replay, rejecting 0/1. |
+| `noise_reversal_5_to_1` | `dominant_sequence`, 5/6 replay, 1/1 rejection | Ratio 85 is still too strict because support is 5/6; ratios 60 and 75 select dominant sequence. |
+| `valid_rare_parallel_3_to_1` | `dominant_sequence`, 3/4 replay, 3/3 neg reject | Same observations as 3-to-1 noise show the unavoidable precision/fitness ambiguity if the rare reversal is actually valid. |
+| `incomplete_parallel_one_order_2` | `dominant_sequence`, 2/2 replay, 0/1 held-out reversal replay | Current policy remains conservative under missing reversed-order evidence. |
+
+Standard-suite deltas:
+
+- `ALG-0020` matches `ALG-0015` on all six toy smoke logs.
+- On ALG-0005 stress, `ALG-0020` matches `ALG-0015` on balanced held-out parallel and rare-reversal noise, but loses the prefix-biased held-out repair: `heldout_parallel_prefix_biased_2_of_6` held-out replay is 0/4 instead of `ALG-0015`'s 4/4.
+- Optional-pattern and broader synthetic runs show no new loop, duplicate-label, XOR, optional-chain, or optional/concurrency repair from `ALG-0020`.
+
+Interpretation:
+
+- Prefix merge is not a free improvement. The same observed log supports two incompatible interpretations; without more evidence or a user/domain prior, `ALG-0015` and `ALG-0020` encode opposite bets.
+- Support-skew threshold is currently the dominant control for 2:1 noise. A skew of 2 treats the rare reversal as parallel; a skew of 1 treats it as noise through dominant-sequence selection.
+- Dominant-ratio thresholds above 75 are too strict for the current small noise cases because 3/4 and 5/6 support should still be considered dominant under the existing noise policy.
+- `ALG-0020` is useful as a precision-side counter-candidate but not a replacement for `ALG-0015`.
+
+Failures / anomalies:
+
+- No threshold setting resolves the ambiguity between rare valid parallel behavior and rare noise without an explicit assumption.
+- No threshold setting recovers held-out reversed order when only one order is observed.
+- `ALG-0020` still relies on exact fallback for the same broad cases as `ALG-0015`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0020` as a smoke-tested tradeoff candidate; do not promote it.
+- Keep `ALG-0015` at `deep-testing`, not `super-promising`; the new evidence documents a fundamental ambiguity rather than a clean repair.
+- Do not create a property dossier.
+
+Next action: decide whether to add an explicit ambiguity-aware PMIR output mode for prefix-block candidates, or pivot to bounded loop support as a separate candidate line.
+
+## EXP-0020 — ALG-0021 ambiguity-aware PMIR evidence
+
+Date/time: 2026-05-07T09:56:00+02:00
+Goal: add an explicit ambiguity-aware PMIR output mode for prefix-block candidates so common-boundary and prefix-merge interpretations can both be tracked when the observed log does not identify a unique branch scope
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0015_noise_incomplete_tests.py --out experiments/alg0015-noise-incomplete-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0005_stress_tests.py --out experiments/alg0005-stress-tests.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 -c '...'` diagnostic ambiguity summary over `experiments/alg0015-noise-incomplete-tests.json` and `experiments/alg0005-stress-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `_prefix_merge_ambiguity` and `emit_prefix_merge_ambiguity` to `scripts/prefix_block_abstraction.py`, adding `scripts/prefix_block_ambiguity_aware.py`, wiring `prefix_block_ambiguity_aware` into standard runners, and creating `candidates/ALG-0021-prefix-block-ambiguity-aware-pmir-miner.md`; no commit recorded
+Candidate IDs: ALG-0015, ALG-0020, ALG-0021, plus existing prefix-block ablation controls
+Logs/datasets: targeted noisy/incomplete and prefix-merge ambiguity cases in `scripts/alg0015_noise_incomplete_tests.py`; toy logs in `examples/logs/*.json`; ALG-0005 stress cases; optional-pattern cases; broader synthetic cases
+Metrics: operation counts, selected grammar, grammar origin, selected policy, ambiguity flag, ambiguity alternatives, training replay, held-out replay, negative-trace rejection
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0021` adds a second bounded common-boundary/prefix-merge check to emit ambiguity alternatives into PMIR evidence
+
+Targeted ambiguity results for `ALG-0021`:
+
+| Case | Grammar / origin | Ambiguity detected | Train replay | Held-out replay | Negative rejection | Ops |
+|---|---|---:|---:|---:|---:|---:|
+| `prefix_merge_full_parallel_interpretation` | `parallel_block` / `prefix_merge` | yes | 2/2 | 4/4 | 3/3 | 361 |
+| `prefix_merge_sequence_then_parallel_interpretation` | `parallel_block` / `prefix_merge` | yes | 2/2 | 0/0 | 0/4 | 361 |
+| `noise_reversal_3_to_1` | `dominant_sequence` | no | 3/4 | 0/0 | 1/1 | 415 |
+| `incomplete_parallel_one_order_2` | `dominant_sequence` | no | 2/2 | 0/1 | 3/3 | 227 |
+
+Standard-suite deltas:
+
+- On the six toy smoke logs, `ALG-0021` matches `ALG-0015` selected-net behavior with higher counted operations from ambiguity evidence: `noise.json` 415 ops / 3 of 4 replay / 3 of 3 negative rejection; `parallel_ab_cd.json` 302 / 4 of 4 / 3 of 3; `sequence.json` 271 / 3 of 3 / 3 of 3; `short_loop.json` 299 / 3 of 3 / 3 of 3; `skip.json` 248 / 4 of 4 / 3 of 3; `xor.json` 329 / 4 of 4 / 3 of 3.
+- Ambiguity is not detected on the six toy smoke logs.
+- On ALG-0005 stress, `ALG-0021` detects ambiguity for `heldout_parallel_prefix_biased_2_of_6`, where the selected grammar is `parallel_block` / `prefix_merge`, held-out replay is 4/4, negative rejection is 3/3, and counted operations are 361.
+- On `heldout_parallel_balanced_2_of_6`, ambiguity is false, held-out replay remains 4/4, and counted operations are 314.
+- On `noise_memorization`, ambiguity is false, selected grammar remains `dominant_sequence`, negative rejection is 1/1, and counted operations are 415.
+- Optional-pattern and broader synthetic runs show no new loop, duplicate-label, XOR, optional-chain, or optional/concurrency repair from `ALG-0021`; the selected Petri net intentionally matches `ALG-0015`.
+
+Interpretation:
+
+- `ALG-0021` converts the EXP-0019 ambiguity from an external note into machine-readable PMIR evidence. It can now tell downstream code that both `sequence_prefix_precision` and `full_parallel_generalization` alternatives are plausible for the same observed prefix-merge log.
+- This is not a quality repair for the compiled Petri net. The selected Petri net still follows `ALG-0015`'s full-parallel preference, so the sequence-prefix negative case still rejects 0/4 negatives.
+- The ambiguity detector is intentionally narrow: it covers common-boundary versus prefix-merge parallel-block alternatives, not noise versus rare valid behavior, missing reversed-order evidence, loops, duplicate labels, or optional-concurrency.
+
+Failures / anomalies:
+
+- Ambiguity evidence increases operation counts even when no ambiguity is detected.
+- No downstream selector consumes the alternatives yet.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0021` as a smoke-tested PMIR/evidence candidate; do not promote it because selected-net quality is unchanged.
+- Keep `ALG-0015` at `deep-testing`, not `super-promising`; ambiguity annotations clarify uncertainty but do not settle the prefix-merge assumption.
+- Keep `ALG-0020` as the conservative precision-side comparator.
+- Do not create a property dossier.
+
+Next action: implement a small downstream ambiguity selector or multi-net evaluation protocol for `ALG-0021`, or pivot to bounded loop support as the next independent candidate line.
+
+## EXP-0021 — ALG-0022 ambiguity-set alternative protocol
+
+Date/time: 2026-05-07T10:13:00+02:00
+Goal: consume `ALG-0021` ambiguity annotations by compiling each alternative grammar into a Petri net and evaluating the resulting model set
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0021_ambiguity_protocol_tests.py --out experiments/alg0021-ambiguity-protocol-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/alg0021_ambiguity_protocol_tests.py` and `candidates/ALG-0022-prefix-block-ambiguity-set-protocol.md`; no commit recorded
+Candidate IDs: ALG-0021, ALG-0022, with ALG-0015 and ALG-0020 as policy comparators
+Logs/datasets: `scripts/alg0015_noise_incomplete_tests.py` cases, including targeted prefix-merge ambiguity, rare-reversal noise, valid-rare-parallel, incomplete one-order parallel, and balanced reversal controls
+Metrics: ambiguity detection, selected policy, per-alternative held-out replay, per-alternative negative-trace rejection, per-alternative compile operation counts, total operations including `ALG-0021` discovery
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; totals include the `ALG-0021` discovery count plus extra bounded block-net construction for each alternative
+
+Targeted alternative results:
+
+| Case | Selected policy / selected held-out / selected neg reject | Alternative | Held-out replay | Negative rejection | Total ops including discovery |
+|---|---:|---|---:|---:|---:|
+| `prefix_merge_full_parallel_interpretation` | `full_parallel_generalization` / 4/4 / 3/3 | `sequence_prefix_precision` | 0/4 | 3/3 | 385 |
+| `prefix_merge_full_parallel_interpretation` | `full_parallel_generalization` / 4/4 / 3/3 | `full_parallel_generalization` | 4/4 | 3/3 | 388 |
+| `prefix_merge_sequence_then_parallel_interpretation` | `full_parallel_generalization` / 0/0 / 0/4 | `sequence_prefix_precision` | 0/0 | 4/4 | 385 |
+| `prefix_merge_sequence_then_parallel_interpretation` | `full_parallel_generalization` / 0/0 / 0/4 | `full_parallel_generalization` | 0/0 | 0/4 | 388 |
+
+Controls:
+
+- No alternatives are emitted for `noise_reversal_2_to_1`, `noise_reversal_3_to_1`, `noise_reversal_5_to_1`, `valid_rare_parallel_3_to_1`, `incomplete_parallel_one_order_2`, or `balanced_reversal_tie`.
+- The selected policy can be `sequence_prefix_precision` on non-ambiguous common-boundary parallel detections, but this is not an ambiguity-set decision unless `ambiguity.detected=true`.
+
+Interpretation:
+
+- The protocol makes the ambiguity actionable for evaluation: one alternative preserves full-parallel held-out recovery, while the other preserves sequence-prefix negative rejection.
+- The event log alone still does not identify which alternative is correct. The protocol is therefore a model-set output, not a solved selector.
+- Per-alternative compile overhead is small on the targeted toy cases, but it is additive and should be budgeted if ambiguity sets grow.
+
+Failures / anomalies:
+
+- The prototype imports the prefix-block compiler directly, so it is a research protocol rather than a stable public API.
+- No deterministic selector, validation-set rule, or domain-prior mechanism exists yet.
+- It does not address noise-versus-rare-valid ambiguity, loop behavior, duplicate labels, or optional/concurrency.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0022` as a smoke-tested multi-net PMIR protocol; do not promote it.
+- Keep `ALG-0021` smoke-tested and `ALG-0015` deep-testing.
+- Do not create a property dossier.
+
+Next action: either add a deterministic ambiguity selector with explicit priors/validation evidence, or pivot to bounded loop support as the next independent candidate line.
+
+## EXP-0022 — ALG-0023 bounded single-rework loop cut
+
+Date/time: 2026-05-07T10:42:00+02:00
+Goal: pivot from ambiguity handling to bounded loop support by adding a narrow process-tree loop cut for the repeated-anchor short-loop counterexample
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 -c '...'` diagnostic replay/precision check for `cut_limited_loop_repair` on `examples/logs/short_loop.json`
+- `python3 scripts/alg0023_loop_tests.py --out experiments/alg0023-loop-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 scripts/alg0005_stress_tests.py --out experiments/alg0005-stress-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `enable_short_loop` to `scripts/cut_limited_process_tree.py`, adding `scripts/cut_limited_loop_repair.py`, wiring the new candidate into smoke/deep/optional/stress runners, adding `scripts/alg0023_loop_tests.py`, and creating `candidates/ALG-0023-cut-limited-single-rework-loop-miner.md`; no commit recorded
+Candidate IDs: ALG-0003, ALG-0005, ALG-0015, ALG-0016, ALG-0023
+Logs/datasets: toy logs in `examples/logs/*.json`; targeted loop cases in `scripts/alg0023_loop_tests.py`; broader synthetic cases in `scripts/alg0009_deep_tests.py`; optional-pattern and ALG-0005 stress suites as collateral checks
+Metrics: selected cut, operation counts, training replay, held-out replay, negative-trace rejection, structural diagnostics
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0023` adds singleton rework-loop detection and duplicate-labeled loop-net construction to the `ALG-0003` process-tree path
+
+Targeted loop results:
+
+| Case | ALG-0023 selected cut | ALG-0023 replay / held-out / neg reject / ops | Key comparator result |
+|---|---|---:|---|
+| `single_rework_zero_or_one` | `single_rework_loop` | 3/3 / 1/1 / 3/3 / 216 | `ALG-0003` replays 0/3 train and 0/1 held-out; `ALG-0005` replays 3/3 train but 0/1 held-out. |
+| `single_rework_one_iteration_only` | `fallback_dfg` | 0/2 / 0/1 / 3/3 / 212 | Loop cut correctly refuses because zero-iteration exit was not observed, but fallback replay remains poor. |
+| `optional_skip_not_loop` | `optional_sequence` | 3/3 / 0/0 / 3/3 / 207 | Optional skip remains optional sequence, not loop. |
+| `different_rework_body_rejected` | `fallback_dfg` | 0/3 / 0/1 / 3/3 / 286 | Multi-body rework is outside the singleton-loop scope. |
+
+Toy smoke results for `ALG-0023`:
+
+| Log | Selected cut | Ops | Replay | Negative rejection |
+|---|---|---:|---:|---:|
+| `noise.json` | `parallel` | 261 | 4/4 | 3/3 |
+| `parallel_ab_cd.json` | `parallel` | 243 | 4/4 | 3/3 |
+| `sequence.json` | `sequence` | 168 | 3/3 | 3/3 |
+| `short_loop.json` | `single_rework_loop` | 216 | 3/3 | 3/3 |
+| `skip.json` | `optional_sequence` | 240 | 4/4 | 3/3 |
+| `xor.json` | `xor` | 194 | 4/4 | 3/3 |
+
+Broader synthetic results for `ALG-0023`:
+
+| Synthetic case | Selected cut | Ops | Replay | Negative rejection |
+|---|---|---:|---:|---:|
+| `nested_xor_sequence` | `xor` | 255 | 3/3 | 3/3 |
+| `overlapping_optional_skips` | `optional_sequence` | 337 | 4/4 | 3/3 |
+| `parallel_with_optional_branch` | `parallel_optional_sequence` | 373 | 3/3 | 3/3 |
+| `short_loop_required` | `single_rework_loop` | 216 | 3/3 | 3/3 |
+| `duplicate_label_rework` | `single_rework_loop` | 204 | 3/3 | 3/3 |
+| `incomplete_parallel_observed_sequence` | `sequence` | 155 | 2/2 | 3/3 |
+| `noise_reversal_sequence` | `parallel` | 261 | 4/4 | 3/3 |
+
+Interpretation:
+
+- `ALG-0023` repairs the key non-automaton short-loop failure: `short_loop.json` improves from `ALG-0003` 0/3 replay to 3/3 while keeping 3/3 negative rejection.
+- It also gives a true grammar-style advantage over exact prefix automata: on `single_rework_zero_or_one`, it replays the held-out second loop iteration 1/1, while `ALG-0005` and `ALG-0015` exact-fallback variants replay 0/1.
+- The duplicate-label rework synthetic case is the same repeated-anchor loop shape, so the loop cut repairs it too.
+- The detector is conservative: it does not fire on optional skips, one-iteration-only evidence, or two distinct rework bodies.
+
+Failures / anomalies:
+
+- One-iteration-only logs still fall back to `ALG-0003` DFG behavior and replay 0/2 observed positives. This is an explicit scope gap.
+- Multi-body loops are rejected rather than modeled.
+- The emitted net permits repeated loop iterations once zero and one iteration are observed; this may overgeneralize processes where exactly one rework is possible.
+- Optional-singleton-parallel remains an `ALG-0003` family weakness: `ALG-0023` still replays 0/4 there because the loop cut is orthogonal.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0023` and promote it to `promising`: it has a written spec, deterministic prototype, measured counts, targeted smoke/deep success, clean negative probes, and a concrete held-out loop-generalization advantage over `ALG-0003` and exact automata.
+- Do not move it to `deep-testing` or `super-promising`; loop scope is too narrow and one-iteration-only / multi-body behavior is unresolved.
+- Keep `ALG-0003` at `deep-testing` as the baseline process-tree candidate with loop repair split out.
+- Do not create a property dossier.
+
+Next action: stress `ALG-0023` on multi-body loops, bounded-count loops, and nested loop-with-choice cases, or add a deterministic ambiguity selector for the `ALG-0021`/`ALG-0022` line.
+
+## EXP-0023 — ALG-0023 loop-boundary stress tests
+
+Date/time: 2026-05-07T11:06:00+02:00
+Goal: stress `ALG-0023` on bounded-count, prefix/suffix context, multi-body loop, nested loop-with-choice, and one-iteration-only evidence cases before any deeper promotion
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0023_loop_stress_tests.py --out experiments/alg0023-loop-stress-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/alg0023_loop_stress_tests.py`; no commit recorded
+Candidate IDs: ALG-0003, ALG-0005, ALG-0015, ALG-0016, ALG-0023
+Logs/datasets: targeted loop-boundary cases in `scripts/alg0023_loop_stress_tests.py`
+Metrics: selected cut, operation counts, training replay, held-out replay, negative-trace rejection, structural diagnostics
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; no discovery-code changes beyond the EXP-0022 `ALG-0023` loop detector
+
+Stress results for `ALG-0023`:
+
+| Case | Selected cut | Train replay | Held-out replay | Negative rejection | Ops | Interpretation |
+|---|---|---:|---:|---:|---:|---|
+| `bounded_at_most_one_rework` | `single_rework_loop` | 3/3 | 0/0 | 2/3 | 204 | Accepts a second iteration negative, so bounded-count domains need an explicit prior or different candidate. |
+| `prefixed_suffixed_single_rework` | `single_rework_loop` | 3/3 | 1/1 | 3/3 | 368 | Prefix/suffix context works and still generalizes the loop. |
+| `multi_body_loop_choice` | `fallback_dfg` | 0/3 | 0/1 | 3/3 | 286 | Multi-body loop choice remains outside scope. |
+| `nested_loop_with_choice_context` | `fallback_dfg` | 0/3 | 0/1 | 3/3 | 381 | Nested choice in a loop body remains outside scope. |
+| `one_iteration_only_with_clean_dfg_path` | `fallback_dfg` | 0/3 | 0/2 | 3/3 | 282 | Requiring zero-iteration evidence prevents unsupported loop inference, but fallback replay remains poor. |
+
+Comparator notes:
+
+- Exact automaton and prefix-block exact-fallback comparators replay the observed multi-body and one-iteration-only training logs, but reject held-out loop iterations. They remain memorization comparators, not loop generalizers.
+- `ALG-0003` fallback rejects all loop-stress training cases except non-loop optional/sequence-style cases from earlier tests.
+- `ALG-0016` grammar-only still rejects loop cases entirely.
+
+Interpretation:
+
+- EXP-0023 confirms `ALG-0023` is a useful unbounded singleton-loop candidate, not a general loop miner.
+- The key new counterexample is `bounded_at_most_one_rework`: the same zero/one evidence that supports loop generalization also overgeneralizes if domain semantics cap the loop at one rework.
+- Prefix and suffix sequence context do not break the detector.
+- Multi-body and nested-choice loop evidence should become a separate candidate if pursued; forcing it into `ALG-0023` would broaden the current hypothesis too much.
+
+Failures / anomalies:
+
+- No deterministic way exists yet to choose unbounded-loop versus bounded-at-one semantics from the same zero/one evidence.
+- One-iteration-only evidence is intentionally rejected, but this leaves observed replay poor under the process-tree fallback.
+- No property dossier was created because the candidate is not `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Keep `ALG-0023` at `promising`; do not move it to `deep-testing`.
+- Do not retire it: prefix/suffix loop context and held-out unbounded-loop replay remain useful evidence.
+- Do not create a property dossier.
+
+Next action: either split a bounded-count loop candidate, split a multi-body loop-choice candidate, or return to the ambiguity-selector line for `ALG-0021`/`ALG-0022`.
+
+## EXP-0024 — ALG-0024 multi-body rework-loop choice
+
+Date/time: 2026-05-07T10:26:46+02:00
+Goal: split the unresolved multi-body loop-choice case from `ALG-0023` into a narrow process-tree candidate while keeping bounded-count semantics as an explicit prior/ambiguity
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0024_multibody_loop_tests.py --out experiments/alg0024-multibody-loop-tests.json`
+- `python3 scripts/alg0023_loop_tests.py --out experiments/alg0023-loop-tests.json`
+- `python3 scripts/alg0023_loop_stress_tests.py --out experiments/alg0023-loop-stress-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 scripts/alg0005_stress_tests.py --out experiments/alg0005-stress-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `enable_multi_body_loop` and `multi_body_rework_loop` detection/compilation to `scripts/cut_limited_process_tree.py`, adding `scripts/cut_limited_multi_body_loop.py`, adding `scripts/alg0024_multibody_loop_tests.py`, wiring `ALG-0024` into standard runners, and creating `candidates/ALG-0024-cut-limited-multi-body-rework-loop-miner.md`; no commit recorded
+Candidate IDs: ALG-0003, ALG-0005, ALG-0015, ALG-0016, ALG-0023, ALG-0024
+Logs/datasets: targeted multi-body loop cases in `scripts/alg0024_multibody_loop_tests.py`; existing loop tests and loop-stress cases; toy logs in `examples/logs/*.json`; broader synthetic, optional-pattern, and prefix-automaton stress suites as collateral checks
+Metrics: selected cut, loop-policy evidence, body support, operation counts, training replay, held-out replay, negative-trace rejection, structural diagnostics
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0024` adds multi-body candidate scans, body-support `dict_increment`s, and body-choice loop construction before falling through to the `ALG-0023` singleton-loop detector
+
+Subagent findings merged:
+
+- Candidate scout recommended multi-body loop choice as the evidence-driven next split. Rationale: bounded-at-most-one and unbounded-repeat semantics are not identifiable from the same zero/one evidence without a prior.
+- Implementation scout noted a bounded-at-most-one compiler would be smaller, but also flagged that it would be a policy candidate rather than an evidence-discovered improvement.
+- Evaluator scout supplied the minimal multi-body, bounded-count, one-iteration-only, and nested-context stress cases.
+- Property-study scout identified later obligations for loop soundness, duplicate-label conversion correctness, determinism, and operation-budget tightness; no dossier was started because no candidate is `super-promising`.
+
+Targeted `ALG-0024` results:
+
+| Case | Selected cut | Train replay | Held-out replay | Negative rejection | Ops |
+|---|---|---:|---:|---:|---:|
+| `loop_unbounded_control` | `single_rework_loop` | 3/3 | 1/1 | 3/3 | 270 |
+| `bounded_at_most_one_rework` | `single_rework_loop` | 3/3 | 0/0 | 2/3 | 270 |
+| `multi_body_loop_choice` | `multi_body_rework_loop` | 3/3 | 2/2 | 3/3 | 258 |
+| `nested_choice_loop_context` | `multi_body_rework_loop` | 3/3 | 1/1 | 3/3 | 349 |
+| `one_iteration_only` | `fallback_dfg` | 0/3 | 0/2 | 3/3 | 415 |
+
+Comparator notes:
+
+- On `multi_body_loop_choice`, `ALG-0023` replays 0/3 train and 0/2 held-out traces, while `ALG-0024` replays 3/3 train and 2/2 held-out traces with 3/3 negative rejection.
+- On `nested_choice_loop_context`, `ALG-0023` replays 0/3 train and 0/1 held-out traces, while `ALG-0024` replays 3/3 train and 1/1 held-out traces with 3/3 negative rejection.
+- Exact automaton and prefix-block exact-fallback comparators replay observed multi-body training traces but reject held-out body combinations, so `ALG-0024` has a real loop-generalization advantage on the targeted cases.
+- `ALG-0016` grammar-only rejects these loop cases, confirming the fix comes from the loop candidate rather than a prefix-block grammar.
+
+Standard-suite deltas:
+
+- `short_loop.json`: `ALG-0024` selects `single_rework_loop`, 292 ops, 3/3 replay, 3/3 negative rejection. This preserves `ALG-0023` behavior with extra rejected multi-body-detector overhead.
+- `sequence.json`, `xor.json`, `parallel_ab_cd.json`, `skip.json`, and `noise.json`: `ALG-0024` matches `ALG-0023` replay and negative-rejection behavior.
+- Existing optional-pattern and prefix-automaton stress suites show no quality regression; operation counts rise only where the extra detector runs before an existing cut or fallback.
+
+Interpretation:
+
+- `ALG-0024` converts the previous `different_rework_body_rejected` / multi-body loop case from an unresolved failure into a deliberately scoped loop-choice candidate.
+- The emitted net models `prefix anchor (body_1 anchor | ... | body_k anchor)* suffix`, where each body is currently a singleton activity.
+- The unbounded-repeat prior remains explicit through `loop_repetition_policy=unbounded_repeat` and `bounded_count_ambiguous=true`.
+- The candidate is not a bounded-count loop miner and not a general recursive loop miner.
+
+Failures / anomalies:
+
+- Bounded-at-most-one domains still fail precision: the second loop iteration negative is accepted, so negative rejection remains 2/3.
+- One-iteration-only evidence still falls back to DFG behavior and replays 0/3 observed positives.
+- Only singleton body alternatives are supported; longer body sequences and duplicate labels inside body alternatives are untested.
+- Extra detector overhead is visible on singleton-loop cases (`short_loop.json` 292 ops versus `ALG-0023` 216).
+- No property dossier was created because the candidate is not `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0024` and promote it to `promising`: it has a written spec, deterministic prototype, measured operation counts, targeted smoke/deep success, clean negative probes, and a concrete held-out loop-generalization advantage over `ALG-0023` and exact automata.
+- Do not move it to `deep-testing` or `super-promising`; bounded-count priors, one-iteration-only logs, longer body sequences, duplicate-label body contexts, and trace-order stability are unresolved.
+- Keep `ALG-0023` as the singleton-loop reference candidate.
+- Do not create a property dossier.
+
+Next action: stress `ALG-0024` on longer body sequences, duplicate-label body contexts, trace-order stability, and explicit bounded-count prior/model-set variants, or return to the `ALG-0021`/`ALG-0022` ambiguity-selector line.
+
+## EXP-0025 — ALG-0024 boundary stress and stability tests
+
+Date/time: 2026-05-07T10:41:56+02:00
+Goal: stress `ALG-0024` before any deeper promotion on longer body sequences, duplicate-label contexts, bounded-count priors, support imbalance, and trace-order stability
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0024_stress_tests.py --out experiments/alg0024-stress-tests.json`
+- `python3 scripts/alg0024_multibody_loop_tests.py --out experiments/alg0024-multibody-loop-tests.json`
+- `python3 scripts/alg0023_loop_stress_tests.py --out experiments/alg0023-loop-stress-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/alg0024_stress_tests.py`; no discovery-code changes after EXP-0024; no commit recorded
+Candidate IDs: ALG-0003, ALG-0005, ALG-0015, ALG-0016, ALG-0023, ALG-0024
+Logs/datasets: targeted boundary cases and permutation stability cases in `scripts/alg0024_stress_tests.py`; refreshed EXP-0024 targeted suite and ALG-0023 loop-stress suite as collateral checks
+Metrics: selected cut, loop-policy evidence, body support, operation counts, training replay, held-out replay, negative-trace rejection, structural diagnostics, and selected-cut stability across trace-order permutations
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; no new primitives added
+
+Stress results for `ALG-0024`:
+
+| Case | Selected cut | Train replay | Held-out replay | Negative rejection | Ops | Interpretation |
+|---|---|---:|---:|---:|---:|---|
+| `longer_body_choice_rejected` | `fallback_dfg` | 0/3 | 0/1 | 3/3 | 438 | Length-2 body alternatives remain outside scope. |
+| `mixed_singleton_and_sequence_body_rejected` | `fallback_dfg` | 0/3 | 0/1 | 3/3 | 387 | Mixed body widths are rejected rather than coerced into singleton choices. |
+| `duplicate_label_in_suffix_rejected` | `fallback_dfg` | 0/3 | 0/1 | 3/3 | 388 | Duplicate body/suffix labels remain outside the current compiler scope. |
+| `bounded_count_multi_body_prior` | `multi_body_rework_loop` | 3/3 | 0/0 | 2/4 | 258 | Repeated body combinations are accepted under the unbounded prior, so bounded-count domains remain ambiguous. |
+| `support_imbalance_body_choice` | `multi_body_rework_loop` | 5/5 | 1/1 | 3/3 | 332 | Low-support body alternatives are treated as valid observed choices, not noise. |
+
+Trace-order stability:
+
+| Case | Stable | Unique permutations |
+|---|---:|---:|
+| `multi_body_loop_choice_order_stability` | yes | 6 |
+| `nested_choice_loop_context_order_stability` | yes | 6 |
+| `support_imbalance_body_choice_order_stability` | yes | 12 |
+
+Comparator notes:
+
+- Exact automaton and prefix-block exact-fallback comparators replay observed longer-body and duplicate-label-context training traces, but reject held-out repeated combinations. They remain memorization comparators.
+- `ALG-0024` intentionally refuses length-2 and duplicate-label loop candidates, which preserves a narrow hypothesis but leaves observed replay at 0/3 under the process-tree fallback.
+- In the support-imbalance case, `ALG-0024` records body support (`B=3`, `C=1`) but still compiles both bodies; this is a useful next support/noise policy question rather than a promotion point.
+
+Interpretation:
+
+- EXP-0025 gives positive evidence for deterministic selection: the emitted `multi_body_rework_loop` signature is stable under checked trace-order permutations.
+- The same experiment gives negative evidence against deeper promotion: the candidate remains singleton-body-only, duplicate-label-conservative, and unbounded-repeat by prior.
+- Bounded-count semantics are still a model-set or domain-prior problem, not something the current event-log evidence identifies.
+
+Failures / anomalies:
+
+- Length-2 body choices and mixed-width body choices are not modeled.
+- Duplicate labels shared between body and suffix are rejected.
+- Bounded-count multi-body semantics fail precision because repeated body combinations are accepted.
+- There is no support threshold for treating a rare loop body as noise.
+- No property dossier was created because the candidate is not `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Keep `ALG-0024` at `promising`; do not move it to `deep-testing`.
+- Do not retire it: targeted multi-body held-out generalization and trace-order stability remain useful.
+- Do not create a property dossier.
+
+Next action: either split a length-2 body loop candidate, split a bounded-count policy-set candidate for loops, or add a support/noise guard for rare loop-body alternatives.
+
+## EXP-0026 - ALG-0025 length-bounded rework-loop bodies
+
+Date/time: 2026-05-07T11:01:51+02:00
+Goal: split the length-2 body-loop gap from `ALG-0024` into a bounded process-tree candidate while preserving the explicit unbounded-repeat prior
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0025_length_bounded_loop_tests.py --out experiments/alg0025-length-bounded-loop-tests.json`
+- `python3 scripts/alg0024_stress_tests.py --out experiments/alg0024-stress-tests.json`
+- `python3 scripts/alg0024_multibody_loop_tests.py --out experiments/alg0024-multibody-loop-tests.json`
+- `python3 scripts/alg0023_loop_stress_tests.py --out experiments/alg0023-loop-stress-tests.json`
+- `python3 scripts/alg0023_loop_tests.py --out experiments/alg0023-loop-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 scripts/alg0005_stress_tests.py --out experiments/alg0005-stress-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after parameterizing `_detect_multi_body_rework_loop` with `multi_body_loop_max_body_length`, adding `scripts/cut_limited_length_bounded_loop.py`, adding `scripts/alg0025_length_bounded_loop_tests.py`, wiring `ALG-0025` into affected runners, and creating `candidates/ALG-0025-cut-limited-length-bounded-rework-loop-miner.md`; no commit recorded
+Candidate IDs: ALG-0003, ALG-0005, ALG-0015, ALG-0016, ALG-0023, ALG-0024, ALG-0025 plus collateral smoke/deep-suite candidates already present in the runners
+Logs/datasets: targeted length-bounded loop cases and stability cases in `scripts/alg0025_length_bounded_loop_tests.py`; refreshed loop suites; toy logs in `examples/logs/*.json`; broader synthetic, optional-pattern, and prefix-automaton stress suites as collateral checks
+Metrics: selected cut, loop-policy evidence, `max_body_length`, body support, operation counts, training replay, held-out replay, negative-trace rejection, structural diagnostics, and selected-signature stability across trace-order permutations
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0025` adds body-length-bounded validation and sequence-body construction for fixed `M=2`
+
+Targeted `ALG-0025` results:
+
+| Case | Selected cut | Train replay | Held-out replay | Negative rejection | Ops | Interpretation |
+|---|---|---:|---:|---:|---:|---|
+| `length2_body_choice` | `multi_body_rework_loop` | 3/3 | 2/2 | 3/3 | 401 | Fixes the length-2 body-choice gap from EXP-0025. |
+| `mixed_singleton_and_length2_body` | `multi_body_rework_loop` | 3/3 | 1/1 | 3/3 | 322 | Supports mixed singleton and length-2 loop bodies. |
+| `singleton_body_regression` | `multi_body_rework_loop` | 3/3 | 1/1 | 3/3 | 258 | Preserves `ALG-0024` singleton-body behavior and counts. |
+| `length3_body_rejected` | `fallback_dfg` | 0/3 | 0/1 | 3/3 | 641 | Body length greater than two remains outside scope. |
+| `overlapping_body_labels_rejected` | `fallback_dfg` | 0/3 | 0/1 | 3/3 | 436 | Shared body labels remain rejected. |
+| `bounded_count_length2_prior` | `multi_body_rework_loop` | 3/3 | 0/0 | 2/4 | 401 | Repeated body combinations are accepted under the unbounded prior. |
+
+Trace-order stability:
+
+| Case | Stable | Unique permutations |
+|---|---:|---:|
+| `length2_body_choice_order_stability` | yes | 6 |
+| `mixed_singleton_and_length2_body_order_stability` | yes | 6 |
+
+Comparator notes:
+
+- On `length2_body_choice`, `ALG-0024` falls back with 0/3 train replay and 0/2 held-out replay, while `ALG-0025` replays 3/3 train and 2/2 held-out traces with 3/3 negative rejection.
+- On `mixed_singleton_and_length2_body`, `ALG-0024` falls back with 0/3 train replay and 0/1 held-out replay, while `ALG-0025` replays 3/3 train and 1/1 held-out trace with 3/3 negative rejection.
+- Exact automaton and prefix-block exact-fallback comparators replay observed length-2 training traces but reject held-out repeated combinations, so `ALG-0025` has a real loop-generalization advantage on the targeted cases.
+- `ALG-0025` preserves `ALG-0024` behavior on singleton multi-body, nested-context, and support-imbalance loop-choice cases.
+
+Standard-suite deltas:
+
+- `short_loop.json`: `ALG-0025` selects `single_rework_loop`, 292 ops, 3/3 replay, and 3/3 negative rejection, matching `ALG-0024`.
+- `sequence.json`, `xor.json`, `parallel_ab_cd.json`, `skip.json`, and `noise.json`: `ALG-0025` matches the current cut-limited loop line's replay and negative-rejection behavior.
+- Optional-pattern and prefix-automaton stress suites show no quality regression from adding `ALG-0025`; operation counts rise where the extra detector runs before an existing cut or fallback.
+
+Interpretation:
+
+- EXP-0026 turns the length-2 loop-body counterexample from EXP-0025 into a deliberately scoped candidate instead of broadening `ALG-0024`.
+- The emitted language is `prefix anchor (body_1 anchor | ... | body_k anchor)* suffix` with `1 <= |body_i| <= 2`.
+- The unbounded-repeat prior remains explicit through `loop_repetition_policy=unbounded_repeat` and `bounded_count_ambiguous=true`.
+- Body-length bound `M=2` is a policy/cost choice, not a learned proof that longer bodies are invalid.
+
+Failures / anomalies:
+
+- Bounded-count domains still fail precision: repeated body combinations are accepted, so the bounded-count length-2 prior rejects only 2/4 negatives.
+- Length >2 body alternatives and overlapping body-label alternatives are rejected; observed training replay is poor under fallback for those cases.
+- One-iteration-only loop evidence remains outside scope.
+- No support threshold exists for treating a rare loop body as noise.
+- No property dossier was created because the candidate is not `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0025` and promote it to `promising`: it has a written spec, deterministic prototype, measured operation counts, targeted length-2/mixed-width success, checked trace-order stability, and a concrete held-out loop-generalization advantage over `ALG-0024` and exact automata.
+- Do not move it to `deep-testing` or `super-promising`; bounded-count priors, length >2 scaling, duplicate-label contexts, one-iteration-only evidence, and rare-body/noise policy remain unresolved.
+- Keep `ALG-0024` as the singleton-body reference candidate.
+- Do not create a property dossier.
+
+Next action: split a bounded-count loop policy-set candidate or support/noise guard for rare loop bodies before increasing the body-length bound further.
+
+## EXP-0027 - ALG-0026 bounded loop-count policy-set protocol
+
+Date/time: 2026-05-07T11:11:25+02:00
+Goal: preserve bounded-count loop ambiguity by compiling both unbounded-repeat and at-most-once policy alternatives from the same `ALG-0025` loop evidence
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0026_loop_policy_tests.py --out experiments/alg0026-loop-policy-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0026_loop_policy_tests.py --out experiments/alg0026-loop-policy-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/loop_policy_set_protocol.py`, adding `scripts/alg0026_loop_policy_tests.py`, and creating `candidates/ALG-0026-loop-count-policy-set-protocol.md`; no commit recorded
+Candidate IDs: ALG-0023, ALG-0024, ALG-0025, ALG-0026
+Logs/datasets: targeted bounded-count policy cases in `scripts/alg0026_loop_policy_tests.py`
+Metrics: policy alternatives emitted, selected policy, train replay, held-out replay, negative-trace rejection, structural diagnostics, compile operation counts, and total-with-discovery operation counts per policy
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; upstream `ALG-0025` discovery count is reused and the at-most-once alternative adds counted construction operations only
+
+Subagent findings merged:
+
+- Candidate scout recommended `ALG-0026` as a multi-net policy-set protocol rather than a selected-net bounded-at-most-one candidate, because the same zero/one evidence cannot identify bounded versus unbounded loop semantics.
+- Evaluator scout supplied the discriminator pattern: both alternatives should replay training traces; unbounded should accept repeated-iteration held-out probes; at-most-once should reject repeated-iteration bounded-count negatives; controls should emit no alternatives.
+- Implementation scout recommended reusing existing loop PMIR evidence, keeping selected-net behavior compatible, and compiling the at-most-once alternative without changing detector order or `pn_ir.py`.
+
+Targeted `ALG-0026` results:
+
+| Case | Policy set | Unbounded train / held-out / neg | At-most-once train / held-out / neg | At-most-once ops | Interpretation |
+|---|---:|---:|---:|---:|---|
+| `single_rework_unbounded_policy` | yes | 2/2 / 1/1 / 3/3 | 2/2 / 0/1 / 3/3 | 216 | Unbounded wins on second-iteration held-out. |
+| `single_rework_bounded_policy` | yes | 2/2 / 0/0 / 2/3 | 2/2 / 0/0 / 3/3 | 216 | At-most-once wins on bounded-count negatives. |
+| `multi_body_unbounded_policy` | yes | 3/3 / 2/2 / 3/3 | 3/3 / 0/2 / 3/3 | 283 | Unbounded wins on repeated body combinations. |
+| `contexted_multi_body_policy` | yes | 3/3 / 2/2 / 4/4 | 3/3 / 0/2 / 4/4 | 378 | Prefix/suffix context preserves the policy split. |
+| `multi_body_bounded_policy` | yes | 3/3 / 0/0 / 2/4 | 3/3 / 0/0 / 4/4 | 283 | At-most-once rejects repeated body-combination negatives. |
+| `length2_unbounded_policy` | yes | 3/3 / 2/2 / 3/3 | 3/3 / 0/2 / 3/3 | 434 | Length-2 body alternatives preserve the split. |
+| `length2_bounded_policy` | yes | 3/3 / 0/0 / 2/4 | 3/3 / 0/0 / 4/4 | 434 | At-most-once fixes length-2 bounded-count precision. |
+| `mixed_width_policy` | yes | 3/3 / 2/2 / 4/4 | 3/3 / 0/2 / 4/4 | 351 | Mixed singleton and length-2 bodies preserve the split. |
+| `one_iteration_only_no_policy_set` | no | selected fallback 0/1 held-out / 3/3 neg | n/a | n/a | No zero-iteration loop evidence, so no policy set. |
+| `optional_skip_no_policy_set` | no | selected optional cut 1/1 held-out / 3/3 neg | n/a | n/a | Optional skip is not a loop-count ambiguity. |
+
+Interpretation:
+
+- `ALG-0026` cleanly brackets the ambiguity seen in EXP-0023 through EXP-0026: unbounded alternatives recover repeated-iteration held-out behavior, while at-most-once alternatives reject repeated-iteration negatives.
+- Both alternatives replay all zero/one-iteration training traces in all emitted policy-set cases.
+- The controls correctly emit no policy alternatives when upstream loop evidence is absent.
+- The selected net remains unbounded-repeat only for single-net benchmark compatibility. This is not an identifiability claim.
+
+Failures / anomalies:
+
+- No final selector exists. The protocol reports a model set, not a chosen process model.
+- One-iteration-only evidence remains unresolved because upstream loop detection does not emit bounded-count ambiguity evidence.
+- The at-most-once compiler inherits upstream restrictions on duplicate labels and body length.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0026` as `smoke-tested`: it is deterministic, emits policy alternatives only for bounded-count ambiguous loop evidence, records per-policy operation counts and replay/negative metrics, and demonstrates the policy-set bracketing behavior.
+- Do not promote it to `promising` yet because it has no deterministic selector, validation rule, or domain-prior mechanism.
+- Do not create a property dossier.
+
+Next action: add a selector/validation policy for loop-count model sets, or move to rare-body support/noise guards for `ALG-0024`/`ALG-0025`.
+
+## EXP-0028 - ALG-0027 loop-count validation selector
+
+Date/time: 2026-05-07T11:16:17+02:00
+Goal: add a deterministic selector for `ALG-0026` loop-count policy sets that chooses a final policy only when explicit validation positives/negatives distinguish the alternatives
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0027_loop_selector_tests.py --out experiments/alg0027-loop-selector-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0027_loop_selector_tests.py --out experiments/alg0027-loop-selector-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/loop_count_validation_selector.py`, adding `scripts/alg0027_loop_selector_tests.py`, and creating `candidates/ALG-0027-loop-count-validation-selector.md`; no commit recorded
+Candidate IDs: ALG-0026, ALG-0027
+Logs/datasets: targeted validation selector cases in `scripts/alg0027_loop_selector_tests.py`
+Metrics: selected policy, selection status, reason, validation-positive replay, validation-negative rejection, selector primitive operation counts, total-with-selector count, and per-policy validation scores
+Operation-count model: first-iteration primitive model for selector comparisons/arithmetic/evidence construction; validation replay is reported as selector evidence and not yet folded into discovery primitive counts
+
+Subagent findings merged:
+
+- Skeptical evaluator scout required explicit validation evidence, no default selection on training evidence alone, unresolved output for non-discriminating validation, and separate handling of no-policy-set and inconsistent validation controls.
+
+Targeted `ALG-0027` results:
+
+| Case | Expected | Selected | Status | Validation positives | Validation negatives | Selector ops |
+|---|---|---|---|---:|---:|---:|
+| `single_rework_selects_unbounded` | `unbounded_repeat` | `unbounded_repeat` | `selected` | 1/1 | 3/3 | 21 |
+| `single_rework_selects_at_most_once` | `at_most_once` | `at_most_once` | `selected` | 0/0 | 3/3 | 20 |
+| `multi_body_selects_unbounded` | `unbounded_repeat` | `unbounded_repeat` | `selected` | 2/2 | 3/3 | 22 |
+| `multi_body_selects_at_most_once` | `at_most_once` | `at_most_once` | `selected` | 0/0 | 4/4 | 21 |
+| `length2_selects_unbounded` | `unbounded_repeat` | `unbounded_repeat` | `selected` | 2/2 | 3/3 | 22 |
+| `length2_selects_at_most_once` | `at_most_once` | `at_most_once` | `selected` | 0/0 | 4/4 | 21 |
+| `mixed_width_selects_unbounded` | `unbounded_repeat` | `unbounded_repeat` | `selected` | 2/2 | 4/4 | 23 |
+| `no_discriminator_unresolved` | none | none | `unresolved` | 2/2 | 2/2 | 21 |
+| `conflicting_validation_unresolved` | none | none | `validation_inconsistent` | 1/1 | 0/1 | 19 |
+| `optional_skip_no_policy_set` | none | none | `no_policy_set` | 1/1 | 3/3 | 4 |
+
+Interpretation:
+
+- `ALG-0027` selects `unbounded_repeat` when validation positives include repeated loop iterations and validation negatives contain only structural invalid traces.
+- `ALG-0027` selects `at_most_once` when validation negatives mark repeated loop iterations as invalid and no validation positive requires repetition.
+- Non-discriminating validation leaves selection unresolved rather than defaulting to a policy.
+- Contradictory validation, where the same trace is both positive and negative, is detected explicitly.
+- Optional-skip controls emit `no_policy_set`, so the selector does not invent loop-count choices without upstream ambiguity evidence.
+
+Failures / anomalies:
+
+- Validation and final-test evidence are not yet separated in a broader evaluation protocol, so this is not a promotion-quality selector.
+- Validation replay cost is reported but not fully integrated into the primitive discovery-operation model.
+- The selector inherits upstream `ALG-0026` limitations: no policy set for one-iteration-only evidence, duplicate-label restrictions, and body-length restrictions.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0027` as `smoke-tested`: it deterministically selects either loop-count policy when validation probes uniquely identify one, and it correctly leaves ties, conflicts, and no-policy-set cases unresolved.
+- Do not promote it to `promising` yet because validation/final-test separation and validation replay cost need a clearer protocol.
+- Do not create a property dossier.
+
+Next action: either define a broader validation protocol for `ALG-0027` with held-out final tests, or shift to rare-body support/noise guards for `ALG-0024`/`ALG-0025`.
+
+## EXP-0029 - ALG-0027 split validation/final-test protocol
+
+Date/time: 2026-05-07T11:23:50+02:00
+Goal: test `ALG-0027` under frozen train/validation/final splits and add explicit validation replay proxy counts
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0027_validation_protocol_tests.py --out experiments/alg0027-validation-protocol-tests.json`
+- `python3 scripts/alg0027_loop_selector_tests.py --out experiments/alg0027-loop-selector-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0027_validation_protocol_tests.py --out experiments/alg0027-validation-protocol-tests.json`
+- `python3 scripts/alg0027_loop_selector_tests.py --out experiments/alg0027-loop-selector-tests.json`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding validation replay proxy counts to `scripts/loop_count_validation_selector.py` and adding `scripts/alg0027_validation_protocol_tests.py`; no commit recorded
+Candidate IDs: ALG-0026, ALG-0027
+Logs/datasets: targeted train/validation/final loop-count protocol cases in `scripts/alg0027_validation_protocol_tests.py`
+Metrics: selected policy, selection status, train/validation/final leakage flags, final-positive replay, final-negative rejection, selector operation counts, validation replay proxy counts, per-policy final evaluations, and protocol pass/fail flags
+Operation-count model: first-iteration primitive model plus an explicit validation replay proxy: for each policy alternative and validation trace, count one `scan_event` per event and one `comparison` per trace outcome; final replay remains evaluation-only and is not counted as discovery/selection work
+
+Subagent findings merged:
+
+- Evaluator/counterexample scout recommended frozen `train`, `validation`, and `final` partitions, with final probes unused until the selector output is frozen.
+- Leakage should include reused final probes in validation, validation edits after seeing final failures, or final metrics influencing policy choice.
+- Promotion is reasonable if split cases pass and validation replay cost is reported, but `deep-testing` should wait for one-iteration-only, duplicate-label, length >2, and noisy rare-body limits.
+
+Targeted `ALG-0027` protocol results:
+
+| Case | Expected | Selected | Status | Leakage | Final positives | Final negatives | Selector ops | Validation replay proxy ops |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| `single_unbounded_final_generalization` | `unbounded_repeat` | `unbounded_repeat` | `selected` | no | 1/1 | 2/2 | 20 | 30 |
+| `single_bounded_final_precision` | `at_most_once` | `at_most_once` | `selected` | no | 0/0 | 2/2 | 19 | 22 |
+| `multi_body_unbounded_final_generalization` | `unbounded_repeat` | `unbounded_repeat` | `selected` | no | 2/2 | 2/2 | 20 | 30 |
+| `multi_body_bounded_final_precision` | `at_most_once` | `at_most_once` | `selected` | no | 0/0 | 2/2 | 19 | 22 |
+| `length2_unbounded_final_generalization` | `unbounded_repeat` | `unbounded_repeat` | `selected` | no | 1/1 | 2/2 | 20 | 36 |
+| `mixed_width_bounded_final_precision` | `at_most_once` | `at_most_once` | `selected` | no | 0/0 | 2/2 | 19 | 24 |
+| `no_discriminator_remains_unresolved` | none | none | `unresolved` | no | 1/1 | 1/1 | 19 | 16 |
+| `optional_skip_no_policy_set_final_control` | none | none | `no_policy_set` | no | 0/0 | 1/1 | 2 | 0 |
+| `leakage_guard_reports_validation_final_overlap` | `unbounded_repeat` | `unbounded_repeat` | `selected` | yes | 1/1 | 1/1 | 19 | 22 |
+
+Interpretation:
+
+- Split validation/final tests support the `ALG-0027` selector under its declared external-validation assumption.
+- The selector generalizes beyond validation positives on unbounded cases: singleton third iteration, unseen multi-body repetitions, and reversed length-2 body repetitions replay in final probes.
+- The selector preserves bounded precision when validation negatives declare repetition invalid: final repeated singleton, multi-body, and mixed-width traces are rejected by the selected at-most-once net.
+- The non-discriminating case remains unresolved even though final probes contain a repeated-loop positive; this confirms final probes are not used for selection.
+- The optional-skip control remains `no_policy_set`.
+- The leakage guard detects validation/final overlap and records it as protocol leakage rather than treating the final result as promotion-quality evidence.
+- Validation replay proxy counts are now reported separately from selector-scoring counts and folded into `operation_counts.total_with_selector_and_validation_proxy`.
+
+Failures / anomalies:
+
+- The validation replay proxy is still a lower-bound accounting model; it does not count all token-game marking and silent-closure work.
+- At-most-once final-positive probes are empty in bounded cases because the valid zero/one loop traces are already in the training log; broader protocols need independent positive variants with richer context.
+- One-iteration-only evidence still emits no policy set upstream.
+- Duplicate-label, length >2, and noisy rare-body loop evidence remain untested under the selector protocol.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Promote `ALG-0027` from `smoke-tested` to `promising`: it has a written specification, deterministic prototype, relevant smoke/protocol tests, measured selector and validation replay proxy counts, a concrete advantage over `ALG-0026` model-set output when external validation exists, and unresolved behavior when evidence does not identify a policy.
+- Do not move `ALG-0027` to `deep-testing`; the next tests should stress upstream limits and refine validation replay cost accounting.
+- Do not create a property dossier.
+
+Next action: stress `ALG-0027` with one-iteration-only controls, duplicate-label and length >2 blocked cases, and rare-body/noise support policies; alternatively split a rare-body support/noise guard candidate for `ALG-0024`/`ALG-0025`.
+
+## EXP-0030 - ALG-0027 upstream-limit stress
+
+Date/time: 2026-05-07T11:28:55+02:00
+Goal: test whether `ALG-0027` stays within its selector scope on upstream loop-evidence limits and rare-body/noise ambiguity
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0027_upstream_limit_tests.py --out experiments/alg0027-upstream-limit-tests.json`
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0027_upstream_limit_tests.py --out experiments/alg0027-upstream-limit-tests.json`
+- `python3 scripts/alg0027_validation_protocol_tests.py --out experiments/alg0027-validation-protocol-tests.json`
+- `python3 scripts/alg0027_loop_selector_tests.py --out experiments/alg0027-loop-selector-tests.json`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/alg0027_upstream_limit_tests.py` and updating `candidates/ALG-0027-loop-count-validation-selector.md`; no commit recorded
+Candidate IDs: ALG-0024, ALG-0025, ALG-0026, ALG-0027
+Logs/datasets: targeted upstream-limit and support/noise cases in `scripts/alg0027_upstream_limit_tests.py`
+Metrics: selected policy, selection status, upstream selected cut, policy-set detected flag, train/validation overlap, final-positive replay, final-negative rejection, expected failure/pass flags, selector counts, and validation replay proxy counts
+Operation-count model: first-iteration primitive model plus `ALG-0027` validation replay proxy from EXP-0029
+
+Subagent findings merged:
+
+- Evaluator/counterexample scout recommended `no_policy_set` as the correct behavior for one-iteration-only, duplicate-label, and body length greater than two cases.
+- The scout flagged rare-body/noise as outside loop-count selection: current alternatives inherit the same body choices, so selecting `unbounded_repeat` or `at_most_once` must not be interpreted as resolving body inclusion.
+- Validation/final leakage should continue to be flagged and excluded from promotion-quality evidence.
+
+Targeted `ALG-0027` upstream-limit results:
+
+| Case | Expected | Selected | Status | Policy set | Final positives | Final negatives | Interpretation |
+|---|---|---|---|---:|---:|---:|---|
+| `one_iteration_only_no_policy_set` | none | none | `no_policy_set` | no | 0/1 | 1/1 | No zero-iteration evidence; upstream exposes no count ambiguity. |
+| `duplicate_suffix_label_no_policy_set` | none | none | `no_policy_set` | no | 0/1 | 1/1 | Duplicate body/suffix labels remain blocked upstream. |
+| `length3_body_no_policy_set` | none | none | `no_policy_set` | no | 0/1 | 1/1 | Body length greater than two remains outside the current detector. |
+| `overlapping_body_labels_no_policy_set` | none | none | `no_policy_set` | no | 0/1 | 1/1 | Overlapping body labels remain blocked upstream. |
+| `rare_body_valid_unbounded_control` | `unbounded_repeat` | `unbounded_repeat` | `selected` | yes | 1/1 | 2/2 | Rare body is treated as valid when validation positives require it. |
+| `rare_body_noise_gap` | `at_most_once` | `at_most_once` | `selected` | yes | 0/0 | 0/1 | Count selection does not remove a rare observed body treated as noise. |
+| `rare_body_noise_training_conflict` | none | none | `unresolved` | yes | 0/0 | 0/1 | Marking an observed rare body invalid conflicts with training evidence. |
+
+Interpretation:
+
+- `ALG-0027` correctly refuses to select loop-count policies when upstream `ALG-0026` emits no policy set.
+- The blocked cases confirm that `ALG-0027` cannot repair upstream detector/compiler limits: one-iteration-only evidence, duplicate labels, length >2 bodies, and overlapping body labels need separate candidates.
+- The rare-body valid control shows the selector still works when validation declares rare observed bodies valid.
+- The rare-body noise gap is the important negative result: selecting at-most-once count semantics does not remove the rare observed body from the accepted language, so support/noise body selection is separate from count selection.
+- Marking an observed rare body invalid in validation creates a training/validation conflict and leaves selection unresolved.
+
+Failures / anomalies:
+
+- This experiment intentionally includes expected negative results; passing means the limitations were observed and not silently converted into selection claims.
+- Final-positive replay is poor on `no_policy_set` blocked cases because fallback nets do not model the held-out loop behavior.
+- The rare-body/noise gap leaves `ALG-0027` below `deep-testing`.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Keep `ALG-0027` at `promising`; do not move it to `deep-testing`.
+- Do not retire it: within explicit external-validation and upstream-policy-set scope it remains useful.
+- Treat rare loop-body support/noise as a new candidate line or guard, not as an `ALG-0027` count-selector feature.
+- Do not create a property dossier.
+
+Next action: split a rare-body support/noise guard candidate for `ALG-0024`/`ALG-0025`, with controls that distinguish valid rare bodies from noise.
+
+## EXP-0031 - ALG-0028 body-support guard smoke tests
+
+Date: 2026-05-07
+
+Goal: split rare loop-body support/noise handling from `ALG-0027` loop-count selection and test a conservative support-prior guard over `ALG-0025`
+
+Subagent support:
+
+- Spawned a candidate/evaluator scout for the rare-body support/noise guard design.
+- Merged recommendation: keep `ALG-0028` smoke-tested only; filter only singleton rare bodies when a dominant body has count at least 3 and at least 75 percent body-share; preserve 2:1 and balanced cases as ambiguous; explicitly document valid rare-body failure.
+
+Code version / commit if available: working tree after adding `scripts/cut_limited_body_support_guard.py`, `scripts/alg0028_body_support_tests.py`, wiring `cut_limited_body_support_guard` into `scripts/alg0023_loop_tests.py` and `scripts/benchmark.py`, and creating `candidates/ALG-0028-cut-limited-body-support-guard-miner.md`; no commit recorded
+
+Candidate IDs: ALG-0025, ALG-0028
+
+Commands:
+
+```bash
+python3 -B -m compileall scripts/cut_limited_body_support_guard.py scripts/alg0028_body_support_tests.py
+python3 scripts/alg0028_body_support_tests.py --out experiments/alg0028-body-support-tests.json
+python3 -B -m compileall scripts/alg0023_loop_tests.py scripts/alg0025_length_bounded_loop_tests.py scripts/cut_limited_body_support_guard.py scripts/alg0028_body_support_tests.py
+python3 scripts/alg0025_length_bounded_loop_tests.py --out experiments/alg0025-length-bounded-loop-tests.json
+python3 -B -m compileall scripts/benchmark.py scripts/cut_limited_body_support_guard.py scripts/alg0023_loop_tests.py scripts/alg0028_body_support_tests.py
+python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json
+python3 -B -m compileall scripts
+python3 scripts/alg0028_body_support_tests.py --out experiments/alg0028-body-support-tests.json
+python3 scripts/alg0025_length_bounded_loop_tests.py --out experiments/alg0025-length-bounded-loop-tests.json
+python3 -B -m unittest
+git diff --check
+```
+
+Operation-count model: first-goal primitive model. `ALG-0028` reports combined counts for upstream `ALG-0025` discovery, support-policy checks, trace/body filtering, and guarded loop-net recompilation when filtering applies.
+
+Implemented:
+
+- `scripts/cut_limited_body_support_guard.py`
+  - Runs `ALG-0025`.
+  - Applies the support policy only when `dominant_count >= 3`, dominant body share is at least 75 percent, and a non-dominant body has count exactly 1.
+  - Recompiles the loop with kept bodies when filtering applies, including the one-kept-body length-2 case.
+  - Records `support_guard`, `filtered_bodies`, `kept_bodies`, source evidence, and combined operation counts.
+- `scripts/alg0028_body_support_tests.py`
+  - Seven targeted smoke/control cases with expected outcomes and a failing exit on expectation mismatch.
+- `scripts/benchmark.py` and `scripts/alg0023_loop_tests.py`
+  - Added `cut_limited_body_support_guard` to the reusable candidate lists.
+
+Targeted `ALG-0028` results:
+
+| Case | Guard applied | Train replay | Held-out replay | Negative rejection | Ops | Interpretation |
+|---|---:|---:|---:|---:|---:|---|
+| `rare_body_noise_3_to_1` | yes | 4/5 | 1/1 | 2/2 | 519 | Singleton rare body is filtered and rare-body-as-noise probes are rejected; training replay intentionally loses the rare observed trace. |
+| `rare_body_valid_3_to_1_documented_failure` | yes | 4/5 | 0/2 | 0/0 | 519 | Same support pattern can represent valid rare behavior; this blocks promotion. |
+| `balanced_two_body_choice` | no | 5/5 | 2/2 | 2/2 | 338 | Balanced body choices are preserved. |
+| `low_sample_2_to_1_ambiguous` | no | 4/4 | 1/1 | 2/2 | 301 | 2:1 evidence is kept ambiguous. |
+| `length2_rare_body_noise` | yes | 4/5 | 1/1 | 2/2 | 732 | Singleton-supported length-2 body is filtered; dominant length-2 body remains repeatable. |
+| `mixed_width_rare_singleton_noise` | yes | 4/5 | 1/1 | 2/2 | 584 | Singleton-supported length-2 body is filtered while the dominant singleton body remains repeatable. |
+| `two_rare_bodies_no_dominant` | no | 5/5 | 1/1 | 2/2 | 395 | Weak dominance with multiple rare bodies is not filtered. |
+
+Baseline comparison observations:
+
+- `ALG-0025` replays all training traces on rare-body cases but accepts rare-body-as-noise probes, e.g. `rare_body_noise_3_to_1` negative rejection is 0/2 for `ALG-0025` versus 2/2 for `ALG-0028`.
+- On balanced and low-sample cases, `ALG-0028` matches `ALG-0025` behavior with small policy-count overhead.
+- On the six toy logs in `examples/logs`, `ALG-0028` behaves like `ALG-0025` plus one counted comparison because no support guard applies.
+
+Failures / anomalies:
+
+- The valid rare-body control is an intentional negative result: the support prior filters rare behavior when the held-out positives require it.
+- `ALG-0028` intentionally sacrifices observed-trace replay in noisy rare-body cases, so its training replay can be lower than `ALG-0025`.
+- It inherits `ALG-0025` detector limits: length greater than two, overlapping body labels, duplicate labels, and one-iteration-only evidence remain unresolved.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0028` as `smoke-tested`, not `promising`.
+- Do not promote: support alone cannot distinguish valid rare behavior from noise.
+- Keep it as a precision-prior candidate and counterexample line for future threshold/validation selection.
+
+Next action: run support-threshold ablations for `ALG-0028` across 3:1, 4:1, 5:1, 2:1, two-rare-body, and valid rare-body controls; then test whether external validation can select body inclusion before combining with `ALG-0026`/`ALG-0027` loop-count policy sets.
+
+## EXP-0032 - ALG-0028 threshold ablation and ALG-0029 body-inclusion validation selector
+
+Date: 2026-05-07
+
+Goal: quantify the `ALG-0028` support-threshold tradeoff and test whether explicit validation can select loop-body inclusion when support alone is ambiguous
+
+Subagent support:
+
+- Spawned an evaluator/counterexample scout for the `ALG-0028` ablation matrix.
+- Merged recommendation: test 2:1, 3:1, 4:1, and 5:1 support policies; record valid-rare and rare-noise matched cases; include rare-count-two, multiple-rare-body, length-2, mixed-width, validation-include, validation-exclude, validation-conflict, and no-signal controls; do not promote `ALG-0028` on threshold evidence alone.
+
+Code version / commit if available: working tree after parameterizing `scripts/cut_limited_body_support_guard.py`, adding `scripts/body_inclusion_validation_selector.py`, adding `scripts/alg0028_threshold_ablation_tests.py`, and creating `candidates/ALG-0029-loop-body-inclusion-validation-selector.md`; no commit recorded
+
+Candidate IDs: ALG-0025, ALG-0028, ALG-0029
+
+Commands:
+
+```bash
+python3 -B -m compileall scripts/body_inclusion_validation_selector.py scripts/alg0028_threshold_ablation_tests.py scripts/cut_limited_body_support_guard.py
+python3 scripts/alg0028_threshold_ablation_tests.py --out experiments/alg0028-threshold-ablation-tests.json
+python3 -B -m compileall scripts
+python3 scripts/alg0028_threshold_ablation_tests.py --out experiments/alg0028-threshold-ablation-tests.json
+python3 scripts/alg0028_body_support_tests.py --out experiments/alg0028-body-support-tests.json
+python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json
+python3 -B -m unittest
+git diff --check
+```
+
+Operation-count model: first-goal primitive model. `ALG-0028` counts upstream discovery plus guard policy/filtering/compilation. `ALG-0029` reports selector counts, validation replay proxy counts, selected-result totals, and a naive all-alternative total that includes both `ALG-0025` and `ALG-0028` discovery.
+
+Implemented:
+
+- `scripts/cut_limited_body_support_guard.py`
+  - Added `discover_with_policy(...)` while preserving default `discover(log)` behavior.
+  - Supports configurable dominant-count, dominant-share, and rare-body-count thresholds.
+- `scripts/body_inclusion_validation_selector.py`
+  - Adds `ALG-0029`, a selector over `keep_all_bodies` (`ALG-0025`) and `support_guard` (`ALG-0028`) alternatives.
+  - Selects only when validation positives/negatives uniquely distinguish alternatives.
+  - Reports `validation_inconsistent`, `validation_training_conflict`, and `unresolved` controls.
+- `scripts/alg0028_threshold_ablation_tests.py`
+  - Runs support threshold policies `2:1`, `3:1 default`, `4:1`, and `5:1`.
+  - Includes singleton noise/valid pairs for support counts 2 through 5, rare count two, two rare bodies, length-2 dominant/rare cases, mixed-width cases, and five `ALG-0029` validation controls.
+
+`ALG-0028` threshold summary:
+
+| Policy | Guard-applied cases | Train replay | Valid-rare replay | Rare-noise rejection | Interpretation |
+|---|---:|---:|---:|---:|---|
+| `keep_all_baseline` | 0 | 86/86 | 10/10 | 0/17 | Baseline preserves all observed/valid rare behavior but accepts all rare-noise probes. |
+| `support_2_to_1` | 13 | 71/86 | 0/10 | 15/17 | Aggressive: best rare-noise rejection and worst valid-rare loss. |
+| `support_3_to_1_default` | 9 | 77/86 | 3/10 | 10/17 | Reproduces EXP-0031 tradeoff. |
+| `support_4_to_1` | 7 | 79/86 | 5/10 | 8/17 | More conservative; partial recovery of valid rare behavior with less rare-noise rejection. |
+| `support_5_to_1` | 3 | 83/86 | 8/10 | 4/17 | Safest support prior; leaves most rare-noise probes unfiltered. |
+
+`ALG-0029` validation-selector results:
+
+| Case | Expected | Selected | Status | Naive all-alternative + validation proxy total | Interpretation |
+|---|---|---|---|---:|---|
+| `validation_selects_keep_rare_3_to_1` | `keep_all_bodies` | `keep_all_bodies` | `selected` | 897 | Validation positives require the rare body, so support filtering is overridden. |
+| `validation_selects_filter_rare_3_to_1` | `support_guard` | `support_guard` | `selected` | 903 | Validation negatives reject rare-body combinations, so filtering is selected. |
+| `validation_no_body_signal_unresolved` | none | none | `unresolved` | 906 | Validation does not mention rare-body inclusion; no selection. |
+| `validation_training_conflict` | none | none | `validation_training_conflict` | 884 | Validation negative overlaps an observed training trace. |
+| `validation_positive_negative_conflict` | none | none | `validation_inconsistent` | 903 | Same validation trace is both positive and negative. |
+
+Interpretation:
+
+- `ALG-0028` is a threshold-sensitive precision prior. A stricter threshold improves valid-rare replay but leaves more rare-noise behavior accepted.
+- Rare-count-two noise and multiple rare-body noise expose gaps in singleton-only filtering.
+- The validation selector can choose body inclusion when explicit probes distinguish the alternatives, matching the pattern that made `ALG-0027` useful for loop-count policy.
+- `ALG-0029` should be treated as a selector protocol, not a training-log-only miner.
+
+Failures / anomalies:
+
+- No support threshold cleanly separates rare noise from valid rare behavior across the matrix.
+- The aggressive 2:1 policy destroys valid-rare replay in the tested controls.
+- The 5:1 policy preserves most valid-rare replay but rejects only 4/17 rare-noise probes.
+- `ALG-0029` currently uses a naive all-alternative cost that double-counts upstream discovery work that a later optimized selector might share.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Keep `ALG-0028` at `smoke-tested`; threshold ablations reinforce that support-only body filtering is a policy tradeoff.
+- Add `ALG-0029` as `smoke-tested`, not `promising`: it has executable validation-selector evidence but lacks split final-test protocol, broader support-ratio coverage, and refined validation cost accounting.
+- Do not promote any candidate to `super-promising`.
+
+Next action: add a split validation/final-test protocol for `ALG-0029`, then test composition with `ALG-0026`/`ALG-0027` so body inclusion and loop-count policy are selected independently rather than conflated.
+
+## EXP-0033 - ALG-0029 split validation protocol and ALG-0030 body-count product selector
+
+Date/time: 2026-05-07T12:53:00+02:00
+
+Goal: add a split validation/final-test protocol for `ALG-0029` and test whether body inclusion and loop-count semantics can be selected as independent policy axes
+
+Subagent support:
+
+- Spawned an evaluator/counterexample scout for `ALG-0029` split protocol and composition design.
+- Merged recommendations: add keep/filter final-generalization and final-precision cases, no-signal and leakage controls, training/validation conflict controls, 5:1 support-ratio keep control, length-2 rare-body filter control, two-rare-body mixed valid/noise unresolved control, rare-count-two unresolved control, and four joint product quadrants for body inclusion x loop count.
+
+Code version / commit if available: working tree after adding `scripts/body_count_validation_product_selector.py`, `scripts/alg0029_validation_protocol_tests.py`, `candidates/ALG-0030-loop-body-count-validation-product-selector.md`, and extending `scripts/loop_policy_set_protocol.py` with `result_from_base(...)`; no commit recorded
+
+Candidate IDs: ALG-0025, ALG-0026, ALG-0027, ALG-0028, ALG-0029, ALG-0030
+
+Commands:
+
+```bash
+python3 -B -m compileall scripts/body_count_validation_product_selector.py scripts/alg0029_validation_protocol_tests.py scripts/loop_policy_set_protocol.py
+python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json
+python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json
+python3 -B -m compileall scripts
+python3 scripts/alg0029_validation_protocol_tests.py --out experiments/alg0029-validation-protocol-tests.json
+python3 scripts/alg0028_threshold_ablation_tests.py --out experiments/alg0028-threshold-ablation-tests.json
+python3 scripts/alg0027_validation_protocol_tests.py --out experiments/alg0027-validation-protocol-tests.json
+python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json
+python3 -B -m unittest
+git diff --check
+python3 scripts/alg0028_body_support_tests.py --out experiments/alg0028-body-support-tests.json
+python3 -c "import json; d=json.load(open('experiments/alg0029-validation-protocol-tests.json')); print('body_summary', d['body_protocol']['summary']); print('composition_summary', d['composition_protocol']['summary']); print('body_cases'); [print(n, c['selected_alternative'], c['selection_status'], 'leak', c['has_leakage'], 'total', c['operation_counts'].get('total_with_all_alternatives_and_validation_proxy')) for n,c in sorted(d['body_protocol']['cases'].items())]; print('composition_cases'); [print(n, c['selected_body'], c['selected_policy'], c['selection_status'], 'total', c['operation_counts'].get('total_with_product_selector_and_validation_proxy')) for n,c in sorted(d['composition_protocol']['cases'].items())]"
+```
+
+Operation-count model: first-goal primitive model. `ALG-0029` keeps the naive all-alternative discovery plus selector and validation replay proxy counts from EXP-0032. `ALG-0030` adds count-policy compilation from the selected body result, count-selector operations, and count-validation replay proxy counts; the reported product total is a naive upper bound and does not yet share all reusable discovery work.
+
+Implemented:
+
+- `scripts/loop_policy_set_protocol.py`
+  - Added `result_from_base(...)` so count-policy alternatives can be built from an already-selected body-inclusion result.
+  - Allowed `body_support_guard_rework_loop` process-tree evidence to produce count-policy alternatives.
+- `scripts/body_count_validation_product_selector.py`
+  - Added `ALG-0030`, a product selector over body inclusion (`keep_all_bodies` or `support_guard`) and count policy (`unbounded_repeat` or `at_most_once`).
+  - Returns `body_unresolved` if body inclusion is not selected and `count_unresolved` if count policy is not selected.
+- `scripts/alg0029_validation_protocol_tests.py`
+  - Added 10 split validation/final tests for `ALG-0029`.
+  - Added 6 composition tests for `ALG-0030`.
+- `candidates/ALG-0030-loop-body-count-validation-product-selector.md`
+  - Added candidate record with hypothesis, intermediate representation, operation model, failure modes, and promotion criteria.
+
+`ALG-0029` split validation/final results:
+
+| Case | Expected | Selected | Status | Leakage | Final result | Naive total |
+|---|---|---|---|---:|---|---:|
+| `body_keep_final_generalization` | `keep_all_bodies` | `keep_all_bodies` | `selected` | no | 1/1 positive, 2/2 negatives rejected | 906 |
+| `body_filter_final_precision` | `support_guard` | `support_guard` | `selected` | no | 1/1 positive, 2/2 negatives rejected | 903 |
+| `body_no_signal_final_not_used` | none | none | `unresolved` | no | final probes not used for selection | 906 |
+| `body_validation_final_overlap_guard` | `keep_all_bodies` | `keep_all_bodies` | `selected` | yes | leakage flagged | 897 |
+| `body_training_negative_conflict_final_control` | none | none | `validation_training_conflict` | yes | conflict control | 884 |
+| `body_positive_negative_overlap` | none | none | `validation_inconsistent` | no | conflict control | 903 |
+| `body_support_ratio_5_to_1_keep` | `keep_all_bodies` | `keep_all_bodies` | `selected` | no | 1/1 positive, 1/1 negative rejected | 1104 |
+| `body_length2_rare_filter` | `support_guard` | `support_guard` | `selected` | no | 1/1 positive, 1/1 negative rejected | 1503 |
+| `two_rare_one_valid_one_noise_unresolved` | none | none | `unresolved` | no | alternatives cannot split rare bodies individually | 1060 |
+| `rare_count_two_noise_unresolved` | none | none | `unresolved` | no | rare count two remains outside support guard | 947 |
+
+Summary: 10/10 body protocol cases passed.
+
+`ALG-0030` composition results:
+
+| Case | Expected product | Selected product | Status | Final result | Naive product total |
+|---|---|---|---|---|---:|
+| `keep_all_unbounded_joint` | keep-all + unbounded | keep-all + unbounded | `selected` | 1/1 positive, 1/1 negative rejected | 942 |
+| `keep_all_at_most_once_joint` | keep-all + at-most-once | keep-all + at-most-once | `selected` | 0/0 positives, 2/2 negatives rejected | 959 |
+| `filter_unbounded_joint` | support-guard + unbounded | support-guard + unbounded | `selected` | 1/1 positive, 1/1 negative rejected | 948 |
+| `filter_at_most_once_joint` | support-guard + at-most-once | support-guard + at-most-once | `selected` | 0/0 positives, 2/2 negatives rejected | 962 |
+| `body_selected_count_unresolved` | support-guard + none | support-guard + none | `count_unresolved` | not selection-quality | 934 |
+| `count_selected_body_unresolved` | none + none | none + none | `body_unresolved` | not selection-quality | 897 |
+
+Summary: 6/6 composition protocol cases passed.
+
+Regression checks:
+
+- `ALG-0028` threshold ablation unchanged: keep-all 86/86 train and 0/17 rare-noise rejection; 2:1 71/86 train, 0/10 valid rare, 15/17 rare-noise rejection; 3:1 77/86, 3/10, 10/17; 4:1 79/86, 5/10, 8/17; 5:1 83/86, 8/10, 4/17.
+- `ALG-0027` split validation protocol remains 9/9 passed.
+- `ALG-0028` body-support tests remain 7/7 expectation-true.
+- `scripts/benchmark.py` completed on all logs in `examples/logs`; no new candidate was wired into the general benchmark because both `ALG-0029` and `ALG-0030` require validation channels.
+
+Failures / anomalies:
+
+- The first local run of `alg0029_validation_protocol_tests.py` failed two leakage expectations because final negatives reused validation negatives; the cases were corrected to use distinct final probes and rerun successfully.
+- `ALG-0029` remains unable to resolve a mixed two-rare-body case where one rare body is valid and one is noise because the current alternatives either keep or filter rare bodies as a group.
+- `ALG-0029` remains unable to filter rare bodies with count two because `ALG-0028` only filters `rare_body_count=1` by default.
+- `ALG-0030` validates a product protocol but not a training-log-only discovery claim.
+- Product operation counts are naive upper bounds; shared discovery accounting is still unresolved.
+- No property dossier was created because no candidate is `super-promising`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Keep `ALG-0029` at `smoke-tested`: split final tests now pass, but validation cost remains a proxy and unresolved rare-count-two / mixed rare-body cases block promotion.
+- Add `ALG-0030` as `smoke-tested`: the product protocol works on four joint quadrants and one-axis-unresolved controls, but needs broader stress and better operation accounting before promotion.
+- Do not promote any candidate to `super-promising`.
+
+Next action: stress `ALG-0030` on length-2 and mixed-width product quadrants, duplicate-label blocked cases, and rare-count-two body policy alternatives; then refine selector operation accounting to share upstream discovery work across body/count axes.

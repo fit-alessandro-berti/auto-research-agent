@@ -1,0 +1,1575 @@
+{
+  "cases": {
+    "leakage_guard_reports_validation_final_overlap": {
+      "description": "Protocol guard must flag reused validation positives in the final-test split.",
+      "expected_leakage": true,
+      "expected_policy": "unbounded_repeat",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 1
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "has_leakage": true,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 354,
+        "direct_follows_count": 3,
+        "event_count": 6,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "leakage": {
+        "train_final_overlap": [],
+        "train_validation_overlap": [],
+        "validation_final_overlap": [
+          [
+            "A",
+            "B",
+            "A",
+            "B",
+            "A",
+            "C"
+          ]
+        ]
+      },
+      "leakage_ok": true,
+      "operation_counts": {
+        "comparison": 83,
+        "construct": 27,
+        "dict_increment": 9,
+        "relation_classification": 15,
+        "scan_event": 21,
+        "selector_total": 19,
+        "set_insert": 18,
+        "set_lookup": 21,
+        "total": 194,
+        "total_with_selector": 213,
+        "total_with_selector_and_validation_proxy": 235,
+        "validation_replay_proxy_total": 22
+      },
+      "policy_final_evaluations": [
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          },
+          "policy": "unbounded_repeat",
+          "total_with_discovery_ops": 194
+        },
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "final_positive_replay": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "policy": "at_most_once",
+          "total_with_discovery_ops": 216
+        }
+      ],
+      "protocol_pass": true,
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            1,
+            0
+          ],
+          "total_with_discovery_ops": 216,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 194,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_policy": "unbounded_repeat",
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 9,
+        "construct": 4,
+        "total": 19
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 4,
+        "scan_event": 18,
+        "total": 22
+      }
+    },
+    "length2_unbounded_final_generalization": {
+      "description": "Validation selects unbounded repeat for length-2 bodies; final probes reverse the repeated body order.",
+      "expected_leakage": false,
+      "expected_policy": "unbounded_repeat",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "has_leakage": false,
+      "input_stats": {
+        "activity_count": 6,
+        "deep_soft_budget": 814,
+        "direct_follows_count": 7,
+        "event_count": 12,
+        "max_trace_length": 5,
+        "trace_count": 3
+      },
+      "leakage": {
+        "train_final_overlap": [],
+        "train_validation_overlap": [],
+        "validation_final_overlap": []
+      },
+      "leakage_ok": true,
+      "operation_counts": {
+        "comparison": 168,
+        "construct": 36,
+        "dict_increment": 17,
+        "relation_classification": 41,
+        "scan_event": 32,
+        "selector_total": 20,
+        "set_insert": 29,
+        "set_lookup": 78,
+        "total": 401,
+        "total_with_selector": 421,
+        "total_with_selector_and_validation_proxy": 457,
+        "validation_replay_proxy_total": 36
+      },
+      "policy_final_evaluations": [
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          },
+          "policy": "unbounded_repeat",
+          "total_with_discovery_ops": 401
+        },
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "final_positive_replay": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 4,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "D",
+                  "E",
+                  "A",
+                  "B",
+                  "C",
+                  "A",
+                  "F"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "policy": "at_most_once",
+          "total_with_discovery_ops": 434
+        }
+      ],
+      "protocol_pass": true,
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 434,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "D",
+                "candidate_transitions": [
+                  "t_D"
+                ],
+                "event_index": 4,
+                "missing_input_places_by_transition": {
+                  "t_D": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "C",
+                  "A",
+                  "D",
+                  "E",
+                  "A",
+                  "F"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            3,
+            0
+          ],
+          "total_with_discovery_ops": 401,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_policy": "unbounded_repeat",
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 10,
+        "construct": 4,
+        "total": 20
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 6,
+        "scan_event": 30,
+        "total": 36
+      }
+    },
+    "mixed_width_bounded_final_precision": {
+      "description": "Validation selects at-most-once for mixed singleton/length-2 bodies.",
+      "expected_leakage": false,
+      "expected_policy": "at_most_once",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "has_leakage": false,
+      "input_stats": {
+        "activity_count": 5,
+        "deep_soft_budget": 656,
+        "direct_follows_count": 6,
+        "event_count": 11,
+        "max_trace_length": 5,
+        "trace_count": 3
+      },
+      "leakage": {
+        "train_final_overlap": [],
+        "train_validation_overlap": [],
+        "validation_final_overlap": []
+      },
+      "leakage_ok": true,
+      "operation_counts": {
+        "comparison": 135,
+        "construct": 32,
+        "dict_increment": 16,
+        "relation_classification": 30,
+        "scan_event": 29,
+        "selector_total": 19,
+        "set_insert": 25,
+        "set_lookup": 55,
+        "total": 322,
+        "total_with_selector": 341,
+        "total_with_selector_and_validation_proxy": 365,
+        "validation_replay_proxy_total": 24
+      },
+      "policy_final_evaluations": [
+        {
+          "final_negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "D",
+                  "A",
+                  "B",
+                  "A",
+                  "F"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "F"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 0
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "policy": "unbounded_repeat",
+          "total_with_discovery_ops": 322
+        },
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "policy": "at_most_once",
+          "total_with_discovery_ops": 351
+        }
+      ],
+      "protocol_pass": true,
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            0,
+            1,
+            -1
+          ],
+          "total_with_discovery_ops": 322,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C",
+                  "D",
+                  "A",
+                  "F"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.5,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "policy": "at_most_once",
+          "score": [
+            1,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 351,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        }
+      ],
+      "selected_policy": "at_most_once",
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 9,
+        "construct": 4,
+        "total": 19
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 4,
+        "scan_event": 20,
+        "total": 24
+      }
+    },
+    "multi_body_bounded_final_precision": {
+      "description": "Validation selects at-most-once; final probes check different repeated body combinations.",
+      "expected_leakage": false,
+      "expected_policy": "at_most_once",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "has_leakage": false,
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 522,
+        "direct_follows_count": 5,
+        "event_count": 10,
+        "max_trace_length": 4,
+        "trace_count": 3
+      },
+      "leakage": {
+        "train_final_overlap": [],
+        "train_validation_overlap": [],
+        "validation_final_overlap": []
+      },
+      "leakage_ok": true,
+      "operation_counts": {
+        "comparison": 108,
+        "construct": 28,
+        "dict_increment": 15,
+        "relation_classification": 21,
+        "scan_event": 27,
+        "selector_total": 19,
+        "set_insert": 21,
+        "set_lookup": 38,
+        "total": 258,
+        "total_with_selector": 277,
+        "total_with_selector_and_validation_proxy": 299,
+        "validation_replay_proxy_total": 22
+      },
+      "policy_final_evaluations": [
+        {
+          "final_negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 0
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "policy": "unbounded_repeat",
+          "total_with_discovery_ops": 258
+        },
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "policy": "at_most_once",
+          "total_with_discovery_ops": 283
+        }
+      ],
+      "protocol_pass": true,
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            0,
+            1,
+            -1
+          ],
+          "total_with_discovery_ops": 258,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.5,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "policy": "at_most_once",
+          "score": [
+            1,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 283,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        }
+      ],
+      "selected_policy": "at_most_once",
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 9,
+        "construct": 4,
+        "total": 19
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 4,
+        "scan_event": 18,
+        "total": 22
+      }
+    },
+    "multi_body_unbounded_final_generalization": {
+      "description": "Validation selects unbounded repeat; final probes require unseen repeated body combinations.",
+      "expected_leakage": false,
+      "expected_policy": "unbounded_repeat",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 2,
+        "trace_count": 2
+      },
+      "has_leakage": false,
+      "input_stats": {
+        "activity_count": 4,
+        "deep_soft_budget": 522,
+        "direct_follows_count": 5,
+        "event_count": 10,
+        "max_trace_length": 4,
+        "trace_count": 3
+      },
+      "leakage": {
+        "train_final_overlap": [],
+        "train_validation_overlap": [],
+        "validation_final_overlap": []
+      },
+      "leakage_ok": true,
+      "operation_counts": {
+        "comparison": 108,
+        "construct": 28,
+        "dict_increment": 15,
+        "relation_classification": 21,
+        "scan_event": 27,
+        "selector_total": 20,
+        "set_insert": 21,
+        "set_lookup": 38,
+        "total": 258,
+        "total_with_selector": 278,
+        "total_with_selector_and_validation_proxy": 308,
+        "validation_replay_proxy_total": 30
+      },
+      "policy_final_evaluations": [
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 2,
+            "trace_count": 2
+          },
+          "policy": "unbounded_repeat",
+          "total_with_discovery_ops": 258
+        },
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "final_positive_replay": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 2
+          },
+          "policy": "at_most_once",
+          "total_with_discovery_ops": 283
+        }
+      ],
+      "protocol_pass": true,
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 283,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "C",
+                "candidate_transitions": [
+                  "t_C"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C",
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            3,
+            0
+          ],
+          "total_with_discovery_ops": 258,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_policy": "unbounded_repeat",
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 10,
+        "construct": 4,
+        "total": 20
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 6,
+        "scan_event": 24,
+        "total": 30
+      }
+    },
+    "no_discriminator_remains_unresolved": {
+      "description": "Validation negatives are structural invalid traces both policies reject, so final probes must not be used to select.",
+      "expected_leakage": false,
+      "expected_policy": null,
+      "expected_status": "unresolved",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 1
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "has_leakage": false,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 354,
+        "direct_follows_count": 3,
+        "event_count": 6,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "leakage": {
+        "train_final_overlap": [],
+        "train_validation_overlap": [],
+        "validation_final_overlap": []
+      },
+      "leakage_ok": true,
+      "operation_counts": {
+        "comparison": 83,
+        "construct": 27,
+        "dict_increment": 9,
+        "relation_classification": 15,
+        "scan_event": 21,
+        "selector_total": 19,
+        "set_insert": 18,
+        "set_lookup": 21,
+        "total": 194,
+        "total_with_selector": 213,
+        "total_with_selector_and_validation_proxy": 229,
+        "validation_replay_proxy_total": 16
+      },
+      "policy_final_evaluations": [
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          },
+          "policy": "unbounded_repeat",
+          "total_with_discovery_ops": 194
+        },
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 1,
+            "rejected_negative_traces": 1
+          },
+          "final_positive_replay": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "policy": "at_most_once",
+          "total_with_discovery_ops": 216
+        }
+      ],
+      "protocol_pass": true,
+      "reason": "tie_or_conflicting_validation_evidence",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            1,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 216,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 194,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        }
+      ],
+      "selected_policy": null,
+      "selection_ok": true,
+      "selection_status": "unresolved",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 9,
+        "construct": 4,
+        "total": 19
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 4,
+        "scan_event": 12,
+        "total": 16
+      }
+    },
+    "optional_skip_no_policy_set_final_control": {
+      "description": "Optional-skip evidence should not become a loop-count decision under validation/final probes.",
+      "expected_leakage": false,
+      "expected_policy": null,
+      "expected_status": "no_policy_set",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 1,
+        "rejected_negative_traces": 1
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "has_leakage": false,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 386,
+        "direct_follows_count": 3,
+        "event_count": 8,
+        "max_trace_length": 3,
+        "trace_count": 3
+      },
+      "leakage": {
+        "train_final_overlap": [],
+        "train_validation_overlap": [],
+        "validation_final_overlap": []
+      },
+      "leakage_ok": true,
+      "operation_counts": {
+        "comparison": 96,
+        "construct": 30,
+        "dict_increment": 11,
+        "relation_classification": 16,
+        "scan_event": 24,
+        "selector_total": 2,
+        "set_insert": 13,
+        "set_lookup": 21,
+        "total": 211,
+        "total_with_selector": 213,
+        "total_with_selector_and_validation_proxy": 213,
+        "validation_replay_proxy_total": 0
+      },
+      "policy_final_evaluations": [],
+      "protocol_pass": true,
+      "reason": "no_bounded_count_ambiguous_loop_evidence",
+      "scores": [],
+      "selected_policy": null,
+      "selection_ok": true,
+      "selection_status": "no_policy_set",
+      "selector_operation_counts": {
+        "comparison": 2,
+        "total": 2
+      },
+      "validation_replay_proxy_counts": {
+        "total": 0
+      }
+    },
+    "single_bounded_final_precision": {
+      "description": "Validation selects at-most-once; final probes check different repeated singleton-loop negatives.",
+      "expected_leakage": false,
+      "expected_policy": "at_most_once",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 0,
+        "trace_count": 0
+      },
+      "has_leakage": false,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 354,
+        "direct_follows_count": 3,
+        "event_count": 6,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "leakage": {
+        "train_final_overlap": [],
+        "train_validation_overlap": [],
+        "validation_final_overlap": []
+      },
+      "leakage_ok": true,
+      "operation_counts": {
+        "comparison": 83,
+        "construct": 27,
+        "dict_increment": 9,
+        "relation_classification": 15,
+        "scan_event": 21,
+        "selector_total": 19,
+        "set_insert": 18,
+        "set_lookup": 21,
+        "total": 194,
+        "total_with_selector": 213,
+        "total_with_selector_and_validation_proxy": 235,
+        "validation_replay_proxy_total": 22
+      },
+      "policy_final_evaluations": [
+        {
+          "final_negative_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.5,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 1
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "policy": "unbounded_repeat",
+          "total_with_discovery_ops": 194
+        },
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          },
+          "policy": "at_most_once",
+          "total_with_discovery_ops": 216
+        }
+      ],
+      "protocol_pass": true,
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            0,
+            1,
+            -1
+          ],
+          "total_with_discovery_ops": 194,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 1,
+            "negative_rejection_rate": 0.5,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 1
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        },
+        {
+          "policy": "at_most_once",
+          "score": [
+            1,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 216,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 0,
+            "trace_count": 0
+          }
+        }
+      ],
+      "selected_policy": "at_most_once",
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 9,
+        "construct": 4,
+        "total": 19
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 4,
+        "scan_event": 18,
+        "total": 22
+      }
+    },
+    "single_unbounded_final_generalization": {
+      "description": "Validation selects unbounded repeat; final probes require a third singleton-loop iteration.",
+      "expected_leakage": false,
+      "expected_policy": "unbounded_repeat",
+      "expected_status": "selected",
+      "final_negative_probe": {
+        "accepted_examples": [],
+        "accepted_negative_traces": 0,
+        "negative_rejection_rate": 1.0,
+        "negative_trace_count": 2,
+        "rejected_negative_traces": 2
+      },
+      "final_ok": true,
+      "final_positive_replay": {
+        "failed_examples": [],
+        "replayed_traces": 1,
+        "trace_count": 1
+      },
+      "has_leakage": false,
+      "input_stats": {
+        "activity_count": 3,
+        "deep_soft_budget": 354,
+        "direct_follows_count": 3,
+        "event_count": 6,
+        "max_trace_length": 4,
+        "trace_count": 2
+      },
+      "leakage": {
+        "train_final_overlap": [],
+        "train_validation_overlap": [],
+        "validation_final_overlap": []
+      },
+      "leakage_ok": true,
+      "operation_counts": {
+        "comparison": 83,
+        "construct": 27,
+        "dict_increment": 9,
+        "relation_classification": 15,
+        "scan_event": 21,
+        "selector_total": 20,
+        "set_insert": 18,
+        "set_lookup": 21,
+        "total": 194,
+        "total_with_selector": 214,
+        "total_with_selector_and_validation_proxy": 244,
+        "validation_replay_proxy_total": 30
+      },
+      "policy_final_evaluations": [
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "final_positive_replay": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          },
+          "policy": "unbounded_repeat",
+          "total_with_discovery_ops": 194
+        },
+        {
+          "final_negative_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "final_positive_replay": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          },
+          "policy": "at_most_once",
+          "total_with_discovery_ops": 216
+        }
+      ],
+      "protocol_pass": true,
+      "reason": "unique_policy_satisfies_validation_probes",
+      "scores": [
+        {
+          "policy": "at_most_once",
+          "score": [
+            0,
+            2,
+            0
+          ],
+          "total_with_discovery_ops": 216,
+          "validates_all": false,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [
+              {
+                "activity": "B",
+                "candidate_transitions": [
+                  "t_B"
+                ],
+                "event_index": 3,
+                "missing_input_places_by_transition": {
+                  "t_B": [
+                    "p_loop_policy_after_entry"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replayed_traces": 0,
+            "trace_count": 1
+          }
+        },
+        {
+          "policy": "unbounded_repeat",
+          "score": [
+            1,
+            3,
+            0
+          ],
+          "total_with_discovery_ops": 194,
+          "validates_all": true,
+          "validation_negative": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 2,
+            "rejected_negative_traces": 2
+          },
+          "validation_positive": {
+            "failed_examples": [],
+            "replayed_traces": 1,
+            "trace_count": 1
+          }
+        }
+      ],
+      "selected_policy": "unbounded_repeat",
+      "selection_ok": true,
+      "selection_status": "selected",
+      "selector_operation_counts": {
+        "arithmetic": 6,
+        "comparison": 10,
+        "construct": 4,
+        "total": 20
+      },
+      "validation_replay_proxy_counts": {
+        "comparison": 6,
+        "scan_event": 24,
+        "total": 30
+      }
+    }
+  },
+  "summary": {
+    "case_count": 9,
+    "failed": [],
+    "passed": 9
+  }
+}

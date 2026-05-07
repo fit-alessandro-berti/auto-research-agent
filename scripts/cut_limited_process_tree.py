@@ -11,7 +11,16 @@ from collections import Counter
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
 from alpha_lite import classify_relations, summarize_log
-from limited_ops import OpCounter, comparison, construct, relation_classification, scan_event, set_insert, set_lookup
+from limited_ops import (
+    OpCounter,
+    comparison,
+    construct,
+    dict_increment,
+    relation_classification,
+    scan_event,
+    set_insert,
+    set_lookup,
+)
 from pn_ir import PMIR, PetriNet, pair_key, place_name, transition_name
 
 
@@ -346,6 +355,162 @@ def _detect_optional_sequence(log: TraceLog, counter: OpCounter) -> Optional[Dic
     }
 
 
+def _detect_single_rework_loop(log: TraceLog, counter: OpCounter) -> Optional[Dict[str, object]]:
+    relation_classification(counter)
+    if not log:
+        return None
+    candidates = sorted((list(trace) for trace in log), key=lambda trace: (-len(trace), tuple(trace)))
+    for candidate in candidates:
+        comparison(counter)
+        if len(candidate) < 4:
+            continue
+        positions_by_label: Dict[str, List[int]] = {}
+        for index, activity in enumerate(candidate):
+            scan_event(counter)
+            positions_by_label.setdefault(activity, []).append(index)
+            set_insert(counter)
+        for anchor in sorted(positions_by_label):
+            positions = positions_by_label[anchor]
+            comparison(counter)
+            if len(positions) != 2:
+                continue
+            left, right = positions
+            body = candidate[left + 1 : right]
+            suffix = candidate[right + 1 :]
+            comparison(counter, 3)
+            if len(body) != 1 or not suffix:
+                continue
+            prefix = candidate[:left]
+            repeated_labels = [activity for activity, locs in positions_by_label.items() if len(locs) > 1]
+            comparison(counter)
+            if repeated_labels != [anchor]:
+                continue
+            zero_iteration = prefix + [anchor] + suffix
+            one_iteration = prefix + [anchor] + body + [anchor] + suffix
+            construct(counter, 2)
+            has_zero = False
+            has_one = False
+            accepted = True
+            for trace in log:
+                comparison(counter, 2)
+                if trace == zero_iteration:
+                    has_zero = True
+                elif trace == one_iteration:
+                    has_one = True
+                else:
+                    accepted = False
+                    break
+            comparison(counter, 3)
+            if not accepted or not has_zero or not has_one:
+                continue
+            full_labels = list(prefix) + [anchor] + list(body) + list(suffix)
+            if _has_duplicate_labels(full_labels, counter):
+                continue
+            return {
+                "type": "single_rework_loop",
+                "loop_repetition_policy": "unbounded_repeat",
+                "bounded_count_ambiguous": True,
+                "prefix": prefix,
+                "anchor": anchor,
+                "body": body,
+                "suffix": suffix,
+                "zero_iteration": zero_iteration,
+                "one_iteration": one_iteration,
+            }
+    return None
+
+
+def _detect_multi_body_rework_loop(
+    log: TraceLog,
+    counter: OpCounter,
+    max_body_length: int = 1,
+) -> Optional[Dict[str, object]]:
+    relation_classification(counter)
+    if not log:
+        return None
+    candidates = sorted((list(trace) for trace in log), key=lambda trace: (-len(trace), tuple(trace)))
+    for candidate in candidates:
+        comparison(counter)
+        if len(candidate) < 4:
+            continue
+        positions_by_label: Dict[str, List[int]] = {}
+        for index, activity in enumerate(candidate):
+            scan_event(counter)
+            positions_by_label.setdefault(activity, []).append(index)
+            set_insert(counter)
+        for anchor in sorted(positions_by_label):
+            positions = positions_by_label[anchor]
+            comparison(counter)
+            if len(positions) != 2:
+                continue
+            left, right = positions
+            body = candidate[left + 1 : right]
+            suffix = candidate[right + 1 :]
+            comparison(counter, 3)
+            if len(body) < 1 or len(body) > max_body_length or not suffix:
+                continue
+            prefix = candidate[:left]
+            repeated_labels = [activity for activity, locs in positions_by_label.items() if len(locs) > 1]
+            comparison(counter)
+            if repeated_labels != [anchor]:
+                continue
+            zero_iteration = prefix + [anchor] + suffix
+            construct(counter)
+            has_zero = False
+            accepted = True
+            body_counts: Counter[Tuple[str, ...]] = Counter()
+            for trace in log:
+                comparison(counter)
+                if trace == zero_iteration:
+                    has_zero = True
+                    continue
+                comparison(counter, 4)
+                if (
+                    len(trace) < len(prefix) + len(suffix) + 3
+                    or len(trace) > len(prefix) + len(suffix) + max_body_length + 2
+                    or trace[: len(prefix)] != prefix
+                    or trace[len(prefix)] != anchor
+                    or trace[-len(suffix) :] != suffix
+                    or trace[-len(suffix) - 1] != anchor
+                ):
+                    accepted = False
+                    break
+                candidate_body = tuple(trace[len(prefix) + 1 : -len(suffix) - 1])
+                comparison(counter, 2)
+                if (
+                    len(candidate_body) < 1
+                    or len(candidate_body) > max_body_length
+                    or anchor in candidate_body
+                    or len(set(candidate_body)) != len(candidate_body)
+                ):
+                    accepted = False
+                    break
+                body_counts[candidate_body] += 1
+                dict_increment(counter)
+            comparison(counter, 3)
+            if not accepted or not has_zero or len(body_counts) < 2:
+                continue
+            bodies = [list(body_tuple) for body_tuple in sorted(body_counts)]
+            body_labels = [activity for body_tuple in sorted(body_counts) for activity in body_tuple]
+            full_labels = list(prefix) + [anchor] + body_labels + list(suffix)
+            if _has_duplicate_labels(full_labels, counter):
+                continue
+            return {
+                "type": "multi_body_rework_loop",
+                "loop_repetition_policy": "unbounded_repeat",
+                "bounded_count_ambiguous": True,
+                "max_body_length": max_body_length,
+                "prefix": prefix,
+                "anchor": anchor,
+                "bodies": bodies,
+                "body_support": {" ".join(body_tuple): count for body_tuple, count in sorted(body_counts.items())},
+                "suffix": suffix,
+                "zero_iteration": zero_iteration,
+                "observed_max_iterations": 1,
+            }
+    return None
+
+
 def _compile_xor(net: PetriNet, prefix: Sequence[str], alternatives: Sequence[str], suffix: Sequence[str], counter: OpCounter) -> None:
     if prefix:
         net.add_arc("p_start", transition_name(prefix[0]))
@@ -520,6 +685,147 @@ def _compile_optional_sequence(
         construct(counter, 3)
 
 
+def _normal_transition(activity: str) -> str:
+    return transition_name(activity)
+
+
+def _loop_entry_transition(anchor: str) -> str:
+    return f"t_loop_entry_{_safe_name(anchor)}"
+
+
+def _loop_repeat_transition(anchor: str) -> str:
+    return f"t_loop_repeat_{_safe_name(anchor)}"
+
+
+def _add_loop_labeled_transitions(net: PetriNet, activities: Sequence[str], anchor: str, counter: OpCounter) -> None:
+    for activity in sorted(activities):
+        if activity == anchor:
+            continue
+        net.add_transition(_normal_transition(activity))
+        construct(counter)
+    entry = _loop_entry_transition(anchor)
+    repeat = _loop_repeat_transition(anchor)
+    net.add_transition(entry)
+    net.add_transition(repeat)
+    net.transition_labels[entry] = anchor
+    net.transition_labels[repeat] = anchor
+    construct(counter, 4)
+
+
+def _wire_transition_sequence(
+    net: PetriNet,
+    start_place: str,
+    transitions: Sequence[str],
+    end_place: str,
+    counter: OpCounter,
+) -> None:
+    if not transitions:
+        return
+    net.add_arc(start_place, transitions[0])
+    construct(counter)
+    for left, right in zip(transitions, transitions[1:]):
+        place = place_name("pt_loop_seq", [left], [right])
+        net.add_place(place)
+        net.add_arc(left, place)
+        net.add_arc(place, right)
+        construct(counter, 3)
+    net.add_arc(transitions[-1], end_place)
+    construct(counter)
+
+
+def _compile_single_rework_loop(
+    activities: Sequence[str],
+    prefix: Sequence[str],
+    anchor: str,
+    body: Sequence[str],
+    suffix: Sequence[str],
+    counter: OpCounter,
+) -> PetriNet:
+    net = PetriNet()
+    net.add_place("p_start")
+    net.add_place("p_end")
+    net.initial_marking = {"p_start": 1}
+    net.final_marking = {"p_end": 1}
+    construct(counter, 2)
+    _add_loop_labeled_transitions(net, activities, anchor, counter)
+
+    entry = _loop_entry_transition(anchor)
+    repeat = _loop_repeat_transition(anchor)
+    after_anchor = "p_loop_after_anchor"
+    before_repeat = "p_loop_before_repeat"
+    net.add_place(after_anchor)
+    net.add_place(before_repeat)
+    construct(counter, 2)
+
+    prefix_transitions = [_normal_transition(activity) for activity in prefix]
+    entry_place = "p_start"
+    if prefix_transitions:
+        entry_place = "p_loop_before_entry"
+        net.add_place(entry_place)
+        construct(counter)
+        _wire_transition_sequence(net, "p_start", prefix_transitions, entry_place, counter)
+    net.add_arc(entry_place, entry)
+    net.add_arc(entry, after_anchor)
+    construct(counter, 2)
+
+    body_transitions = [_normal_transition(activity) for activity in body]
+    _wire_transition_sequence(net, after_anchor, body_transitions, before_repeat, counter)
+    net.add_arc(before_repeat, repeat)
+    net.add_arc(repeat, after_anchor)
+    construct(counter, 2)
+
+    suffix_transitions = [_normal_transition(activity) for activity in suffix]
+    _wire_transition_sequence(net, after_anchor, suffix_transitions, "p_end", counter)
+    return net
+
+
+def _compile_multi_body_rework_loop(
+    activities: Sequence[str],
+    prefix: Sequence[str],
+    anchor: str,
+    bodies: Sequence[Sequence[str]],
+    suffix: Sequence[str],
+    counter: OpCounter,
+) -> PetriNet:
+    net = PetriNet()
+    net.add_place("p_start")
+    net.add_place("p_end")
+    net.initial_marking = {"p_start": 1}
+    net.final_marking = {"p_end": 1}
+    construct(counter, 2)
+    _add_loop_labeled_transitions(net, activities, anchor, counter)
+
+    entry = _loop_entry_transition(anchor)
+    repeat = _loop_repeat_transition(anchor)
+    after_anchor = "p_loop_after_anchor"
+    before_repeat = "p_loop_before_repeat"
+    net.add_place(after_anchor)
+    net.add_place(before_repeat)
+    construct(counter, 2)
+
+    prefix_transitions = [_normal_transition(activity) for activity in prefix]
+    entry_place = "p_start"
+    if prefix_transitions:
+        entry_place = "p_loop_before_entry"
+        net.add_place(entry_place)
+        construct(counter)
+        _wire_transition_sequence(net, "p_start", prefix_transitions, entry_place, counter)
+    net.add_arc(entry_place, entry)
+    net.add_arc(entry, after_anchor)
+    construct(counter, 2)
+
+    for body in bodies:
+        body_transitions = [_normal_transition(activity) for activity in body]
+        _wire_transition_sequence(net, after_anchor, body_transitions, before_repeat, counter)
+    net.add_arc(before_repeat, repeat)
+    net.add_arc(repeat, after_anchor)
+    construct(counter, 2)
+
+    suffix_transitions = [_normal_transition(activity) for activity in suffix]
+    _wire_transition_sequence(net, after_anchor, suffix_transitions, "p_end", counter)
+    return net
+
+
 def _compile_fallback(
     net: PetriNet,
     starts: Counter,
@@ -544,6 +850,9 @@ def _select_cut(
     log: TraceLog,
     counter: OpCounter,
     enable_parallel_optional: bool = True,
+    enable_short_loop: bool = False,
+    enable_multi_body_loop: bool = False,
+    multi_body_loop_max_body_length: int = 1,
 ) -> Tuple[str, Dict[str, object], List[Dict[str, str]]]:
     attempts: List[Dict[str, str]] = []
     detectors = [
@@ -553,6 +862,17 @@ def _select_cut(
     ]
     if enable_parallel_optional:
         detectors.append(("parallel_optional_sequence", _detect_parallel_optional_sequence))
+    if enable_multi_body_loop:
+        detectors.append((
+            "multi_body_rework_loop",
+            lambda candidate_log, candidate_counter: _detect_multi_body_rework_loop(
+                candidate_log,
+                candidate_counter,
+                max_body_length=multi_body_loop_max_body_length,
+            ),
+        ))
+    if enable_short_loop:
+        detectors.append(("single_rework_loop", _detect_single_rework_loop))
     detectors.append(("optional_sequence", _detect_optional_sequence))
 
     for cut_name, detector in detectors:
@@ -565,13 +885,48 @@ def _select_cut(
     return "fallback_dfg", fallback, attempts
 
 
-def discover(log: TraceLog, enable_parallel_optional: bool = True) -> Dict[str, object]:
+def discover(
+    log: TraceLog,
+    enable_parallel_optional: bool = True,
+    enable_short_loop: bool = False,
+    enable_multi_body_loop: bool = False,
+    multi_body_loop_max_body_length: int = 1,
+    candidate_id_override: Optional[str] = None,
+    name_override: Optional[str] = None,
+) -> Dict[str, object]:
     counter = OpCounter()
     activities, starts, ends, dfg = summarize_log(log, counter)
     rel = classify_relations(activities, dfg, counter)
-    cut_name, process_tree, cut_attempts = _select_cut(log, counter, enable_parallel_optional)
+    cut_name, process_tree, cut_attempts = _select_cut(
+        log,
+        counter,
+        enable_parallel_optional,
+        enable_short_loop=enable_short_loop,
+        enable_multi_body_loop=enable_multi_body_loop,
+        multi_body_loop_max_body_length=multi_body_loop_max_body_length,
+    )
 
-    net = _add_base_net(activities, counter)
+    if cut_name == "single_rework_loop":
+        net = _compile_single_rework_loop(
+            activities,
+            process_tree["prefix"],  # type: ignore[arg-type]
+            process_tree["anchor"],  # type: ignore[arg-type]
+            process_tree["body"],  # type: ignore[arg-type]
+            process_tree["suffix"],  # type: ignore[arg-type]
+            counter,
+        )
+    elif cut_name == "multi_body_rework_loop":
+        net = _compile_multi_body_rework_loop(
+            activities,
+            process_tree["prefix"],  # type: ignore[arg-type]
+            process_tree["anchor"],  # type: ignore[arg-type]
+            process_tree["bodies"],  # type: ignore[arg-type]
+            process_tree["suffix"],  # type: ignore[arg-type]
+            counter,
+        )
+    else:
+        net = _add_base_net(activities, counter)
+
     if cut_name == "sequence":
         _wire_chain(net, process_tree["sequence"], counter)  # type: ignore[arg-type]
     elif cut_name == "xor":
@@ -606,11 +961,20 @@ def discover(log: TraceLog, enable_parallel_optional: bool = True) -> Dict[str, 
             process_tree["skip_index_edges"],  # type: ignore[arg-type]
             counter,
         )
+    elif cut_name == "single_rework_loop":
+        pass
+    elif cut_name == "multi_body_rework_loop":
+        pass
     else:
         process_tree = _compile_fallback(net, starts, ends, dfg, counter)
 
     evidence = {
-        "configuration": {"enable_parallel_optional": enable_parallel_optional},
+        "configuration": {
+            "enable_parallel_optional": enable_parallel_optional,
+            "enable_short_loop": enable_short_loop,
+            "enable_multi_body_loop": enable_multi_body_loop,
+            "multi_body_loop_max_body_length": multi_body_loop_max_body_length,
+        },
         "selected_cut": cut_name,
         "cut_attempts": cut_attempts,
         "process_tree": process_tree,
@@ -625,8 +989,8 @@ def discover(log: TraceLog, enable_parallel_optional: bool = True) -> Dict[str, 
         operation_counts=counter.to_dict(),
     )
     return {
-        "candidate_id": "ALG-0003",
-        "name": "Cut-Limited Process Tree Miner",
+        "candidate_id": candidate_id_override or "ALG-0003",
+        "name": name_override or "Cut-Limited Process Tree Miner",
         "pmir": pmir.to_dict(),
         "petri_net": net.to_dict(),
         "structural_summary": net.structural_summary(),
