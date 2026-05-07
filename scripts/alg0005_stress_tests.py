@@ -87,6 +87,7 @@ def candidate_functions() -> Dict[str, DiscoverFn]:
     return {
         "cut_limited_process_tree": importlib.import_module("cut_limited_process_tree").discover,
         "prefix_automaton_compression": importlib.import_module("prefix_automaton_compression").discover,
+        "prefix_block_abstraction": importlib.import_module("prefix_block_abstraction").discover,
         "pmir_guarded_split_join": importlib.import_module("pmir_guarded_split_join").discover,
         "pmir_conflict_aware_optional": importlib.import_module("pmir_conflict_aware_optional").discover,
     }
@@ -139,7 +140,7 @@ def evaluate_candidate(discover: DiscoverFn, train: TraceLog, heldout: TraceLog,
             "merge_group_count": len(evidence.get("state_merges", {})) if isinstance(evidence.get("state_merges"), dict) else None,
             "variant_count": evidence.get("variant_count"),
         },
-        "selected_cut": evidence.get("selected_cut"),
+        "selected_cut": evidence.get("selected_cut") or evidence.get("selected_grammar"),
     }
 
 
@@ -177,6 +178,7 @@ def main() -> None:
     print(f"wrote {args.out}")
     for case_name, case in results["cases"].items():
         prefix = case["results"]["prefix_automaton_compression"]
+        block = case["results"]["prefix_block_abstraction"]
         tree = case["results"]["cut_limited_process_tree"]
         print(
             f"{case_name}: ALG-0005 ops={prefix['operation_counts']['total']} "
@@ -185,6 +187,11 @@ def main() -> None:
             f"heldout={prefix['heldout_replay']['replayed_traces']}/{prefix['heldout_replay']['trace_count']} "
             f"neg_reject={prefix['negative_probe']['rejected_negative_traces']}/{prefix['negative_probe']['negative_trace_count']} "
             f"states={prefix['compression']['compressed_states']}; "
+            f"ALG-0014 ops={block['operation_counts']['total']} "
+            f"train={block['train_replay']['replayed_traces']}/{block['train_replay']['trace_count']} "
+            f"heldout={block['heldout_replay']['replayed_traces']}/{block['heldout_replay']['trace_count']} "
+            f"neg_reject={block['negative_probe']['rejected_negative_traces']}/{block['negative_probe']['negative_trace_count']} "
+            f"grammar={block['selected_cut']}; "
             f"ALG-0003 heldout={tree['heldout_replay']['replayed_traces']}/{tree['heldout_replay']['trace_count']} "
             f"cut={tree['selected_cut']}"
         )

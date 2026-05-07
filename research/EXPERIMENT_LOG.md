@@ -488,3 +488,350 @@ Decision:
 - No candidate is `super-promising`; no property dossier was created.
 
 Next action: implement an `ALG-0005` abstraction/refinement such as bounded suffix-depth merging or grammar block extraction, or implement `ALG-0004` bounded place-candidate region mining to complete the specified comparator families.
+
+## EXP-0011 — ALG-0004 bounded place-candidate region comparator
+
+Date/time: 2026-05-07T07:58:59+02:00
+Goal: implement the remaining specified region/ILP-inspired comparator without an external solver, then benchmark it against current smoke and synthetic cases
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 -c '...'` diagnostic summaries for `bounded_place_region_miner` smoke and synthetic candidate counts
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/bounded_place_region_miner.py` and wiring `bounded_place_region_miner` into `scripts/benchmark.py` and `scripts/alg0009_deep_tests.py`; no commit recorded
+Candidate IDs: ALG-0001, ALG-0002, ALG-0003, ALG-0004, ALG-0005, ALG-0006, ALG-0009, ALG-0010
+Logs/datasets: toy logs in `examples/logs/*.json`; synthetic cases in `scripts/alg0009_deep_tests.py`
+Metrics: operation counts, replay, negative-trace rejection, structural diagnostics, bounded place-candidate enumeration counts, locally valid candidates, selected candidates
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0004` counts summarization, relation classification, bounded preset/postset enumeration, candidate evidence checks, token-balance checks, greedy nonblocking selection, and Petri-net construction
+Results summary:
+
+Smoke results for `ALG-0004`:
+
+| Log | Ops | Replay | Negative rejection | Enumerated | Valid local | Selected |
+|---|---:|---:|---:|---:|---:|---:|
+| `noise.json` | 1325 | 4/4 | 3/3 | 100 | 4 | 4 |
+| `parallel_ab_cd.json` | 1301 | 4/4 | 3/3 | 100 | 4 | 4 |
+| `sequence.json` | 804 | 3/3 | 3/3 | 100 | 3 | 3 |
+| `short_loop.json` | 316 | 1/3 | 3/3 | 36 | 1 | 1 |
+| `skip.json` | 332 | 4/4 | 1/3 | 36 | 1 | 1 |
+| `xor.json` | 730 | 4/4 | 3/3 | 100 | 2 | 2 |
+
+Synthetic results for `ALG-0004`:
+
+| Synthetic case | Ops | Replay | Negative rejection | Enumerated | Valid local | Selected |
+|---|---:|---:|---:|---:|---:|---:|
+| `duplicate_label_rework` | 316 | 1/3 | 3/3 | 36 | 1 | 1 |
+| `incomplete_parallel_observed_sequence` | 678 | 2/2 | 3/3 | 100 | 3 | 3 |
+| `nested_xor_sequence` | 1350 | 3/3 | 3/3 | 225 | 3 | 3 |
+| `noise_reversal_sequence` | 1325 | 4/4 | 3/3 | 100 | 4 | 4 |
+| `overlapping_optional_skips` | 802 | 4/4 | 0/3 | 100 | 1 | 1 |
+| `parallel_with_optional_branch` | 1604 | 3/3 | 1/3 | 225 | 3 | 3 |
+| `short_loop_required` | 316 | 1/3 | 3/3 | 36 | 1 | 1 |
+
+Comparison notes:
+
+- `ALG-0004` recovers useful visible places for sequence, XOR, parallel, and noise smoke logs, and it keeps positive replay for nested XOR and the current optional-concurrency synthetic case.
+- Its counted operation cost is substantially higher than the local PMIR and block baselines on all smoke logs. For example, `sequence.json` costs 804 operations versus 168 for `ALG-0003`, 190 for `ALG-0009`, and 228 for `ALG-0005`.
+- Optional behavior exposes the current visible-place limitation: `skip.json` replays positives but rejects only 1/3 negative probes, and `overlapping_optional_skips` rejects 0/3.
+- Loop and duplicate-label behavior remain unresolved; both loop-shaped cases replay only 1/3 positives.
+
+Failures / anomalies:
+
+- The prototype is solver-free and bounded to `k <= 2`; this makes enumeration explicit but does not provide the expressive power of full region/ILP mining.
+- Places are currently visible-only. Optional behavior needs silent optional-place patterns or a different compilation layer to avoid overgeneralization.
+- Candidate pruning uses direct-follows evidence, so it can miss valid non-local region constraints.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`; current reproducibility checks are compile plus benchmark scripts.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- `ALG-0004` advances from `specified` to `benchmarked`: it is executable, wired into smoke and synthetic runners, and has measured operation counts and candidate-enumeration evidence.
+- `ALG-0004` is not promoted to `promising` because its cost is high, optional behavior overgeneralizes, and it adds no current quality advantage over `ALG-0003`, `ALG-0005`, `ALG-0009`, or `ALG-0010`.
+- No candidate is `super-promising`; no property dossier was created.
+
+Next action: decide whether to refine `ALG-0004` with bounded silent optional-place patterns or retain it as a negative visible-region comparator, then prioritize an `ALG-0005` abstraction/refinement or broader optional-concurrency tests for `ALG-0003`.
+
+## EXP-0012 — ALG-0011 optional-tau repair for bounded region mining
+
+Date/time: 2026-05-07T08:05:32+02:00
+Goal: test whether a narrow silent optional-skip repair can fix `ALG-0004`'s simple optional-skip overgeneralization without masking the visible-region baseline
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 -c '...'` diagnostic summaries for `region_optional_tau_miner` optional-pattern counts
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/region_optional_tau_miner.py`, wiring it into `scripts/benchmark.py` and `scripts/alg0009_deep_tests.py`, and creating `candidates/ALG-0011-region-optional-tau-repair-miner.md`; no commit recorded
+Candidate IDs: ALG-0001, ALG-0002, ALG-0003, ALG-0004, ALG-0005, ALG-0006, ALG-0009, ALG-0010, ALG-0011
+Logs/datasets: toy logs in `examples/logs/*.json`; synthetic cases in `scripts/alg0009_deep_tests.py`
+Metrics: operation counts, replay, negative-trace rejection, structural diagnostics, visible region candidate counts, accepted optional-pattern counts
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0011` inherits `ALG-0004` bounded region costs and adds counted causal-map construction, non-overlap optional checks, selected-shortcut lookups, and optional tau-fragment construction
+Results summary:
+
+Smoke results for `ALG-0011`:
+
+| Log | Ops | Replay | Negative rejection | Accepted optional patterns |
+|---|---:|---:|---:|---:|
+| `noise.json` | 1365 | 4/4 | 3/3 | 0 |
+| `parallel_ab_cd.json` | 1341 | 4/4 | 3/3 | 0 |
+| `sequence.json` | 842 | 3/3 | 3/3 | 0 |
+| `short_loop.json` | 327 | 1/3 | 3/3 | 0 |
+| `skip.json` | 368 | 4/4 | 3/3 | 1 |
+| `xor.json` | 770 | 4/4 | 3/3 | 0 |
+
+Synthetic results for `ALG-0011`:
+
+| Synthetic case | Ops | Replay | Negative rejection | Accepted optional patterns |
+|---|---:|---:|---:|---:|
+| `duplicate_label_rework` | 327 | 1/3 | 3/3 | 0 |
+| `incomplete_parallel_observed_sequence` | 716 | 2/2 | 3/3 | 0 |
+| `nested_xor_sequence` | 1415 | 3/3 | 3/3 | 0 |
+| `noise_reversal_sequence` | 1365 | 4/4 | 3/3 | 0 |
+| `overlapping_optional_skips` | 858 | 4/4 | 0/3 | 0 |
+| `parallel_with_optional_branch` | 1677 | 3/3 | 1/3 | 0 |
+| `short_loop_required` | 327 | 1/3 | 3/3 | 0 |
+
+Comparison notes:
+
+- Targeted repair succeeded on `skip.json`: `ALG-0004` replayed 4/4 positives but rejected only 1/3 negatives; `ALG-0011` replays 4/4 and rejects 3/3 by accepting optional pattern `A,B,C`.
+- Sequence, XOR, parallel, and noise smoke behavior did not regress. No optional tau patterns were accepted in those logs.
+- The repair is intentionally conservative. In `overlapping_optional_skips`, four optional candidates were considered but rejected by the non-single-context guard; precision remains 0/3 negative rejection, matching `ALG-0004`.
+- Optional behavior mixed with concurrency is still not repaired: `parallel_with_optional_branch` remains 3/3 replay with only 1/3 negative rejection.
+- Operation counts increase modestly over `ALG-0004` because every log pays causal-map and optional-check overhead, while only `skip.json` benefits.
+
+Failures / anomalies:
+
+- `ALG-0011` inherits `ALG-0004` high enumeration costs and does not solve loops or duplicate labels.
+- The non-overlap guard blocks useful overlapping optional-chain patterns by design; this keeps the repair safe but narrow.
+- No ablation beyond the `ALG-0004` parent is implemented yet.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- `ALG-0011` is added and promoted to `promising` for a narrow scope: non-overlapping singleton optional skips certified by selected shortcut places.
+- It is not `deep-testing` because the repair is narrow, high-cost, lacks an internal ablation, and still fails overlapping optional and optional/concurrency precision probes.
+- `ALG-0004` remains `benchmarked` as the visible-place-only negative comparator.
+- No candidate is `super-promising`; no property dossier was created.
+
+Next action: add an `ALG-0011` ablation or broaden optional-pattern tests, then choose between a chain-aware region repair and an `ALG-0005` grammar/block abstraction as the next refinement path.
+
+## EXP-0013 — ALG-0011 optional-pattern ablation and counterexamples
+
+Date/time: 2026-05-07T08:10:31+02:00
+Goal: test whether `ALG-0011`'s silent optional repair is causally responsible for the precision gain, and broaden optional-pattern counterexamples before further promotion
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `enable_optional_repair` to `scripts/region_optional_tau_miner.py` and adding `scripts/alg0011_optional_tests.py`; no commit recorded
+Candidate IDs: ALG-0003, ALG-0004, ALG-0010, ALG-0011 and ablation `region_optional_tau_no_repair`
+Logs/datasets: synthetic optional-pattern cases in `scripts/alg0011_optional_tests.py`: `singleton_optional_skip`, `two_disjoint_optional_skips`, `overlapping_optional_chain`, `optional_inside_parallel`; smoke and broader synthetic artifacts rerun for consistency
+Metrics: operation counts, replay, negative-trace rejection, accepted optional-pattern count, structural diagnostics
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; evaluator replay work is not counted as discovery cost
+Results summary:
+
+Optional-pattern ablation results:
+
+| Case | ALG-0004 replay / neg reject / ops | ALG-0011 no-repair replay / neg reject / ops | ALG-0011 replay / neg reject / ops | Accepted optional patterns |
+|---|---:|---:|---:|---:|
+| `singleton_optional_skip` | 4/4 / 1/3 / 332 | 4/4 / 1/3 / 332 | 4/4 / 3/3 / 368 | 1 |
+| `two_disjoint_optional_skips` | 4/4 / 2/3 / 1382 | 4/4 / 2/3 / 1382 | 4/4 / 3/3 / 1489 | 2 |
+| `overlapping_optional_chain` | 4/4 / 0/3 / 802 | 4/4 / 0/3 / 802 | 4/4 / 0/3 / 858 | 0 |
+| `optional_inside_parallel` | 3/3 / 1/3 / 1604 | 3/3 / 1/3 / 1604 | 3/3 / 1/3 / 1677 | 0 |
+
+Comparator notes:
+
+- `ALG-0003` replays all positives and rejects 3/3 negatives on all four optional-pattern cases.
+- `ALG-0010` replays all positives and rejects 3/3 negatives on the singleton, disjoint, and overlapping optional cases, but replays 0/3 positives on `optional_inside_parallel`.
+
+Interpretation:
+
+- The ablation is causal for the intended repair: `region_optional_tau_no_repair` exactly matches `ALG-0004` on all four optional-pattern cases, while full `ALG-0011` improves the singleton and two-disjoint optional cases.
+- The non-overlap guard is too narrow for optional chains: `overlapping_optional_chain` accepts zero optional patterns and remains at 0/3 negative rejection.
+- Optional behavior inside concurrency remains unrepaired. `ALG-0011` accepts zero optional patterns in `optional_inside_parallel` and remains at 1/3 negative rejection.
+- Operation cost remains high because `ALG-0011` inherits `ALG-0004` bounded region enumeration and then adds optional-pattern overhead.
+
+Failures / anomalies:
+
+- The optional test suite is synthetic and still small.
+- `ALG-0011` has no answer for loops or duplicate labels beyond inherited `ALG-0004` behavior.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Move `ALG-0011` from `promising` to `deep-testing`: it now has a written specification, an explicit no-repair ablation, and counterexample search for optional-pattern families.
+- Do not promote to `super-promising`; high cost plus overlapping optional, optional/concurrency, loop, and duplicate-label failures remain material.
+- No property dossier was created.
+
+Next action: decide between a chain-aware region optional repair versus treating overlapping optional chains as the responsibility of `ALG-0010`; separately, start an `ALG-0005` grammar/block abstraction if the next priority is generalization rather than region repair.
+
+## EXP-0014 — ALG-0012 chain-aware region optional repair
+
+Date/time: 2026-05-07T08:16:34+02:00
+Goal: test whether selected bounded-region shortcut places can safely certify optional-chain repairs, closing the `ALG-0011` overlapping optional-chain gap
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 -c '...'` diagnostic summaries for `region_optional_chain_miner` optional-chain counts
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `scripts/region_optional_chain_miner.py` and wiring `region_optional_chain_miner` into smoke, deep, and optional-pattern runners; no commit recorded
+Candidate IDs: ALG-0003, ALG-0004, ALG-0010, ALG-0011, ALG-0012
+Logs/datasets: smoke logs in `examples/logs/*.json`; optional-pattern cases in `scripts/alg0011_optional_tests.py`; broader synthetic cases in `scripts/alg0009_deep_tests.py`
+Metrics: operation counts, replay, negative-trace rejection, optional-chain count, selected region shortcut evidence, structural diagnostics
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0012` inherits bounded region enumeration and adds eventual-order scans, transitive-reduction path checks, optional-chain selection, selected-shortcut filtering, and chain-fragment construction
+Results summary:
+
+Smoke results for `ALG-0012`:
+
+| Log | Ops | Replay | Negative rejection | Optional chains |
+|---|---:|---:|---:|---:|
+| `noise.json` | 1461 | 4/4 | 3/3 | 0 |
+| `parallel_ab_cd.json` | 1437 | 4/4 | 3/3 | 0 |
+| `sequence.json` | 890 | 3/3 | 3/3 | 0 |
+| `short_loop.json` | 357 | 1/3 | 3/3 | 0 |
+| `skip.json` | 432 | 4/4 | 3/3 | 1 |
+| `xor.json` | 844 | 4/4 | 3/3 | 0 |
+
+Optional-pattern comparison for `ALG-0012`:
+
+| Case | Ops | Replay | Negative rejection | Optional chains | Selected region shortcuts |
+|---|---:|---:|---:|---:|---|
+| `singleton_optional_skip` | 432 | 4/4 | 3/3 | 1 | `A->C` |
+| `two_disjoint_optional_skips` | 1648 | 4/4 | 3/3 | 1 | `A->C`, `C->E` |
+| `overlapping_optional_chain` | 1037 | 4/4 | 3/3 | 1 | `A->D` |
+| `optional_inside_parallel` | 1815 | 3/3 | 1/3 | 0 | `A->B`, `A->C`, `C->E` |
+
+Broader synthetic results for `ALG-0012`:
+
+| Synthetic case | Ops | Replay | Negative rejection | Optional chains |
+|---|---:|---:|---:|---:|
+| `duplicate_label_rework` | 357 | 1/3 | 3/3 | 0 |
+| `incomplete_parallel_observed_sequence` | 754 | 2/2 | 3/3 | 0 |
+| `nested_xor_sequence` | 1515 | 3/3 | 3/3 | 0 |
+| `noise_reversal_sequence` | 1461 | 4/4 | 3/3 | 0 |
+| `overlapping_optional_skips` | 1037 | 4/4 | 3/3 | 1 |
+| `parallel_with_optional_branch` | 1815 | 3/3 | 1/3 | 0 |
+| `short_loop_required` | 357 | 1/3 | 3/3 | 0 |
+
+Comparison notes:
+
+- `ALG-0012` fixes the overlapping optional-chain failure left by `ALG-0011`: `overlapping_optional_chain` and `overlapping_optional_skips` improve from 0/3 negative rejection under `ALG-0011` to 3/3 under `ALG-0012`.
+- The repair is more expensive than both `ALG-0011` and `ALG-0010`. On `overlapping_optional_chain`, `ALG-0012` costs 1037 operations versus 858 for `ALG-0011`, 802 for `ALG-0004`, 366 for `ALG-0010`, and 320 for `ALG-0003`.
+- `ALG-0012` still does not repair optional behavior inside concurrency: `optional_inside_parallel` and `parallel_with_optional_branch` remain 1/3 negative rejection.
+- `ALG-0012` preserves smoke successes on sequence, XOR, parallel, skip, and noise but keeps inherited short-loop limitations.
+
+Failures / anomalies:
+
+- High operation cost is now the main objection to the region-repair line.
+- Optional/concurrency, loops, and duplicate labels remain unresolved.
+- No internal ablation for selected-shortcut certification is implemented yet.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0012` and promote it to `promising`: it has a written spec, deterministic prototype, measured counts, smoke success in its claimed scope, and a concrete advantage over `ALG-0011` on overlapping optional chains.
+- Do not move it to `deep-testing` yet; it needs an internal ablation and broader optional/concurrency tests.
+- No candidate is `super-promising`; no property dossier was created.
+
+Next action: compare `ALG-0012` against an ablation without selected-shortcut certification, or switch to `ALG-0005` grammar/block abstraction if the next priority is reducing overfitting rather than extending the region repair line.
+
+## EXP-0015 — ALG-0012 selected-shortcut-certification ablation
+
+Date/time: 2026-05-07T08:26:15+02:00
+Goal: test whether `ALG-0012`'s selected-region-shortcut certification is necessary or whether order-consistent optional chains can be emitted without it under the current limited-operation suite
+Command(s):
+
+- `python3 -B -m compileall scripts`
+- `python3 scripts/alg0011_optional_tests.py --out experiments/alg0011-optional-tests.json`
+- `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+- `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+- `python3 -c '...'` diagnostic summary for `ALG-0012` versus `ALG-0013` optional-pattern evidence
+- `python3 -B -m unittest`
+- `git diff --check`
+
+Code version / commit if available: working tree after adding `require_region_shortcut` to `scripts/region_optional_chain_miner.py`, adding ablation candidate `ALG-0013`, wiring `region_optional_chain_no_region_cert` into optional and synthetic runners, and adding one optional-concurrency probe; no commit recorded
+Candidate IDs: ALG-0003, ALG-0004, ALG-0010, ALG-0011, ALG-0012, ALG-0013
+Logs/datasets: toy logs in `examples/logs/*.json`; optional-pattern cases in `scripts/alg0011_optional_tests.py`; synthetic cases in `scripts/alg0009_deep_tests.py`
+Metrics: operation counts, replay, negative-trace rejection, optional-chain count, selected-shortcut certification setting, structural diagnostics
+Operation-count model: first-iteration model in `research/ALGORITHM_REGISTRY.md`; `ALG-0013` uses the `ALG-0012` operation model minus selected-shortcut certification checks
+Results summary:
+
+Optional-pattern ablation results:
+
+| Case | ALG-0012 replay / neg reject / ops / opt | ALG-0013 replay / neg reject / ops / opt |
+|---|---:|---:|
+| `singleton_optional_skip` | 4/4 / 3/3 / 432 / 1 | 4/4 / 3/3 / 427 / 1 |
+| `two_disjoint_optional_skips` | 4/4 / 3/3 / 1648 / 1 | 4/4 / 3/3 / 1636 / 1 |
+| `overlapping_optional_chain` | 4/4 / 3/3 / 1037 / 1 | 4/4 / 3/3 / 1026 / 1 |
+| `optional_inside_parallel` | 3/3 / 1/3 / 1815 / 0 | 3/3 / 1/3 / 1815 / 0 |
+| `optional_singleton_parallel_branch` | 4/4 / 2/3 / 1008 / 0 | 4/4 / 2/3 / 1008 / 0 |
+
+Broader synthetic ablation results:
+
+| Synthetic case | ALG-0012 replay / neg reject / ops | ALG-0013 replay / neg reject / ops |
+|---|---:|---:|
+| `nested_xor_sequence` | 3/3 / 3/3 / 1515 | 3/3 / 3/3 / 1515 |
+| `overlapping_optional_skips` | 4/4 / 3/3 / 1037 | 4/4 / 3/3 / 1026 |
+| `parallel_with_optional_branch` | 3/3 / 1/3 / 1815 | 3/3 / 1/3 / 1815 |
+| `short_loop_required` | 1/3 / 3/3 / 357 | 1/3 / 3/3 / 357 |
+| `duplicate_label_rework` | 1/3 / 3/3 / 357 | 1/3 / 3/3 / 357 |
+| `incomplete_parallel_observed_sequence` | 2/2 / 3/3 / 754 | 2/2 / 3/3 / 754 |
+| `noise_reversal_sequence` | 4/4 / 3/3 / 1461 | 4/4 / 3/3 / 1461 |
+
+Additional optional-concurrency probe:
+
+| Candidate | `optional_singleton_parallel_branch` replay / neg reject / ops |
+|---|---:|
+| `ALG-0003` | 0/4 / 3/3 / 292 |
+| `ALG-0004` | 4/4 / 2/3 / 880 |
+| `ALG-0010` | 3/4 / 3/3 / 305 |
+| `ALG-0011` | 4/4 / 2/3 / 920 |
+| `ALG-0012` | 4/4 / 2/3 / 1008 |
+| `ALG-0013` | 4/4 / 2/3 / 1008 |
+
+Smoke results:
+
+- Rerunning `scripts/benchmark.py` on `examples/logs` produced the same default `ALG-0012` smoke summary as EXP-0014: sequence, XOR, parallel, skip, and noise pass replay/negative probes; short-loop replay remains 1/3.
+
+Interpretation:
+
+- The selected-shortcut-certification ablation is not causal under current tests: `ALG-0013` matches `ALG-0012` on all optional-pattern and broader synthetic replay/negative metrics.
+- The measured savings from disabling certification are tiny: 5 operations on singleton optional skip, 12 on two-disjoint optional skips, and 11 on overlapping optional chains; no savings appear where no optional chain is emitted.
+- The new `optional_singleton_parallel_branch` case broadens optional/concurrency testing and exposes a distinct gap: current region variants preserve positive replay but still overgeneralize one negative probe, while `ALG-0003` and `ALG-0010` lose positive replay.
+- `ALG-0012` still has no cost/quality advantage over `ALG-0003` or `ALG-0010` except for the region-family comparison against `ALG-0011`.
+
+Failures / anomalies:
+
+- The ablation did not find a case where selected-shortcut certification prevents a harmful optional-chain emission.
+- Optional/concurrency remains unresolved for all current non-automaton generalizing candidates in at least one tested shape.
+- `ALG-0013` currently returns through the same module as `ALG-0012`; its distinguishing configuration is `require_region_shortcut=false`.
+- `python3 -B -m unittest` found no tests and exited with `NO TESTS RAN`.
+- `git diff --check` exited successfully, with only pre-existing CRLF replacement warnings for `.gitignore` and `LICENSE`.
+
+Decision:
+
+- Add `ALG-0013` as a tracked smoke-tested ablation, but do not promote it: it only offers tiny count savings and weakens the certification argument.
+- Keep `ALG-0012` at `promising`, not `deep-testing`: the required ablation now exists, but it did not establish a clearer advantage over `ALG-0010` or `ALG-0003`.
+- Do not create a property dossier. No candidate is `super-promising`.
+
+Next action: either search systematically for an uncertified-chain false positive, or pause the high-cost region repair line and implement an `ALG-0005` grammar/block abstraction to address automaton overfitting.

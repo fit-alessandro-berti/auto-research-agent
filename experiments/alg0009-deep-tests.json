@@ -1,6 +1,7 @@
 {
   "candidates": [
     "alpha_lite",
+    "bounded_place_region_miner",
     "cut_limited_process_tree",
     "cut_tree_no_parallel_optional",
     "dependency_threshold",
@@ -11,7 +12,11 @@
     "pmir_guarded_no_xor",
     "pmir_guarded_split_join",
     "pmir_split_join_lite",
-    "prefix_automaton_compression"
+    "prefix_automaton_compression",
+    "prefix_block_abstraction",
+    "region_optional_chain_miner",
+    "region_optional_chain_no_region_cert",
+    "region_optional_tau_miner"
   ],
   "cases": {
     "duplicate_label_rework": {
@@ -129,6 +134,128 @@
           },
           "structural_summary": {
             "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "bounded_place_region_miner": {
+          "candidate_id": "ALG-0004",
+          "operation_counts": {
+            "arithmetic": 27,
+            "comparison": 102,
+            "construct": 16,
+            "dict_increment": 13,
+            "relation_classification": 45,
+            "scan_event": 17,
+            "set_insert": 3,
+            "set_lookup": 93,
+            "total": 316
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 36,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 8,
+              "rejected_overlap": 24,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 1,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "max_set_size": 2
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 5,
             "places": 3,
             "silent_transitions": 0,
             "transitions": 3
@@ -1483,6 +1610,465 @@
             "silent_transitions": 1,
             "transitions": 6
           }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "operation_counts": {
+            "comparison": 59,
+            "construct": 43,
+            "dict_increment": 16,
+            "relation_classification": 17,
+            "scan_event": 27,
+            "set_insert": 31,
+            "set_lookup": 39,
+            "total": 232
+          },
+          "pmir_evidence": {
+            "fallback": {
+              "compressed_edges": 5,
+              "compressed_states": 5,
+              "raw_trie_edges": 5,
+              "raw_trie_nodes": 6,
+              "start_state": "q4",
+              "state_merges": {
+                "q0": {
+                  "outgoing_labels": [],
+                  "raw_nodes": [
+                    5,
+                    4
+                  ],
+                  "terminal": true
+                }
+              },
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 2
+            },
+            "grammar": {
+              "type": "exact_prefix_automaton"
+            },
+            "grammar_attempts": [
+              {
+                "grammar": "parallel_block",
+                "result": "rejected"
+              },
+              {
+                "grammar": "optional_singleton_parallel",
+                "result": "rejected"
+              }
+            ],
+            "selected_grammar": "exact_prefix_automaton"
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 12,
+            "places": 6,
+            "silent_transitions": 1,
+            "transitions": 6
+          }
+        },
+        "region_optional_chain_miner": {
+          "candidate_id": "ALG-0012",
+          "operation_counts": {
+            "arithmetic": 27,
+            "comparison": 113,
+            "construct": 16,
+            "dict_increment": 17,
+            "relation_classification": 45,
+            "scan_event": 27,
+            "set_insert": 19,
+            "set_lookup": 93,
+            "total": 357
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 36,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 8,
+              "rejected_overlap": 24,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 1,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "requires_selected_singleton_shortcut",
+              "require_region_shortcut": true
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [],
+            "optional_chains": [],
+            "rejected_chains": [],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "C"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 5,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "region_optional_chain_no_region_cert": {
+          "candidate_id": "ALG-0013",
+          "operation_counts": {
+            "arithmetic": 27,
+            "comparison": 113,
+            "construct": 16,
+            "dict_increment": 17,
+            "relation_classification": 45,
+            "scan_event": 27,
+            "set_insert": 19,
+            "set_lookup": 93,
+            "total": 357
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 36,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 8,
+              "rejected_overlap": 24,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 1,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "disabled_ablation",
+              "require_region_shortcut": false
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [],
+            "optional_chains": [],
+            "rejected_chains": [],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "C"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 5,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "region_optional_tau_miner": {
+          "candidate_id": "ALG-0011",
+          "operation_counts": {
+            "arithmetic": 27,
+            "comparison": 111,
+            "construct": 16,
+            "dict_increment": 15,
+            "relation_classification": 45,
+            "scan_event": 17,
+            "set_insert": 3,
+            "set_lookup": 93,
+            "total": 327
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 36,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 8,
+              "rejected_overlap": 24,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 1,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "enable_optional_repair": true,
+              "max_set_size": 2,
+              "optional_pattern": "nonoverlap_singleton_with_selected_shortcut"
+            },
+            "optional_patterns": [],
+            "optional_stats": {
+              "accepted_optional_patterns": 0,
+              "optional_candidates": 0,
+              "rejected_no_direct_shortcut": 0,
+              "rejected_no_shortcut_place": 0,
+              "rejected_non_single_context": 0,
+              "rejected_start_or_end_middle": 0
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 5,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
         }
       },
       "trace_count": 3,
@@ -1516,6 +2102,113 @@
           },
           "pmir_evidence": {
             "maximal_pairs": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 2
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "bounded_place_region_miner": {
+          "candidate_id": "ALG-0004",
+          "operation_counts": {
+            "arithmetic": 36,
+            "comparison": 237,
+            "construct": 35,
+            "dict_increment": 10,
+            "relation_classification": 116,
+            "scan_event": 14,
+            "set_insert": 4,
+            "set_lookup": 226,
+            "total": 678
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 0,
+              "rejected_no_direct_evidence": 39,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 0,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "max_set_size": 2
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
               [
                 [
                   "A"
@@ -2369,6 +3062,457 @@
             "silent_transitions": 1,
             "transitions": 5
           }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "operation_counts": {
+            "comparison": 66,
+            "construct": 42,
+            "dict_increment": 12,
+            "relation_classification": 23,
+            "scan_event": 22,
+            "set_insert": 20,
+            "set_lookup": 49,
+            "total": 234
+          },
+          "pmir_evidence": {
+            "fallback": {
+              "compressed_edges": 4,
+              "compressed_states": 5,
+              "raw_trie_edges": 4,
+              "raw_trie_nodes": 5,
+              "start_state": "q4",
+              "state_merges": {},
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 1
+            },
+            "grammar": {
+              "type": "exact_prefix_automaton"
+            },
+            "grammar_attempts": [
+              {
+                "grammar": "parallel_block",
+                "result": "rejected"
+              },
+              {
+                "grammar": "optional_singleton_parallel",
+                "result": "rejected"
+              }
+            ],
+            "selected_grammar": "exact_prefix_automaton"
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 2
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 1,
+            "transitions": 5
+          }
+        },
+        "region_optional_chain_miner": {
+          "candidate_id": "ALG-0012",
+          "operation_counts": {
+            "arithmetic": 36,
+            "comparison": 265,
+            "construct": 36,
+            "dict_increment": 22,
+            "relation_classification": 116,
+            "scan_event": 22,
+            "set_insert": 28,
+            "set_lookup": 229,
+            "total": 754
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 0,
+              "rejected_no_direct_evidence": 39,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 0,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "requires_selected_singleton_shortcut",
+              "require_region_shortcut": true
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [
+              [
+                "A",
+                "B",
+                "C",
+                "D"
+              ]
+            ],
+            "optional_chains": [],
+            "rejected_chains": [
+              {
+                "chain": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "reason": "no_shortcut_edges"
+              }
+            ],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "B",
+                "C"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "B",
+                "C"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 2
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "region_optional_chain_no_region_cert": {
+          "candidate_id": "ALG-0013",
+          "operation_counts": {
+            "arithmetic": 36,
+            "comparison": 265,
+            "construct": 36,
+            "dict_increment": 22,
+            "relation_classification": 116,
+            "scan_event": 22,
+            "set_insert": 28,
+            "set_lookup": 229,
+            "total": 754
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 0,
+              "rejected_no_direct_evidence": 39,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 0,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "disabled_ablation",
+              "require_region_shortcut": false
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [
+              [
+                "A",
+                "B",
+                "C",
+                "D"
+              ]
+            ],
+            "optional_chains": [],
+            "rejected_chains": [
+              {
+                "chain": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "reason": "no_shortcut_edges"
+              }
+            ],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "B",
+                "C"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "B",
+                "C"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 2
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "region_optional_tau_miner": {
+          "candidate_id": "ALG-0011",
+          "operation_counts": {
+            "arithmetic": 36,
+            "comparison": 261,
+            "construct": 35,
+            "dict_increment": 16,
+            "relation_classification": 118,
+            "scan_event": 14,
+            "set_insert": 4,
+            "set_lookup": 232,
+            "total": 716
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 0,
+              "rejected_no_direct_evidence": 39,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 0,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "enable_optional_repair": true,
+              "max_set_size": 2,
+              "optional_pattern": "nonoverlap_singleton_with_selected_shortcut"
+            },
+            "optional_patterns": [],
+            "optional_stats": {
+              "accepted_optional_patterns": 0,
+              "optional_candidates": 2,
+              "rejected_no_direct_shortcut": 0,
+              "rejected_no_shortcut_place": 2,
+              "rejected_non_single_context": 0,
+              "rejected_start_or_end_middle": 0
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 2
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
         }
       },
       "trace_count": 2,
@@ -2402,6 +3546,117 @@
           },
           "pmir_evidence": {
             "maximal_pairs": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "D"
+                ],
+                [
+                  "E"
+                ]
+              ],
+              [
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 5
+          }
+        },
+        "bounded_place_region_miner": {
+          "candidate_id": "ALG-0004",
+          "operation_counts": {
+            "arithmetic": 62,
+            "comparison": 504,
+            "construct": 44,
+            "dict_increment": 15,
+            "relation_classification": 250,
+            "scan_event": 21,
+            "set_insert": 5,
+            "set_lookup": 449,
+            "total": 1350
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 225,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 103,
+              "rejected_overlap": 115,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 2,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "max_set_size": 2
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ],
+              [
+                [
+                  "D"
+                ],
+                [
+                  "E"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
               [
                 [
                   "A"
@@ -3823,6 +5078,516 @@
             "silent_transitions": 1,
             "transitions": 6
           }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "operation_counts": {
+            "comparison": 117,
+            "construct": 49,
+            "dict_increment": 18,
+            "relation_classification": 35,
+            "scan_event": 33,
+            "set_insert": 36,
+            "set_lookup": 77,
+            "total": 365
+          },
+          "pmir_evidence": {
+            "fallback": {
+              "compressed_edges": 5,
+              "compressed_states": 5,
+              "raw_trie_edges": 7,
+              "raw_trie_nodes": 8,
+              "start_state": "q4",
+              "state_merges": {
+                "q0": {
+                  "outgoing_labels": [],
+                  "raw_nodes": [
+                    7,
+                    4
+                  ],
+                  "terminal": true
+                },
+                "q1": {
+                  "outgoing_labels": [
+                    "E"
+                  ],
+                  "raw_nodes": [
+                    6,
+                    3
+                  ],
+                  "terminal": false
+                },
+                "q2": {
+                  "outgoing_labels": [
+                    "D"
+                  ],
+                  "raw_nodes": [
+                    5,
+                    2
+                  ],
+                  "terminal": false
+                }
+              },
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 2
+            },
+            "grammar": {
+              "type": "exact_prefix_automaton"
+            },
+            "grammar_attempts": [
+              {
+                "grammar": "parallel_block",
+                "result": "rejected"
+              },
+              {
+                "grammar": "optional_singleton_parallel",
+                "result": "rejected"
+              }
+            ],
+            "selected_grammar": "exact_prefix_automaton"
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 12,
+            "places": 6,
+            "silent_transitions": 1,
+            "transitions": 6
+          }
+        },
+        "region_optional_chain_miner": {
+          "candidate_id": "ALG-0012",
+          "operation_counts": {
+            "arithmetic": 62,
+            "comparison": 593,
+            "construct": 46,
+            "dict_increment": 35,
+            "relation_classification": 250,
+            "scan_event": 33,
+            "set_insert": 45,
+            "set_lookup": 451,
+            "total": 1515
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 225,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 103,
+              "rejected_overlap": 115,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 2,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "requires_selected_singleton_shortcut",
+              "require_region_shortcut": true
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [
+              [
+                "A",
+                "B",
+                "D"
+              ],
+              [
+                "A",
+                "C",
+                "D"
+              ]
+            ],
+            "optional_chains": [],
+            "rejected_chains": [
+              {
+                "chain": [
+                  "A",
+                  "B",
+                  "D"
+                ],
+                "reason": "no_shortcut_edges"
+              },
+              {
+                "chain": [
+                  "A",
+                  "C",
+                  "D"
+                ],
+                "reason": "no_shortcut_edges"
+              }
+            ],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ],
+              [
+                [
+                  "D"
+                ],
+                [
+                  "E"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [
+              [
+                "D",
+                "E"
+              ]
+            ],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "D"
+              ],
+              [
+                "C",
+                "D"
+              ],
+              [
+                "D",
+                "E"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 5
+          }
+        },
+        "region_optional_chain_no_region_cert": {
+          "candidate_id": "ALG-0013",
+          "operation_counts": {
+            "arithmetic": 62,
+            "comparison": 593,
+            "construct": 46,
+            "dict_increment": 35,
+            "relation_classification": 250,
+            "scan_event": 33,
+            "set_insert": 45,
+            "set_lookup": 451,
+            "total": 1515
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 225,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 103,
+              "rejected_overlap": 115,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 2,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "disabled_ablation",
+              "require_region_shortcut": false
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [
+              [
+                "A",
+                "B",
+                "D"
+              ],
+              [
+                "A",
+                "C",
+                "D"
+              ]
+            ],
+            "optional_chains": [],
+            "rejected_chains": [
+              {
+                "chain": [
+                  "A",
+                  "B",
+                  "D"
+                ],
+                "reason": "no_shortcut_edges"
+              },
+              {
+                "chain": [
+                  "A",
+                  "C",
+                  "D"
+                ],
+                "reason": "no_shortcut_edges"
+              }
+            ],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ],
+              [
+                [
+                  "D"
+                ],
+                [
+                  "E"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [
+              [
+                "D",
+                "E"
+              ]
+            ],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "D"
+              ],
+              [
+                "C",
+                "D"
+              ],
+              [
+                "D",
+                "E"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 5
+          }
+        },
+        "region_optional_tau_miner": {
+          "candidate_id": "ALG-0011",
+          "operation_counts": {
+            "arithmetic": 62,
+            "comparison": 545,
+            "construct": 44,
+            "dict_increment": 25,
+            "relation_classification": 254,
+            "scan_event": 21,
+            "set_insert": 5,
+            "set_lookup": 459,
+            "total": 1415
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 225,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 103,
+              "rejected_overlap": 115,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 2,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "enable_optional_repair": true,
+              "max_set_size": 2,
+              "optional_pattern": "nonoverlap_singleton_with_selected_shortcut"
+            },
+            "optional_patterns": [],
+            "optional_stats": {
+              "accepted_optional_patterns": 0,
+              "optional_candidates": 4,
+              "rejected_no_direct_shortcut": 0,
+              "rejected_no_shortcut_place": 2,
+              "rejected_non_single_context": 2,
+              "rejected_start_or_end_middle": 0
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ],
+              [
+                [
+                  "D"
+                ],
+                [
+                  "E"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "D"
+                ],
+                [
+                  "E"
+                ]
+              ],
+              [
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 5
+          }
         }
       },
       "trace_count": 3,
@@ -3856,6 +5621,129 @@
           },
           "pmir_evidence": {
             "maximal_pairs": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "D"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "bounded_place_region_miner": {
+          "candidate_id": "ALG-0004",
+          "operation_counts": {
+            "arithmetic": 136,
+            "comparison": 341,
+            "construct": 68,
+            "dict_increment": 20,
+            "relation_classification": 116,
+            "scan_event": 28,
+            "set_insert": 4,
+            "set_lookup": 612,
+            "total": 1325
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 3,
+              "rejected_no_direct_evidence": 30,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 5,
+              "selected_candidates": 4,
+              "valid_local_candidates": 4
+            },
+            "configuration": {
+              "max_set_size": 2
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "D"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
               [
                 [
                   "A"
@@ -4856,6 +6744,522 @@
             "silent_transitions": 1,
             "transitions": 7
           }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "operation_counts": {
+            "comparison": 90,
+            "construct": 22,
+            "dict_increment": 20,
+            "relation_classification": 17,
+            "scan_event": 32,
+            "set_insert": 18,
+            "set_lookup": 36,
+            "total": 235
+          },
+          "pmir_evidence": {
+            "fallback": {},
+            "grammar": {
+              "branches": [
+                "B",
+                "C"
+              ],
+              "prefix": [
+                "A"
+              ],
+              "suffix": [
+                "D"
+              ],
+              "type": "parallel_block"
+            },
+            "grammar_attempts": [
+              {
+                "grammar": "parallel_block",
+                "result": "accepted"
+              }
+            ],
+            "selected_grammar": "parallel_block"
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "region_optional_chain_miner": {
+          "candidate_id": "ALG-0012",
+          "operation_counts": {
+            "arithmetic": 136,
+            "comparison": 397,
+            "construct": 70,
+            "dict_increment": 36,
+            "relation_classification": 116,
+            "scan_event": 44,
+            "set_insert": 48,
+            "set_lookup": 614,
+            "total": 1461
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 3,
+              "rejected_no_direct_evidence": 30,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 5,
+              "selected_candidates": 4,
+              "valid_local_candidates": 4
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "requires_selected_singleton_shortcut",
+              "require_region_shortcut": true
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [
+              [
+                "A",
+                "B",
+                "D"
+              ],
+              [
+                "A",
+                "C",
+                "D"
+              ]
+            ],
+            "optional_chains": [],
+            "rejected_chains": [
+              {
+                "chain": [
+                  "A",
+                  "B",
+                  "D"
+                ],
+                "reason": "no_shortcut_edges"
+              },
+              {
+                "chain": [
+                  "A",
+                  "C",
+                  "D"
+                ],
+                "reason": "no_shortcut_edges"
+              }
+            ],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "D"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "D"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "D"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "region_optional_chain_no_region_cert": {
+          "candidate_id": "ALG-0013",
+          "operation_counts": {
+            "arithmetic": 136,
+            "comparison": 397,
+            "construct": 70,
+            "dict_increment": 36,
+            "relation_classification": 116,
+            "scan_event": 44,
+            "set_insert": 48,
+            "set_lookup": 614,
+            "total": 1461
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 3,
+              "rejected_no_direct_evidence": 30,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 5,
+              "selected_candidates": 4,
+              "valid_local_candidates": 4
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "disabled_ablation",
+              "require_region_shortcut": false
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [
+              [
+                "A",
+                "B",
+                "D"
+              ],
+              [
+                "A",
+                "C",
+                "D"
+              ]
+            ],
+            "optional_chains": [],
+            "rejected_chains": [
+              {
+                "chain": [
+                  "A",
+                  "B",
+                  "D"
+                ],
+                "reason": "no_shortcut_edges"
+              },
+              {
+                "chain": [
+                  "A",
+                  "C",
+                  "D"
+                ],
+                "reason": "no_shortcut_edges"
+              }
+            ],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "D"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "D"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "D"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "region_optional_tau_miner": {
+          "candidate_id": "ALG-0011",
+          "operation_counts": {
+            "arithmetic": 136,
+            "comparison": 365,
+            "construct": 68,
+            "dict_increment": 28,
+            "relation_classification": 118,
+            "scan_event": 28,
+            "set_insert": 4,
+            "set_lookup": 618,
+            "total": 1365
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 3,
+              "rejected_no_direct_evidence": 30,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 5,
+              "selected_candidates": 4,
+              "valid_local_candidates": 4
+            },
+            "configuration": {
+              "enable_optional_repair": true,
+              "max_set_size": 2,
+              "optional_pattern": "nonoverlap_singleton_with_selected_shortcut"
+            },
+            "optional_patterns": [],
+            "optional_stats": {
+              "accepted_optional_patterns": 0,
+              "optional_candidates": 2,
+              "rejected_no_direct_shortcut": 0,
+              "rejected_no_shortcut_place": 2,
+              "rejected_non_single_context": 0,
+              "rejected_start_or_end_middle": 0
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "D"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "B"
+                ],
+                [
+                  "D"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
         }
       },
       "trace_count": 4,
@@ -5023,6 +7427,114 @@
           "structural_summary": {
             "arcs": 14,
             "places": 8,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "bounded_place_region_miner": {
+          "candidate_id": "ALG-0004",
+          "operation_counts": {
+            "arithmetic": 66,
+            "comparison": 266,
+            "construct": 17,
+            "dict_increment": 16,
+            "relation_classification": 116,
+            "scan_event": 20,
+            "set_insert": 4,
+            "set_lookup": 297,
+            "total": 802
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 6,
+              "rejected_no_direct_evidence": 27,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 8,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "max_set_size": 2
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
             "silent_transitions": 0,
             "transitions": 4
           }
@@ -6565,6 +9077,573 @@
             "silent_transitions": 1,
             "transitions": 8
           }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "operation_counts": {
+            "comparison": 92,
+            "construct": 55,
+            "dict_increment": 20,
+            "relation_classification": 27,
+            "scan_event": 32,
+            "set_insert": 46,
+            "set_lookup": 61,
+            "total": 333
+          },
+          "pmir_evidence": {
+            "fallback": {
+              "compressed_edges": 7,
+              "compressed_states": 5,
+              "raw_trie_edges": 8,
+              "raw_trie_nodes": 9,
+              "start_state": "q4",
+              "state_merges": {
+                "q0": {
+                  "outgoing_labels": [],
+                  "raw_nodes": [
+                    8,
+                    7,
+                    6,
+                    4
+                  ],
+                  "terminal": true
+                },
+                "q1": {
+                  "outgoing_labels": [
+                    "D"
+                  ],
+                  "raw_nodes": [
+                    5,
+                    3
+                  ],
+                  "terminal": false
+                }
+              },
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 4
+            },
+            "grammar": {
+              "type": "exact_prefix_automaton"
+            },
+            "grammar_attempts": [
+              {
+                "grammar": "parallel_block",
+                "result": "rejected"
+              },
+              {
+                "grammar": "optional_singleton_parallel",
+                "result": "rejected"
+              }
+            ],
+            "selected_grammar": "exact_prefix_automaton"
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 16,
+            "places": 6,
+            "silent_transitions": 1,
+            "transitions": 8
+          }
+        },
+        "region_optional_chain_miner": {
+          "candidate_id": "ALG-0012",
+          "operation_counts": {
+            "arithmetic": 66,
+            "comparison": 378,
+            "construct": 38,
+            "dict_increment": 34,
+            "relation_classification": 119,
+            "scan_event": 32,
+            "set_insert": 54,
+            "set_lookup": 316,
+            "total": 1037
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 6,
+              "rejected_no_direct_evidence": 27,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 8,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "requires_selected_singleton_shortcut",
+              "require_region_shortcut": true
+            },
+            "covered_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "A",
+                "D"
+              ],
+              [
+                "B",
+                "C"
+              ],
+              [
+                "B",
+                "D"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ],
+            "optional_chain_candidates": [
+              [
+                "A",
+                "B",
+                "C",
+                "D"
+              ]
+            ],
+            "optional_chains": [
+              {
+                "chain": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "chain_edges": [
+                  [
+                    "A",
+                    "B"
+                  ],
+                  [
+                    "B",
+                    "C"
+                  ],
+                  [
+                    "C",
+                    "D"
+                  ]
+                ],
+                "skip_edges": [
+                  {
+                    "edge": [
+                      "A",
+                      "C"
+                    ],
+                    "skipped": [
+                      "B"
+                    ],
+                    "transition": "tau_skipchain_A_C_over_B"
+                  },
+                  {
+                    "edge": [
+                      "A",
+                      "D"
+                    ],
+                    "skipped": [
+                      "B",
+                      "C"
+                    ],
+                    "transition": "tau_skipchain_A_D_over_B_C"
+                  },
+                  {
+                    "edge": [
+                      "B",
+                      "D"
+                    ],
+                    "skipped": [
+                      "C"
+                    ],
+                    "transition": "tau_skipchain_B_D_over_C"
+                  }
+                ]
+              }
+            ],
+            "rejected_chains": [],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [
+              [
+                "A",
+                "D"
+              ]
+            ],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "B",
+                "C"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 16,
+            "places": 6,
+            "silent_transitions": 3,
+            "transitions": 7
+          }
+        },
+        "region_optional_chain_no_region_cert": {
+          "candidate_id": "ALG-0013",
+          "operation_counts": {
+            "arithmetic": 66,
+            "comparison": 377,
+            "construct": 37,
+            "dict_increment": 34,
+            "relation_classification": 119,
+            "scan_event": 32,
+            "set_insert": 51,
+            "set_lookup": 310,
+            "total": 1026
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 6,
+              "rejected_no_direct_evidence": 27,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 8,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "disabled_ablation",
+              "require_region_shortcut": false
+            },
+            "covered_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "A",
+                "D"
+              ],
+              [
+                "B",
+                "C"
+              ],
+              [
+                "B",
+                "D"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ],
+            "optional_chain_candidates": [
+              [
+                "A",
+                "B",
+                "C",
+                "D"
+              ]
+            ],
+            "optional_chains": [
+              {
+                "chain": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "chain_edges": [
+                  [
+                    "A",
+                    "B"
+                  ],
+                  [
+                    "B",
+                    "C"
+                  ],
+                  [
+                    "C",
+                    "D"
+                  ]
+                ],
+                "skip_edges": [
+                  {
+                    "edge": [
+                      "A",
+                      "C"
+                    ],
+                    "skipped": [
+                      "B"
+                    ],
+                    "transition": "tau_skipchain_A_C_over_B"
+                  },
+                  {
+                    "edge": [
+                      "A",
+                      "D"
+                    ],
+                    "skipped": [
+                      "B",
+                      "C"
+                    ],
+                    "transition": "tau_skipchain_A_D_over_B_C"
+                  },
+                  {
+                    "edge": [
+                      "B",
+                      "D"
+                    ],
+                    "skipped": [
+                      "C"
+                    ],
+                    "transition": "tau_skipchain_B_D_over_C"
+                  }
+                ]
+              }
+            ],
+            "rejected_chains": [],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [
+              [
+                "A",
+                "D"
+              ]
+            ],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "B",
+                "C"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 16,
+            "places": 6,
+            "silent_transitions": 3,
+            "transitions": 7
+          }
+        },
+        "region_optional_tau_miner": {
+          "candidate_id": "ALG-0011",
+          "operation_counts": {
+            "arithmetic": 66,
+            "comparison": 298,
+            "construct": 17,
+            "dict_increment": 28,
+            "relation_classification": 120,
+            "scan_event": 20,
+            "set_insert": 4,
+            "set_lookup": 305,
+            "total": 858
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 100,
+              "rejected_final_residue": 6,
+              "rejected_no_direct_evidence": 27,
+              "rejected_overlap": 58,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 8,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "enable_optional_repair": true,
+              "max_set_size": 2,
+              "optional_pattern": "nonoverlap_singleton_with_selected_shortcut"
+            },
+            "optional_patterns": [],
+            "optional_stats": {
+              "accepted_optional_patterns": 0,
+              "optional_candidates": 4,
+              "rejected_no_direct_shortcut": 0,
+              "rejected_no_shortcut_place": 0,
+              "rejected_non_single_context": 4,
+              "rejected_start_or_end_middle": 0
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "D"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
         }
       },
       "trace_count": 4,
@@ -6722,6 +9801,140 @@
           "structural_summary": {
             "arcs": 13,
             "places": 7,
+            "silent_transitions": 0,
+            "transitions": 5
+          }
+        },
+        "bounded_place_region_miner": {
+          "candidate_id": "ALG-0004",
+          "operation_counts": {
+            "arithmetic": 96,
+            "comparison": 545,
+            "construct": 42,
+            "dict_increment": 17,
+            "relation_classification": 250,
+            "scan_event": 25,
+            "set_insert": 5,
+            "set_lookup": 624,
+            "total": 1604
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 225,
+              "rejected_final_residue": 6,
+              "rejected_no_direct_evidence": 93,
+              "rejected_overlap": 115,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 8,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "max_set_size": 2
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "E"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "E"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "D",
+                  "D",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B",
+                "t_D"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
             "silent_transitions": 0,
             "transitions": 5
           }
@@ -8262,6 +11475,571 @@
             "silent_transitions": 1,
             "transitions": 10
           }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "operation_counts": {
+            "comparison": 121,
+            "construct": 73,
+            "dict_increment": 20,
+            "relation_classification": 39,
+            "scan_event": 39,
+            "set_insert": 68,
+            "set_lookup": 87,
+            "total": 447
+          },
+          "pmir_evidence": {
+            "fallback": {
+              "compressed_edges": 9,
+              "compressed_states": 8,
+              "raw_trie_edges": 11,
+              "raw_trie_nodes": 12,
+              "start_state": "q7",
+              "state_merges": {
+                "q0": {
+                  "outgoing_labels": [],
+                  "raw_nodes": [
+                    11,
+                    9,
+                    5
+                  ],
+                  "terminal": true
+                },
+                "q1": {
+                  "outgoing_labels": [
+                    "E"
+                  ],
+                  "raw_nodes": [
+                    10,
+                    8,
+                    4
+                  ],
+                  "terminal": false
+                }
+              },
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 3
+            },
+            "grammar": {
+              "type": "exact_prefix_automaton"
+            },
+            "grammar_attempts": [
+              {
+                "grammar": "parallel_block",
+                "result": "rejected"
+              },
+              {
+                "grammar": "optional_singleton_parallel",
+                "result": "rejected"
+              }
+            ],
+            "selected_grammar": "exact_prefix_automaton"
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 20,
+            "places": 9,
+            "silent_transitions": 1,
+            "transitions": 10
+          }
+        },
+        "region_optional_chain_miner": {
+          "candidate_id": "ALG-0012",
+          "operation_counts": {
+            "arithmetic": 96,
+            "comparison": 656,
+            "construct": 43,
+            "dict_increment": 37,
+            "relation_classification": 252,
+            "scan_event": 39,
+            "set_insert": 56,
+            "set_lookup": 636,
+            "total": 1815
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 225,
+              "rejected_final_residue": 6,
+              "rejected_no_direct_evidence": 93,
+              "rejected_overlap": 115,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 8,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "requires_selected_singleton_shortcut",
+              "require_region_shortcut": true
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [
+              [
+                "A",
+                "B",
+                "D",
+                "C",
+                "E"
+              ]
+            ],
+            "optional_chains": [],
+            "rejected_chains": [
+              {
+                "chain": [
+                  "A",
+                  "B",
+                  "D",
+                  "C",
+                  "E"
+                ],
+                "reason": "observed_reverse_order"
+              }
+            ],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "E"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "C",
+                "E"
+              ]
+            ],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "B",
+                "D"
+              ],
+              [
+                "C",
+                "E"
+              ],
+              [
+                "D",
+                "C"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "D",
+                  "D",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B",
+                "t_D"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 5
+          }
+        },
+        "region_optional_chain_no_region_cert": {
+          "candidate_id": "ALG-0013",
+          "operation_counts": {
+            "arithmetic": 96,
+            "comparison": 656,
+            "construct": 43,
+            "dict_increment": 37,
+            "relation_classification": 252,
+            "scan_event": 39,
+            "set_insert": 56,
+            "set_lookup": 636,
+            "total": 1815
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 225,
+              "rejected_final_residue": 6,
+              "rejected_no_direct_evidence": 93,
+              "rejected_overlap": 115,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 8,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "disabled_ablation",
+              "require_region_shortcut": false
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [
+              [
+                "A",
+                "B",
+                "D",
+                "C",
+                "E"
+              ]
+            ],
+            "optional_chains": [],
+            "rejected_chains": [
+              {
+                "chain": [
+                  "A",
+                  "B",
+                  "D",
+                  "C",
+                  "E"
+                ],
+                "reason": "observed_reverse_order"
+              }
+            ],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "E"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "C",
+                "E"
+              ]
+            ],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "B",
+                "D"
+              ],
+              [
+                "C",
+                "E"
+              ],
+              [
+                "D",
+                "C"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "D",
+                  "D",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B",
+                "t_D"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 5
+          }
+        },
+        "region_optional_tau_miner": {
+          "candidate_id": "ALG-0011",
+          "operation_counts": {
+            "arithmetic": 96,
+            "comparison": 590,
+            "construct": 42,
+            "dict_increment": 29,
+            "relation_classification": 255,
+            "scan_event": 25,
+            "set_insert": 5,
+            "set_lookup": 635,
+            "total": 1677
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 225,
+              "rejected_final_residue": 6,
+              "rejected_no_direct_evidence": 93,
+              "rejected_overlap": 115,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 8,
+              "selected_candidates": 3,
+              "valid_local_candidates": 3
+            },
+            "configuration": {
+              "enable_optional_repair": true,
+              "max_set_size": 2,
+              "optional_pattern": "nonoverlap_singleton_with_selected_shortcut"
+            },
+            "optional_patterns": [],
+            "optional_stats": {
+              "accepted_optional_patterns": 0,
+              "optional_candidates": 5,
+              "rejected_no_direct_shortcut": 0,
+              "rejected_no_shortcut_place": 1,
+              "rejected_non_single_context": 4,
+              "rejected_start_or_end_middle": 0
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "E"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ]
+              ],
+              [
+                [
+                  "A"
+                ],
+                [
+                  "C"
+                ]
+              ],
+              [
+                [
+                  "C"
+                ],
+                [
+                  "E"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D",
+                  "B",
+                  "C",
+                  "E"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "D",
+                  "D",
+                  "C",
+                  "E"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B",
+                "t_D"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 5
+          }
         }
       },
       "trace_count": 3,
@@ -8391,6 +12169,128 @@
           },
           "structural_summary": {
             "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "bounded_place_region_miner": {
+          "candidate_id": "ALG-0004",
+          "operation_counts": {
+            "arithmetic": 27,
+            "comparison": 102,
+            "construct": 16,
+            "dict_increment": 13,
+            "relation_classification": 45,
+            "scan_event": 17,
+            "set_insert": 3,
+            "set_lookup": 93,
+            "total": 316
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 36,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 8,
+              "rejected_overlap": 24,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 1,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "max_set_size": 2
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 5,
             "places": 3,
             "silent_transitions": 0,
             "transitions": 3
@@ -9744,6 +13644,465 @@
             "places": 6,
             "silent_transitions": 1,
             "transitions": 6
+          }
+        },
+        "prefix_block_abstraction": {
+          "candidate_id": "ALG-0014",
+          "operation_counts": {
+            "comparison": 69,
+            "construct": 43,
+            "dict_increment": 16,
+            "relation_classification": 17,
+            "scan_event": 27,
+            "set_insert": 37,
+            "set_lookup": 39,
+            "total": 248
+          },
+          "pmir_evidence": {
+            "fallback": {
+              "compressed_edges": 5,
+              "compressed_states": 5,
+              "raw_trie_edges": 5,
+              "raw_trie_nodes": 6,
+              "start_state": "q4",
+              "state_merges": {
+                "q0": {
+                  "outgoing_labels": [],
+                  "raw_nodes": [
+                    5,
+                    4
+                  ],
+                  "terminal": true
+                }
+              },
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 2
+            },
+            "grammar": {
+              "type": "exact_prefix_automaton"
+            },
+            "grammar_attempts": [
+              {
+                "grammar": "parallel_block",
+                "result": "rejected"
+              },
+              {
+                "grammar": "optional_singleton_parallel",
+                "result": "rejected"
+              }
+            ],
+            "selected_grammar": "exact_prefix_automaton"
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 12,
+            "places": 6,
+            "silent_transitions": 1,
+            "transitions": 6
+          }
+        },
+        "region_optional_chain_miner": {
+          "candidate_id": "ALG-0012",
+          "operation_counts": {
+            "arithmetic": 27,
+            "comparison": 113,
+            "construct": 16,
+            "dict_increment": 17,
+            "relation_classification": 45,
+            "scan_event": 27,
+            "set_insert": 19,
+            "set_lookup": 93,
+            "total": 357
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 36,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 8,
+              "rejected_overlap": 24,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 1,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "requires_selected_singleton_shortcut",
+              "require_region_shortcut": true
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [],
+            "optional_chains": [],
+            "rejected_chains": [],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "C"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 5,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "region_optional_chain_no_region_cert": {
+          "candidate_id": "ALG-0013",
+          "operation_counts": {
+            "arithmetic": 27,
+            "comparison": 113,
+            "construct": 16,
+            "dict_increment": 17,
+            "relation_classification": 45,
+            "scan_event": 27,
+            "set_insert": 19,
+            "set_lookup": 93,
+            "total": 357
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 36,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 8,
+              "rejected_overlap": 24,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 1,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "enable_optional_chains": true,
+              "max_set_size": 2,
+              "region_certification": "disabled_ablation",
+              "require_region_shortcut": false
+            },
+            "covered_edges": [],
+            "optional_chain_candidates": [],
+            "optional_chains": [],
+            "rejected_chains": [],
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ],
+            "selected_shortcuts": [],
+            "transitive_reduction_edges": [
+              [
+                "A",
+                "C"
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 5,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "region_optional_tau_miner": {
+          "candidate_id": "ALG-0011",
+          "operation_counts": {
+            "arithmetic": 27,
+            "comparison": 111,
+            "construct": 16,
+            "dict_increment": 15,
+            "relation_classification": 45,
+            "scan_event": 17,
+            "set_insert": 3,
+            "set_lookup": 93,
+            "total": 327
+          },
+          "pmir_evidence": {
+            "candidate_stats": {
+              "enumerated": 36,
+              "rejected_final_residue": 2,
+              "rejected_no_direct_evidence": 8,
+              "rejected_overlap": 24,
+              "rejected_positive_replay": 0,
+              "rejected_underflow": 1,
+              "selected_candidates": 1,
+              "valid_local_candidates": 1
+            },
+            "configuration": {
+              "enable_optional_repair": true,
+              "max_set_size": 2,
+              "optional_pattern": "nonoverlap_singleton_with_selected_shortcut"
+            },
+            "optional_patterns": [],
+            "optional_stats": {
+              "accepted_optional_patterns": 0,
+              "optional_candidates": 0,
+              "rejected_no_direct_shortcut": 0,
+              "rejected_no_shortcut_place": 0,
+              "rejected_non_single_context": 0,
+              "rejected_start_or_end_middle": 0
+            },
+            "selected_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ],
+            "valid_local_candidates": [
+              [
+                [
+                  "A"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            ]
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 5,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
           }
         }
       },

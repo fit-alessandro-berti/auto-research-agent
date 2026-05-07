@@ -2,7 +2,7 @@
 
 ## Status
 
-specified
+benchmarked
 
 ## One-sentence hypothesis
 
@@ -53,7 +53,7 @@ First gates: `sequence.json`, then `xor.json` and `parallel_ab_cd.json`; all six
 
 ## Metrics
 
-Planned metrics: accepted/rejected candidate counts, replay, structural diagnostics, operation counts by enumeration and constraint check, and place redundancy.
+Metrics: accepted/rejected candidate counts, replay, structural diagnostics, operation counts by enumeration and constraint check, negative-trace rejection, and place redundancy.
 
 ## Known failure modes
 
@@ -62,10 +62,54 @@ Planned metrics: accepted/rejected candidate counts, replay, structural diagnost
 - Noise and incompleteness overfit constraints.
 - Accepted places can still over-constrain unseen but valid behavior.
 - Soundness is not guaranteed by local constraints alone.
+- Visible-place-only constraints cannot naturally represent optional skips without either leaving activities unconstrained or adding silent structure.
+
+## Executable prototype
+
+Implemented in `scripts/bounded_place_region_miner.py` and wired into:
+
+- `scripts/benchmark.py`
+- `scripts/alg0009_deep_tests.py`
+
+The prototype enumerates non-empty preset/postset pairs up to `k = 2`, requires direct-follows evidence for every preset/postset pair, rejects candidates with per-trace token underflow or final residue, then greedily keeps candidates that preserve positive replay.
+
+## EXP-0011 smoke results
+
+Command: `python3 scripts/benchmark.py --logs examples/logs --out experiments/smoke-results.json`
+
+| Log | Ops | Replay | Negative rejection | Enumerated | Valid local | Selected |
+|---|---:|---:|---:|---:|---:|---:|
+| `noise.json` | 1325 | 4/4 | 3/3 | 100 | 4 | 4 |
+| `parallel_ab_cd.json` | 1301 | 4/4 | 3/3 | 100 | 4 | 4 |
+| `sequence.json` | 804 | 3/3 | 3/3 | 100 | 3 | 3 |
+| `short_loop.json` | 316 | 1/3 | 3/3 | 36 | 1 | 1 |
+| `skip.json` | 332 | 4/4 | 1/3 | 36 | 1 | 1 |
+| `xor.json` | 730 | 4/4 | 3/3 | 100 | 2 | 2 |
+
+## EXP-0011 synthetic comparison
+
+Command: `python3 scripts/alg0009_deep_tests.py --out experiments/alg0009-deep-tests.json`
+
+| Synthetic case | Ops | Replay | Negative rejection | Enumerated | Valid local | Selected |
+|---|---:|---:|---:|---:|---:|---:|
+| `duplicate_label_rework` | 316 | 1/3 | 3/3 | 36 | 1 | 1 |
+| `incomplete_parallel_observed_sequence` | 678 | 2/2 | 3/3 | 100 | 3 | 3 |
+| `nested_xor_sequence` | 1350 | 3/3 | 3/3 | 225 | 3 | 3 |
+| `noise_reversal_sequence` | 1325 | 4/4 | 3/3 | 100 | 4 | 4 |
+| `overlapping_optional_skips` | 802 | 4/4 | 0/3 | 100 | 1 | 1 |
+| `parallel_with_optional_branch` | 1604 | 3/3 | 1/3 | 225 | 3 | 3 |
+| `short_loop_required` | 316 | 1/3 | 3/3 | 36 | 1 | 1 |
 
 ## Promotion criteria
 
-Can become `promising` only after:
+Not promoted after EXP-0011. The prototype meets the executable and benchmark requirements, but does not satisfy the promotion bar because:
+
+- operation counts are much higher than local relation and block baselines;
+- short-loop replay remains 1/3;
+- optional behavior is overgeneralized (`skip.json` rejects only 1/3 negatives; `overlapping_optional_skips` rejects 0/3);
+- it adds no clear advantage over `ALG-0003`, `ALG-0005`, `ALG-0009`, or `ALG-0010` on the current benchmark.
+
+Can become `promising` only after a refined version:
 
 - `k <= 2` prototype runs on all smoke logs;
 - observed replay is at least as good as Alpha-Lite on skip/loop counterexamples or reveals why not;
@@ -74,7 +118,9 @@ Can become `promising` only after:
 
 ## Experiment links
 
-- Specified during EXP-0003; no executable result yet.
+- EXP-0003: specified as the region/ILP-inspired comparator without using an ILP solver.
+- EXP-0011: implemented and benchmarked; not promoted.
+- EXP-0012: targeted optional-tau repair split into `ALG-0011`; this record remains the visible-place-only comparator.
 
 ## Property-study notes
 
@@ -83,3 +129,5 @@ Potential future dossier topics: replay preservation for accepted places, bounde
 ## Decision history
 
 - EXP-0003: specified as the region/ILP-inspired comparator without using an ILP solver.
+- EXP-0011: visible-place-only implementation completed; retained as a benchmarked comparator and negative result.
+- EXP-0012: retained at `benchmarked`; optional-skip repair is tracked separately as `ALG-0011`.
