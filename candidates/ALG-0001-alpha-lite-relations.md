@@ -73,6 +73,7 @@ Not intended for promotion except as a baseline. Could become promising only if 
 
 - EXP-0001 in `research/EXPERIMENT_LOG.md`.
 - EXP-0003 in `research/EXPERIMENT_LOG.md`.
+- EXP-0004 in `research/EXPERIMENT_LOG.md`.
 - `experiments/smoke-results.json`.
 
 ## Property-study notes
@@ -84,3 +85,4 @@ No property claims yet.
 - Scaffold: implemented as starter baseline.
 - EXP-0001: smoke-tested; kept as baseline.
 - EXP-0003: validated with strict token-game replay; not promoted because skip and short-loop gates fail and precision is unmeasured.
+- EXP-0004: negative probes added; kept as unpromoted baseline because skip and short-loop behavior remain partial.

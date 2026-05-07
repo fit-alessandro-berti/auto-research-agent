@@ -11,8 +11,21 @@ from typing import Any, Dict, List
 ALGORITHMS = [
     "alpha_lite",
     "dependency_threshold",
+    "cut_limited_process_tree",
+    "prefix_automaton_compression",
     "pmir_split_join_lite",
+    "pmir_guarded_split_join",
+    "pmir_conflict_aware_optional",
 ]
+
+NEGATIVE_TRACES = {
+    "noise.json": [["A", "B", "D"], ["A", "C", "D"], ["A", "D"]],
+    "parallel_ab_cd.json": [["A", "B", "D"], ["A", "C", "D"], ["A", "D"]],
+    "sequence.json": [["A", "C", "B", "D"], ["A", "B", "D"], ["A", "D"]],
+    "short_loop.json": [["A", "A", "C"], ["B", "A", "C"], ["A", "B", "C"]],
+    "skip.json": [["A", "B", "B", "C"], ["A", "C", "B"], ["B", "C"]],
+    "xor.json": [["A", "B", "C", "D"], ["A", "D"], ["A", "B", "B", "D"]],
+}
 
 
 def load_log(path: Path) -> List[List[str]]:
@@ -28,13 +41,14 @@ def load_log(path: Path) -> List[List[str]]:
     return traces
 
 
-def run_algorithm(module_name: str, log: List[List[str]]) -> Dict[str, Any]:
+def run_algorithm(module_name: str, log: List[List[str]], negative_traces: List[List[str]]) -> Dict[str, Any]:
     module = importlib.import_module(module_name)
     result = module.discover(log)
     if "petri_net" in result:
-        from petri_eval import replay_log
+        from petri_eval import precision_probe, replay_log
 
         result["replay_summary"] = replay_log(result["petri_net"], log)
+        result["precision_probe"] = precision_probe(result["petri_net"], negative_traces)
     return result
 
 
@@ -42,10 +56,16 @@ def benchmark(log_dir: Path) -> Dict[str, Any]:
     results: Dict[str, Any] = {"logs": {}, "algorithms": ALGORITHMS}
     for log_path in sorted(log_dir.glob("*.json")):
         log = load_log(log_path)
-        log_result: Dict[str, Any] = {"trace_count": len(log), "event_count": sum(len(t) for t in log), "results": {}}
+        negative_traces = NEGATIVE_TRACES.get(log_path.name, [])
+        log_result: Dict[str, Any] = {
+            "trace_count": len(log),
+            "event_count": sum(len(t) for t in log),
+            "negative_trace_count": len(negative_traces),
+            "results": {},
+        }
         for algorithm in ALGORITHMS:
             try:
-                log_result["results"][algorithm] = run_algorithm(algorithm, log)
+                log_result["results"][algorithm] = run_algorithm(algorithm, log, negative_traces)
             except Exception as exc:  # Keep failures visible and reproducible.
                 log_result["results"][algorithm] = {"error": repr(exc)}
         results["logs"][log_path.name] = log_result
@@ -74,9 +94,17 @@ def main() -> None:
                 replay_text = ""
                 if replay:
                     replay_text = f", replay={replay['replayed_traces']}/{replay['trace_count']}"
+                probe = alg_result.get("precision_probe", {})
+                precision_text = ""
+                if probe:
+                    precision_text = (
+                        f", neg_reject={probe['rejected_negative_traces']}/"
+                        f"{probe['negative_trace_count']}"
+                    )
                 print(
                     f"  {alg}: ops={ops}, places={summary['places']}, "
-                    f"transitions={summary['transitions']}, arcs={summary['arcs']}{replay_text}"
+                    f"transitions={summary['transitions']}, arcs={summary['arcs']}"
+                    f"{replay_text}{precision_text}"
                 )
 
 

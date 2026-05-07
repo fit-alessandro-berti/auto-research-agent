@@ -50,6 +50,8 @@ Executed in EXP-0003 on sequence, XOR, parallel, short-loop, skip, and noise log
 - Partial replay: `skip.json` 2/4, `short_loop.json` 1/3.
 - Structural diagnostics: `noise.json` contains unconstrained visible transitions `t_C` without input and `t_B` without output.
 
+EXP-0004 added negative-trace probes and a parameter sweep over `min_count in {1,2,3}` and `dependency_threshold in {0.0,0.25,0.5,0.75}`.
+
 ## Baselines for comparison
 
 - `ALG-0001` Alpha-Lite Relations.
@@ -67,6 +69,7 @@ Initial metrics: operation counts, strict token-game replay, structural counts, 
 - Short loops remain unresolved when reverse evidence cancels dependency scores.
 - Skip behavior is over-constrained by edge places.
 - Parameter sensitivity is expected.
+- The sweep found no clean setting for `short_loop.json` or `skip.json` that simultaneously has full positive replay, full negative rejection, and no unconstrained visible transitions.
 
 ## Promotion criteria
 
@@ -81,7 +84,9 @@ Can become `promising` only after:
 ## Experiment links
 
 - EXP-0003 in `research/EXPERIMENT_LOG.md`.
+- EXP-0004 in `research/EXPERIMENT_LOG.md`.
 - `experiments/smoke-results.json`.
+- `experiments/dependency-threshold-sweep.json`.
 
 ## Property-study notes
 
@@ -90,3 +95,4 @@ No property dossier. Potential future properties include deterministic dependenc
 ## Decision history
 
 - EXP-0003: implemented and smoke-tested. Not promoted because structural diagnostics found unconstrained transitions on the noise log.
+- EXP-0004: threshold sweep run; not promoted because short-loop and skip tradeoffs remain unresolved.

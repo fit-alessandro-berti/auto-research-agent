@@ -1,0 +1,3273 @@
+{
+  "algorithm": "dependency_threshold",
+  "candidate_id": "ALG-0002",
+  "dependency_thresholds": [
+    0.0,
+    0.25,
+    0.5,
+    0.75
+  ],
+  "logs": {
+    "noise.json": {
+      "event_count": 16,
+      "negative_trace_count": 3,
+      "runs": [
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 1,
+          "operation_total": 257,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.75,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 12,
+            "places": 7,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 1,
+          "operation_total": 257,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.75,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 12,
+            "places": 7,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 1,
+          "operation_total": 240,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "C->D"
+          ],
+          "dependency_threshold": 0.75,
+          "min_count": 1,
+          "operation_total": 214,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 6,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 2,
+          "operation_total": 223,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.75,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 2,
+          "operation_total": 223,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.75,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "C->D"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 2,
+          "operation_total": 214,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 6,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "C->D"
+          ],
+          "dependency_threshold": 0.75,
+          "min_count": 2,
+          "operation_total": 214,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 6,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 3,
+          "operation_total": 223,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.75,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 3,
+          "operation_total": 223,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.75,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "C->D"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 3,
+          "operation_total": 214,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 6,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "C->D"
+          ],
+          "dependency_threshold": 0.75,
+          "min_count": 3,
+          "operation_total": 214,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 6,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        }
+      ],
+      "trace_count": 4
+    },
+    "parallel_ab_cd.json": {
+      "event_count": 16,
+      "negative_trace_count": 3,
+      "runs": [
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->C",
+            "B->D",
+            "C->B",
+            "C->D"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 1,
+          "operation_total": 274,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.0,
+            "replayed_traces": 0,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 14,
+            "places": 8,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 1,
+          "operation_total": 240,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 1,
+          "operation_total": 240,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.75,
+          "min_count": 1,
+          "operation_total": 196,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->C",
+            "B->D",
+            "C->B",
+            "C->D"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 2,
+          "operation_total": 274,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.0,
+            "replayed_traces": 0,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 14,
+            "places": 8,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 2,
+          "operation_total": 240,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 2,
+          "operation_total": 240,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.75,
+          "min_count": 2,
+          "operation_total": 196,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.0,
+          "min_count": 3,
+          "operation_total": 196,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.25,
+          "min_count": 3,
+          "operation_total": 196,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.5,
+          "min_count": 3,
+          "operation_total": 196,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.75,
+          "min_count": 3,
+          "operation_total": 196,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        }
+      ],
+      "trace_count": 4
+    },
+    "sequence.json": {
+      "event_count": 12,
+      "negative_trace_count": 3,
+      "runs": [
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 1,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 1,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 1,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.75,
+          "min_count": 1,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 2,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 2,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 2,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.75,
+          "min_count": 2,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 3,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 3,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 3,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "B->C",
+            "C->D"
+          ],
+          "dependency_threshold": 0.75,
+          "min_count": 3,
+          "operation_total": 211,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        }
+      ],
+      "trace_count": 3
+    },
+    "short_loop.json": {
+      "event_count": 10,
+      "negative_trace_count": 3,
+      "runs": [
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->A"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 1,
+          "operation_total": 140,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.0,
+            "replayed_traces": 0,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 7,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->C"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 1,
+          "operation_total": 118,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->C"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 1,
+          "operation_total": 118,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->C"
+          ],
+          "dependency_threshold": 0.75,
+          "min_count": 1,
+          "operation_total": 118,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->A"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 2,
+          "operation_total": 140,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.0,
+            "replayed_traces": 0,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 7,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->C"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 2,
+          "operation_total": 118,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->C"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 2,
+          "operation_total": 118,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->C"
+          ],
+          "dependency_threshold": 0.75,
+          "min_count": 2,
+          "operation_total": 118,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->C"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 3,
+          "operation_total": 118,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->C"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 3,
+          "operation_total": 118,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->C"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 3,
+          "operation_total": 118,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->C"
+          ],
+          "dependency_threshold": 0.75,
+          "min_count": 3,
+          "operation_total": 118,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        }
+      ],
+      "trace_count": 3
+    },
+    "skip.json": {
+      "event_count": 10,
+      "negative_trace_count": 3,
+      "runs": [
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->C"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 1,
+          "operation_total": 144,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.5,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->C"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 1,
+          "operation_total": 144,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.5,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->C"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 1,
+          "operation_total": 144,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.5,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.75,
+          "min_count": 1,
+          "operation_total": 109,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->C"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 2,
+          "operation_total": 144,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.5,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->C"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 2,
+          "operation_total": 144,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.5,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->C"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 2,
+          "operation_total": 144,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 0.5,
+            "replayed_traces": 2,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.75,
+          "min_count": 2,
+          "operation_total": 109,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.0,
+          "min_count": 3,
+          "operation_total": 109,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.25,
+          "min_count": 3,
+          "operation_total": 109,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.5,
+          "min_count": 3,
+          "operation_total": 109,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.75,
+          "min_count": 3,
+          "operation_total": 109,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "C",
+                  "B"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        }
+      ],
+      "trace_count": 4
+    },
+    "xor.json": {
+      "event_count": 12,
+      "negative_trace_count": 3,
+      "runs": [
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 1,
+          "operation_total": 228,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 1,
+          "operation_total": 228,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 1,
+          "operation_total": 228,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.75,
+          "min_count": 1,
+          "operation_total": 184,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.0,
+          "min_count": 2,
+          "operation_total": 228,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.25,
+          "min_count": 2,
+          "operation_total": 228,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [
+            "A->B",
+            "A->C",
+            "B->D",
+            "C->D"
+          ],
+          "dependency_threshold": 0.5,
+          "min_count": 2,
+          "operation_total": 228,
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.75,
+          "min_count": 2,
+          "operation_total": 184,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.0,
+          "min_count": 3,
+          "operation_total": 184,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.25,
+          "min_count": 3,
+          "operation_total": 184,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.5,
+          "min_count": 3,
+          "operation_total": 184,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        {
+          "accepted_edges": [],
+          "dependency_threshold": 0.75,
+          "min_count": 3,
+          "operation_total": 184,
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "D"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "B",
+                  "D"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 3,
+            "negative_rejection_rate": 0.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 0
+          },
+          "replay_summary": {
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B",
+                "t_C",
+                "t_D"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_A",
+                "t_B",
+                "t_C"
+              ]
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 2,
+            "places": 2,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        }
+      ],
+      "trace_count": 4
+    }
+  },
+  "min_counts": [
+    1,
+    2,
+    3
+  ]
+}

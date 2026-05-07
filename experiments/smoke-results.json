@@ -2,11 +2,16 @@
   "algorithms": [
     "alpha_lite",
     "dependency_threshold",
-    "pmir_split_join_lite"
+    "cut_limited_process_tree",
+    "prefix_automaton_compression",
+    "pmir_split_join_lite",
+    "pmir_guarded_split_join",
+    "pmir_conflict_aware_optional"
   ],
   "logs": {
     "noise.json": {
       "event_count": 16,
+      "negative_trace_count": 3,
       "results": {
         "alpha_lite": {
           "candidate_id": "ALG-0001",
@@ -165,6 +170,221 @@
               "A": 4
             }
           },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "cut_limited_process_tree": {
+          "candidate_id": "ALG-0003",
+          "name": "Cut-Limited Process Tree Miner",
+          "operation_counts": {
+            "comparison": 112,
+            "construct": 24,
+            "dict_increment": 20,
+            "relation_classification": 19,
+            "scan_event": 32,
+            "set_insert": 18,
+            "set_lookup": 36,
+            "total": 261
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pt_and_join_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_pt_and_join_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_pt_and_split_t_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_pt_and_split_t_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_pt_and_split_t_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_pt_and_split_t_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_pt_and_join_B__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_pt_and_join_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_end",
+              "p_pt_and_join_B__D",
+              "p_pt_and_join_C__D",
+              "p_pt_and_split_t_A__B",
+              "p_pt_and_split_t_A__C",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "A->C": 1,
+              "B->C": 3,
+              "B->D": 1,
+              "C->B": 1,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_parallel_optional": true
+              },
+              "cut_attempts": [
+                {
+                  "cut": "sequence",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "xor",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "parallel",
+                  "result": "accepted"
+                }
+              ],
+              "process_tree": {
+                "branches": [
+                  "B",
+                  "C"
+                ],
+                "children": [
+                  {
+                    "label": "A",
+                    "type": "activity"
+                  },
+                  {
+                    "children": [
+                      {
+                        "label": "B",
+                        "type": "activity"
+                      },
+                      {
+                        "label": "C",
+                        "type": "activity"
+                      }
+                    ],
+                    "type": "parallel"
+                  },
+                  {
+                    "label": "D",
+                    "type": "activity"
+                  }
+                ],
+                "cut": "parallel",
+                "prefix": [
+                  "A"
+                ],
+                "suffix": [
+                  "D"
+                ],
+                "type": "sequence"
+              },
+              "selected_cut": "parallel"
+            },
+            "operation_counts": {
+              "comparison": 112,
+              "construct": 24,
+              "dict_increment": 20,
+              "relation_classification": 19,
+              "scan_event": 32,
+              "set_insert": 18,
+              "set_lookup": 36,
+              "total": 261
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
           "replay_summary": {
             "failed_examples": [],
             "replay_fitness": 1.0,
@@ -294,6 +514,13 @@
               "A": 4
             }
           },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
           "replay_summary": {
             "failed_examples": [],
             "replay_fitness": 1.0,
@@ -317,6 +544,412 @@
           "structural_summary": {
             "arcs": 6,
             "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_conflict_aware_optional": {
+          "candidate_id": "ALG-0010",
+          "name": "PMIR Conflict-Aware Optional Chain Compiler",
+          "operation_counts": {
+            "comparison": 104,
+            "construct": 22,
+            "dict_increment": 36,
+            "relation_classification": 16,
+            "scan_event": 44,
+            "set_insert": 52,
+            "set_lookup": 38,
+            "total": 312
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_edge_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_edge_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_A__C",
+              "p_edge_B__D",
+              "p_edge_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "A->C": 1,
+              "B->C": 3,
+              "B->D": 1,
+              "C->B": 1,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional_chains": true,
+                "enable_xor": true
+              },
+              "covered_edges": [],
+              "edge_places": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "D"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ],
+              "join_groups": [],
+              "optional_chain_candidates": [
+                [
+                  "A",
+                  "B",
+                  "D"
+                ],
+                [
+                  "A",
+                  "C",
+                  "D"
+                ]
+              ],
+              "optional_chains": [],
+              "rejected_chains": [
+                {
+                  "chain": [
+                    "A",
+                    "B",
+                    "D"
+                  ],
+                  "reason": "no_shortcut_edges"
+                },
+                {
+                  "chain": [
+                    "A",
+                    "C",
+                    "D"
+                  ],
+                  "reason": "no_shortcut_edges"
+                }
+              ],
+              "split_groups": [],
+              "transitive_reduction_edges": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "D"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 104,
+              "construct": 22,
+              "dict_increment": 36,
+              "relation_classification": 16,
+              "scan_event": 44,
+              "set_insert": 52,
+              "set_lookup": 38,
+              "total": 312
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_guarded_split_join": {
+          "candidate_id": "ALG-0009",
+          "name": "PMIR Guarded Split-Join Compiler",
+          "operation_counts": {
+            "comparison": 80,
+            "construct": 20,
+            "dict_increment": 28,
+            "relation_classification": 18,
+            "scan_event": 28,
+            "set_insert": 16,
+            "set_lookup": 38,
+            "total": 228
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_edge_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_edge_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_A__C",
+              "p_edge_B__D",
+              "p_edge_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "A->C": 1,
+              "B->C": 3,
+              "B->D": 1,
+              "C->B": 1,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional": true,
+                "enable_xor": true
+              },
+              "covered_edges": [],
+              "edge_places": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "D"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ],
+              "join_groups": [],
+              "optional_patterns": [],
+              "split_groups": []
+            },
+            "operation_counts": {
+              "comparison": 80,
+              "construct": 20,
+              "dict_increment": 28,
+              "relation_classification": 18,
+              "scan_event": 28,
+              "set_insert": 16,
+              "set_lookup": 38,
+              "total": 228
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
             "silent_transitions": 0,
             "transitions": 4
           }
@@ -478,6 +1111,13 @@
               "A": 4
             }
           },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
           "replay_summary": {
             "failed_examples": [],
             "replay_fitness": 1.0,
@@ -500,12 +1140,277 @@
             "silent_transitions": 0,
             "transitions": 4
           }
+        },
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "name": "Prefix Automaton Compression Miner",
+          "operation_counts": {
+            "comparison": 48,
+            "construct": 48,
+            "dict_increment": 24,
+            "relation_classification": 24,
+            "scan_event": 44,
+            "set_insert": 30,
+            "set_lookup": 63,
+            "total": 281
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pa_q0",
+                "target": "tau_pa_accept_q0"
+              },
+              {
+                "source": "p_pa_q1",
+                "target": "t_D__q1__q0"
+              },
+              {
+                "source": "p_pa_q2",
+                "target": "t_B__q2__q1"
+              },
+              {
+                "source": "p_pa_q3",
+                "target": "t_C__q3__q1"
+              },
+              {
+                "source": "p_pa_q4",
+                "target": "t_B__q4__q3"
+              },
+              {
+                "source": "p_pa_q4",
+                "target": "t_C__q4__q2"
+              },
+              {
+                "source": "p_pa_q5",
+                "target": "t_A__q5__q4"
+              },
+              {
+                "source": "t_A__q5__q4",
+                "target": "p_pa_q4"
+              },
+              {
+                "source": "t_B__q2__q1",
+                "target": "p_pa_q1"
+              },
+              {
+                "source": "t_B__q4__q3",
+                "target": "p_pa_q3"
+              },
+              {
+                "source": "t_C__q3__q1",
+                "target": "p_pa_q1"
+              },
+              {
+                "source": "t_C__q4__q2",
+                "target": "p_pa_q2"
+              },
+              {
+                "source": "t_D__q1__q0",
+                "target": "p_pa_q0"
+              },
+              {
+                "source": "tau_pa_accept_q0",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_pa_q5": 1
+            },
+            "places": [
+              "p_end",
+              "p_pa_q0",
+              "p_pa_q1",
+              "p_pa_q2",
+              "p_pa_q3",
+              "p_pa_q4",
+              "p_pa_q5"
+            ],
+            "transition_labels": {
+              "t_A__q5__q4": "A",
+              "t_B__q2__q1": "B",
+              "t_B__q4__q3": "B",
+              "t_C__q3__q1": "C",
+              "t_C__q4__q2": "C",
+              "t_D__q1__q0": "D"
+            },
+            "transitions": [
+              "t_A__q5__q4",
+              "t_B__q2__q1",
+              "t_B__q4__q3",
+              "t_C__q3__q1",
+              "t_C__q4__q2",
+              "t_D__q1__q0",
+              "tau_pa_accept_q0"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "A->C": 1,
+              "B->C": 3,
+              "B->D": 1,
+              "C->B": 1,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "automaton_edges": [
+                {
+                  "label": "D",
+                  "source": "q1",
+                  "target": "q0"
+                },
+                {
+                  "label": "B",
+                  "source": "q2",
+                  "target": "q1"
+                },
+                {
+                  "label": "C",
+                  "source": "q3",
+                  "target": "q1"
+                },
+                {
+                  "label": "B",
+                  "source": "q4",
+                  "target": "q3"
+                },
+                {
+                  "label": "C",
+                  "source": "q4",
+                  "target": "q2"
+                },
+                {
+                  "label": "A",
+                  "source": "q5",
+                  "target": "q4"
+                }
+              ],
+              "compressed_edges": 6,
+              "compressed_states": 6,
+              "raw_trie_edges": 7,
+              "raw_trie_nodes": 8,
+              "start_state": "q5",
+              "state_merges": {
+                "q0": {
+                  "outgoing_labels": [],
+                  "raw_nodes": [
+                    7,
+                    4
+                  ],
+                  "terminal": true
+                },
+                "q1": {
+                  "outgoing_labels": [
+                    "D"
+                  ],
+                  "raw_nodes": [
+                    6,
+                    3
+                  ],
+                  "terminal": false
+                }
+              },
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 2,
+              "variants": [
+                {
+                  "count": 3,
+                  "trace": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                  ]
+                },
+                {
+                  "count": 1,
+                  "trace": [
+                    "A",
+                    "C",
+                    "B",
+                    "D"
+                  ]
+                }
+              ]
+            },
+            "operation_counts": {
+              "comparison": 48,
+              "construct": 48,
+              "dict_increment": 24,
+              "relation_classification": 24,
+              "scan_event": 44,
+              "set_insert": 30,
+              "set_lookup": 63,
+              "total": 281
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "not_supported",
+            "silent_transitions": [
+              "tau_pa_accept_q0"
+            ],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 14,
+            "places": 7,
+            "silent_transitions": 1,
+            "transitions": 7
+          }
         }
       },
       "trace_count": 4
     },
     "parallel_ab_cd.json": {
       "event_count": 16,
+      "negative_trace_count": 3,
       "results": {
         "alpha_lite": {
           "candidate_id": "ALG-0001",
@@ -663,6 +1568,221 @@
             "start_counts": {
               "A": 4
             }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "cut_limited_process_tree": {
+          "candidate_id": "ALG-0003",
+          "name": "Cut-Limited Process Tree Miner",
+          "operation_counts": {
+            "comparison": 94,
+            "construct": 24,
+            "dict_increment": 20,
+            "relation_classification": 19,
+            "scan_event": 32,
+            "set_insert": 18,
+            "set_lookup": 36,
+            "total": 243
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pt_and_join_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_pt_and_join_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_pt_and_split_t_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_pt_and_split_t_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_pt_and_split_t_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_pt_and_split_t_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_pt_and_join_B__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_pt_and_join_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_end",
+              "p_pt_and_join_B__D",
+              "p_pt_and_join_C__D",
+              "p_pt_and_split_t_A__B",
+              "p_pt_and_split_t_A__C",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2,
+              "B->D": 2,
+              "C->B": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_parallel_optional": true
+              },
+              "cut_attempts": [
+                {
+                  "cut": "sequence",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "xor",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "parallel",
+                  "result": "accepted"
+                }
+              ],
+              "process_tree": {
+                "branches": [
+                  "B",
+                  "C"
+                ],
+                "children": [
+                  {
+                    "label": "A",
+                    "type": "activity"
+                  },
+                  {
+                    "children": [
+                      {
+                        "label": "B",
+                        "type": "activity"
+                      },
+                      {
+                        "label": "C",
+                        "type": "activity"
+                      }
+                    ],
+                    "type": "parallel"
+                  },
+                  {
+                    "label": "D",
+                    "type": "activity"
+                  }
+                ],
+                "cut": "parallel",
+                "prefix": [
+                  "A"
+                ],
+                "suffix": [
+                  "D"
+                ],
+                "type": "sequence"
+              },
+              "selected_cut": "parallel"
+            },
+            "operation_counts": {
+              "comparison": 94,
+              "construct": 24,
+              "dict_increment": 20,
+              "relation_classification": 19,
+              "scan_event": 32,
+              "set_insert": 18,
+              "set_lookup": 36,
+              "total": 243
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
           },
           "replay_summary": {
             "failed_examples": [],
@@ -815,6 +1935,419 @@
               "A": 4
             }
           },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_conflict_aware_optional": {
+          "candidate_id": "ALG-0010",
+          "name": "PMIR Conflict-Aware Optional Chain Compiler",
+          "operation_counts": {
+            "comparison": 104,
+            "construct": 22,
+            "dict_increment": 36,
+            "relation_classification": 16,
+            "scan_event": 44,
+            "set_insert": 52,
+            "set_lookup": 38,
+            "total": 312
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_edge_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_edge_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_A__C",
+              "p_edge_B__D",
+              "p_edge_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2,
+              "B->D": 2,
+              "C->B": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional_chains": true,
+                "enable_xor": true
+              },
+              "covered_edges": [],
+              "edge_places": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "D"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ],
+              "join_groups": [],
+              "optional_chain_candidates": [
+                [
+                  "A",
+                  "B",
+                  "D"
+                ],
+                [
+                  "A",
+                  "C",
+                  "D"
+                ]
+              ],
+              "optional_chains": [],
+              "rejected_chains": [
+                {
+                  "chain": [
+                    "A",
+                    "B",
+                    "D"
+                  ],
+                  "reason": "no_shortcut_edges"
+                },
+                {
+                  "chain": [
+                    "A",
+                    "C",
+                    "D"
+                  ],
+                  "reason": "no_shortcut_edges"
+                }
+              ],
+              "split_groups": [],
+              "transitive_reduction_edges": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "D"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 104,
+              "construct": 22,
+              "dict_increment": 36,
+              "relation_classification": 16,
+              "scan_event": 44,
+              "set_insert": 52,
+              "set_lookup": 38,
+              "total": 312
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_guarded_split_join": {
+          "candidate_id": "ALG-0009",
+          "name": "PMIR Guarded Split-Join Compiler",
+          "operation_counts": {
+            "comparison": 80,
+            "construct": 20,
+            "dict_increment": 28,
+            "relation_classification": 18,
+            "scan_event": 28,
+            "set_insert": 16,
+            "set_lookup": 38,
+            "total": 228
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_edge_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_edge_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_A__C",
+              "p_edge_B__D",
+              "p_edge_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2,
+              "B->D": 2,
+              "C->B": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional": true,
+                "enable_xor": true
+              },
+              "covered_edges": [],
+              "edge_places": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "D"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ],
+              "join_groups": [],
+              "optional_patterns": [],
+              "split_groups": []
+            },
+            "operation_counts": {
+              "comparison": 80,
+              "construct": 20,
+              "dict_increment": 28,
+              "relation_classification": 18,
+              "scan_event": 28,
+              "set_insert": 16,
+              "set_lookup": 38,
+              "total": 228
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
           "replay_summary": {
             "failed_examples": [],
             "replay_fitness": 1.0,
@@ -995,6 +2528,13 @@
               "A": 4
             }
           },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
           "replay_summary": {
             "failed_examples": [],
             "replay_fitness": 1.0,
@@ -1017,12 +2557,277 @@
             "silent_transitions": 0,
             "transitions": 4
           }
+        },
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "name": "Prefix Automaton Compression Miner",
+          "operation_counts": {
+            "comparison": 48,
+            "construct": 48,
+            "dict_increment": 24,
+            "relation_classification": 24,
+            "scan_event": 44,
+            "set_insert": 30,
+            "set_lookup": 63,
+            "total": 281
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pa_q0",
+                "target": "tau_pa_accept_q0"
+              },
+              {
+                "source": "p_pa_q1",
+                "target": "t_D__q1__q0"
+              },
+              {
+                "source": "p_pa_q2",
+                "target": "t_B__q2__q1"
+              },
+              {
+                "source": "p_pa_q3",
+                "target": "t_C__q3__q1"
+              },
+              {
+                "source": "p_pa_q4",
+                "target": "t_B__q4__q3"
+              },
+              {
+                "source": "p_pa_q4",
+                "target": "t_C__q4__q2"
+              },
+              {
+                "source": "p_pa_q5",
+                "target": "t_A__q5__q4"
+              },
+              {
+                "source": "t_A__q5__q4",
+                "target": "p_pa_q4"
+              },
+              {
+                "source": "t_B__q2__q1",
+                "target": "p_pa_q1"
+              },
+              {
+                "source": "t_B__q4__q3",
+                "target": "p_pa_q3"
+              },
+              {
+                "source": "t_C__q3__q1",
+                "target": "p_pa_q1"
+              },
+              {
+                "source": "t_C__q4__q2",
+                "target": "p_pa_q2"
+              },
+              {
+                "source": "t_D__q1__q0",
+                "target": "p_pa_q0"
+              },
+              {
+                "source": "tau_pa_accept_q0",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_pa_q5": 1
+            },
+            "places": [
+              "p_end",
+              "p_pa_q0",
+              "p_pa_q1",
+              "p_pa_q2",
+              "p_pa_q3",
+              "p_pa_q4",
+              "p_pa_q5"
+            ],
+            "transition_labels": {
+              "t_A__q5__q4": "A",
+              "t_B__q2__q1": "B",
+              "t_B__q4__q3": "B",
+              "t_C__q3__q1": "C",
+              "t_C__q4__q2": "C",
+              "t_D__q1__q0": "D"
+            },
+            "transitions": [
+              "t_A__q5__q4",
+              "t_B__q2__q1",
+              "t_B__q4__q3",
+              "t_C__q3__q1",
+              "t_C__q4__q2",
+              "t_D__q1__q0",
+              "tau_pa_accept_q0"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2,
+              "B->D": 2,
+              "C->B": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "automaton_edges": [
+                {
+                  "label": "D",
+                  "source": "q1",
+                  "target": "q0"
+                },
+                {
+                  "label": "B",
+                  "source": "q2",
+                  "target": "q1"
+                },
+                {
+                  "label": "C",
+                  "source": "q3",
+                  "target": "q1"
+                },
+                {
+                  "label": "B",
+                  "source": "q4",
+                  "target": "q3"
+                },
+                {
+                  "label": "C",
+                  "source": "q4",
+                  "target": "q2"
+                },
+                {
+                  "label": "A",
+                  "source": "q5",
+                  "target": "q4"
+                }
+              ],
+              "compressed_edges": 6,
+              "compressed_states": 6,
+              "raw_trie_edges": 7,
+              "raw_trie_nodes": 8,
+              "start_state": "q5",
+              "state_merges": {
+                "q0": {
+                  "outgoing_labels": [],
+                  "raw_nodes": [
+                    7,
+                    4
+                  ],
+                  "terminal": true
+                },
+                "q1": {
+                  "outgoing_labels": [
+                    "D"
+                  ],
+                  "raw_nodes": [
+                    6,
+                    3
+                  ],
+                  "terminal": false
+                }
+              },
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 2,
+              "variants": [
+                {
+                  "count": 2,
+                  "trace": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                  ]
+                },
+                {
+                  "count": 2,
+                  "trace": [
+                    "A",
+                    "C",
+                    "B",
+                    "D"
+                  ]
+                }
+              ]
+            },
+            "operation_counts": {
+              "comparison": 48,
+              "construct": 48,
+              "dict_increment": 24,
+              "relation_classification": 24,
+              "scan_event": 44,
+              "set_insert": 30,
+              "set_lookup": 63,
+              "total": 281
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "not_supported",
+            "silent_transitions": [
+              "tau_pa_accept_q0"
+            ],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 14,
+            "places": 7,
+            "silent_transitions": 1,
+            "transitions": 7
+          }
         }
       },
       "trace_count": 4
     },
     "sequence.json": {
       "event_count": 12,
+      "negative_trace_count": 3,
       "results": {
         "alpha_lite": {
           "candidate_id": "ALG-0001",
@@ -1156,6 +2961,187 @@
             "start_counts": {
               "A": 3
             }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "cut_limited_process_tree": {
+          "candidate_id": "ALG-0003",
+          "name": "Cut-Limited Process Tree Miner",
+          "operation_counts": {
+            "comparison": 50,
+            "construct": 17,
+            "dict_increment": 15,
+            "relation_classification": 17,
+            "scan_event": 25,
+            "set_insert": 8,
+            "set_lookup": 36,
+            "total": 168
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pt_seq_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_pt_seq_B__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_pt_seq_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_pt_seq_A__B"
+              },
+              {
+                "source": "t_B",
+                "target": "p_pt_seq_B__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_pt_seq_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_end",
+              "p_pt_seq_A__B",
+              "p_pt_seq_B__C",
+              "p_pt_seq_C__D",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "B->C": 3,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 3
+            },
+            "evidence": {
+              "configuration": {
+                "enable_parallel_optional": true
+              },
+              "cut_attempts": [
+                {
+                  "cut": "sequence",
+                  "result": "accepted"
+                }
+              ],
+              "process_tree": {
+                "children": [
+                  {
+                    "label": "A",
+                    "type": "activity"
+                  },
+                  {
+                    "label": "B",
+                    "type": "activity"
+                  },
+                  {
+                    "label": "C",
+                    "type": "activity"
+                  },
+                  {
+                    "label": "D",
+                    "type": "activity"
+                  }
+                ],
+                "sequence": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "type": "sequence"
+              },
+              "selected_cut": "sequence"
+            },
+            "operation_counts": {
+              "comparison": 50,
+              "construct": 17,
+              "dict_increment": 15,
+              "relation_classification": 17,
+              "scan_event": 25,
+              "set_insert": 8,
+              "set_lookup": 36,
+              "total": 168
+            },
+            "relations": {
+              "A->B": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->B": "reverse_causal",
+              "C->D": "causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
           },
           "replay_summary": {
             "failed_examples": [],
@@ -1293,6 +3279,364 @@
             "start_counts": {
               "A": 3
             }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_conflict_aware_optional": {
+          "candidate_id": "ALG-0010",
+          "name": "PMIR Conflict-Aware Optional Chain Compiler",
+          "operation_counts": {
+            "comparison": 73,
+            "construct": 18,
+            "dict_increment": 27,
+            "relation_classification": 16,
+            "scan_event": 33,
+            "set_insert": 37,
+            "set_lookup": 35,
+            "total": 239
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_B__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_edge_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_B__C",
+              "p_edge_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "B->C": 3,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 3
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional_chains": true,
+                "enable_xor": true
+              },
+              "covered_edges": [],
+              "edge_places": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ],
+              "join_groups": [],
+              "optional_chain_candidates": [
+                [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ]
+              ],
+              "optional_chains": [],
+              "rejected_chains": [
+                {
+                  "chain": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                  ],
+                  "reason": "no_shortcut_edges"
+                }
+              ],
+              "split_groups": [],
+              "transitive_reduction_edges": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 73,
+              "construct": 18,
+              "dict_increment": 27,
+              "relation_classification": 16,
+              "scan_event": 33,
+              "set_insert": 37,
+              "set_lookup": 35,
+              "total": 239
+            },
+            "relations": {
+              "A->B": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->B": "reverse_causal",
+              "C->D": "causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_guarded_split_join": {
+          "candidate_id": "ALG-0009",
+          "name": "PMIR Guarded Split-Join Compiler",
+          "operation_counts": {
+            "comparison": 70,
+            "construct": 17,
+            "dict_increment": 21,
+            "relation_classification": 16,
+            "scan_event": 21,
+            "set_insert": 13,
+            "set_lookup": 32,
+            "total": 190
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_B__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_edge_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_B__C",
+              "p_edge_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "B->C": 3,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 3
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional": true,
+                "enable_xor": true
+              },
+              "covered_edges": [],
+              "edge_places": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "B",
+                  "C"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ],
+              "join_groups": [],
+              "optional_patterns": [],
+              "split_groups": []
+            },
+            "operation_counts": {
+              "comparison": 70,
+              "construct": 17,
+              "dict_increment": 21,
+              "relation_classification": 16,
+              "scan_event": 21,
+              "set_insert": 13,
+              "set_lookup": 32,
+              "total": 190
+            },
+            "relations": {
+              "A->B": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->B": "reverse_causal",
+              "C->D": "causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
           },
           "replay_summary": {
             "failed_examples": [],
@@ -1450,6 +3794,13 @@
               "A": 3
             }
           },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
           "replay_summary": {
             "failed_examples": [],
             "replay_fitness": 1.0,
@@ -1472,12 +3823,211 @@
             "silent_transitions": 0,
             "transitions": 4
           }
+        },
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "name": "Prefix Automaton Compression Miner",
+          "operation_counts": {
+            "comparison": 48,
+            "construct": 34,
+            "dict_increment": 18,
+            "relation_classification": 21,
+            "scan_event": 33,
+            "set_insert": 21,
+            "set_lookup": 53,
+            "total": 228
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pa_q0",
+                "target": "tau_pa_accept_q0"
+              },
+              {
+                "source": "p_pa_q1",
+                "target": "t_D__q1__q0"
+              },
+              {
+                "source": "p_pa_q2",
+                "target": "t_C__q2__q1"
+              },
+              {
+                "source": "p_pa_q3",
+                "target": "t_B__q3__q2"
+              },
+              {
+                "source": "p_pa_q4",
+                "target": "t_A__q4__q3"
+              },
+              {
+                "source": "t_A__q4__q3",
+                "target": "p_pa_q3"
+              },
+              {
+                "source": "t_B__q3__q2",
+                "target": "p_pa_q2"
+              },
+              {
+                "source": "t_C__q2__q1",
+                "target": "p_pa_q1"
+              },
+              {
+                "source": "t_D__q1__q0",
+                "target": "p_pa_q0"
+              },
+              {
+                "source": "tau_pa_accept_q0",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_pa_q4": 1
+            },
+            "places": [
+              "p_end",
+              "p_pa_q0",
+              "p_pa_q1",
+              "p_pa_q2",
+              "p_pa_q3",
+              "p_pa_q4"
+            ],
+            "transition_labels": {
+              "t_A__q4__q3": "A",
+              "t_B__q3__q2": "B",
+              "t_C__q2__q1": "C",
+              "t_D__q1__q0": "D"
+            },
+            "transitions": [
+              "t_A__q4__q3",
+              "t_B__q3__q2",
+              "t_C__q2__q1",
+              "t_D__q1__q0",
+              "tau_pa_accept_q0"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "B->C": 3,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 3
+            },
+            "evidence": {
+              "automaton_edges": [
+                {
+                  "label": "D",
+                  "source": "q1",
+                  "target": "q0"
+                },
+                {
+                  "label": "C",
+                  "source": "q2",
+                  "target": "q1"
+                },
+                {
+                  "label": "B",
+                  "source": "q3",
+                  "target": "q2"
+                },
+                {
+                  "label": "A",
+                  "source": "q4",
+                  "target": "q3"
+                }
+              ],
+              "compressed_edges": 4,
+              "compressed_states": 5,
+              "raw_trie_edges": 4,
+              "raw_trie_nodes": 5,
+              "start_state": "q4",
+              "state_merges": {},
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 1,
+              "variants": [
+                {
+                  "count": 3,
+                  "trace": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                  ]
+                }
+              ]
+            },
+            "operation_counts": {
+              "comparison": 48,
+              "construct": 34,
+              "dict_increment": 18,
+              "relation_classification": 21,
+              "scan_event": 33,
+              "set_insert": 21,
+              "set_lookup": 53,
+              "total": 228
+            },
+            "relations": {
+              "A->B": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->B": "reverse_causal",
+              "C->D": "causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "silent_transition_support": "not_supported",
+            "silent_transitions": [
+              "tau_pa_accept_q0"
+            ],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 1,
+            "transitions": 5
+          }
         }
       },
       "trace_count": 3
     },
     "short_loop.json": {
       "event_count": 10,
+      "negative_trace_count": 3,
       "results": {
         "alpha_lite": {
           "candidate_id": "ALG-0001",
@@ -1574,39 +4124,73 @@
               "A": 3
             }
           },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
           "replay_summary": {
             "failed_examples": [
               {
                 "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
+                "candidate_transitions": [
+                  "t_A"
                 ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "B",
                   "A",
                   "C"
-                ],
-                "transition": "t_A"
+                ]
               },
               {
                 "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
+                "candidate_transitions": [
+                  "t_A"
                 ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "B",
                   "A",
                   "C"
-                ],
-                "transition": "t_A"
+                ]
               }
             ],
             "replay_fitness": 0.3333333333333333,
@@ -1630,6 +4214,244 @@
           "structural_summary": {
             "arcs": 4,
             "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "cut_limited_process_tree": {
+          "candidate_id": "ALG-0003",
+          "name": "Cut-Limited Process Tree Miner",
+          "operation_counts": {
+            "comparison": 82,
+            "construct": 22,
+            "dict_increment": 13,
+            "relation_classification": 14,
+            "scan_event": 20,
+            "set_insert": 19,
+            "set_lookup": 21,
+            "total": 191
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pt_fallback_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_pt_fallback_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_pt_fallback_edge_B__A",
+                "target": "t_A"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_pt_fallback_edge_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_pt_fallback_edge_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_pt_fallback_edge_B__A"
+              },
+              {
+                "source": "t_C",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_end",
+              "p_pt_fallback_edge_A__B",
+              "p_pt_fallback_edge_A__C",
+              "p_pt_fallback_edge_B__A",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 3,
+              "B->A": 2
+            },
+            "end_counts": {
+              "C": 3
+            },
+            "evidence": {
+              "configuration": {
+                "enable_parallel_optional": true
+              },
+              "cut_attempts": [
+                {
+                  "cut": "sequence",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "xor",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "parallel",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "parallel_optional_sequence",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "optional_sequence",
+                  "result": "rejected"
+                }
+              ],
+              "process_tree": {
+                "edge_places": [
+                  [
+                    "A",
+                    "B"
+                  ],
+                  [
+                    "A",
+                    "C"
+                  ],
+                  [
+                    "B",
+                    "A"
+                  ]
+                ],
+                "type": "fallback_dfg"
+              },
+              "selected_cut": "fallback_dfg"
+            },
+            "operation_counts": {
+              "comparison": 82,
+              "construct": 22,
+              "dict_increment": 13,
+              "relation_classification": 14,
+              "scan_event": 20,
+              "set_insert": 19,
+              "set_lookup": 21,
+              "total": 191
+            },
+            "relations": {
+              "A->B": "parallel",
+              "A->C": "causal",
+              "B->A": "parallel",
+              "C->A": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 0,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_pt_fallback_edge_B__A"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.0,
+            "replayed_traces": 0,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
             "silent_transitions": 0,
             "transitions": 3
           }
@@ -1724,39 +4546,467 @@
               "A": 3
             }
           },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
           "replay_summary": {
             "failed_examples": [
               {
                 "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
+                "candidate_transitions": [
+                  "t_A"
                 ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "B",
                   "A",
                   "C"
-                ],
-                "transition": "t_A"
+                ]
               },
               {
                 "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
+                "candidate_transitions": [
+                  "t_A"
                 ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "B",
                   "A",
                   "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "pmir_conflict_aware_optional": {
+          "candidate_id": "ALG-0010",
+          "name": "PMIR Conflict-Aware Optional Chain Compiler",
+          "operation_counts": {
+            "comparison": 37,
+            "construct": 10,
+            "dict_increment": 17,
+            "relation_classification": 9,
+            "scan_event": 27,
+            "set_insert": 21,
+            "set_lookup": 18,
+            "total": 139
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__C",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 3,
+              "B->A": 2
+            },
+            "end_counts": {
+              "C": 3
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional_chains": true,
+                "enable_xor": true
+              },
+              "covered_edges": [],
+              "edge_places": [
+                [
+                  "A",
+                  "C"
+                ]
+              ],
+              "join_groups": [],
+              "optional_chain_candidates": [],
+              "optional_chains": [],
+              "rejected_chains": [],
+              "split_groups": [],
+              "transitive_reduction_edges": [
+                [
+                  "A",
+                  "C"
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 37,
+              "construct": 10,
+              "dict_increment": 17,
+              "relation_classification": 9,
+              "scan_event": 27,
+              "set_insert": 21,
+              "set_lookup": 18,
+              "total": 139
+            },
+            "relations": {
+              "A->B": "parallel",
+              "A->C": "causal",
+              "B->A": "parallel",
+              "C->A": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
                 ],
-                "transition": "t_A"
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              }
+            ],
+            "replay_fitness": 0.3333333333333333,
+            "replayed_traces": 1,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [
+                "t_B"
+              ],
+              "visible_transitions_without_outputs": [
+                "t_B"
+              ]
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "pmir_guarded_split_join": {
+          "candidate_id": "ALG-0009",
+          "name": "PMIR Guarded Split-Join Compiler",
+          "operation_counts": {
+            "comparison": 38,
+            "construct": 10,
+            "dict_increment": 15,
+            "relation_classification": 9,
+            "scan_event": 17,
+            "set_insert": 6,
+            "set_lookup": 18,
+            "total": 113
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__C",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 3,
+              "B->A": 2
+            },
+            "end_counts": {
+              "C": 3
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional": true,
+                "enable_xor": true
+              },
+              "covered_edges": [],
+              "edge_places": [
+                [
+                  "A",
+                  "C"
+                ]
+              ],
+              "join_groups": [],
+              "optional_patterns": [],
+              "split_groups": []
+            },
+            "operation_counts": {
+              "comparison": 38,
+              "construct": 10,
+              "dict_increment": 15,
+              "relation_classification": 9,
+              "scan_event": 17,
+              "set_insert": 6,
+              "set_lookup": 18,
+              "total": 113
+            },
+            "relations": {
+              "A->B": "parallel",
+              "A->C": "causal",
+              "B->A": "parallel",
+              "C->A": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
+          "replay_summary": {
+            "failed_examples": [
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "activity": "A",
+                "candidate_transitions": [
+                  "t_A"
+                ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
+                "ok": false,
+                "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
+                "trace": [
+                  "A",
+                  "B",
+                  "A",
+                  "C"
+                ]
               }
             ],
             "replay_fitness": 0.3333333333333333,
@@ -1879,39 +5129,73 @@
               "A": 3
             }
           },
+          "precision_probe": {
+            "accepted_examples": [
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "B",
+                  "A",
+                  "C"
+                ]
+              },
+              {
+                "reason": "negative_trace_replayed",
+                "trace": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            ],
+            "accepted_negative_traces": 2,
+            "negative_rejection_rate": 0.3333333333333333,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 1
+          },
           "replay_summary": {
             "failed_examples": [
               {
                 "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
+                "candidate_transitions": [
+                  "t_A"
                 ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "B",
                   "A",
                   "C"
-                ],
-                "transition": "t_A"
+                ]
               },
               {
                 "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
+                "candidate_transitions": [
+                  "t_A"
                 ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_A": [
+                    "p_start"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "B",
                   "A",
                   "C"
-                ],
-                "transition": "t_A"
+                ]
               }
             ],
             "replay_fitness": 0.3333333333333333,
@@ -1938,12 +5222,239 @@
             "silent_transitions": 0,
             "transitions": 3
           }
+        },
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "name": "Prefix Automaton Compression Miner",
+          "operation_counts": {
+            "comparison": 27,
+            "construct": 39,
+            "dict_increment": 16,
+            "relation_classification": 15,
+            "scan_event": 27,
+            "set_insert": 23,
+            "set_lookup": 39,
+            "total": 186
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pa_q0",
+                "target": "tau_pa_accept_q0"
+              },
+              {
+                "source": "p_pa_q1",
+                "target": "t_C__q1__q0"
+              },
+              {
+                "source": "p_pa_q2",
+                "target": "t_A__q2__q1"
+              },
+              {
+                "source": "p_pa_q3",
+                "target": "t_B__q3__q2"
+              },
+              {
+                "source": "p_pa_q3",
+                "target": "t_C__q3__q0"
+              },
+              {
+                "source": "p_pa_q4",
+                "target": "t_A__q4__q3"
+              },
+              {
+                "source": "t_A__q2__q1",
+                "target": "p_pa_q1"
+              },
+              {
+                "source": "t_A__q4__q3",
+                "target": "p_pa_q3"
+              },
+              {
+                "source": "t_B__q3__q2",
+                "target": "p_pa_q2"
+              },
+              {
+                "source": "t_C__q1__q0",
+                "target": "p_pa_q0"
+              },
+              {
+                "source": "t_C__q3__q0",
+                "target": "p_pa_q0"
+              },
+              {
+                "source": "tau_pa_accept_q0",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_pa_q4": 1
+            },
+            "places": [
+              "p_end",
+              "p_pa_q0",
+              "p_pa_q1",
+              "p_pa_q2",
+              "p_pa_q3",
+              "p_pa_q4"
+            ],
+            "transition_labels": {
+              "t_A__q2__q1": "A",
+              "t_A__q4__q3": "A",
+              "t_B__q3__q2": "B",
+              "t_C__q1__q0": "C",
+              "t_C__q3__q0": "C"
+            },
+            "transitions": [
+              "t_A__q2__q1",
+              "t_A__q4__q3",
+              "t_B__q3__q2",
+              "t_C__q1__q0",
+              "t_C__q3__q0",
+              "tau_pa_accept_q0"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 3,
+              "B->A": 2
+            },
+            "end_counts": {
+              "C": 3
+            },
+            "evidence": {
+              "automaton_edges": [
+                {
+                  "label": "C",
+                  "source": "q1",
+                  "target": "q0"
+                },
+                {
+                  "label": "A",
+                  "source": "q2",
+                  "target": "q1"
+                },
+                {
+                  "label": "B",
+                  "source": "q3",
+                  "target": "q2"
+                },
+                {
+                  "label": "C",
+                  "source": "q3",
+                  "target": "q0"
+                },
+                {
+                  "label": "A",
+                  "source": "q4",
+                  "target": "q3"
+                }
+              ],
+              "compressed_edges": 5,
+              "compressed_states": 5,
+              "raw_trie_edges": 5,
+              "raw_trie_nodes": 6,
+              "start_state": "q4",
+              "state_merges": {
+                "q0": {
+                  "outgoing_labels": [],
+                  "raw_nodes": [
+                    5,
+                    4
+                  ],
+                  "terminal": true
+                }
+              },
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 2,
+              "variants": [
+                {
+                  "count": 2,
+                  "trace": [
+                    "A",
+                    "B",
+                    "A",
+                    "C"
+                  ]
+                },
+                {
+                  "count": 1,
+                  "trace": [
+                    "A",
+                    "C"
+                  ]
+                }
+              ]
+            },
+            "operation_counts": {
+              "comparison": 27,
+              "construct": 39,
+              "dict_increment": 16,
+              "relation_classification": 15,
+              "scan_event": 27,
+              "set_insert": 23,
+              "set_lookup": 39,
+              "total": 186
+            },
+            "relations": {
+              "A->B": "parallel",
+              "A->C": "causal",
+              "B->A": "parallel",
+              "C->A": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 3,
+            "silent_transition_support": "not_supported",
+            "silent_transitions": [
+              "tau_pa_accept_q0"
+            ],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 3
+          },
+          "structural_summary": {
+            "arcs": 12,
+            "places": 6,
+            "silent_transitions": 1,
+            "transitions": 6
+          }
         }
       },
       "trace_count": 3
     },
     "skip.json": {
       "event_count": 10,
+      "negative_trace_count": 3,
       "results": {
         "alpha_lite": {
           "candidate_id": "ALG-0001",
@@ -2076,35 +5587,52 @@
               "A": 4
             }
           },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
           "replay_summary": {
             "failed_examples": [
               {
                 "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_alpha_B__C"
+                "candidate_transitions": [
+                  "t_C"
                 ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_alpha_B__C"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "C"
-                ],
-                "transition": "t_C"
+                ]
               },
               {
                 "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_alpha_B__C"
+                "candidate_transitions": [
+                  "t_C"
                 ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_alpha_B__C"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "C"
-                ],
-                "transition": "t_C"
+                ]
               }
             ],
             "replay_fitness": 0.5,
@@ -2126,6 +5654,192 @@
             "places": 5,
             "silent_transitions": 0,
             "transitions": 3
+          }
+        },
+        "cut_limited_process_tree": {
+          "candidate_id": "ALG-0003",
+          "name": "Cut-Limited Process Tree Miner",
+          "operation_counts": {
+            "comparison": 111,
+            "construct": 32,
+            "dict_increment": 14,
+            "relation_classification": 14,
+            "scan_event": 29,
+            "set_insert": 14,
+            "set_lookup": 21,
+            "total": 235
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pt_seq_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_pt_seq_A__B",
+                "target": "tau_pt_skip_A_C_over_B"
+              },
+              {
+                "source": "p_pt_seq_B__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_pt_seq_A__B"
+              },
+              {
+                "source": "t_B",
+                "target": "p_pt_seq_B__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_end"
+              },
+              {
+                "source": "tau_pt_skip_A_C_over_B",
+                "target": "p_pt_seq_B__C"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_end",
+              "p_pt_seq_A__B",
+              "p_pt_seq_B__C",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "tau_pt_skip_A_C_over_B"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2
+            },
+            "end_counts": {
+              "C": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_parallel_optional": true
+              },
+              "cut_attempts": [
+                {
+                  "cut": "sequence",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "xor",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "parallel",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "parallel_optional_sequence",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "optional_sequence",
+                  "result": "accepted"
+                }
+              ],
+              "process_tree": {
+                "canonical": [
+                  "A",
+                  "B",
+                  "C"
+                ],
+                "skip_edges": [
+                  {
+                    "from": "A",
+                    "skipped": [
+                      "B"
+                    ],
+                    "to": "C"
+                  }
+                ],
+                "skip_index_edges": [
+                  [
+                    0,
+                    2
+                  ]
+                ],
+                "type": "optional_sequence"
+              },
+              "selected_cut": "optional_sequence"
+            },
+            "operation_counts": {
+              "comparison": 111,
+              "construct": 32,
+              "dict_increment": 14,
+              "relation_classification": 14,
+              "scan_event": 29,
+              "set_insert": 14,
+              "set_lookup": 21,
+              "total": 235
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "not_supported",
+            "silent_transitions": [
+              "tau_pt_skip_A_C_over_B"
+            ],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 1,
+            "transitions": 4
           }
         },
         "dependency_threshold": {
@@ -2240,35 +5954,52 @@
               "A": 4
             }
           },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
           "replay_summary": {
             "failed_examples": [
               {
                 "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_depedge_B__C"
+                "candidate_transitions": [
+                  "t_C"
                 ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_depedge_B__C"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "C"
-                ],
-                "transition": "t_C"
+                ]
               },
               {
                 "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_depedge_B__C"
+                "candidate_transitions": [
+                  "t_C"
                 ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_depedge_B__C"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "C"
-                ],
-                "transition": "t_C"
+                ]
               }
             ],
             "replay_fitness": 0.5,
@@ -2290,6 +6021,378 @@
             "places": 5,
             "silent_transitions": 0,
             "transitions": 3
+          }
+        },
+        "pmir_conflict_aware_optional": {
+          "candidate_id": "ALG-0010",
+          "name": "PMIR Conflict-Aware Optional Chain Compiler",
+          "operation_counts": {
+            "comparison": 57,
+            "construct": 18,
+            "dict_increment": 24,
+            "relation_classification": 10,
+            "scan_event": 26,
+            "set_insert": 27,
+            "set_lookup": 25,
+            "total": 187
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_optchain_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_optchain_A__B",
+                "target": "tau_skipchain_A_C_over_B"
+              },
+              {
+                "source": "p_optchain_B__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_optchain_A__B"
+              },
+              {
+                "source": "t_B",
+                "target": "p_optchain_B__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_end"
+              },
+              {
+                "source": "tau_skipchain_A_C_over_B",
+                "target": "p_optchain_B__C"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_end",
+              "p_optchain_A__B",
+              "p_optchain_B__C",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "tau_skipchain_A_C_over_B"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2
+            },
+            "end_counts": {
+              "C": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional_chains": true,
+                "enable_xor": true
+              },
+              "covered_edges": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              "edge_places": [],
+              "join_groups": [],
+              "optional_chain_candidates": [
+                [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              ],
+              "optional_chains": [
+                {
+                  "chain": [
+                    "A",
+                    "B",
+                    "C"
+                  ],
+                  "chain_edges": [
+                    [
+                      "A",
+                      "B"
+                    ],
+                    [
+                      "B",
+                      "C"
+                    ]
+                  ],
+                  "skip_edges": [
+                    {
+                      "edge": [
+                        "A",
+                        "C"
+                      ],
+                      "skipped": [
+                        "B"
+                      ],
+                      "transition": "tau_skipchain_A_C_over_B"
+                    }
+                  ]
+                }
+              ],
+              "rejected_chains": [],
+              "split_groups": [],
+              "transitive_reduction_edges": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 57,
+              "construct": 18,
+              "dict_increment": 24,
+              "relation_classification": 10,
+              "scan_event": 26,
+              "set_insert": 27,
+              "set_lookup": 25,
+              "total": 187
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "not_supported",
+            "silent_transitions": [
+              "tau_skipchain_A_C_over_B"
+            ],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 1,
+            "transitions": 4
+          }
+        },
+        "pmir_guarded_split_join": {
+          "candidate_id": "ALG-0009",
+          "name": "PMIR Guarded Split-Join Compiler",
+          "operation_counts": {
+            "comparison": 46,
+            "construct": 17,
+            "dict_increment": 20,
+            "relation_classification": 11,
+            "scan_event": 16,
+            "set_insert": 9,
+            "set_lookup": 20,
+            "total": 139
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_optjoin_A_B__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_optsplit_A__B_C",
+                "target": "t_B"
+              },
+              {
+                "source": "p_optsplit_A__B_C",
+                "target": "tau_skip_A_C_over_B"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_optsplit_A__B_C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_optjoin_A_B__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_end"
+              },
+              {
+                "source": "tau_skip_A_C_over_B",
+                "target": "p_optjoin_A_B__C"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_end",
+              "p_optjoin_A_B__C",
+              "p_optsplit_A__B_C",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "tau_skip_A_C_over_B"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2
+            },
+            "end_counts": {
+              "C": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional": true,
+                "enable_xor": true
+              },
+              "covered_edges": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "C"
+                ]
+              ],
+              "edge_places": [],
+              "join_groups": [],
+              "optional_patterns": [
+                [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              ],
+              "split_groups": []
+            },
+            "operation_counts": {
+              "comparison": 46,
+              "construct": 17,
+              "dict_increment": 20,
+              "relation_classification": 11,
+              "scan_event": 16,
+              "set_insert": 9,
+              "set_lookup": 20,
+              "total": 139
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "not_supported",
+            "silent_transitions": [
+              "tau_skip_A_C_over_B"
+            ],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 1,
+            "transitions": 4
           }
         },
         "pmir_split_join_lite": {
@@ -2423,35 +6526,52 @@
               "A": 4
             }
           },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
           "replay_summary": {
             "failed_examples": [
               {
                 "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_edge_B__C"
+                "candidate_transitions": [
+                  "t_C"
                 ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_edge_B__C"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "C"
-                ],
-                "transition": "t_C"
+                ]
               },
               {
                 "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_edge_B__C"
+                "candidate_transitions": [
+                  "t_C"
                 ],
+                "event_index": 1,
+                "missing_input_places_by_transition": {
+                  "t_C": [
+                    "p_edge_B__C"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "C"
-                ],
-                "transition": "t_C"
+                ]
               }
             ],
             "replay_fitness": 0.5,
@@ -2474,12 +6594,224 @@
             "silent_transitions": 0,
             "transitions": 3
           }
+        },
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "name": "Prefix Automaton Compression Miner",
+          "operation_counts": {
+            "comparison": 27,
+            "construct": 32,
+            "dict_increment": 18,
+            "relation_classification": 14,
+            "scan_event": 26,
+            "set_insert": 21,
+            "set_lookup": 37,
+            "total": 175
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pa_q0",
+                "target": "tau_pa_accept_q0"
+              },
+              {
+                "source": "p_pa_q1",
+                "target": "t_C__q1__q0"
+              },
+              {
+                "source": "p_pa_q2",
+                "target": "t_B__q2__q1"
+              },
+              {
+                "source": "p_pa_q2",
+                "target": "t_C__q2__q0"
+              },
+              {
+                "source": "p_pa_q3",
+                "target": "t_A__q3__q2"
+              },
+              {
+                "source": "t_A__q3__q2",
+                "target": "p_pa_q2"
+              },
+              {
+                "source": "t_B__q2__q1",
+                "target": "p_pa_q1"
+              },
+              {
+                "source": "t_C__q1__q0",
+                "target": "p_pa_q0"
+              },
+              {
+                "source": "t_C__q2__q0",
+                "target": "p_pa_q0"
+              },
+              {
+                "source": "tau_pa_accept_q0",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_pa_q3": 1
+            },
+            "places": [
+              "p_end",
+              "p_pa_q0",
+              "p_pa_q1",
+              "p_pa_q2",
+              "p_pa_q3"
+            ],
+            "transition_labels": {
+              "t_A__q3__q2": "A",
+              "t_B__q2__q1": "B",
+              "t_C__q1__q0": "C",
+              "t_C__q2__q0": "C"
+            },
+            "transitions": [
+              "t_A__q3__q2",
+              "t_B__q2__q1",
+              "t_C__q1__q0",
+              "t_C__q2__q0",
+              "tau_pa_accept_q0"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2
+            },
+            "end_counts": {
+              "C": 4
+            },
+            "evidence": {
+              "automaton_edges": [
+                {
+                  "label": "C",
+                  "source": "q1",
+                  "target": "q0"
+                },
+                {
+                  "label": "B",
+                  "source": "q2",
+                  "target": "q1"
+                },
+                {
+                  "label": "C",
+                  "source": "q2",
+                  "target": "q0"
+                },
+                {
+                  "label": "A",
+                  "source": "q3",
+                  "target": "q2"
+                }
+              ],
+              "compressed_edges": 4,
+              "compressed_states": 4,
+              "raw_trie_edges": 4,
+              "raw_trie_nodes": 5,
+              "start_state": "q3",
+              "state_merges": {
+                "q0": {
+                  "outgoing_labels": [],
+                  "raw_nodes": [
+                    4,
+                    3
+                  ],
+                  "terminal": true
+                }
+              },
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 2,
+              "variants": [
+                {
+                  "count": 2,
+                  "trace": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                },
+                {
+                  "count": 2,
+                  "trace": [
+                    "A",
+                    "C"
+                  ]
+                }
+              ]
+            },
+            "operation_counts": {
+              "comparison": 27,
+              "construct": 32,
+              "dict_increment": 18,
+              "relation_classification": 14,
+              "scan_event": 26,
+              "set_insert": 21,
+              "set_lookup": 37,
+              "total": 175
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "not_supported",
+            "silent_transitions": [
+              "tau_pa_accept_q0"
+            ],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 5,
+            "silent_transitions": 1,
+            "transitions": 5
+          }
         }
       },
       "trace_count": 4
     },
     "xor.json": {
       "event_count": 12,
+      "negative_trace_count": 3,
       "results": {
         "alpha_lite": {
           "candidate_id": "ALG-0001",
@@ -2609,6 +6941,203 @@
             "start_counts": {
               "A": 4
             }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "cut_limited_process_tree": {
+          "candidate_id": "ALG-0003",
+          "name": "Cut-Limited Process Tree Miner",
+          "operation_counts": {
+            "comparison": 70,
+            "construct": 18,
+            "dict_increment": 16,
+            "relation_classification": 18,
+            "scan_event": 24,
+            "set_insert": 12,
+            "set_lookup": 36,
+            "total": 194
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pt_xor_join_B_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_pt_xor_split_A__B_C",
+                "target": "t_B"
+              },
+              {
+                "source": "p_pt_xor_split_A__B_C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_pt_xor_split_A__B_C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_pt_xor_join_B_C__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_pt_xor_join_B_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_end",
+              "p_pt_xor_join_B_C__D",
+              "p_pt_xor_split_A__B_C",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->D": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_parallel_optional": true
+              },
+              "cut_attempts": [
+                {
+                  "cut": "sequence",
+                  "result": "rejected"
+                },
+                {
+                  "cut": "xor",
+                  "result": "accepted"
+                }
+              ],
+              "process_tree": {
+                "alternatives": [
+                  "B",
+                  "C"
+                ],
+                "children": [
+                  {
+                    "label": "A",
+                    "type": "activity"
+                  },
+                  {
+                    "children": [
+                      {
+                        "label": "B",
+                        "type": "activity"
+                      },
+                      {
+                        "label": "C",
+                        "type": "activity"
+                      }
+                    ],
+                    "type": "xor"
+                  },
+                  {
+                    "label": "D",
+                    "type": "activity"
+                  }
+                ],
+                "cut": "xor",
+                "prefix": [
+                  "A"
+                ],
+                "suffix": [
+                  "D"
+                ],
+                "type": "sequence"
+              },
+              "selected_cut": "xor"
+            },
+            "operation_counts": {
+              "comparison": 70,
+              "construct": 18,
+              "dict_increment": 16,
+              "relation_classification": 18,
+              "scan_event": 24,
+              "set_insert": 12,
+              "set_lookup": 36,
+              "total": 194
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
           },
           "replay_summary": {
             "failed_examples": [],
@@ -2767,6 +7296,431 @@
             "start_counts": {
               "A": 4
             }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_conflict_aware_optional": {
+          "candidate_id": "ALG-0010",
+          "name": "PMIR Conflict-Aware Optional Chain Compiler",
+          "operation_counts": {
+            "comparison": 104,
+            "construct": 20,
+            "dict_increment": 32,
+            "relation_classification": 16,
+            "scan_event": 32,
+            "set_insert": 42,
+            "set_lookup": 38,
+            "total": 284
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_guard_A__B_C",
+                "target": "t_B"
+              },
+              {
+                "source": "p_guard_A__B_C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_guard_B_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_guard_A__B_C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_guard_B_C__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_guard_B_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_end",
+              "p_guard_A__B_C",
+              "p_guard_B_C__D",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->D": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional_chains": true,
+                "enable_xor": true
+              },
+              "covered_edges": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "D"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ],
+              "edge_places": [],
+              "join_groups": [
+                [
+                  [
+                    "B",
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ]
+              ],
+              "optional_chain_candidates": [
+                [
+                  "A",
+                  "B",
+                  "D"
+                ],
+                [
+                  "A",
+                  "C",
+                  "D"
+                ]
+              ],
+              "optional_chains": [],
+              "rejected_chains": [
+                {
+                  "chain": [
+                    "A",
+                    "B",
+                    "D"
+                  ],
+                  "reason": "no_shortcut_edges"
+                },
+                {
+                  "chain": [
+                    "A",
+                    "C",
+                    "D"
+                  ],
+                  "reason": "no_shortcut_edges"
+                }
+              ],
+              "split_groups": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B",
+                    "C"
+                  ]
+                ]
+              ],
+              "transitive_reduction_edges": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "D"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 104,
+              "construct": 20,
+              "dict_increment": 32,
+              "relation_classification": 16,
+              "scan_event": 32,
+              "set_insert": 42,
+              "set_lookup": 38,
+              "total": 284
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "none",
+            "silent_transitions": [],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_guarded_split_join": {
+          "candidate_id": "ALG-0009",
+          "name": "PMIR Guarded Split-Join Compiler",
+          "operation_counts": {
+            "comparison": 80,
+            "construct": 18,
+            "dict_increment": 24,
+            "relation_classification": 18,
+            "scan_event": 20,
+            "set_insert": 18,
+            "set_lookup": 38,
+            "total": 216
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_guard_A__B_C",
+                "target": "t_B"
+              },
+              {
+                "source": "p_guard_A__B_C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_guard_B_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_guard_A__B_C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_guard_B_C__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_guard_B_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_end",
+              "p_guard_A__B_C",
+              "p_guard_B_C__D",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->D": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "configuration": {
+                "enable_optional": true,
+                "enable_xor": true
+              },
+              "covered_edges": [
+                [
+                  "A",
+                  "B"
+                ],
+                [
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "D"
+                ],
+                [
+                  "C",
+                  "D"
+                ]
+              ],
+              "edge_places": [],
+              "join_groups": [
+                [
+                  [
+                    "B",
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ]
+              ],
+              "optional_patterns": [],
+              "split_groups": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B",
+                    "C"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 80,
+              "construct": 18,
+              "dict_increment": 24,
+              "relation_classification": 18,
+              "scan_event": 20,
+              "set_insert": 18,
+              "set_lookup": 38,
+              "total": 216
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
           },
           "replay_summary": {
             "failed_examples": [],
@@ -2988,52 +7942,74 @@
               "A": 4
             }
           },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
           "replay_summary": {
             "failed_examples": [
               {
                 "activity": "D",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_edge_C__D"
+                "candidate_transitions": [
+                  "t_D"
                 ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_D": [
+                    "p_edge_C__D"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "B",
                   "D"
-                ],
-                "transition": "t_D"
+                ]
               },
               {
                 "activity": "D",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_edge_B__D"
+                "candidate_transitions": [
+                  "t_D"
                 ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_D": [
+                    "p_edge_B__D"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "C",
                   "D"
-                ],
-                "transition": "t_D"
+                ]
               },
               {
                 "activity": "D",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_edge_C__D"
+                "candidate_transitions": [
+                  "t_D"
                 ],
+                "event_index": 2,
+                "missing_input_places_by_transition": {
+                  "t_D": [
+                    "p_edge_C__D"
+                  ]
+                },
                 "ok": false,
                 "reason": "transition_not_enabled",
+                "silent_closure_truncated": false,
                 "trace": [
                   "A",
                   "B",
                   "D"
-                ],
-                "transition": "t_D"
+                ]
               }
             ],
             "replay_fitness": 0.0,
@@ -3055,6 +8031,232 @@
             "places": 8,
             "silent_transitions": 0,
             "transitions": 4
+          }
+        },
+        "prefix_automaton_compression": {
+          "candidate_id": "ALG-0005",
+          "name": "Prefix Automaton Compression Miner",
+          "operation_counts": {
+            "comparison": 48,
+            "construct": 34,
+            "dict_increment": 20,
+            "relation_classification": 22,
+            "scan_event": 32,
+            "set_insert": 24,
+            "set_lookup": 55,
+            "total": 235
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_pa_q0",
+                "target": "tau_pa_accept_q0"
+              },
+              {
+                "source": "p_pa_q1",
+                "target": "t_D__q1__q0"
+              },
+              {
+                "source": "p_pa_q2",
+                "target": "t_B__q2__q1"
+              },
+              {
+                "source": "p_pa_q2",
+                "target": "t_C__q2__q1"
+              },
+              {
+                "source": "p_pa_q3",
+                "target": "t_A__q3__q2"
+              },
+              {
+                "source": "t_A__q3__q2",
+                "target": "p_pa_q2"
+              },
+              {
+                "source": "t_B__q2__q1",
+                "target": "p_pa_q1"
+              },
+              {
+                "source": "t_C__q2__q1",
+                "target": "p_pa_q1"
+              },
+              {
+                "source": "t_D__q1__q0",
+                "target": "p_pa_q0"
+              },
+              {
+                "source": "tau_pa_accept_q0",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_pa_q3": 1
+            },
+            "places": [
+              "p_end",
+              "p_pa_q0",
+              "p_pa_q1",
+              "p_pa_q2",
+              "p_pa_q3"
+            ],
+            "transition_labels": {
+              "t_A__q3__q2": "A",
+              "t_B__q2__q1": "B",
+              "t_C__q2__q1": "C",
+              "t_D__q1__q0": "D"
+            },
+            "transitions": [
+              "t_A__q3__q2",
+              "t_B__q2__q1",
+              "t_C__q2__q1",
+              "t_D__q1__q0",
+              "tau_pa_accept_q0"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->D": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "automaton_edges": [
+                {
+                  "label": "D",
+                  "source": "q1",
+                  "target": "q0"
+                },
+                {
+                  "label": "B",
+                  "source": "q2",
+                  "target": "q1"
+                },
+                {
+                  "label": "C",
+                  "source": "q2",
+                  "target": "q1"
+                },
+                {
+                  "label": "A",
+                  "source": "q3",
+                  "target": "q2"
+                }
+              ],
+              "compressed_edges": 4,
+              "compressed_states": 4,
+              "raw_trie_edges": 5,
+              "raw_trie_nodes": 6,
+              "start_state": "q3",
+              "state_merges": {
+                "q0": {
+                  "outgoing_labels": [],
+                  "raw_nodes": [
+                    5,
+                    3
+                  ],
+                  "terminal": true
+                },
+                "q1": {
+                  "outgoing_labels": [
+                    "D"
+                  ],
+                  "raw_nodes": [
+                    4,
+                    2
+                  ],
+                  "terminal": false
+                }
+              },
+              "terminal_states": [
+                "q0"
+              ],
+              "variant_count": 2,
+              "variants": [
+                {
+                  "count": 2,
+                  "trace": [
+                    "A",
+                    "B",
+                    "D"
+                  ]
+                },
+                {
+                  "count": 2,
+                  "trace": [
+                    "A",
+                    "C",
+                    "D"
+                  ]
+                }
+              ]
+            },
+            "operation_counts": {
+              "comparison": 48,
+              "construct": 34,
+              "dict_increment": 20,
+              "relation_classification": 22,
+              "scan_event": 32,
+              "set_insert": 24,
+              "set_lookup": 55,
+              "total": 235
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "precision_probe": {
+            "accepted_examples": [],
+            "accepted_negative_traces": 0,
+            "negative_rejection_rate": 1.0,
+            "negative_trace_count": 3,
+            "rejected_negative_traces": 3
+          },
+          "replay_summary": {
+            "failed_examples": [],
+            "replay_fitness": 1.0,
+            "replayed_traces": 4,
+            "silent_transition_support": "not_supported",
+            "silent_transitions": [
+              "tau_pa_accept_q0"
+            ],
+            "strict_final_marking": true,
+            "structural_diagnostics": {
+              "invalid_arcs": [],
+              "places_without_inputs_except_initial": [],
+              "places_without_outputs_except_final": [],
+              "visible_transitions_without_inputs": [],
+              "visible_transitions_without_outputs": []
+            },
+            "trace_count": 4
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 5,
+            "silent_transitions": 1,
+            "transitions": 5
           }
         }
       },

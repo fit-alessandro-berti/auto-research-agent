@@ -100,3 +100,4 @@ Potential properties to study if refined:
 - Scaffold: implemented as starter novel limited-operation candidate.
 - EXP-0001: lower counted operations than ALG-0001, but not promoted because semantic validation is missing.
 - EXP-0003: smoke-tested with replay; not promoted because XOR replay is disproven and skip/loop behavior remains partial.
+- EXP-0004: retained as a useful failed baseline. Repaired behavior was split into `ALG-0009` rather than mutating this candidate record.

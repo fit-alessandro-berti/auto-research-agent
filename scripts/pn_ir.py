@@ -14,6 +14,7 @@ class PetriNet:
     places: List[str] = field(default_factory=list)
     transitions: List[str] = field(default_factory=list)
     arcs: List[Arc] = field(default_factory=list)
+    transition_labels: Dict[str, str] = field(default_factory=dict)
     initial_marking: Dict[str, int] = field(default_factory=dict)
     final_marking: Dict[str, int] = field(default_factory=dict)
 
@@ -31,13 +32,16 @@ class PetriNet:
             self.arcs.append(arc)
 
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        data = {
             "places": sorted(self.places),
             "transitions": sorted(self.transitions),
             "arcs": sorted([{"source": s, "target": t} for s, t in self.arcs], key=lambda x: (x["source"], x["target"])),
             "initial_marking": dict(sorted(self.initial_marking.items())),
             "final_marking": dict(sorted(self.final_marking.items())),
         }
+        if self.transition_labels:
+            data["transition_labels"] = dict(sorted(self.transition_labels.items()))
+        return data
 
     def structural_summary(self) -> Dict[str, int]:
         silent = [t for t in self.transitions if t.startswith("tau_")]
