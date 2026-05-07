@@ -114,7 +114,7 @@ def discover(log: List[List[str]]) -> Dict[str, object]:
         end_counts=dict(ends),
         dfg_counts={pair_key(a, b): c for (a, b), c in dfg.items()},
         relations={pair_key(a, b): r for (a, b), r in rel.items() if r != "unrelated"},
-        evidence={"emitted_place_patterns": [[list(pre), list(post)] for pre, post in emitted]},
+        evidence={"emitted_place_patterns": [[list(pre), list(post)] for pre, post in sorted(emitted)]},
         operation_counts=counter.to_dict(),
     )
     return {

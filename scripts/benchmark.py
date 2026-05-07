@@ -10,6 +10,7 @@ from typing import Any, Dict, List
 
 ALGORITHMS = [
     "alpha_lite",
+    "dependency_threshold",
     "pmir_split_join_lite",
 ]
 
@@ -30,6 +31,10 @@ def load_log(path: Path) -> List[List[str]]:
 def run_algorithm(module_name: str, log: List[List[str]]) -> Dict[str, Any]:
     module = importlib.import_module(module_name)
     result = module.discover(log)
+    if "petri_net" in result:
+        from petri_eval import replay_log
+
+        result["replay_summary"] = replay_log(result["petri_net"], log)
     return result
 
 
@@ -65,7 +70,14 @@ def main() -> None:
             else:
                 ops = alg_result["operation_counts"]["total"]
                 summary = alg_result["structural_summary"]
-                print(f"  {alg}: ops={ops}, places={summary['places']}, transitions={summary['transitions']}, arcs={summary['arcs']}")
+                replay = alg_result.get("replay_summary", {})
+                replay_text = ""
+                if replay:
+                    replay_text = f", replay={replay['replayed_traces']}/{replay['trace_count']}"
+                print(
+                    f"  {alg}: ops={ops}, places={summary['places']}, "
+                    f"transitions={summary['transitions']}, arcs={summary['arcs']}{replay_text}"
+                )
 
 
 if __name__ == "__main__":

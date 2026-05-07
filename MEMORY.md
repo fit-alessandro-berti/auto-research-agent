@@ -8,7 +8,7 @@ Durable memory for the process-mining research agent. Append only stable facts, 
 - **Process discovery**: learning a process model from an event log.
 - **Petri net output**: represented here as transitions, places, directed arcs, an initial marking, and a final marking.
 - **PMIR**: Process-Mining Intermediate Representation. A deliberately lightweight intermediate format that can store activities, start/end evidence, direct-follows evidence, inferred relations, block/decomposition hints, and place candidates before compilation to a Petri net.
-- **Limited-operation model**: a declared set of primitive operations and a rule for counting them. For the first goal, the default primitives are event scan, dictionary increment, comparison, set insert, set lookup, relation classification, and arc/place construction.
+- **Limited-operation model**: a declared set of primitive operations and a rule for counting them. For the first goal, the default counted primitives are event scan, dictionary increment, comparison, set insert, set lookup, arithmetic, relation classification, and arc/place construction.
 
 ## Durable research principles
 
@@ -30,3 +30,6 @@ Durable memory for the process-mining research agent. Append only stable facts, 
 
 - The repository must remain generic. The first Petri-net task is a goal, not the agent identity.
 - Intermediate representations are allowed and encouraged when they make discovery or property study easier.
+- In this workspace, use `python3` for benchmark commands; `python` was not available during EXP-0002.
+- Replay fitness from the local token-game evaluator is not a precision or soundness claim. Structural diagnostics and negative-trace probes are required before promotion.
+- A candidate with unconstrained visible transitions must not be promoted based on positive-trace replay alone.

@@ -39,11 +39,14 @@ Uses event scans, dictionary increments, set inserts/lookups, comparisons, relat
 
 ## Expected complexity
 
-For activity count `a`, pair enumeration is bounded by subsets up to size `k`; current default `k=2`. The full Alpha search can become expensive as `k` grows, which makes this a baseline rather than the preferred limited-operation candidate.
+For event count `N`, activity count `A`, bounded subset size `k`, and raw candidate-pair count `C`, expected cost is `O(N + A^2 + A^(2k) + C^2)`. Current default `k=2`. The full Alpha search can become expensive as `k` grows, which makes this a baseline rather than the preferred limited-operation candidate.
 
 ## Smoke tests
 
-Executed in EXP-0001 on toy sequence, XOR, parallel, loop, skip, and noise logs.
+Executed in EXP-0001 on toy sequence, XOR, parallel, loop, skip, and noise logs. Rerun with strict token-game replay in EXP-0003:
+
+- Full replay: `sequence.json`, `xor.json`, `parallel_ab_cd.json`, `noise.json`.
+- Partial replay: `skip.json` 2/4 and `short_loop.json` 1/3.
 
 ## Baselines for comparison
 
@@ -52,7 +55,7 @@ Executed in EXP-0001 on toy sequence, XOR, parallel, loop, skip, and noise logs.
 
 ## Metrics
 
-Initial metrics: operation counts and structural counts only. Need replay/fitness and semantic checks.
+Initial EXP-0001 metrics were operation counts and structural counts only. EXP-0003 adds strict token-game replay and structural diagnostics.
 
 ## Known failure modes
 
@@ -60,6 +63,7 @@ Initial metrics: operation counts and structural counts only. Need replay/fitnes
 - Noise creates false parallelism.
 - Duplicate labels.
 - Potential over/under-generalization not yet measured.
+- Optional skips are over-constrained by separate `A -> B`, `A -> C`, and `B -> C` places.
 
 ## Promotion criteria
 
@@ -68,6 +72,7 @@ Not intended for promotion except as a baseline. Could become promising only if 
 ## Experiment links
 
 - EXP-0001 in `research/EXPERIMENT_LOG.md`.
+- EXP-0003 in `research/EXPERIMENT_LOG.md`.
 - `experiments/smoke-results.json`.
 
 ## Property-study notes
@@ -78,3 +83,4 @@ No property claims yet.
 
 - Scaffold: implemented as starter baseline.
 - EXP-0001: smoke-tested; kept as baseline.
+- EXP-0003: validated with strict token-game replay; not promoted because skip and short-loop gates fail and precision is unmeasured.

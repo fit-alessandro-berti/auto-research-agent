@@ -4,7 +4,7 @@ Phase-gated plan for the process-mining research agent. Update status as work pr
 
 ## Phase 0 — Initialize research context
 
-Status: scaffolded, active goal not yet selected
+Status: complete for `first-petri-net-limited-ops`
 
 Acceptance criteria:
 
@@ -15,7 +15,7 @@ Acceptance criteria:
 
 ## Phase 1 — Candidate enumeration
 
-Status: not started
+Status: complete for first iteration
 
 Acceptance criteria:
 
@@ -25,17 +25,18 @@ Acceptance criteria:
 
 ## Phase 2 — Baseline harness
 
-Status: scaffolded and smoke-validated
+Status: extended and smoke-validated
 
 Acceptance criteria:
 
 - `scripts/benchmark.py` runs on toy logs.
 - Each run records operation counts and a machine-readable result.
 - Petri-net/PMIR artifacts can be serialized to JSON.
+- EXP-0003 additionally records strict token-game replay and visible-transition structural diagnostics.
 
 ## Phase 3 — First prototypes
 
-Status: partially started
+Status: active, first iteration complete
 
 Acceptance criteria:
 
@@ -43,6 +44,12 @@ Acceptance criteria:
 - Run smoke tests.
 - Record failures and counterexamples.
 - Promote or retire candidates according to evidence.
+
+Progress:
+
+- Executable and smoke-tested: `ALG-0001`, `ALG-0002`, `ALG-0006`.
+- Specified but not executable: `ALG-0003`, `ALG-0004`, `ALG-0005`.
+- No candidate promoted to `promising` in EXP-0003.
 
 ## Phase 4 — Deep testing of promising candidates
 

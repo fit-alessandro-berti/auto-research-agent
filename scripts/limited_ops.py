@@ -54,5 +54,9 @@ def relation_classification(counter: OpCounter, n: int = 1) -> None:
     counter.inc("relation_classification", n)
 
 
+def arithmetic(counter: OpCounter, n: int = 1) -> None:
+    counter.inc("arithmetic", n)
+
+
 def construct(counter: OpCounter, n: int = 1) -> None:
     counter.inc("construct", n)

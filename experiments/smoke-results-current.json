@@ -1,7 +1,6 @@
 {
   "algorithms": [
     "alpha_lite",
-    "dependency_threshold",
     "pmir_split_join_lite"
   ],
   "logs": {
@@ -165,158 +164,9 @@
               "A": 4
             }
           },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 4,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
-          },
           "structural_summary": {
             "arcs": 10,
             "places": 6,
-            "silent_transitions": 0,
-            "transitions": 4
-          }
-        },
-        "dependency_threshold": {
-          "candidate_id": "ALG-0002",
-          "name": "Frequency-Threshold Dependency Graph",
-          "operation_counts": {
-            "arithmetic": 48,
-            "comparison": 40,
-            "construct": 14,
-            "dict_increment": 26,
-            "relation_classification": 12,
-            "scan_event": 28,
-            "set_insert": 10,
-            "set_lookup": 36,
-            "total": 214
-          },
-          "petri_net": {
-            "arcs": [
-              {
-                "source": "p_depedge_A__B",
-                "target": "t_B"
-              },
-              {
-                "source": "p_depedge_C__D",
-                "target": "t_D"
-              },
-              {
-                "source": "p_start",
-                "target": "t_A"
-              },
-              {
-                "source": "t_A",
-                "target": "p_depedge_A__B"
-              },
-              {
-                "source": "t_C",
-                "target": "p_depedge_C__D"
-              },
-              {
-                "source": "t_D",
-                "target": "p_end"
-              }
-            ],
-            "final_marking": {
-              "p_end": 1
-            },
-            "initial_marking": {
-              "p_start": 1
-            },
-            "places": [
-              "p_depedge_A__B",
-              "p_depedge_C__D",
-              "p_end",
-              "p_start"
-            ],
-            "transitions": [
-              "t_A",
-              "t_B",
-              "t_C",
-              "t_D"
-            ]
-          },
-          "pmir": {
-            "activities": [
-              "A",
-              "B",
-              "C",
-              "D"
-            ],
-            "dfg_counts": {
-              "A->B": 3,
-              "A->C": 1,
-              "B->C": 3,
-              "B->D": 1,
-              "C->B": 1,
-              "C->D": 3
-            },
-            "end_counts": {
-              "D": 4
-            },
-            "evidence": {
-              "dependency_scores": {
-                "A->B": 0.75,
-                "C->D": 0.75
-              },
-              "dependency_threshold": 0.5,
-              "grouped_places": [],
-              "min_count": 2
-            },
-            "operation_counts": {
-              "arithmetic": 48,
-              "comparison": 40,
-              "construct": 14,
-              "dict_increment": 26,
-              "relation_classification": 12,
-              "scan_event": 28,
-              "set_insert": 10,
-              "set_lookup": 36,
-              "total": 214
-            },
-            "relations": {
-              "A->B": "dependency",
-              "C->D": "dependency"
-            },
-            "start_counts": {
-              "A": 4
-            }
-          },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 4,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [
-                "t_C"
-              ],
-              "visible_transitions_without_outputs": [
-                "t_B"
-              ]
-            },
-            "trace_count": 4
-          },
-          "structural_summary": {
-            "arcs": 6,
-            "places": 4,
             "silent_transitions": 0,
             "transitions": 4
           }
@@ -420,18 +270,10 @@
               "emitted_place_patterns": [
                 [
                   [
-                    "A"
-                  ],
-                  [
-                    "B"
-                  ]
-                ],
-                [
-                  [
-                    "A"
-                  ],
-                  [
                     "C"
+                  ],
+                  [
+                    "D"
                   ]
                 ],
                 [
@@ -444,10 +286,18 @@
                 ],
                 [
                   [
-                    "C"
+                    "A"
                   ],
                   [
-                    "D"
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
                   ]
                 ]
               ]
@@ -477,22 +327,6 @@
             "start_counts": {
               "A": 4
             }
-          },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 4,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
           },
           "structural_summary": {
             "arcs": 10,
@@ -664,173 +498,6 @@
               "A": 4
             }
           },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 4,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
-          },
-          "structural_summary": {
-            "arcs": 10,
-            "places": 6,
-            "silent_transitions": 0,
-            "transitions": 4
-          }
-        },
-        "dependency_threshold": {
-          "candidate_id": "ALG-0002",
-          "name": "Frequency-Threshold Dependency Graph",
-          "operation_counts": {
-            "arithmetic": 48,
-            "comparison": 44,
-            "construct": 20,
-            "dict_increment": 32,
-            "relation_classification": 12,
-            "scan_event": 28,
-            "set_insert": 16,
-            "set_lookup": 40,
-            "total": 240
-          },
-          "petri_net": {
-            "arcs": [
-              {
-                "source": "p_depedge_A__B",
-                "target": "t_B"
-              },
-              {
-                "source": "p_depedge_A__C",
-                "target": "t_C"
-              },
-              {
-                "source": "p_depedge_B__D",
-                "target": "t_D"
-              },
-              {
-                "source": "p_depedge_C__D",
-                "target": "t_D"
-              },
-              {
-                "source": "p_start",
-                "target": "t_A"
-              },
-              {
-                "source": "t_A",
-                "target": "p_depedge_A__B"
-              },
-              {
-                "source": "t_A",
-                "target": "p_depedge_A__C"
-              },
-              {
-                "source": "t_B",
-                "target": "p_depedge_B__D"
-              },
-              {
-                "source": "t_C",
-                "target": "p_depedge_C__D"
-              },
-              {
-                "source": "t_D",
-                "target": "p_end"
-              }
-            ],
-            "final_marking": {
-              "p_end": 1
-            },
-            "initial_marking": {
-              "p_start": 1
-            },
-            "places": [
-              "p_depedge_A__B",
-              "p_depedge_A__C",
-              "p_depedge_B__D",
-              "p_depedge_C__D",
-              "p_end",
-              "p_start"
-            ],
-            "transitions": [
-              "t_A",
-              "t_B",
-              "t_C",
-              "t_D"
-            ]
-          },
-          "pmir": {
-            "activities": [
-              "A",
-              "B",
-              "C",
-              "D"
-            ],
-            "dfg_counts": {
-              "A->B": 2,
-              "A->C": 2,
-              "B->C": 2,
-              "B->D": 2,
-              "C->B": 2,
-              "C->D": 2
-            },
-            "end_counts": {
-              "D": 4
-            },
-            "evidence": {
-              "dependency_scores": {
-                "A->B": 0.666667,
-                "A->C": 0.666667,
-                "B->D": 0.666667,
-                "C->D": 0.666667
-              },
-              "dependency_threshold": 0.5,
-              "grouped_places": [],
-              "min_count": 2
-            },
-            "operation_counts": {
-              "arithmetic": 48,
-              "comparison": 44,
-              "construct": 20,
-              "dict_increment": 32,
-              "relation_classification": 12,
-              "scan_event": 28,
-              "set_insert": 16,
-              "set_lookup": 40,
-              "total": 240
-            },
-            "relations": {
-              "A->B": "dependency",
-              "A->C": "dependency",
-              "B->D": "dependency",
-              "C->D": "dependency"
-            },
-            "start_counts": {
-              "A": 4
-            }
-          },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 4,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
-          },
           "structural_summary": {
             "arcs": 10,
             "places": 6,
@@ -937,18 +604,10 @@
               "emitted_place_patterns": [
                 [
                   [
-                    "A"
-                  ],
-                  [
-                    "B"
-                  ]
-                ],
-                [
-                  [
-                    "A"
-                  ],
-                  [
                     "C"
+                  ],
+                  [
+                    "D"
                   ]
                 ],
                 [
@@ -961,10 +620,18 @@
                 ],
                 [
                   [
-                    "C"
+                    "A"
                   ],
                   [
-                    "D"
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
                   ]
                 ]
               ]
@@ -994,22 +661,6 @@
             "start_counts": {
               "A": 4
             }
-          },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 4,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
           },
           "structural_summary": {
             "arcs": 10,
@@ -1157,159 +808,6 @@
               "A": 3
             }
           },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 3,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 3
-          },
-          "structural_summary": {
-            "arcs": 8,
-            "places": 5,
-            "silent_transitions": 0,
-            "transitions": 4
-          }
-        },
-        "dependency_threshold": {
-          "candidate_id": "ALG-0002",
-          "name": "Frequency-Threshold Dependency Graph",
-          "operation_counts": {
-            "arithmetic": 48,
-            "comparison": 40,
-            "construct": 17,
-            "dict_increment": 24,
-            "relation_classification": 12,
-            "scan_event": 21,
-            "set_insert": 13,
-            "set_lookup": 36,
-            "total": 211
-          },
-          "petri_net": {
-            "arcs": [
-              {
-                "source": "p_depedge_A__B",
-                "target": "t_B"
-              },
-              {
-                "source": "p_depedge_B__C",
-                "target": "t_C"
-              },
-              {
-                "source": "p_depedge_C__D",
-                "target": "t_D"
-              },
-              {
-                "source": "p_start",
-                "target": "t_A"
-              },
-              {
-                "source": "t_A",
-                "target": "p_depedge_A__B"
-              },
-              {
-                "source": "t_B",
-                "target": "p_depedge_B__C"
-              },
-              {
-                "source": "t_C",
-                "target": "p_depedge_C__D"
-              },
-              {
-                "source": "t_D",
-                "target": "p_end"
-              }
-            ],
-            "final_marking": {
-              "p_end": 1
-            },
-            "initial_marking": {
-              "p_start": 1
-            },
-            "places": [
-              "p_depedge_A__B",
-              "p_depedge_B__C",
-              "p_depedge_C__D",
-              "p_end",
-              "p_start"
-            ],
-            "transitions": [
-              "t_A",
-              "t_B",
-              "t_C",
-              "t_D"
-            ]
-          },
-          "pmir": {
-            "activities": [
-              "A",
-              "B",
-              "C",
-              "D"
-            ],
-            "dfg_counts": {
-              "A->B": 3,
-              "B->C": 3,
-              "C->D": 3
-            },
-            "end_counts": {
-              "D": 3
-            },
-            "evidence": {
-              "dependency_scores": {
-                "A->B": 0.75,
-                "B->C": 0.75,
-                "C->D": 0.75
-              },
-              "dependency_threshold": 0.5,
-              "grouped_places": [],
-              "min_count": 2
-            },
-            "operation_counts": {
-              "arithmetic": 48,
-              "comparison": 40,
-              "construct": 17,
-              "dict_increment": 24,
-              "relation_classification": 12,
-              "scan_event": 21,
-              "set_insert": 13,
-              "set_lookup": 36,
-              "total": 211
-            },
-            "relations": {
-              "A->B": "dependency",
-              "B->C": "dependency",
-              "C->D": "dependency"
-            },
-            "start_counts": {
-              "A": 3
-            }
-          },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 3,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 3
-          },
           "structural_summary": {
             "arcs": 8,
             "places": 5,
@@ -1404,18 +902,18 @@
               "emitted_place_patterns": [
                 [
                   [
-                    "A"
-                  ],
-                  [
-                    "B"
-                  ]
-                ],
-                [
-                  [
                     "B"
                   ],
                   [
                     "C"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B"
                   ]
                 ],
                 [
@@ -1449,22 +947,6 @@
             "start_counts": {
               "A": 3
             }
-          },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 3,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 3
           },
           "structural_summary": {
             "arcs": 8,
@@ -1574,209 +1056,6 @@
               "A": 3
             }
           },
-          "replay_summary": {
-            "failed_examples": [
-              {
-                "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "B",
-                  "A",
-                  "C"
-                ],
-                "transition": "t_A"
-              },
-              {
-                "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "B",
-                  "A",
-                  "C"
-                ],
-                "transition": "t_A"
-              }
-            ],
-            "replay_fitness": 0.3333333333333333,
-            "replayed_traces": 1,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [
-                "t_B"
-              ],
-              "visible_transitions_without_outputs": [
-                "t_B"
-              ]
-            },
-            "trace_count": 3
-          },
-          "structural_summary": {
-            "arcs": 4,
-            "places": 3,
-            "silent_transitions": 0,
-            "transitions": 3
-          }
-        },
-        "dependency_threshold": {
-          "candidate_id": "ALG-0002",
-          "name": "Frequency-Threshold Dependency Graph",
-          "operation_counts": {
-            "arithmetic": 24,
-            "comparison": 21,
-            "construct": 10,
-            "dict_increment": 16,
-            "relation_classification": 6,
-            "scan_event": 17,
-            "set_insert": 6,
-            "set_lookup": 18,
-            "total": 118
-          },
-          "petri_net": {
-            "arcs": [
-              {
-                "source": "p_depedge_A__C",
-                "target": "t_C"
-              },
-              {
-                "source": "p_start",
-                "target": "t_A"
-              },
-              {
-                "source": "t_A",
-                "target": "p_depedge_A__C"
-              },
-              {
-                "source": "t_C",
-                "target": "p_end"
-              }
-            ],
-            "final_marking": {
-              "p_end": 1
-            },
-            "initial_marking": {
-              "p_start": 1
-            },
-            "places": [
-              "p_depedge_A__C",
-              "p_end",
-              "p_start"
-            ],
-            "transitions": [
-              "t_A",
-              "t_B",
-              "t_C"
-            ]
-          },
-          "pmir": {
-            "activities": [
-              "A",
-              "B",
-              "C"
-            ],
-            "dfg_counts": {
-              "A->B": 2,
-              "A->C": 3,
-              "B->A": 2
-            },
-            "end_counts": {
-              "C": 3
-            },
-            "evidence": {
-              "dependency_scores": {
-                "A->C": 0.75
-              },
-              "dependency_threshold": 0.5,
-              "grouped_places": [],
-              "min_count": 2
-            },
-            "operation_counts": {
-              "arithmetic": 24,
-              "comparison": 21,
-              "construct": 10,
-              "dict_increment": 16,
-              "relation_classification": 6,
-              "scan_event": 17,
-              "set_insert": 6,
-              "set_lookup": 18,
-              "total": 118
-            },
-            "relations": {
-              "A->C": "dependency"
-            },
-            "start_counts": {
-              "A": 3
-            }
-          },
-          "replay_summary": {
-            "failed_examples": [
-              {
-                "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "B",
-                  "A",
-                  "C"
-                ],
-                "transition": "t_A"
-              },
-              {
-                "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "B",
-                  "A",
-                  "C"
-                ],
-                "transition": "t_A"
-              }
-            ],
-            "replay_fitness": 0.3333333333333333,
-            "replayed_traces": 1,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [
-                "t_B"
-              ],
-              "visible_transitions_without_outputs": [
-                "t_B"
-              ]
-            },
-            "trace_count": 3
-          },
           "structural_summary": {
             "arcs": 4,
             "places": 3,
@@ -1878,59 +1157,6 @@
             "start_counts": {
               "A": 3
             }
-          },
-          "replay_summary": {
-            "failed_examples": [
-              {
-                "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "B",
-                  "A",
-                  "C"
-                ],
-                "transition": "t_A"
-              },
-              {
-                "activity": "A",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_start"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "B",
-                  "A",
-                  "C"
-                ],
-                "transition": "t_A"
-              }
-            ],
-            "replay_fitness": 0.3333333333333333,
-            "replayed_traces": 1,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [
-                "t_B"
-              ],
-              "visible_transitions_without_outputs": [
-                "t_B"
-              ]
-            },
-            "trace_count": 3
           },
           "structural_summary": {
             "arcs": 4,
@@ -2076,215 +1302,6 @@
               "A": 4
             }
           },
-          "replay_summary": {
-            "failed_examples": [
-              {
-                "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_alpha_B__C"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "C"
-                ],
-                "transition": "t_C"
-              },
-              {
-                "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_alpha_B__C"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "C"
-                ],
-                "transition": "t_C"
-              }
-            ],
-            "replay_fitness": 0.5,
-            "replayed_traces": 2,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
-          },
-          "structural_summary": {
-            "arcs": 8,
-            "places": 5,
-            "silent_transitions": 0,
-            "transitions": 3
-          }
-        },
-        "dependency_threshold": {
-          "candidate_id": "ALG-0002",
-          "name": "Frequency-Threshold Dependency Graph",
-          "operation_counts": {
-            "arithmetic": 24,
-            "comparison": 25,
-            "construct": 16,
-            "dict_increment": 23,
-            "relation_classification": 6,
-            "scan_event": 16,
-            "set_insert": 12,
-            "set_lookup": 22,
-            "total": 144
-          },
-          "petri_net": {
-            "arcs": [
-              {
-                "source": "p_depedge_A__B",
-                "target": "t_B"
-              },
-              {
-                "source": "p_depedge_A__C",
-                "target": "t_C"
-              },
-              {
-                "source": "p_depedge_B__C",
-                "target": "t_C"
-              },
-              {
-                "source": "p_start",
-                "target": "t_A"
-              },
-              {
-                "source": "t_A",
-                "target": "p_depedge_A__B"
-              },
-              {
-                "source": "t_A",
-                "target": "p_depedge_A__C"
-              },
-              {
-                "source": "t_B",
-                "target": "p_depedge_B__C"
-              },
-              {
-                "source": "t_C",
-                "target": "p_end"
-              }
-            ],
-            "final_marking": {
-              "p_end": 1
-            },
-            "initial_marking": {
-              "p_start": 1
-            },
-            "places": [
-              "p_depedge_A__B",
-              "p_depedge_A__C",
-              "p_depedge_B__C",
-              "p_end",
-              "p_start"
-            ],
-            "transitions": [
-              "t_A",
-              "t_B",
-              "t_C"
-            ]
-          },
-          "pmir": {
-            "activities": [
-              "A",
-              "B",
-              "C"
-            ],
-            "dfg_counts": {
-              "A->B": 2,
-              "A->C": 2,
-              "B->C": 2
-            },
-            "end_counts": {
-              "C": 4
-            },
-            "evidence": {
-              "dependency_scores": {
-                "A->B": 0.666667,
-                "A->C": 0.666667,
-                "B->C": 0.666667
-              },
-              "dependency_threshold": 0.5,
-              "grouped_places": [],
-              "min_count": 2
-            },
-            "operation_counts": {
-              "arithmetic": 24,
-              "comparison": 25,
-              "construct": 16,
-              "dict_increment": 23,
-              "relation_classification": 6,
-              "scan_event": 16,
-              "set_insert": 12,
-              "set_lookup": 22,
-              "total": 144
-            },
-            "relations": {
-              "A->B": "dependency",
-              "A->C": "dependency",
-              "B->C": "dependency"
-            },
-            "start_counts": {
-              "A": 4
-            }
-          },
-          "replay_summary": {
-            "failed_examples": [
-              {
-                "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_depedge_B__C"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "C"
-                ],
-                "transition": "t_C"
-              },
-              {
-                "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_depedge_B__C"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "C"
-                ],
-                "transition": "t_C"
-              }
-            ],
-            "replay_fitness": 0.5,
-            "replayed_traces": 2,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
-          },
           "structural_summary": {
             "arcs": 8,
             "places": 5,
@@ -2377,15 +1394,7 @@
               "emitted_place_patterns": [
                 [
                   [
-                    "A"
-                  ],
-                  [
                     "B"
-                  ]
-                ],
-                [
-                  [
-                    "A"
                   ],
                   [
                     "C"
@@ -2393,7 +1402,15 @@
                 ],
                 [
                   [
+                    "A"
+                  ],
+                  [
                     "B"
+                  ]
+                ],
+                [
+                  [
+                    "A"
                   ],
                   [
                     "C"
@@ -2422,51 +1439,6 @@
             "start_counts": {
               "A": 4
             }
-          },
-          "replay_summary": {
-            "failed_examples": [
-              {
-                "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_edge_B__C"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "C"
-                ],
-                "transition": "t_C"
-              },
-              {
-                "activity": "C",
-                "event_index": 1,
-                "missing_input_places": [
-                  "p_edge_B__C"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "C"
-                ],
-                "transition": "t_C"
-              }
-            ],
-            "replay_fitness": 0.5,
-            "replayed_traces": 2,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
           },
           "structural_summary": {
             "arcs": 8,
@@ -2610,180 +1582,6 @@
               "A": 4
             }
           },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 4,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
-          },
-          "structural_summary": {
-            "arcs": 8,
-            "places": 4,
-            "silent_transitions": 0,
-            "transitions": 4
-          }
-        },
-        "dependency_threshold": {
-          "candidate_id": "ALG-0002",
-          "name": "Frequency-Threshold Dependency Graph",
-          "operation_counts": {
-            "arithmetic": 48,
-            "comparison": 44,
-            "construct": 16,
-            "dict_increment": 28,
-            "relation_classification": 12,
-            "scan_event": 20,
-            "set_insert": 20,
-            "set_lookup": 40,
-            "total": 228
-          },
-          "petri_net": {
-            "arcs": [
-              {
-                "source": "p_depgrp_A__B_C",
-                "target": "t_B"
-              },
-              {
-                "source": "p_depgrp_A__B_C",
-                "target": "t_C"
-              },
-              {
-                "source": "p_depgrp_B_C__D",
-                "target": "t_D"
-              },
-              {
-                "source": "p_start",
-                "target": "t_A"
-              },
-              {
-                "source": "t_A",
-                "target": "p_depgrp_A__B_C"
-              },
-              {
-                "source": "t_B",
-                "target": "p_depgrp_B_C__D"
-              },
-              {
-                "source": "t_C",
-                "target": "p_depgrp_B_C__D"
-              },
-              {
-                "source": "t_D",
-                "target": "p_end"
-              }
-            ],
-            "final_marking": {
-              "p_end": 1
-            },
-            "initial_marking": {
-              "p_start": 1
-            },
-            "places": [
-              "p_depgrp_A__B_C",
-              "p_depgrp_B_C__D",
-              "p_end",
-              "p_start"
-            ],
-            "transitions": [
-              "t_A",
-              "t_B",
-              "t_C",
-              "t_D"
-            ]
-          },
-          "pmir": {
-            "activities": [
-              "A",
-              "B",
-              "C",
-              "D"
-            ],
-            "dfg_counts": {
-              "A->B": 2,
-              "A->C": 2,
-              "B->D": 2,
-              "C->D": 2
-            },
-            "end_counts": {
-              "D": 4
-            },
-            "evidence": {
-              "dependency_scores": {
-                "A->B": 0.666667,
-                "A->C": 0.666667,
-                "B->D": 0.666667,
-                "C->D": 0.666667
-              },
-              "dependency_threshold": 0.5,
-              "grouped_places": [
-                [
-                  [
-                    "A"
-                  ],
-                  [
-                    "B",
-                    "C"
-                  ]
-                ],
-                [
-                  [
-                    "B",
-                    "C"
-                  ],
-                  [
-                    "D"
-                  ]
-                ]
-              ],
-              "min_count": 2
-            },
-            "operation_counts": {
-              "arithmetic": 48,
-              "comparison": 44,
-              "construct": 16,
-              "dict_increment": 28,
-              "relation_classification": 12,
-              "scan_event": 20,
-              "set_insert": 20,
-              "set_lookup": 40,
-              "total": 228
-            },
-            "relations": {
-              "A->B": "dependency",
-              "A->C": "dependency",
-              "B->D": "dependency",
-              "C->D": "dependency"
-            },
-            "start_counts": {
-              "A": 4
-            }
-          },
-          "replay_summary": {
-            "failed_examples": [],
-            "replay_fitness": 1.0,
-            "replayed_traces": 4,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
-          },
           "structural_summary": {
             "arcs": 8,
             "places": 4,
@@ -2914,10 +1712,11 @@
               "emitted_place_patterns": [
                 [
                   [
-                    "A"
+                    "B",
+                    "C"
                   ],
                   [
-                    "B"
+                    "D"
                   ]
                 ],
                 [
@@ -2934,29 +1733,28 @@
                     "A"
                   ],
                   [
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
                     "C"
+                  ]
+                ],
+                [
+                  [
+                    "C"
+                  ],
+                  [
+                    "D"
                   ]
                 ],
                 [
                   [
                     "B"
-                  ],
-                  [
-                    "D"
-                  ]
-                ],
-                [
-                  [
-                    "B",
-                    "C"
-                  ],
-                  [
-                    "D"
-                  ]
-                ],
-                [
-                  [
-                    "C"
                   ],
                   [
                     "D"
@@ -2987,68 +1785,6 @@
             "start_counts": {
               "A": 4
             }
-          },
-          "replay_summary": {
-            "failed_examples": [
-              {
-                "activity": "D",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_edge_C__D"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "B",
-                  "D"
-                ],
-                "transition": "t_D"
-              },
-              {
-                "activity": "D",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_edge_B__D"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "C",
-                  "D"
-                ],
-                "transition": "t_D"
-              },
-              {
-                "activity": "D",
-                "event_index": 2,
-                "missing_input_places": [
-                  "p_edge_C__D"
-                ],
-                "ok": false,
-                "reason": "transition_not_enabled",
-                "trace": [
-                  "A",
-                  "B",
-                  "D"
-                ],
-                "transition": "t_D"
-              }
-            ],
-            "replay_fitness": 0.0,
-            "replayed_traces": 0,
-            "silent_transition_support": "none",
-            "silent_transitions": [],
-            "strict_final_marking": true,
-            "structural_diagnostics": {
-              "invalid_arcs": [],
-              "places_without_inputs_except_initial": [],
-              "places_without_outputs_except_final": [],
-              "visible_transitions_without_inputs": [],
-              "visible_transitions_without_outputs": []
-            },
-            "trace_count": 4
           },
           "structural_summary": {
             "arcs": 16,

@@ -2,7 +2,7 @@
 
 ## Status
 
-implemented
+smoke-tested
 
 ## One-sentence hypothesis
 
@@ -43,11 +43,15 @@ Uses event scans, dictionary increments, set inserts/lookups, comparisons, relat
 
 ## Expected complexity
 
-Expected to be roughly dominated by log scan plus pairwise relation classification: `O(events + activities^2 + local_branch_checks)`. It should avoid the exponential subset search of Alpha-style place candidates.
+Expected to be roughly dominated by log scan plus pairwise relation classification: `O(N + A^2 + sum_v out(v)^2 + sum_v in(v)^2)`. It should avoid the exponential subset search of Alpha-style place candidates.
 
 ## Smoke tests
 
-Executed in EXP-0001 on toy sequence, XOR, parallel, loop, skip, and noise logs.
+Executed in EXP-0001 on toy sequence, XOR, parallel, loop, skip, and noise logs. Rerun with strict token-game replay in EXP-0003:
+
+- Full replay: `sequence.json`, `parallel_ab_cd.json`, `noise.json`.
+- Partial replay: `skip.json` 2/4 and `short_loop.json` 1/3.
+- Failed replay: `xor.json` 0/4.
 
 ## Baselines for comparison
 
@@ -56,7 +60,7 @@ Executed in EXP-0001 on toy sequence, XOR, parallel, loop, skip, and noise logs.
 
 ## Metrics
 
-Initial metrics: operation counts and structural counts. In EXP-0001, this candidate used fewer counted operations than ALG-0001 on every toy log. Semantic metrics are not yet implemented.
+Initial EXP-0001 metrics were operation counts and structural counts. In EXP-0001, this candidate used fewer counted operations than ALG-0001 on every toy log. EXP-0003 adds strict token-game replay and structural diagnostics. The operation-count advantage mostly remains, but semantic replay disproves the current XOR compilation.
 
 ## Known failure modes
 
@@ -64,6 +68,8 @@ Initial metrics: operation counts and structural counts. In EXP-0001, this candi
 - Relation classification is fragile under noise.
 - Loops and duplicate labels are not handled.
 - Soundness is unknown.
+- XOR replay fails because grouped split/join places are combined with individual edge places, requiring tokens from unchosen branches.
+- Optional skip behavior is over-constrained by separate edge places.
 
 ## Promotion criteria
 
@@ -77,6 +83,7 @@ Can be promoted to `promising` only after:
 ## Experiment links
 
 - EXP-0001 in `research/EXPERIMENT_LOG.md`.
+- EXP-0003 in `research/EXPERIMENT_LOG.md`.
 - `experiments/smoke-results.json`.
 
 ## Property-study notes
@@ -92,3 +99,4 @@ Potential properties to study if refined:
 
 - Scaffold: implemented as starter novel limited-operation candidate.
 - EXP-0001: lower counted operations than ALG-0001, but not promoted because semantic validation is missing.
+- EXP-0003: smoke-tested with replay; not promoted because XOR replay is disproven and skip/loop behavior remains partial.
