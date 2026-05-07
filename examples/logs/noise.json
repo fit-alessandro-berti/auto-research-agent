@@ -1,0 +1,9 @@
+{
+  "name": "dominant sequence with rare noise",
+  "traces": [
+    ["A", "B", "C", "D"],
+    ["A", "B", "C", "D"],
+    ["A", "B", "C", "D"],
+    ["A", "C", "B", "D"]
+  ]
+}

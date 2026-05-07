@@ -1,0 +1,1800 @@
+{
+  "algorithms": [
+    "alpha_lite",
+    "pmir_split_join_lite"
+  ],
+  "logs": {
+    "noise.json": {
+      "event_count": 16,
+      "results": {
+        "alpha_lite": {
+          "candidate_id": "ALG-0001",
+          "name": "Alpha-Lite Relations",
+          "operation_counts": {
+            "comparison": 292,
+            "construct": 24,
+            "dict_increment": 20,
+            "relation_classification": 16,
+            "scan_event": 28,
+            "set_insert": 4,
+            "set_lookup": 160,
+            "total": 544
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_alpha_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_alpha_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_alpha_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_alpha_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_alpha_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_alpha_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_alpha_B__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_alpha_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_alpha_A__B",
+              "p_alpha_A__C",
+              "p_alpha_B__D",
+              "p_alpha_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "A->C": 1,
+              "B->C": 3,
+              "B->D": 1,
+              "C->B": 1,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "maximal_pairs": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
+                  ]
+                ],
+                [
+                  [
+                    "B"
+                  ],
+                  [
+                    "D"
+                  ]
+                ],
+                [
+                  [
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 292,
+              "construct": 24,
+              "dict_increment": 20,
+              "relation_classification": 16,
+              "scan_event": 28,
+              "set_insert": 4,
+              "set_lookup": 160,
+              "total": 544
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_split_join_lite": {
+          "candidate_id": "ALG-0006",
+          "name": "PMIR Split-Join Compiler Lite",
+          "operation_counts": {
+            "comparison": 68,
+            "construct": 20,
+            "dict_increment": 28,
+            "relation_classification": 16,
+            "scan_event": 28,
+            "set_insert": 12,
+            "set_lookup": 36,
+            "total": 208
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_edge_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_edge_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_A__C",
+              "p_edge_B__D",
+              "p_edge_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "A->C": 1,
+              "B->C": 3,
+              "B->D": 1,
+              "C->B": 1,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "emitted_place_patterns": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "B"
+                  ],
+                  [
+                    "D"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
+                  ]
+                ],
+                [
+                  [
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 68,
+              "construct": 20,
+              "dict_increment": 28,
+              "relation_classification": 16,
+              "scan_event": 28,
+              "set_insert": 12,
+              "set_lookup": 36,
+              "total": 208
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        }
+      },
+      "trace_count": 4
+    },
+    "parallel_ab_cd.json": {
+      "event_count": 16,
+      "results": {
+        "alpha_lite": {
+          "candidate_id": "ALG-0001",
+          "name": "Alpha-Lite Relations",
+          "operation_counts": {
+            "comparison": 292,
+            "construct": 24,
+            "dict_increment": 20,
+            "relation_classification": 16,
+            "scan_event": 28,
+            "set_insert": 4,
+            "set_lookup": 160,
+            "total": 544
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_alpha_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_alpha_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_alpha_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_alpha_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_alpha_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_alpha_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_alpha_B__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_alpha_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_alpha_A__B",
+              "p_alpha_A__C",
+              "p_alpha_B__D",
+              "p_alpha_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2,
+              "B->D": 2,
+              "C->B": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "maximal_pairs": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
+                  ]
+                ],
+                [
+                  [
+                    "B"
+                  ],
+                  [
+                    "D"
+                  ]
+                ],
+                [
+                  [
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 292,
+              "construct": 24,
+              "dict_increment": 20,
+              "relation_classification": 16,
+              "scan_event": 28,
+              "set_insert": 4,
+              "set_lookup": 160,
+              "total": 544
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_split_join_lite": {
+          "candidate_id": "ALG-0006",
+          "name": "PMIR Split-Join Compiler Lite",
+          "operation_counts": {
+            "comparison": 68,
+            "construct": 20,
+            "dict_increment": 28,
+            "relation_classification": 16,
+            "scan_event": 28,
+            "set_insert": 12,
+            "set_lookup": 36,
+            "total": 208
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_edge_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_edge_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_A__C",
+              "p_edge_B__D",
+              "p_edge_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2,
+              "B->D": 2,
+              "C->B": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "emitted_place_patterns": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "B"
+                  ],
+                  [
+                    "D"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
+                  ]
+                ],
+                [
+                  [
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 68,
+              "construct": 20,
+              "dict_increment": 28,
+              "relation_classification": 16,
+              "scan_event": 28,
+              "set_insert": 12,
+              "set_lookup": 36,
+              "total": 208
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "parallel",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "parallel",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "structural_summary": {
+            "arcs": 10,
+            "places": 6,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        }
+      },
+      "trace_count": 4
+    },
+    "sequence.json": {
+      "event_count": 12,
+      "results": {
+        "alpha_lite": {
+          "candidate_id": "ALG-0001",
+          "name": "Alpha-Lite Relations",
+          "operation_counts": {
+            "comparison": 274,
+            "construct": 20,
+            "dict_increment": 15,
+            "relation_classification": 16,
+            "scan_event": 21,
+            "set_insert": 4,
+            "set_lookup": 149,
+            "total": 499
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_alpha_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_alpha_B__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_alpha_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_alpha_A__B"
+              },
+              {
+                "source": "t_B",
+                "target": "p_alpha_B__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_alpha_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_alpha_A__B",
+              "p_alpha_B__C",
+              "p_alpha_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "B->C": 3,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 3
+            },
+            "evidence": {
+              "maximal_pairs": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "B"
+                  ],
+                  [
+                    "C"
+                  ]
+                ],
+                [
+                  [
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 274,
+              "construct": 20,
+              "dict_increment": 15,
+              "relation_classification": 16,
+              "scan_event": 21,
+              "set_insert": 4,
+              "set_lookup": 149,
+              "total": 499
+            },
+            "relations": {
+              "A->B": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->B": "reverse_causal",
+              "C->D": "causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_split_join_lite": {
+          "candidate_id": "ALG-0006",
+          "name": "PMIR Split-Join Compiler Lite",
+          "operation_counts": {
+            "comparison": 64,
+            "construct": 17,
+            "dict_increment": 21,
+            "relation_classification": 16,
+            "scan_event": 21,
+            "set_insert": 10,
+            "set_lookup": 32,
+            "total": 181
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_B__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_edge_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_B__C",
+              "p_edge_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 3,
+              "B->C": 3,
+              "C->D": 3
+            },
+            "end_counts": {
+              "D": 3
+            },
+            "evidence": {
+              "emitted_place_patterns": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ],
+                [
+                  [
+                    "B"
+                  ],
+                  [
+                    "C"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 64,
+              "construct": 17,
+              "dict_increment": 21,
+              "relation_classification": 16,
+              "scan_event": 21,
+              "set_insert": 10,
+              "set_lookup": 32,
+              "total": 181
+            },
+            "relations": {
+              "A->B": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->B": "reverse_causal",
+              "C->D": "causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        }
+      },
+      "trace_count": 3
+    },
+    "short_loop.json": {
+      "event_count": 10,
+      "results": {
+        "alpha_lite": {
+          "candidate_id": "ALG-0001",
+          "name": "Alpha-Lite Relations",
+          "operation_counts": {
+            "comparison": 102,
+            "construct": 11,
+            "dict_increment": 13,
+            "relation_classification": 9,
+            "scan_event": 17,
+            "set_insert": 3,
+            "set_lookup": 56,
+            "total": 211
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_alpha_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_alpha_A__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_alpha_A__C",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 3,
+              "B->A": 2
+            },
+            "end_counts": {
+              "C": 3
+            },
+            "evidence": {
+              "maximal_pairs": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 102,
+              "construct": 11,
+              "dict_increment": 13,
+              "relation_classification": 9,
+              "scan_event": 17,
+              "set_insert": 3,
+              "set_lookup": 56,
+              "total": 211
+            },
+            "relations": {
+              "A->B": "parallel",
+              "A->C": "causal",
+              "B->A": "parallel",
+              "C->A": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "pmir_split_join_lite": {
+          "candidate_id": "ALG-0006",
+          "name": "PMIR Split-Join Compiler Lite",
+          "operation_counts": {
+            "comparison": 36,
+            "construct": 10,
+            "dict_increment": 15,
+            "relation_classification": 9,
+            "scan_event": 17,
+            "set_insert": 5,
+            "set_lookup": 18,
+            "total": 110
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__C",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 3,
+              "B->A": 2
+            },
+            "end_counts": {
+              "C": 3
+            },
+            "evidence": {
+              "emitted_place_patterns": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 36,
+              "construct": 10,
+              "dict_increment": 15,
+              "relation_classification": 9,
+              "scan_event": 17,
+              "set_insert": 5,
+              "set_lookup": 18,
+              "total": 110
+            },
+            "relations": {
+              "A->B": "parallel",
+              "A->C": "causal",
+              "B->A": "parallel",
+              "C->A": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 3
+            }
+          },
+          "structural_summary": {
+            "arcs": 4,
+            "places": 3,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        }
+      },
+      "trace_count": 3
+    },
+    "skip.json": {
+      "event_count": 10,
+      "results": {
+        "alpha_lite": {
+          "candidate_id": "ALG-0001",
+          "name": "Alpha-Lite Relations",
+          "operation_counts": {
+            "comparison": 122,
+            "construct": 19,
+            "dict_increment": 14,
+            "relation_classification": 9,
+            "scan_event": 16,
+            "set_insert": 3,
+            "set_lookup": 68,
+            "total": 251
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_alpha_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_alpha_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_alpha_B__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_alpha_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_alpha_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_alpha_B__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_alpha_A__B",
+              "p_alpha_A__C",
+              "p_alpha_B__C",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2
+            },
+            "end_counts": {
+              "C": 4
+            },
+            "evidence": {
+              "maximal_pairs": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
+                  ]
+                ],
+                [
+                  [
+                    "B"
+                  ],
+                  [
+                    "C"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 122,
+              "construct": 19,
+              "dict_increment": 14,
+              "relation_classification": 9,
+              "scan_event": 16,
+              "set_insert": 3,
+              "set_lookup": 68,
+              "total": 251
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        },
+        "pmir_split_join_lite": {
+          "candidate_id": "ALG-0006",
+          "name": "PMIR Split-Join Compiler Lite",
+          "operation_counts": {
+            "comparison": 40,
+            "construct": 16,
+            "dict_increment": 20,
+            "relation_classification": 9,
+            "scan_event": 16,
+            "set_insert": 9,
+            "set_lookup": 22,
+            "total": 132
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_B__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__C"
+              },
+              {
+                "source": "t_C",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_A__C",
+              "p_edge_B__C",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->C": 2
+            },
+            "end_counts": {
+              "C": 4
+            },
+            "evidence": {
+              "emitted_place_patterns": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
+                  ]
+                ],
+                [
+                  [
+                    "B"
+                  ],
+                  [
+                    "C"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 40,
+              "construct": 16,
+              "dict_increment": 20,
+              "relation_classification": 9,
+              "scan_event": 16,
+              "set_insert": 9,
+              "set_lookup": 22,
+              "total": 132
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->C": "causal",
+              "C->A": "reverse_causal",
+              "C->B": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 5,
+            "silent_transitions": 0,
+            "transitions": 3
+          }
+        }
+      },
+      "trace_count": 4
+    },
+    "xor.json": {
+      "event_count": 12,
+      "results": {
+        "alpha_lite": {
+          "candidate_id": "ALG-0001",
+          "name": "Alpha-Lite Relations",
+          "operation_counts": {
+            "comparison": 306,
+            "construct": 22,
+            "dict_increment": 16,
+            "relation_classification": 16,
+            "scan_event": 20,
+            "set_insert": 4,
+            "set_lookup": 168,
+            "total": 552
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_alpha_A__B_C",
+                "target": "t_B"
+              },
+              {
+                "source": "p_alpha_A__B_C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_alpha_B_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_alpha_A__B_C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_alpha_B_C__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_alpha_B_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_alpha_A__B_C",
+              "p_alpha_B_C__D",
+              "p_end",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->D": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "maximal_pairs": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B",
+                    "C"
+                  ]
+                ],
+                [
+                  [
+                    "B",
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 306,
+              "construct": 22,
+              "dict_increment": 16,
+              "relation_classification": 16,
+              "scan_event": 20,
+              "set_insert": 4,
+              "set_lookup": 168,
+              "total": 552
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "structural_summary": {
+            "arcs": 8,
+            "places": 4,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        },
+        "pmir_split_join_lite": {
+          "candidate_id": "ALG-0006",
+          "name": "PMIR Split-Join Compiler Lite",
+          "operation_counts": {
+            "comparison": 68,
+            "construct": 28,
+            "dict_increment": 24,
+            "relation_classification": 16,
+            "scan_event": 20,
+            "set_insert": 12,
+            "set_lookup": 36,
+            "total": 204
+          },
+          "petri_net": {
+            "arcs": [
+              {
+                "source": "p_edge_A__B",
+                "target": "t_B"
+              },
+              {
+                "source": "p_edge_A__C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_edge_B__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_edge_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_joinxor_B_C__D",
+                "target": "t_D"
+              },
+              {
+                "source": "p_splitxor_A__B_C",
+                "target": "t_B"
+              },
+              {
+                "source": "p_splitxor_A__B_C",
+                "target": "t_C"
+              },
+              {
+                "source": "p_start",
+                "target": "t_A"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__B"
+              },
+              {
+                "source": "t_A",
+                "target": "p_edge_A__C"
+              },
+              {
+                "source": "t_A",
+                "target": "p_splitxor_A__B_C"
+              },
+              {
+                "source": "t_B",
+                "target": "p_edge_B__D"
+              },
+              {
+                "source": "t_B",
+                "target": "p_joinxor_B_C__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_edge_C__D"
+              },
+              {
+                "source": "t_C",
+                "target": "p_joinxor_B_C__D"
+              },
+              {
+                "source": "t_D",
+                "target": "p_end"
+              }
+            ],
+            "final_marking": {
+              "p_end": 1
+            },
+            "initial_marking": {
+              "p_start": 1
+            },
+            "places": [
+              "p_edge_A__B",
+              "p_edge_A__C",
+              "p_edge_B__D",
+              "p_edge_C__D",
+              "p_end",
+              "p_joinxor_B_C__D",
+              "p_splitxor_A__B_C",
+              "p_start"
+            ],
+            "transitions": [
+              "t_A",
+              "t_B",
+              "t_C",
+              "t_D"
+            ]
+          },
+          "pmir": {
+            "activities": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "dfg_counts": {
+              "A->B": 2,
+              "A->C": 2,
+              "B->D": 2,
+              "C->D": 2
+            },
+            "end_counts": {
+              "D": 4
+            },
+            "evidence": {
+              "emitted_place_patterns": [
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B"
+                  ]
+                ],
+                [
+                  [
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ],
+                [
+                  [
+                    "B"
+                  ],
+                  [
+                    "D"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "B",
+                    "C"
+                  ]
+                ],
+                [
+                  [
+                    "A"
+                  ],
+                  [
+                    "C"
+                  ]
+                ],
+                [
+                  [
+                    "B",
+                    "C"
+                  ],
+                  [
+                    "D"
+                  ]
+                ]
+              ]
+            },
+            "operation_counts": {
+              "comparison": 68,
+              "construct": 28,
+              "dict_increment": 24,
+              "relation_classification": 16,
+              "scan_event": 20,
+              "set_insert": 12,
+              "set_lookup": 36,
+              "total": 204
+            },
+            "relations": {
+              "A->B": "causal",
+              "A->C": "causal",
+              "B->A": "reverse_causal",
+              "B->D": "causal",
+              "C->A": "reverse_causal",
+              "C->D": "causal",
+              "D->B": "reverse_causal",
+              "D->C": "reverse_causal"
+            },
+            "start_counts": {
+              "A": 4
+            }
+          },
+          "structural_summary": {
+            "arcs": 16,
+            "places": 8,
+            "silent_transitions": 0,
+            "transitions": 4
+          }
+        }
+      },
+      "trace_count": 4
+    }
+  }
+}

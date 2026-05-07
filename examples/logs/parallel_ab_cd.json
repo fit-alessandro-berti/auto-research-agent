@@ -1,0 +1,9 @@
+{
+  "name": "parallel evidence by swapped order",
+  "traces": [
+    ["A", "B", "C", "D"],
+    ["A", "C", "B", "D"],
+    ["A", "B", "C", "D"],
+    ["A", "C", "B", "D"]
+  ]
+}

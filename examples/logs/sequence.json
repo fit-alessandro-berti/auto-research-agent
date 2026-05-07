@@ -1,0 +1,8 @@
+{
+  "name": "strict sequence",
+  "traces": [
+    ["A", "B", "C", "D"],
+    ["A", "B", "C", "D"],
+    ["A", "B", "C", "D"]
+  ]
+}

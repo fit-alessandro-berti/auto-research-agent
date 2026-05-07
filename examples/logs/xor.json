@@ -1,0 +1,9 @@
+{
+  "name": "exclusive choice",
+  "traces": [
+    ["A", "B", "D"],
+    ["A", "C", "D"],
+    ["A", "B", "D"],
+    ["A", "C", "D"]
+  ]
+}
